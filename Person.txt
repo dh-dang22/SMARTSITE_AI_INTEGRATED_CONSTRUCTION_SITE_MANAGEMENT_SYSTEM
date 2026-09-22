@@ -1,0 +1,5 @@
+WORKER|P001|Tran Minh Khang|W001|ACTIVE|Electrician|BuildCo
+CONTRACTOR|P002|Bach Gia Huy|C001|ACTIVE|Concrete Ltd|Short-term
+VISITOR|P003|Dang Hai Dang|V001|ACTIVE|Site visit|Manager A
+SAFETY_OFFICER|P004|Pham Van D|S001|ACTIVE|SAFE-2026
+SITE_MANAGER|P005|Minh Khang|M001|ACTIVE|SmartSite Demo
