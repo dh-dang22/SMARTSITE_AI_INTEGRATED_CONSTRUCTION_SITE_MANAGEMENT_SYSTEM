@@ -17,9 +17,14 @@ public class MenuUserLv03 {
         System.out.println("2. Check-in");
         System.out.println("3. Check-out");
         System.out.println("4. Display History Attendance");
+        System.out.println("0. Log out");
+
         System.out.println("Your action: ");
         int choice = sc.nextInt();
         switch (choice){
+            case (0):
+                //logout()
+                break;
                 case (1):
                     //displayInformation();
                     break;
@@ -32,6 +37,7 @@ public class MenuUserLv03 {
                 case (4):
                     //Chưa cóa;
                     break;
+                    
         }
     }
 
