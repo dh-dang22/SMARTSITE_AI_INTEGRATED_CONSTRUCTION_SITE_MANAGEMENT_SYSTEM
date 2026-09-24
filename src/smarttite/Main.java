@@ -6,6 +6,12 @@ package smarttite;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import smarttite.Person;
+import smarttite.Person;
+import smarttite.Person;
+import smarttite.Worker;
+import smarttite.Worker;
+import smarttite.Worker;
 
 /**
  *
