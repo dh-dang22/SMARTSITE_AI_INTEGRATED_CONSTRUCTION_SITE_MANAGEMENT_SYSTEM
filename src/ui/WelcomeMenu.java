@@ -49,7 +49,8 @@ public class WelcomeMenu {
                 case (1):
                     running = false;
                     clearConsoleIDE();
-                    //loginMenu();
+                    LoginMenu menuLogin = new LoginMenu();
+                    menuLogin.displayLoginMenu();
                     break;
                 case (2): 
                     running = false;

@@ -1,17 +1,19 @@
 package ui;
 
+import java.awt.BorderLayout;
 import  java.util.Scanner;
+import javax.xml.transform.OutputKeys;
         
 public class MenuUserLv03 {
-    String role = "Admin";
+    String role = "Site Managers";
     String name = "Mang";
     Scanner sc = new Scanner(System.in);
     
-    public void displayMenu(String role){
-        System.out.println("---------------" + role + "---------------");
+    public void displayMenuLv03(String role){
+        System.out.println("---------------" + role + " Menu "+ "---------------");
         System.out.println("");
 
-        System.out.println("Welcome " + name + "!");
+        System.out.println("Welcome " + role + " "+ name + "!");
         System.out.println("What do you want to do?");
         System.out.println("1. Display your information");
         System.out.println("2. Check-in");
@@ -37,6 +39,8 @@ public class MenuUserLv03 {
                 case (4):
                     //Chưa cóa;
                     break;
+                default:
+                    System.out.println("Invalid choice! Please select again");
                     
         }
     }

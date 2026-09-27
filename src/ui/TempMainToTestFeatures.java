@@ -9,8 +9,8 @@ public class TempMainToTestFeatures {
         WelcomeMenu htwelcome = new WelcomeMenu();
         htwelcome.displayWelcomeMenu();
         
-        LoginMenu htlogin = new LoginMenu();
-        htlogin.displayLoginMenu();
+        //SLoginMenu htlogin = new LoginMenu();
+        //htlogin.displayLoginMenu();
         
         
     }

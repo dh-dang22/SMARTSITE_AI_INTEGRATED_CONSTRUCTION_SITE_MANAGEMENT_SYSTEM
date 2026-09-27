@@ -4,6 +4,7 @@ package ui;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import smarttite.Person;
 
 public class LoginMenu {
     public void displayLoginMenu(){
@@ -40,12 +41,27 @@ public class LoginMenu {
             System.out.println("   >>> Enter your password  ");
             String password = sc.nextLine();
             System.out.println("User name: " + userName + "; password: " + password);
-            //checkRole()
-            //String role = checkRole(userName, password); //kiểm tra role để gọi menu tương ứng
-            //if (role == "Visitors"){
-            //    MenuUserLv03 htMenuUserLv03 = new MenuUserLv03();
-            //    htMenuUserLv03.displayMenu(role);
-            //}
+            
+            //getRole()
+            String role = "Visitor";
+            //String role = getRole(userName, password); //kiểm tra role để gọi menu tương ứng
+            switch (role){
+                case ("Visitor"):
+                    MenuUserLv03 menuVisitor = new MenuUserLv03();
+                    menuVisitor.displayMenuLv03(role);
+                case ("Worker"):
+                    MenuUserLv03 menuWorker = new MenuUserLv03();
+                    menuWorker.displayMenuLv03(role);
+                case ("Contractor"):
+                    MenuUserLv03 menuContractor = new MenuUserLv03();
+                    menuContractor.displayMenuLv03(role);
+                case ("Safety Officier"):
+                    MenuUserLv03 menuSafetyOfficer = new MenuUserLv03();
+                    menuSafetyOfficer.displayMenuLv03(role);
+                case ("Site Manager"):
+                    MenuUserLv03 menuSiteManager = new MenuUserLv03();
+                    menuSiteManager.displayMenuLv03(role);
+            }
         
         }//while(running)
     }//dislplayLoginMenu()
