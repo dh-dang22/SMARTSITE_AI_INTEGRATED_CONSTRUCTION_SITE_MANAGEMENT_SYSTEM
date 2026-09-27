@@ -1,7 +1,10 @@
 package smarttite;
 
-import java.util.ArrayList;
-import java.util.List;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+
 
 /**
  * Quản lý danh sách người dùng (Person, Worker, Visitor, etc.)
@@ -9,113 +12,79 @@ import java.util.List;
  * @author Minh_Khang
  */
 public class PersonManager {
-
-    private final List<Person> people;
+    private Person[] people;
+    private int size;
 
     public PersonManager() {
-        this.people = new ArrayList<>();
+        people = new Person[10];
+        size = 0;
     }
-
-    public PersonManager(List<Person> people) {
-        this.people = people != null ? people : new ArrayList<>();
-    }
-
     public boolean addPerson(Person p) {
-        if (p == null || p.getId() == null || p.getId().trim().isEmpty()) {
+    if (p == null || p.getid() == null || p.getid().trim().isEmpty()) {
+        return false;
+    }
+
+    if (size >= people.length) {
+        return false;
+    }
+
+    if (findPersonByID(p.getid()) != null) {
+        return false;
+    }
+
+    people[size] = p;
+    size++;
+    return true;
+}
+
+    public Person findPersonByID(String id) {
+        if (id == null) return null;
+
+        for (int i = 0; i < size; i++) {
+            if (people[i].getid().equalsIgnoreCase(id.trim())) {
+                return people[i];
+            }
+        }
+
+        return null;
+    }
+
+    public boolean sortByName() {
+        if (size <= 1) {
             return false;
         }
-        if (findPersonById(p.getId()) != null) {
-            System.out.println("Lỗi: ID " + p.getId() + " đã tồn tại!");
-            return false;
+
+        for (int i = 0; i < size - 1; i++) {
+            for (int j = 0; j < size - i - 1; j++) {
+                if (people[j].getFullName().compareToIgnoreCase(people[j + 1].getFullName()) > 0) {
+                    Person temp = people[j];
+                    people[j] = people[j + 1];
+                    people[j + 1] = temp;
+                }
+            }
         }
-        people.add(p);
+
         return true;
     }
-
-    public Person findPersonById(String id) {
-        if (id == null) return null;
-        for (Person p : people) {
-            if (p.getId() != null && p.getId().equalsIgnoreCase(id.trim())) {
-                return p;
-            }
-        }
+    public Person login(String code){
+    if(code==null || code.trim().isEmpty()){
         return null;
     }
-
-    public Person findPersonByName(String fullName) {
-        if (fullName == null) return null;
-        for (Person p : people) {
-            if (p.getFullName() != null && p.getFullName().equalsIgnoreCase(fullName.trim())) {
-                return p;
+    for(int i=0; i<size ;i++){
+        if (people[i].getCode().equalsIgnoreCase(code.trim())&&people[i].isActive())
+                return people[i];
             }
-        }
-        return null;
+    return null;
+    }
+   public void displayAll() {
+    if (size == 0) {
+        System.out.println("Danh sach trong!");
+        return;
     }
 
-    public Person findPersonByCode(String code) {
-        if (code == null) return null;
-        for (Person p : people) {
-            if (p.getCode() != null && p.getCode().equalsIgnoreCase(code.trim())) {
-                return p;
-            }
-        }
-        return null;
+    System.out.println("=== DANH SACH NGUOI DUNG SMARTSITE ===");
+    for (int i = 0; i < size; i++) {
+        System.out.println(people[i]);
     }
-
-    public Person login(String code) {
-        Person p = findPersonByCode(code);
-        if (p != null && p.isActive()) {
-            return p;
-        }
-        return null;
-    }
-
-    public boolean removePersonById(String id) {
-        Person p = findPersonById(id);
-        if (p != null) {
-            people.remove(p);
-            return true;
-        }
-        return false;
-    }
-
-    public List<Person> getAllPeople() {
-        return new ArrayList<>(people);
-    }
-
-    public List<Person> getPeopleByRole(String role) {
-        List<Person> result = new ArrayList<>();
-        if (role == null) return result;
-        for (Person p : people) {
-            if (p.getRole() != null && p.getRole().equalsIgnoreCase(role.trim())) {
-                result.add(p);
-            }
-        }
-        return result;
-    }
-
-    public boolean updatePerson(String id, String newFullName, String newStatus) {
-        Person p = findPersonById(id);
-        if (p != null) {
-            if (newFullName != null && !newFullName.trim().isEmpty()) {
-                p.setFullName(newFullName);
-            }
-            if (newStatus != null && !newStatus.trim().isEmpty()) {
-                p.setStatus(newStatus);
-            }
-            return true;
-        }
-        return false;
-    }
-
-    public void displayAll() {
-        if (people.isEmpty()) {
-            System.out.println("Danh sách trống!");
-            return;
-        }
-        System.out.println("=== DANH SÁCH NGƯỜI DÙNG SMARTSITE ===");
-        for (Person p : people) {
-            System.out.println(p.toString());
-        }
-    }
+}
 }

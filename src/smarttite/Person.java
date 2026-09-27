@@ -27,11 +27,11 @@ public class Person {
         this.status = status;
     }
 
-    public String getId() {
+    public String getid() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setid(String id) {
         if (isBlank(id)) {
             throw new IllegalArgumentException("Person id cannot be empty.");
         }
