@@ -47,18 +47,31 @@ public class WelcomeMenu {
             System.out.println("================================================================================"); //need asycnhron
             switch (choice){
                 case (1):
+                    running = false;
+                    clearConsoleIDE();
                     //loginMenu();
                     break;
                 case (2): 
+                    running = false;
+                    clearConsoleIDE();
                     //displayZoneInformation();
                     break;
                 case (3):
                     //turnOff();
+                    clearConsoleIDE();
+                    running = false;
                     break;
                 default:
                     System.out.println("Invalid choice!!!");
+                    break;
             }//switch-case choice
         } //while (running)
 
     } //displayWelcomeMenu()
+    
+    public static void clearConsoleIDE() { //in dòng trống để làm mới menu (lụm trên Gemini)
+    for (int i = 0; i < 50; i++) {
+        System.out.println();
+    }
+}
 }//class
