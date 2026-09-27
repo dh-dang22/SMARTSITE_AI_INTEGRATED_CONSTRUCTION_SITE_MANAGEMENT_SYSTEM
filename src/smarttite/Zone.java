@@ -35,10 +35,10 @@ public class Zone {
     }
 
     public void setZoneName(String zoneName) {
-         if (zoneDetails == null || zoneDetails.trim().isEmpty()) {
-            throw new IllegalArgumentException("Zone details cannot be empty.");
+         if (zoneName == null || zoneName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Zone name cannot be empty.");
         }
-        this.zoneDetails = zoneDetails;
+        this.zoneName = zoneName;
     }
 
     public String getZoneDetails() {

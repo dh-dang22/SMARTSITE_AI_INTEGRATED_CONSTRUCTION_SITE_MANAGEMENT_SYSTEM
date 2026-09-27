@@ -12,20 +12,20 @@ public class Incident {
     private String incidentId;
     private String zoneId;
     private String reportId;
-    private String assigNeeld;
-    private String desCripTion;
+    private String assigneeID;
+    private String description;
     private String incidentStatus;
     private String locateDateTime;
 
     public Incident() {
     }
 
-    public Incident(String incidentId, String zoneId, String reportId, String assigNeeld, String desCripTion, String incidentStatus, String locateDateTime) {
+    public Incident(String incidentId, String zoneId, String reportId, String assigneeID, String description, String incidentStatus, String locateDateTime) {
         this.incidentId = incidentId;
         this.zoneId = zoneId;
         this.reportId = reportId;
-        this.assigNeeld = assigNeeld;
-        this.desCripTion = desCripTion;
+        this.assigneeID = assigneeID;
+        this.description = description;
         this.incidentStatus = incidentStatus;
         this.locateDateTime = locateDateTime;
     }
@@ -55,19 +55,19 @@ public class Incident {
     }
 
     public String getAssigNeeld() {
-        return assigNeeld;
+        return assigneeID;
     }
 
-    public void setAssigNeeld(String assigNeeld) {
-        this.assigNeeld = assigNeeld;
+    public void setAssigNeeld(String assigneeID) {
+        this.assigneeID = assigneeID;
     }
 
     public String getDesCripTion() {
-        return desCripTion;
+        return description;
     }
 
-    public void setDesCripTion(String desCripTion) {
-        this.desCripTion = desCripTion;
+    public void setDesCripTion(String description) {
+        this.description = description;
     }
 
     public String getIncidentStatus() {
