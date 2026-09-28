@@ -61,7 +61,7 @@ public class LoginMenu {
                 case ("Site Manager"):
                     MenuUserLv03 menuSiteManager = new MenuUserLv03();
                     menuSiteManager.displayMenuLv03(role);
-            }
+            }//switch
         
         }//while(running)
     }//dislplayLoginMenu()

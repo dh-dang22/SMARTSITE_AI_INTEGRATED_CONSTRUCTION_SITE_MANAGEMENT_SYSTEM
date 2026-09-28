@@ -6,11 +6,14 @@ public class TempMainToTestFeatures {
         //MenuUserLv03 ht = new MenuUserLv03();
         //ht.displayMenu("Visitors");
         
-        WelcomeMenu htwelcome = new WelcomeMenu();
-        htwelcome.displayWelcomeMenu();
+        //WelcomeMenu htwelcome = new WelcomeMenu();
+        //htwelcome.displayWelcomeMenu();
         
         //SLoginMenu htlogin = new LoginMenu();
         //htlogin.displayLoginMenu();
+        
+        MenuUserLv02 ht = new MenuUserLv02();
+        ht.displayMenuLv03("Visitors");
         
         
     }
