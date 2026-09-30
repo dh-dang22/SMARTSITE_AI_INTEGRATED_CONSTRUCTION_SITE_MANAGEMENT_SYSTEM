@@ -1,32 +1,30 @@
 package ui;
 
-import java.awt.BorderLayout;
 import  java.util.Scanner;
-import javax.xml.transform.OutputKeys;
         
 public class MenuUserLv03 {
     String role = "Site Manager";
     String name = "Mang";
     Scanner sc = new Scanner(System.in);
     
-    public void displayMenuLv03(String role){
-        displayHeader03();
-        displayOption03();
+    public void displayMenuLv(String role){
+        displayHeader();
+        displayOption();
         displayLogOut();
         System.out.println("Your action: ");
         int choice = sc.nextInt();        
-        chooseOption03(choice);
+        chooseOption(choice);
         
     }
     
-    public void displayHeader03(){
+    public void displayHeader(){
         System.out.println("---------------" + role + " Menu "+ "---------------");
         System.out.println("");
         System.out.println("Welcome " + role + " "+ name + "!");
         System.out.println("What do you want to do?");    
     }
     
-    public void displayOption03(){
+    public void displayOption(){
         System.out.println("1. Display your information");
         System.out.println("2. Check-in");
         System.out.println("3. Check-out");
@@ -37,7 +35,7 @@ public class MenuUserLv03 {
         System.out.println("0. Log out");    
     }
     
-    public void chooseOption03(int choice){
+    public void chooseOption(int choice){
         switch (choice){
             case (0):
                 System.out.println("Function not complete yet!");

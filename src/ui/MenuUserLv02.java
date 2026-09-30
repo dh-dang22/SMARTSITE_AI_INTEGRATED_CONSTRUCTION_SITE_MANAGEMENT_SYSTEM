@@ -2,40 +2,30 @@ package ui;
 
 public class MenuUserLv02 extends MenuUserLv03 {
     
-    public void displayMenuLv02(String role){
-        displayHeader02();
-        displayOption02();
+    @Override
+    public void displayMenuLv(String role){
+        displayHeader();
+        displayOption();
         displayLogOut();
         System.out.println("Your action: ");
         int choice = sc.nextInt();   
-        chooseOption02(choice);   
+        chooseOption(choice);   
     }
     
-    public void displayHeader02(){
-        super.displayHeader03();
-    }
-    
-    public void displayOption02(){
-        super.displayOption03();
+    @Override
+    public void displayOption(){
+        super.displayOption();
         System.out.println("5. Take tools");
     }
     
-    public void displayLogOut(){
-        System.out.println("0. Log out");    
-    }
-    
-    public void inputChoice(){
-        System.out.println("Your action: ");
-        int choice = sc.nextInt();
-    }
-    
-    public void chooseOption02(int choice){
+    @Override
+    public void chooseOption(int choice){
         switch (choice){
             case (5):
                 //takeTools();
                 break;
             default:
-                super.chooseOption03(choice);
+                super.chooseOption(choice);
                 break;
         }
         
