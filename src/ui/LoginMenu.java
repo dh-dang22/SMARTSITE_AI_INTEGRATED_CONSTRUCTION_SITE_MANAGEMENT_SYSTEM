@@ -49,18 +49,23 @@ public class LoginMenu {
                 case ("Visitor"):
                     MenuUserLv03 menuVisitor = new MenuUserLv03();
                     menuVisitor.displayMenuLv03(role);
+                    break;
                 case ("Worker"):
                     MenuUserLv03 menuWorker = new MenuUserLv03();
                     menuWorker.displayMenuLv03(role);
+                    break;
                 case ("Contractor"):
                     MenuUserLv03 menuContractor = new MenuUserLv03();
                     menuContractor.displayMenuLv03(role);
+                    break;
                 case ("Safety Officier"):
                     MenuUserLv03 menuSafetyOfficer = new MenuUserLv03();
                     menuSafetyOfficer.displayMenuLv03(role);
+                    break;
                 case ("Site Manager"):
                     MenuUserLv03 menuSiteManager = new MenuUserLv03();
                     menuSiteManager.displayMenuLv03(role);
+                    break;
             }//switch
         
         }//while(running)
