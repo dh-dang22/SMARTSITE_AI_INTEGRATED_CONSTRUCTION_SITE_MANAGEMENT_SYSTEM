@@ -4,7 +4,7 @@ package ui;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-import smarttite.Person;
+import javax.xml.transform.OutputKeys;
 
 public class LoginMenu {
     public void displayLoginMenu(){
@@ -42,29 +42,43 @@ public class LoginMenu {
             String password = sc.nextLine();
             System.out.println("User name: " + userName + "; password: " + password);
             
-            //getRole()
-            String role = "Visitor";
             //String role = getRole(userName, password); //kiểm tra role để gọi menu tương ứng
+            //getRole()
+            String role = "";
+            switch (userName){
+                case ("Dang"):
+                    role = "Site Manager";
+                    break;
+                case ("Khang"):
+                    role = "Worker";
+                    break;
+                case ("Huy"):
+                    role = "Visitor";
+                    break;
+                default:
+                    System.out.println("Invalid role");
+            }
+            
             switch (role){
                 case ("Visitor"):
                     MenuUserLv03 menuVisitor = new MenuUserLv03();
-                    menuVisitor.displayMenuLv(role);
+                    menuVisitor.displayMenuLv(role, userName);
                     break;
                 case ("Worker"):
                     MenuUserLv03 menuWorker = new MenuUserLv03();
-                    menuWorker.displayMenuLv(role);
+                    menuWorker.displayMenuLv(role, userName);
                     break;
                 case ("Contractor"):
-                    MenuUserLv03 menuContractor = new MenuUserLv03();
-                    menuContractor.displayMenuLv(role);
+                    MenuUserLv02 menuContractor = new MenuUserLv02();
+                    menuContractor.displayMenuLv(role, userName);
                     break;
                 case ("Safety Officier"):
-                    MenuUserLv03 menuSafetyOfficer = new MenuUserLv03();
-                    menuSafetyOfficer.displayMenuLv(role);
+                    MenuUserLv02 menuSafetyOfficer = new MenuUserLv02();
+                    menuSafetyOfficer.displayMenuLv(role, userName);
                     break;
                 case ("Site Manager"):
-                    MenuUserLv03 menuSiteManager = new MenuUserLv03();
-                    menuSiteManager.displayMenuLv(role);
+                    MenuUserLv01 menuSiteManager = new MenuUserLv01();
+                    menuSiteManager.displayMenuLv(role, userName);
                     break;
             }//switch
         
