@@ -1,17 +1,16 @@
-
 package ui;
 
 public class MenuUserLv01 extends MenuUserLv02{
     
-    @Override
-    public void displayMenuLv(String role){
-        displayHeader();
-        displayOption();
-        displayLogOut();
-        System.out.println("Your action: ");
-        int choice = sc.nextInt();   
-        chooseOption(choice);       
-    }
+//    @Override
+//    public void displayMenuLv(String role){
+//        displayHeader();
+//        displayOption();
+//        displayLogOut();
+//        System.out.println("Your action: ");
+//        int choice = sc.nextInt();   
+//        chooseOption(choice);       
+//    }
     
     @Override
     public void displayOption(){

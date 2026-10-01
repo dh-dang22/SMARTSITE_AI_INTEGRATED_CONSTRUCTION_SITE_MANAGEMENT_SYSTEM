@@ -3,21 +3,19 @@ package ui;
 import  java.util.Scanner;
         
 public class MenuUserLv03 {
-    String role = "Site Manager";
-    String name = "Mang";
     Scanner sc = new Scanner(System.in);
     
-    public void displayMenuLv(String role){
-        displayHeader();
-        displayOption();
-        displayLogOut();
-        System.out.println("Your action: ");
-        int choice = sc.nextInt();        
-        chooseOption(choice);
+    public void displayMenuLv(String role, String name){
+        displayHeader(role, name);                  //header
+        displayOption();                            //option
+        displayLogOut();                            //option 0 (logout)
+        System.out.println("Your action: ");        //choice
+        int choice = sc.nextInt();                  //input choice
+        chooseOption(choice);                       //xu ly choice
         
     }
     
-    public void displayHeader(){
+    public void displayHeader(String role, String name){
         System.out.println("---------------" + role + " Menu "+ "---------------");
         System.out.println("");
         System.out.println("Welcome " + role + " "+ name + "!");
