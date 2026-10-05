@@ -2,9 +2,10 @@ package ui;
 
 import  java.util.Scanner;
         
-public class MenuUserLv03 {
+public class MenuUserLv03 extends MenuUserLv00{
     Scanner sc = new Scanner(System.in);
     
+    @Override
     public void displayMenuLv(String role, String name){
         displayHeader(role, name);                  //header
         displayOption();                            //option
@@ -15,6 +16,7 @@ public class MenuUserLv03 {
         
     }
     
+    @Override
     public void displayHeader(String role, String name){
         System.out.println("---------------" + role + " Menu "+ "---------------");
         System.out.println("");
@@ -22,6 +24,7 @@ public class MenuUserLv03 {
         System.out.println("What do you want to do?");    
     }
     
+    @Override
     public void displayOption(){
         System.out.println("1. Display your information");
         System.out.println("2. Check-in");
@@ -29,10 +32,12 @@ public class MenuUserLv03 {
         System.out.println("4. Display History Attendance");
     }
     
+    @Override
     public void displayLogOut(){
         System.out.println("0. Log out");    
     }
     
+    @Override
     public void chooseOption(int choice){
         switch (choice){
             case (0):
