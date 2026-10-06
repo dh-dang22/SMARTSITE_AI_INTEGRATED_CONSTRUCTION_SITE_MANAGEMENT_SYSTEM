@@ -14,16 +14,16 @@ public class Zone {
     private String zoneDetails;
     public Zone(){}
     public Zone(String zoneId, String zoneName, String zoneDetails) {
-        this.zoneId = zoneId;
-        this.zoneName = zoneName;
-        this.zoneDetails = zoneDetails;
+        this.setZoneId(zoneId);
+        this.setZoneName(zoneName);
+        this.setZoneDetails(zoneDetails);
     }
 
     public String getZoneId() {
         return zoneId;
     }
 
-    public void setZoneId(String zoneId) {
+    public final void setZoneId(String zoneId) {
          if (zoneId == null || zoneId.trim().isEmpty()) {
             throw new IllegalArgumentException("Zone id cannot be empty.");
         }
@@ -34,7 +34,7 @@ public class Zone {
         return zoneName;
     }
 
-    public void setZoneName(String zoneName) {
+    public final void setZoneName(String zoneName) {
          if (zoneName == null || zoneName.trim().isEmpty()) {
             throw new IllegalArgumentException("Zone name cannot be empty.");
         }
@@ -45,8 +45,18 @@ public class Zone {
         return zoneDetails;
     }
 
-    public void setZoneDetails(String zoneDetails) {
+    public final void setZoneDetails(String zoneDetails) {
+         if (zoneDetails == null || zoneDetails.trim().isEmpty()) {
+            throw new IllegalArgumentException("Zone details cannot be empty.");
+        }
         this.zoneDetails = zoneDetails;
+    }
+    public boolean isAccessRestricted(){
+        return false ; 
+    }
+    @Override
+    public String toString() {
+        return "Zone[" + "zoneId=" + zoneId + ", zoneName=" + zoneName + ", zoneDetails=" + zoneDetails + ']';
     }
     
 }
