@@ -52,13 +52,15 @@ public class WelcomeMenu {
                     LoginMenu menuLogin = new LoginMenu();
                     menuLogin.displayLoginMenu();
                     break;
-                case (2): 
+                case (2):
+                    System.out.println("Function is not completed yet!");
                     running = false;
                     clearConsoleIDE();
                     //displayZoneInformation();
                     break;
                 case (3):
                     //turnOff();
+                    System.out.println("See you late!");
                     clearConsoleIDE();
                     running = false;
                     break;

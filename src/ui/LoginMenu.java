@@ -4,7 +4,6 @@ package ui;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-import javax.xml.transform.OutputKeys;
 
 public class LoginMenu {
     public void displayLoginMenu(){
@@ -56,7 +55,7 @@ public class LoginMenu {
                     role = "Visitor";
                     break;
                 default:
-                    System.out.println("Invalid role");
+                    System.out.println("Account not found!");
             }
             
             switch (role){
@@ -65,7 +64,7 @@ public class LoginMenu {
                     menuVisitor.displayMenuLv(role, userName);
                     break;
                 case ("Worker"):
-                    MenuUserLv03 menuWorker = new MenuUserLv03();
+                    MenuUserLv03 menuWorker = new MenuUserLv02();
                     menuWorker.displayMenuLv(role, userName);
                     break;
                 case ("Contractor"):

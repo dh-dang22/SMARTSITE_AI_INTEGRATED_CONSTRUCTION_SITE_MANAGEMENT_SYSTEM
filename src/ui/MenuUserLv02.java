@@ -22,7 +22,7 @@ public class MenuUserLv02 extends MenuUserLv03 {
     public void chooseOption(int choice){
         switch (choice){
             case (5):
-                //takeTools();
+                System.out.println("Function not complete yet!");
                 break;
             default:
                 super.chooseOption(choice);
