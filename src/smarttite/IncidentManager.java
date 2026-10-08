@@ -7,7 +7,7 @@ import java.util.List;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 /**
- * Quản lý danh sách sự cố (Incident)
+ * 
  *
  * @author Minh_Khang
  */
@@ -73,8 +73,27 @@ public class IncidentManager {
         }
         System.out.println("=== INCIDENT LIST ===");
         for (Incident inc : incidents) {
-            System.out.println("ID: " + inc.getIncidentId() + " | Zone: " + inc.getZoneId()
-                    + " | Status: " + inc.getIncidentStatus() + " | Desc: " + inc.getDesCripTion());
+            System.out.println("ID: " + inc.getIncidentId() + " | Zone: " + inc.getZone()
+                    + " | Status: " + inc.getIncidentStatus() + " | Desc: " + inc.getDescription());
         }
+    }
+    public List<Incident> getIncidentsByZoneId(String zoneId) {
+        List<Incident> result = new ArrayList<>();
+        if (zoneId == null) return result;
+        for (Incident inc : incidents) {
+            if (inc.getZone() != null && inc.getZone().getZoneId().equalsIgnoreCase(zoneId.trim())) {
+                result.add(inc);    
+            }
+        }
+        return result;
+    }
+    public List<Incident> getIncidentsInRestrictedZones() {
+        List<Incident> result = new ArrayList<>();
+        for (Incident inc : incidents) {
+            if (inc.getZone() instanceof RestrictedZone) {
+                result.add(inc);
+            }
+        }
+        return result;
     }
 }
