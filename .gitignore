@@ -1,0 +1,9 @@
+echo /build/>>.gitignore
+echo /dist/>>.gitignore
+echo /nbproject/private/>>.gitignore
+echo *.class>>.gitignore
+build/
+build_out/
+dist/
+nbproject/
+bin/
