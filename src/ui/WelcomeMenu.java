@@ -5,8 +5,8 @@ import java.util.Scanner;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import static ui.Draft.clearConsoleIDE;
-import smartsite.PersonManager;
-import smartsite.AttendanceManager;
+import Person.PersonManager;
+import Attendance.AttendanceManager;
 
 public class WelcomeMenu {
      private final PersonManager pm;

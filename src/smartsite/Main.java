@@ -1,4 +1,10 @@
 package smartsite;
+import Attendance.AttendanceManager;
+import Person.Person;
+import Person.Visitor;
+import Person.Worker;
+import Person.SafetyOfficer;
+import Person.PersonManager;
 import ui.WelcomeMenu;
 import java.util.Scanner;
 /**

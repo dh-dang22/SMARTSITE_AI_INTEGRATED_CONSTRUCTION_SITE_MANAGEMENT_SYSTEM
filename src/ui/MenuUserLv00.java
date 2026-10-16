@@ -2,9 +2,9 @@ package ui;
 
 import java.util.Scanner;
 import static ui.Draft.pause;
-import smartsite.Person;
-import smartsite.PersonManager;
-import smartsite.AttendanceManager;
+import Person.Person;
+import Person.PersonManager;
+import Attendance.AttendanceManager;
 
 public abstract class MenuUserLv00 {
     

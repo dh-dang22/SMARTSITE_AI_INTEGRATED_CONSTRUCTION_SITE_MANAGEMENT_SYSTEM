@@ -1,9 +1,9 @@
 package ui;
 
 import java.util.Scanner;
-import smartsite.Person;
-import smartsite.Worker;
-import smartsite.Visitor;
+import Person.Person;
+import Person.Worker;
+import Person.Visitor;
 import static ui.Draft.pause;
 
 public class MenuUserLv02 extends MenuUserLv03 {
