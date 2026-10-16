@@ -1,5 +1,9 @@
 package smartsite;
 
+import Person.Person;
+import Person.Visitor;
+import Person.Worker;
+
 public class TestCaseRunner {
 public interface Validatable {
     boolean isValid();

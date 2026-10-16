@@ -1,13 +1,14 @@
 
+
    package ui;
 
 import file.FileManager;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import smartsite.Person;
-import smartsite.PersonManager;
-import smartsite.AttendanceManager;
+import Person.Person;
+import Person.PersonManager;
+import Attendance.AttendanceManager;
 //public class LoginMenu {
     /*public void displayLoginMenu(){
     Scanner sc = new Scanner(System.in);
