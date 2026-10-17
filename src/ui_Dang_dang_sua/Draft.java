@@ -10,11 +10,7 @@ public class Draft {
             System.out.println();
         }
     }
-    private static final Scanner INPUT = new Scanner(System.in);
-
-        public static Scanner getScanner() {
-    return INPUT;
-}
+  
     
     //displayWelcomeMenu(); hiển thị Welcome Menu
     

@@ -89,7 +89,6 @@ public class LoginMenu {
                 System.out.println("[!] Account has no role assigned.");
                 return;
             }
-
         // Điều hướng Menu theo Role
             switch (role.trim().toUpperCase()) {
                 case "SITE_MANAGER":
