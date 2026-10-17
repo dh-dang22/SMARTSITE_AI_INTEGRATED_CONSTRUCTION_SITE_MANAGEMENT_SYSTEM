@@ -68,6 +68,10 @@ public class CheckInput  {
     }
     return true;
 }
-    
+      private static final Scanner INPUT = new Scanner(System.in);
+
+        public static Scanner getScanner() {
+    return INPUT;
+}
     
 }
