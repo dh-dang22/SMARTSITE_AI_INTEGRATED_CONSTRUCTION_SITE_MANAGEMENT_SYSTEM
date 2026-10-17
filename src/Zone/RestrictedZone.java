@@ -4,7 +4,7 @@
  */
 package Zone;
 
-import smartsite.Zone;
+
 
 /**
  *
@@ -62,6 +62,6 @@ public class RestrictedZone extends Zone {
 
     @Override
     public String toString() {
-        return super.toString() +/* " | Restricted [Access Level: " + accessLevel + */" Pin: " + pinCode + "]";
+        return super.toString() +/* " | Restricted [Access Level: " + accessLevel + */" PinCode : " + pinCode ;
     }
 }
