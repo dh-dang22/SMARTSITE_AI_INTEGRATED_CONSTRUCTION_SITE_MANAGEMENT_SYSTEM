@@ -5,6 +5,6 @@ echo *.class>>.gitignore
 build/
 build_out/
 dist/
-nbproject\build-impl.xml
+nbproject/build-impl.xml
 bin/
 /nbproject/private/
