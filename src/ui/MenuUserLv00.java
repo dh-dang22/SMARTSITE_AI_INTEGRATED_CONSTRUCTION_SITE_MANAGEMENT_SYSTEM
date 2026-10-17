@@ -5,6 +5,7 @@ import static ui.Draft.pause;
 import Person.Person;
 import Person.PersonManager;
 import Attendance.AttendanceManager;
+import smartsite.CheckPassword;
 
 public abstract class MenuUserLv00 {
     
@@ -12,11 +13,12 @@ public abstract class MenuUserLv00 {
     protected Person currentUser;
     protected PersonManager pm;
     protected AttendanceManager am;
+    protected CheckPassword role;
 
     /**
      * Hàm điều khiển luồng menu chung cho tất cả các Role
      */
-    public void displayMenuLv(Person currentUser, PersonManager pm, AttendanceManager am) {
+    public void displayMenuLv(role) {
         // Lưu lại dữ liệu truyền vào
         this.currentUser = currentUser;
         this.pm = pm;
