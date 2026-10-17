@@ -1,14 +1,16 @@
-package ui;
-        
-import static ui.Draft.pause;
+package ui_Dang_dang_sua;
 
-public class MenuUserLv03 extends MenuUserLv00{    
+import static ui_Dang_dang_sua.Draft.pause;
+
+public class UserSafetyOfficerMenu extends MenuUserLv00{
+
     @Override
     public void displayOption(){
         System.out.println("01. Display your information");
         System.out.println("02. Check-in");
         System.out.println("03. Check-out");
         System.out.println("04. Display History Attendance");
+        System.out.println("05. Display unique function");
     }
     
     @Override
@@ -35,10 +37,13 @@ public class MenuUserLv03 extends MenuUserLv00{
                 System.out.println("Function not complete yet!");
                 pause();
                 break;
+            case (5):
+                System.out.println("Function not complete yet!");
+                pause();
+                break;
             default:
                 System.out.println("Invalid choice! Please select again");
                 pause();
         }
     }
-    
-}//class
+}

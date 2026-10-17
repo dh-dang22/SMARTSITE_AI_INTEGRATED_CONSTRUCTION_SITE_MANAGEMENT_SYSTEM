@@ -1,6 +1,6 @@
 package smartsite;
 import java.io.IOException;
-import ui.WelcomeMenu;
+import ui_Dang_dang_sua.WelcomeMenu;
 
 /**
  *

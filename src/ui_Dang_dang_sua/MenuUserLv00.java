@@ -1,11 +1,10 @@
-package ui;
+package ui_Dang_dang_sua;
 
 import java.util.Scanner;
-import static ui.Draft.pause;
+import static ui_Dang_dang_sua.Draft.pause;
 import Person.Person;
 import Person.PersonManager;
 import Attendance.AttendanceManager;
-import smartsite.CheckPassword;
 
 public abstract class MenuUserLv00 {
     
@@ -13,12 +12,8 @@ public abstract class MenuUserLv00 {
     protected Person currentUser;
     protected PersonManager pm;
     protected AttendanceManager am;
-    protected CheckPassword role;
 
-    /**
-     * Hàm điều khiển luồng menu chung cho tất cả các Role
-     */
-    public void displayMenuLv(role) {
+    public void displayMenuLv(Person currentUser, PersonManager pm, AttendanceManager am) {
         // Lưu lại dữ liệu truyền vào
         this.currentUser = currentUser;
         this.pm = pm;
@@ -53,9 +48,6 @@ public abstract class MenuUserLv00 {
         } // while
     } // displayMenuLv
 
-    /**
-     * Hiển thị Header menu lấy trực tiếp tên và role của người đăng nhập
-     */
     public void displayHeader() {
         String role = currentUser.getRole();
         String name = currentUser.getFullName();
@@ -66,21 +58,12 @@ public abstract class MenuUserLv00 {
         System.out.println("What do you want to do?");
     }
 
-    /**
-     * Phương thức trừu tượng: Mỗi cấp Menu (Lv01, Lv02, Lv03) sẽ tự in các chức năng riêng của mình
-     */
-    abstract void displayOption();
+     abstract void displayOption();
 
-    /**
-     * Nút Logout chung cho mọi menu
-     */
     public void displayLogOut() {
         System.out.println("0. Log out");
     }
 
-    /**
-     * Phương thức trừu tượng: Mỗi cấp Menu sẽ tự xử lý các chức năng tương ứng
-     */
-    abstract void chooseOption(int choice);
+     abstract void chooseOption(int choice);
 
 } // class
