@@ -3,9 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Zone;
-
-import smartsite.Validatable;
-
+import smartsite.Validatable ; 
 /**
  *
  * @author Minh_Khang
@@ -78,7 +76,7 @@ public class Zone implements Validatable {
 
     @Override
     public String toString() {
-        return "Zone[" + "zoneId=" + zoneId + ", zoneName=" + zoneName + ", zoneDetails=" + zoneDetails + ']';
+        return"ZoneId : " + zoneId + ", ZoneName : " + zoneName + ", ZoneDetails : " + zoneDetails ;
     }
 
 }
