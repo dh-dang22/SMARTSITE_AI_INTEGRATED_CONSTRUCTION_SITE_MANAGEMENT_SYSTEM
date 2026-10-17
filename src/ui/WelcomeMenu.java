@@ -1,23 +1,28 @@
 
 package ui;
-
+import smartsite.Login;
+import smartsite.CheckPassword;
 import java.util.Scanner;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import static ui.Draft.clearConsoleIDE;
 import Person.PersonManager;
-import Attendance.AttendanceManager;
+import java.io.IOException;
 
 public class WelcomeMenu {
-     private final PersonManager pm;
-     private final AttendanceManager am;
+     PersonManager pm = new PersonManager();
+     CheckPassword checker = new CheckPassword();
 
-            public WelcomeMenu(PersonManager pm,
-                               AttendanceManager am) {
-                this.pm = pm;
-                this.am = am;
-                }
-    public void displayWelcomeMenu(){
+        public WelcomeMenu() {
+            try {
+                pm.loadFromFile("data/Person.txt");       // Nạp danh sách người dùng
+                checker.loadFromFile("data/accounts.txt"); // Nạp mật khẩu
+            } catch (IOException e) {
+                System.out.println("[!] Lỗi đọc file: " + e.getMessage());
+            }
+ }
+        Login login=new Login();
+    public void displayWelcomeMenu() throws IOException{
         Scanner sc = new Scanner(System.in);
         boolean running = true;
         while (running) {
@@ -59,8 +64,12 @@ public class WelcomeMenu {
             switch (choice){
                 case (1):
                     clearConsoleIDE();
-                    LoginMenu menuLogin = new LoginMenu(pm,am);
-                    menuLogin.displayLoginMenu();
+                    Login Login = new Login(pm, checker);
+                    try {
+                        menuLogin.displayLoginMenu();
+                    } catch (Exception e) {
+                        System.out.println("[!] Login error: " + e.getMessage());
+                    }
                     break;
                 case (2):
                     System.out.println("Function is not completed yet!");
@@ -82,4 +91,4 @@ public class WelcomeMenu {
 
     } //displayWelcomeMenu()
 
-}//class
+}//class 
