@@ -7,75 +7,19 @@ import java.util.Scanner;
 import Person.Person;
 import Person.PersonManager;
 import Attendance.AttendanceManager;
-//public class LoginMenu {
-    /*public void displayLoginMenu(){
-    Scanner sc = new Scanner(System.in);
-    boolean running = true;
-    while (running){
-    System.out.println("================================================================================");
-    System.out.println("");
-    System.out.println("      ___           ___           ___           ___           ___");
-    System.out.println("     /\\  \\         /\\  \\         /\\  \\         /\\  \\         /\\  \\");
-    System.out.println("    /::\\  \\       /::\\  \\       /::\\  \\       /::\\  \\       /::\\  \\");
-    System.out.println("   /:/\\:\\  \\     /:/\\:\\  \\     /:/\\:\\  \\     /:/\\:\\  \\     /:/\\:\\  \\");
-    System.out.println("  /::\\~\\:\\  \\   /::\\~\\:\\  \\   /::\\~\\:\\  \\   /::\\~\\:\\  \\   /::\\~\\:\\  \\");
-    System.out.println(" /_/\\:\\ \\:\\__\\ /_/\\:\\ \\:\\__\\ /_/\\:\\ \\:\\__\\ /_/\\:\\ \\:\\__\\ /_/\\:\\ \\:\\__\\");
-    System.out.println(" \\~\\:\\ \\/__/ \\~\\:\\ \\/__/ \\~\\:\\ \\/__/ \\~\\:\\ \\/__/ \\~\\:\\ \\/__/");
-    System.out.println("  \\:\\__\\        \\:\\__\\        \\:\\__\\        \\:\\__\\        \\:\\__\\");
-    System.out.println("   \\/__/         \\/__/         \\/__/         \\/__/         \\/__/");
-    System.out.println("");
-    System.out.println("================================================================================");
-    System.out.println("                         WELCOME TO THE SSMARTSITE");
-    System.out.println("                      Version 1.0.0 | Terminal Edition");
-    // Forrmateed HH/MM/SS: Giờ:Phút:Giây
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-    
-    LocalTime now = LocalTime.now();
-    // In ghi đè lên dòng cũ bằng '\r' trên Console/Terminal
-    System.out.println("\r                              Time: " + now.format(formatter));
-    System.out.println("================================================================================");
-    System.out.println("");
-    System.out.println("        [!] NOTICE: Please enter your user name and password below!!!");
-    System.out.println("");
-    System.out.println("   >>> Enter your username  ");
-    String userName = sc.nextLine();
-    System.out.println("   >>> Enter your password  ");
-    String password = sc.nextLine();
-    System.out.println("User name: " + userName + "; password: " + password);
-    
-    //getRole()
-    String role = "Visitor";
-    //String role = getRole(userName, password); //kiểm tra role để gọi menu tương ứng
-    switch (role){
-    case ("Visitor"):
-    MenuUserLv03 menuVisitor = new MenuUserLv03();
-    menuVisitor.displayMenuLv03(role);
-    case ("Worker"):
-    MenuUserLv03 menuWorker = new MenuUserLv03();
-    menuWorker.displayMenuLv03(role);
-    case ("Contractor"):
-    MenuUserLv03 menuContractor = new MenuUserLv03();
-    menuContractor.displayMenuLv03(role);
-    case ("Safety Officier"):
-    MenuUserLv03 menuSafetyOfficer = new MenuUserLv03();
-    menuSafetyOfficer.displayMenuLv03(role);
-    case ("Site Manager"):
-    MenuUserLv03 menuSiteManager = new MenuUserLv03();
-    menuSiteManager.displayMenuLv03(role);
-    }
-    
-    }//while(running)
-    }*///dislplayLoginMenu()
-
-
+import java.io.IOException;
+import smartsite.CheckPassword;
 public class LoginMenu {
     private PersonManager pm;
     private AttendanceManager am;
+    private final CheckPassword checker = new CheckPassword();
+    private boolean loadPeople;
 
     // Constructor mặc định tự khởi tạo Manager nếu chưa có
     public LoginMenu() {
         this.pm = new PersonManager(); // Hoặc cách khởi tạo tương ứng trong project của bạn
         this.am = new AttendanceManager();
+        this.loadPeople = true;
     }
 
     public LoginMenu(PersonManager pm, AttendanceManager am) {
@@ -84,7 +28,19 @@ public class LoginMenu {
     }  
     
     public void displayLoginMenu() {
-        Scanner sc = new Scanner(System.in);
+        // Đọc dữ liệu trước khi nhận thông tin đăng nhập.
+        try {
+            if (loadPeople) {
+                pm.loadFromFile("data/Person.txt");
+                loadPeople = false;
+            }
+            checker.loadFromFile("data/accounts.txt");
+        } catch (IOException e) {
+            System.out.println("[!] Cannot load login data: " + e.getMessage());
+            return;
+        }
+        Login login = new Login(pm, checker);
+        Scanner sc = Draft.getScanner();
         boolean running = true;
         while (running){
             System.out.println("================================================================================");
@@ -110,17 +66,18 @@ public class LoginMenu {
             System.out.println("\r                              Time: " + now.format(formatter));
             System.out.println("================================================================================");
             System.out.println("");
-            System.out.println("        [!] NOTICE: Please enter your user name and password below!!!");
+            System.out.println("        [!] NOTICE: Please enter your code and password below!!!");
             System.out.println("");
-            System.out.print("   >>> Enter your username  ");
+            System.out.print("   >>> Enter your code  ");
+            if (!sc.hasNextLine()) return; //AI sinh code
             String code = sc.nextLine();
             System.out.print("   >>> Enter your password  ");
+            if (!sc.hasNextLine()) return;
             String password = sc.nextLine();
-            System.out.print("User code: " + code + "; password: " + password);
 
-            Person currentUser = pm.login(code);
+            Person currentUser = login.login(code, password);
             if (currentUser == null) {
-                System.out.println("[!] Invalid code or account is inactive!");
+                System.out.println("[!] Invalid code or password, or account is inactive!");
                 return;
             }
 

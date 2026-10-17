@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 /**
  * Lưu và kiểm tra mật khẩu theo code nhân sự.
@@ -22,9 +23,12 @@ public class CheckPassword {
     }
     // Nạp dữ liệu từ file accounts.txt
     // Format mỗi dòng: code|password
-        public void loadFromFile(String fileName) throws IOException {
+    public void loadFromFile(String fileName) throws IOException {
         try (BufferedReader reader = Files.newBufferedReader(
                 Paths.get(fileName), StandardCharsets.UTF_8)) {
+            Arrays.fill(codes, null);
+            Arrays.fill(passwords, null);
+            size = 0;
 
             String line;
             while ((line = reader.readLine()) != null) {
@@ -32,11 +36,11 @@ public class CheckPassword {
 
                 String[] parts = line.split("\\|", 2);
                 if (parts.length != 2) {
-                    System.out.println("[!] Dòng account không hợp lệ: " + line);
+                    System.out.println("[!] Dòng account không hợp lệ (cần code|password).");
                     continue;
                 }
 
-                boolean added = addAccount(parts[0].trim(), parts[1].trim());
+                boolean added = addAccount(parts[0].trim(), parts[1]);
                 if (!added) {
                     System.out.println("[!] Không thể nạp account: " + parts[0]);
                 }
@@ -71,7 +75,7 @@ public class CheckPassword {
 
         for (int i = 0; i < size; i++) {
             if (codes[i].equalsIgnoreCase(code.trim())
-                    && passwords[i].equals(password.trim())) {
+                    && passwords[i].equals(password)) {
                 return true;
             }
         }
