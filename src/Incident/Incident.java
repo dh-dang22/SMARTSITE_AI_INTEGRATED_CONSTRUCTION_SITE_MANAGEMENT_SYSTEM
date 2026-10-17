@@ -4,15 +4,16 @@
  */
 
 
-package smartsite;
+package Incident;
 import java.time.LocalDateTime;
-
+import Zone.Zone;
+import smartsite.Validatable;
 
 /**
  *
  * @author Minh_Khang
  */
-public class Incident {
+public class Incident implements Validatable{
 
     private String incidentId;
     private Zone zone;
@@ -35,6 +36,43 @@ public class Incident {
         this.setLocateDateTime(locateDateTime);
     }
 
+    @Override
+    public boolean isValid() {
+        if (isBlank(incidentId)) {
+            return false;
+        }
+        if (zone == null || isBlank(zone.getZoneId())) {
+            return false;
+        }
+        if (isBlank(reportId)) {
+            return false;
+        }
+        if (isBlank(assigneeId)) {
+            return false;
+        }
+        if (isBlank(description)) {
+            return false;
+        }
+        return !isBlank(incidentStatus);
+    }
+
+    // Phương thức kiểm tra tiện ích tĩnh
+    public static boolean checkValidIncident(Incident inc) {
+        if (inc == null) {
+            System.out.println("Incident object is null!");
+            return false;
+        }
+        if (!inc.isValid()) {
+            System.out.println("Incident contains invalid or empty fields!");
+            return false;
+        }
+        return true;
+    }
+
+    private static boolean isBlank(String str) {
+        return str == null || str.trim().isEmpty();
+    }
+    
     public String getIncidentId() {
         return incidentId;
     }
