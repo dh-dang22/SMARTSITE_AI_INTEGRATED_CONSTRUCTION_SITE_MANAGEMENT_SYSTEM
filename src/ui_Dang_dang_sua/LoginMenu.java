@@ -68,8 +68,8 @@ public class LoginMenu {
             System.out.println("");
             System.out.println("        [!] NOTICE: Please enter your code and password below!!!");
             System.out.println("");
-            System.out.print("   >>> Enter your code:  ");
-            if (!sc.hasNextLine()) return; //AI sinh code
+            System.out.print("   >>> Enter your code: ");
+            if (!sc.hasNextLine()) return; //xóa dữ liệu đệm, tránh lỗi sc.nextLine()
             String code = sc.nextLine();
             System.out.print("   >>> Enter your password:  ");
             if (!sc.hasNextLine()) return;
