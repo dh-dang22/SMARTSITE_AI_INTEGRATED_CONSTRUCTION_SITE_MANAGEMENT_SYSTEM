@@ -8,9 +8,10 @@ import Person.Person;
 import Person.PersonManager;
 import Attendance.AttendanceManager;
 import java.io.IOException;
+import smartsite.CheckInput;
 import smartsite.CheckPassword;
 public class LoginMenu {
-    private PersonManager pm;
+    private PersonManager pm = PersonManager.getInstance();
     private AttendanceManager am;
     private final CheckPassword checker = new CheckPassword();
     private boolean loadPeople;
@@ -40,7 +41,7 @@ public class LoginMenu {
             return;
         }
         Login login = new Login(pm, checker);
-        Scanner sc = Draft.getScanner();
+        Scanner sc = CheckInput.getScanner();
         boolean running = true;
         while (running){
             System.out.println("================================================================================");

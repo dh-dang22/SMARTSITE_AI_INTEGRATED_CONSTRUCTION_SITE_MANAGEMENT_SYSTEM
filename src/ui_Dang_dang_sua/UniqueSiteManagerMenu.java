@@ -1,10 +1,25 @@
     package ui_Dang_dang_sua;
-
+import Person.Person;
+import Person.PersonManager;
+import Person.Worker;
+import Person.Visitor;
+import Person.SafetyOfficer;
+import Person.SiteManager;
+import Person.AddPerson;
+import Person.PersonManager;
 import static ui_Dang_dang_sua.Draft.pause;
 import java.util.Scanner;
+import smartsite.CheckInput;
 
 public class UniqueSiteManagerMenu {
-    Scanner sc = new Scanner(System.in);
+    private final Scanner sc = CheckInput.getScanner();
+   // AddPerson và UniqueSiteManagerMenu: lấy cùng danh sách
+    private final PersonManager pm = PersonManager.getInstance();
+
+    UniqueSiteManagerMenu(PersonManager pm) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
     public void displayManagerFeature(){
         boolean running = true;
         while (running){
@@ -35,7 +50,8 @@ public class UniqueSiteManagerMenu {
             } else {
                 switch(choice){
                     case (1):
-                        System.out.println("Function is not completed yet ...");
+                        AddPerson ap = new AddPerson();
+                        ap.addPersonFromInput();       
                         pause();
                         break;
                     case (2):
@@ -51,7 +67,7 @@ public class UniqueSiteManagerMenu {
                         pause();
                         break;
                     case (5):
-                        System.out.println("Function is not completed yet ...");
+                        pm.displayAll();
                         pause();
                         break;
                     case (6):
@@ -66,4 +82,5 @@ public class UniqueSiteManagerMenu {
             }
         }
     }
+    
 }

@@ -1,9 +1,10 @@
 package ui_Dang_dang_sua;
-
+import Person.PersonManager;
 import static ui_Dang_dang_sua.Draft.pause;
 
 public class UserSiteManagerMenu extends MenuUserLv00{
-
+    // AddPerson và UniqueSiteManagerMenu: lấy cùng danh sách
+    private final PersonManager pm = PersonManager.getInstance();
     @Override
     public void displayOption(){
         System.out.println("1. Display your information");
@@ -38,8 +39,8 @@ public class UserSiteManagerMenu extends MenuUserLv00{
                 pause();
                 break;
             case (5):
-                UniqueSiteManagerMenu ht = new UniqueSiteManagerMenu();
-                ht.displayManagerFeature();
+                UniqueSiteManagerMenu menu = new UniqueSiteManagerMenu(pm);
+                menu.displayManagerFeature();
                 pause();
                 break;
             default:
