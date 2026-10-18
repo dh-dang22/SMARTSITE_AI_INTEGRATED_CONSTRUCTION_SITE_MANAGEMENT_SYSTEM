@@ -6,11 +6,11 @@ public class UserSiteManagerMenu extends MenuUserLv00{
     private final PersonManager pm = PersonManager.getInstance();
     @Override
     public void displayOption(){
-        System.out.println("1. Display your information");
-        System.out.println("2. Check-in");
-        System.out.println("3. Check-out");
-        System.out.println("4. Display History Attendance");
-        System.out.println("5. Display human resources management functions");
+        System.out.println("    [1] ➔ Display your information");
+        System.out.println("    [2] ➔ Check-in");
+        System.out.println("    [3] ➔ Check-out");
+        System.out.println("    [4] ➔ Display History Attendance");
+        System.out.println("    [5] ➔ Display human resources management functions");
     }
     
     @Override
@@ -19,36 +19,40 @@ public class UserSiteManagerMenu extends MenuUserLv00{
             case (0):
                 break;
             case (1):
-                System.out.println("Function is not completed yet!");
-                Draft.pause();
                 //displayInformation();
+                System.out.println("                                         Function is not completed yet!");
+                Draft.pause();
+                Draft.clearConsoleIDE();
                 break;
             case (2):
-                System.out.println("Check-in successful!");
-                System.out.println("... but ...");
-                System.out.println("Function is not completed yet!");
                 //getCheckInTime();
+                System.out.println("                                            Check-in successful!");
+                System.out.println("                                                ... but ...");
+                System.out.println("                                         Function is not completed yet!");
                 Draft.pause();
+                Draft.clearConsoleIDE();
                 break;
             case (3):
-                System.out.println("Check-out successful!");
-                System.out.println("... but ...");
-                System.out.println("Function is not completed yet!");
                 //getCheckOutTime();
+                System.out.println("                                            Check-out successful!");
+                System.out.println("                                                ... but ...");
+                System.out.println("                                         Function is not completed yet!");
                 Draft.pause();
+                Draft.clearConsoleIDE();
                 break;
             case (4):
-                System.out.println("Function is not completed yet!");
+                System.out.println("                                         Function is not completed yet!");
                 Draft.pause();
+                Draft.clearConsoleIDE();
                 break;
             case (5):
-                UniqueSiteManagerMenu ht = new UniqueSiteManagerMenu(pm);
+                UniqueSiteManagerMenu ht = new UniqueSiteManagerMenu();
                 ht.displayManagerFeature();
-                Draft.pause();
                 break;
             default:
-                System.out.println("Invalid choice! Please select again");
+                System.out.println("                                         Invalid choice! Please select again");
                 Draft.pause();
+                Draft.clearConsoleIDE();
         }
     }
 }

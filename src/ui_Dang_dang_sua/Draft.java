@@ -7,30 +7,66 @@ import java.util.Scanner;
 
 public class Draft {
     
+    
+    //làm mới trang bằng cách in dòng mới
     public static void clearConsoleIDE() { //in dòng trống để làm mới menu (lụm trên Gemini)
         for (int i = 0; i < 50; i++) {
             System.out.println();
         }
     }
     
+    //làm mới màn hình (Gehihi gợi ý)
+    public static void clearScreen(){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+    
+    //ngưng màn hình đến khi ấn Enter
+    public static void pause() { // ngưng màn hình
+        System.out.println("\n                                          Press [ENTER] to continue...");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+    }
+    
+    
+    //in đường kẻ ngang
     public static void displayMenuLine(){
         System.out.println("========================================================================================================================");
     }
     
+    //hiển thị banner (có màu)
     public static void displayMenuHeader(){
+        final String RED = "\u001B[31m";
+        final String GRN = "\u001B[32m";
+        final String BLU = "\u001B[34m";
+        final String RESET = "\u001B[0m";
         String header = 
-            "  _  __                                     ____                                      _   _             \n" +
-            " | |/ /  _ __     __ _   _ __     __ _     |  _ \\    __ _   _ __     __ _            | | | |  _   _  _  __\n" +
-            " | ' /  | '_ \\   / _` | | '_ \\   / _` |    | | | |  / _` | | '_ \\   / _` |           | |_| | | | | | | |/ /\n" +
-            " | . \\  | | | | | (_| | | | | | | (_| |    | |_| | | (_| | | | | | | (_| |           |  _  | | |_| | |   < \n" +
-            " |_|\\_\\ |_| |_|  \\__,_| |_| |_|  \\__, |    |____/   \\__,_| |_| |_|  \\__, |           |_| |_|  \\__,_| |_|\\_\\\n" +
-            "                                 |___/                              |___/                                 \n";
+            RED+ "     _  __                                         "+BLU+"  ____                                     "+GRN+" _   _             \n" +
+            GRN+"    | |/ /  _ __     __ _   _ __     __ _           "+RED+"|  _ \\    __ _   _ __     __ _            "+BLU+"| | | |  _   _  _  __\n" +
+            BLU+"    | ' /  | '_ \\   / _` | | '_ \\   / _` |          "+GRN+"| | | |  / _` | | '_ \\   / _` |           "+RED+"| |_| | | | | | | |/ /\n" +
+            RED+"    | . \\  | | | | | (_| | | | | | | (_| |          "+BLU+"| |_| | | (_| | | | | | | (_| |           "+GRN+"|  _  | | |_| | |   < \n" +
+            GRN+"    |_|\\_\\ |_| |_|  \\__,_| |_| |_|  \\__, |          "+RED+"|____/   \\__,_| |_| |_|  \\__, |           "+BLU+"|_| |_|  \\__,_| |_|\\_\\\n" +
+            BLU+"                                    |___/                "+GRN+"                    |___/                   "+RED+"              \n";
         System.out.println(header);
     }
     
+    
+   //hiển thị banner (k màu)
+    public static void displayMenuHeaderTemp(){
+        String header = 
+            "     _  __                                           ____                                      _   _             \n" +
+            "    | |/ /  _ __     __ _   _ __     __ _           |  _ \\    __ _   _ __     __ _            | | | |  _   _  _  __\n" +
+            "    | ' /  | '_ \\   / _` | | '_ \\   / _` |          | | | |  / _` | | '_ \\   / _` |           | |_| | | | | | | |/ /\n" +
+            "    | . \\  | | | | | (_| | | | | | | (_| |          | |_| | | (_| | | | | | | (_| |           |  _  | | |_| | |   < \n" +
+            "    |_|\\_\\ |_| |_|  \\__,_| |_| |_|  \\__, |          |____/   \\__,_| |_| |_|  \\__, |           |_| |_|  \\__,_| |_|\\_\\\n" +
+            "                                    |___/                                    |___/                                 \n";
+        System.out.println(header);
+    }
+    
+    //hiển thị lời chào
     public static void displayMenuGreeting(){
-            System.out.println("                                         WELCOME TO THE SSMARTSITE");
-            System.out.println("                                      Version 2.4.3 | Terminal Edition"); //Version Semester.Lab.TimeConfig
+            System.out.println("                                         WELCOME TO THE S-SMARTSITE");
+            System.out.println("                                      Version 2.4.7 | Terminal Edition"); //Version Semester.Lab.TimeConfig
             // Forrmateed HH/MM/SS: Giờ:Phút:Giây
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
@@ -39,14 +75,15 @@ public class Draft {
             System.out.println("\r                                            Time: " + now.format(formatter));  
     }
     
+    
     public static void displayWelcomeMenuOption(){
         String option = 
-            "               [!] NOTICE: The system is ready to work. Please choose one of the option below\n\n\n" +
-            "                          +-------------------------------------------------+\n" +
+            "               [!] NOTICE: The system is ready to work. Please choose one of the option below\n" +
+            "                           +-------------------------------------------------+\n" +
             "                           | 1. Sign in                                      |\n" +
             "                           | 2. View area information                        |\n" +
             "                           | 3. Exit                                         |\n" +
-            "                          +-------------------------------------------------+\n\n\n";
+            "                           +-------------------------------------------------+\n";
         System.out.println(option);
     }
     
@@ -64,10 +101,6 @@ public class Draft {
     //chooseOption(); xử lý lựa chọn chức năng
 
 
-    public static void pause() { // ngưng màn hình
-        System.out.println("\n                                    Press [ENTER] to continue...");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
-    }
+
 }
 

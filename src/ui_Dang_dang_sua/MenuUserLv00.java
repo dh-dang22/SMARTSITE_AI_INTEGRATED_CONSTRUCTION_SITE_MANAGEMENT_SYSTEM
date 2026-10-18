@@ -25,9 +25,10 @@ public abstract class MenuUserLv00 {
         while (running) {
             displayHeader();                            // Hiển thị lời chào và role
             displayOption();                            // Hiển thị danh sách chức năng (lớp con tự định nghĩa)
+            System.out.println("");
             displayLogOut();                            // Hiển thị: 0. Log out
             
-            System.out.print("Your action: ");
+            System.out.print("    ➔ Please enter your action : ");
             int choice;
             try {
                 // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
@@ -40,7 +41,7 @@ public abstract class MenuUserLv00 {
 
             if (choice == 0) {                          // Thoát menu
                 running = false;
-                System.out.println("The system is logging out...");
+                System.out.println("    ➔ The system is logging out...");
                 pause();
             } else {
                 chooseOption(choice);                   // Xử lý chức năng đã chọn
@@ -49,19 +50,24 @@ public abstract class MenuUserLv00 {
     } // displayMenuLv
 
     public void displayHeader() {
-        String role = currentUser.getRole();
-        String name = currentUser.getFullName();
+        String userRole = currentUser.getRole();
+        String userName = currentUser.getFullName();
 
-        System.out.println("---------------- " + role + " Menu ----------------");
+        Draft.displayMenuLine();
+        Draft.displayMenuHeader();
+        Draft.displayMenuLine();
+        Draft.displayMenuGreeting();
+        Draft.displayMenuLine();
         System.out.println("");
-        System.out.println("Welcome " + role + ": " + name + "!");
-        System.out.println("What do you want to do?");
+        System.out.println("                                            " + userRole + " Menu ");
+        System.out.println("");
+        
     }
 
      abstract void displayOption();
 
     public void displayLogOut() {
-        System.out.println("0. Log out");
+        System.out.println("    [0] ➔ Log out");
     }
 
      abstract void chooseOption(int choice);
