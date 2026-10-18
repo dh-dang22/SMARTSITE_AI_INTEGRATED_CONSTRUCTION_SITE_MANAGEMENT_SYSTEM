@@ -1,6 +1,6 @@
 package smartsite;
 
-import Zones.ZoneManager2;
+import Zone.ZoneManager2;
 import java.util.Scanner;
 
 /**

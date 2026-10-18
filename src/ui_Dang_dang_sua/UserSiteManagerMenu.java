@@ -11,7 +11,7 @@ public class UserSiteManagerMenu extends MenuUserLv00{
         System.out.println("2. Check-in");
         System.out.println("3. Check-out");
         System.out.println("4. Display History Attendance");
-        System.out.println("5. Display unique feature");
+        System.out.println("5. Display human resources management functions");
     }
     
     @Override
@@ -20,22 +20,26 @@ public class UserSiteManagerMenu extends MenuUserLv00{
             case (0):
                 break;
             case (1):
-                System.out.println("Function not complete yet!");
+                System.out.println("Function is not completed yet!");
                 pause();
                 //displayInformation();
                 break;
             case (2):
-                System.out.println("Function not complete yet!");
+                System.out.println("Check-in successful!");
+                System.out.println("... but ...");
+                System.out.println("Function is not completed yet!");
                 //getCheckInTime();
                 pause();
                 break;
             case (3):
-                System.out.println("Function not complete yet!");
+                System.out.println("Check-out successful!");
+                System.out.println("... but ...");
+                System.out.println("Function is not completed yet!");
                 //getCheckOutTime();
                 pause();
                 break;
             case (4):
-                System.out.println("Function not complete yet!");
+                System.out.println("Function is not completed yet!");
                 pause();
                 break;
             case (5):
