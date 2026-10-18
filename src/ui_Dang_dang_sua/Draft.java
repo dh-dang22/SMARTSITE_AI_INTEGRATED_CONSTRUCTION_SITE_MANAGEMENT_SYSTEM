@@ -65,7 +65,7 @@ public class Draft {
 
 
     public static void pause() { // ngưng màn hình
-        System.out.println("\n      Press [ENTER] to continue...");
+        System.out.println("\n                                    Press [ENTER] to continue...");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
     }

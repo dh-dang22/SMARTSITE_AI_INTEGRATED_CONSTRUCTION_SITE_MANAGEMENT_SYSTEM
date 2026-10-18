@@ -1,6 +1,5 @@
 package ui_Dang_dang_sua;
 import Person.PersonManager;
-import static ui_Dang_dang_sua.Draft.pause;
 
 public class UserSiteManagerMenu extends MenuUserLv00{
     // AddPerson và UniqueSiteManagerMenu: lấy cùng danh sách
@@ -21,7 +20,7 @@ public class UserSiteManagerMenu extends MenuUserLv00{
                 break;
             case (1):
                 System.out.println("Function is not completed yet!");
-                pause();
+                Draft.pause();
                 //displayInformation();
                 break;
             case (2):
@@ -29,27 +28,27 @@ public class UserSiteManagerMenu extends MenuUserLv00{
                 System.out.println("... but ...");
                 System.out.println("Function is not completed yet!");
                 //getCheckInTime();
-                pause();
+                Draft.pause();
                 break;
             case (3):
                 System.out.println("Check-out successful!");
                 System.out.println("... but ...");
                 System.out.println("Function is not completed yet!");
                 //getCheckOutTime();
-                pause();
+                Draft.pause();
                 break;
             case (4):
                 System.out.println("Function is not completed yet!");
-                pause();
+                Draft.pause();
                 break;
             case (5):
-                UniqueSiteManagerMenu menu = new UniqueSiteManagerMenu(pm);
-                menu.displayManagerFeature();
-                pause();
+                UniqueSiteManagerMenu ht = new UniqueSiteManagerMenu(pm);
+                ht.displayManagerFeature();
+                Draft.pause();
                 break;
             default:
                 System.out.println("Invalid choice! Please select again");
-                pause();
+                Draft.pause();
         }
     }
 }
