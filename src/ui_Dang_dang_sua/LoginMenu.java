@@ -1,8 +1,6 @@
 
    package ui_Dang_dang_sua;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import Person.Person;
 import Person.PersonManager;
@@ -11,6 +9,10 @@ import java.io.IOException;
 import smartsite.CheckInput;
 import smartsite.CheckPassword;
 import static ui_Dang_dang_sua.Draft.clearConsoleIDE;
+import static ui_Dang_dang_sua.Draft.displayMenuGreeting;
+import static ui_Dang_dang_sua.Draft.displayMenuHeader;
+import static ui_Dang_dang_sua.Draft.displayMenuLine;
+   
 public class LoginMenu {
     private PersonManager pm = PersonManager.getInstance();
     private AttendanceManager am;
@@ -45,49 +47,34 @@ public class LoginMenu {
         Scanner sc = CheckInput.getScanner();
         boolean running = true;
         while (running){
-            System.out.println("================================================================================");
+            displayMenuLine();//in gạch
+            displayMenuHeader();//in banner
+            displayMenuLine();//in gạch
+            displayMenuGreeting();//in lời chào
+            displayMenuLine();//in gạch
             System.out.println("");
-            System.out.println("      ___           ___           ___           ___           ___");
-            System.out.println("     /\\  \\         /\\  \\         /\\  \\         /\\  \\         /\\  \\");
-            System.out.println("    /::\\  \\       /::\\  \\       /::\\  \\       /::\\  \\       /::\\  \\");
-            System.out.println("   /:/\\:\\  \\     /:/\\:\\  \\     /:/\\:\\  \\     /:/\\:\\  \\     /:/\\:\\  \\");
-            System.out.println("  /::\\~\\:\\  \\   /::\\~\\:\\  \\   /::\\~\\:\\  \\   /::\\~\\:\\  \\   /::\\~\\:\\  \\");
-            System.out.println(" /_/\\:\\ \\:\\__\\ /_/\\:\\ \\:\\__\\ /_/\\:\\ \\:\\__\\ /_/\\:\\ \\:\\__\\ /_/\\:\\ \\:\\__\\");
-            System.out.println(" \\~\\:\\ \\/__/ \\~\\:\\ \\/__/ \\~\\:\\ \\/__/ \\~\\:\\ \\/__/ \\~\\:\\ \\/__/");
-            System.out.println("  \\:\\__\\        \\:\\__\\        \\:\\__\\        \\:\\__\\        \\:\\__\\");
-            System.out.println("   \\/__/         \\/__/         \\/__/         \\/__/         \\/__/");
+            System.out.println("                                    [!] NOTICE: Please enter your code and password below!!!");
             System.out.println("");
-            System.out.println("================================================================================");
-            System.out.println("                         WELCOME TO THE SSMARTSITE");
-            System.out.println("                      Version 2.4.7 | Terminal Edition");
-            // Forrmateed HH/MM/SS: Giờ:Phút:Giây
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-    
-            LocalTime now = LocalTime.now();
-            // In ghi đè lên dòng cũ bằng '\r' trên Console/Terminal
-            System.out.println("\r                              Time: " + now.format(formatter));
-            System.out.println("================================================================================");
-            System.out.println("");
-            System.out.println("        [!] NOTICE: Please enter your code and password below!!!");
-            System.out.println("");
-            System.out.print("   >>> Enter your code: ");
+            System.out.print("         >>> Enter your code: ");
             if (!sc.hasNextLine()) return; //xóa dữ liệu đệm, tránh lỗi sc.nextLine()
             String code = sc.nextLine();
-            System.out.print("   >>> Enter your password:  ");
+            System.out.print("         >>> Enter your password:  ");
             if (!sc.hasNextLine()) return;
             String password = sc.nextLine();
 
             Person currentUser = login.login(code, password);
             if (currentUser == null) {
-                System.out.println("[!] Invalid code or password, or account is inactive!");
+                System.out.println("                                [!] Invalid code or password, or account is inactive!");
+                Draft.pause();
                 return;
             }
 
-            System.out.println("\n[+] Login successful!");
-            System.out.println("[+] Welcome, " + currentUser.getFullName() + " [" + currentUser.getRole() + "]");
+            System.out.println("\n                              [+] Login successful!");
+            System.out.println("                            [+] Welcome, " + currentUser.getFullName() + " [" + currentUser.getRole() + "]");
             System.out.println("");
-            System.out.println("(\"================================================================================\");");
-
+            Draft.displayMenuLine();
+            Draft.clearConsoleIDE();
+            
             String role = currentUser.getRole();
             if (role == null) {
                 System.out.println("[!] Account has no role assigned.");
