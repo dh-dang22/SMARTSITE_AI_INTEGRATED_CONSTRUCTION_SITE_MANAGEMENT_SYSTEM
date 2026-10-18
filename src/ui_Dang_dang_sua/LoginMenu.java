@@ -10,6 +10,7 @@ import Attendance.AttendanceManager;
 import java.io.IOException;
 import smartsite.CheckInput;
 import smartsite.CheckPassword;
+import static ui_Dang_dang_sua.Draft.clearConsoleIDE;
 public class LoginMenu {
     private PersonManager pm = PersonManager.getInstance();
     private AttendanceManager am;
@@ -58,7 +59,7 @@ public class LoginMenu {
             System.out.println("");
             System.out.println("================================================================================");
             System.out.println("                         WELCOME TO THE SSMARTSITE");
-            System.out.println("                      Version 1.0.0 | Terminal Edition");
+            System.out.println("                      Version 2.4.7 | Terminal Edition");
             // Forrmateed HH/MM/SS: Giờ:Phút:Giây
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
     
@@ -84,6 +85,8 @@ public class LoginMenu {
 
             System.out.println("\n[+] Login successful!");
             System.out.println("[+] Welcome, " + currentUser.getFullName() + " [" + currentUser.getRole() + "]");
+            System.out.println("");
+            System.out.println("(\"================================================================================\");");
 
             String role = currentUser.getRole();
             if (role == null) {
@@ -93,19 +96,29 @@ public class LoginMenu {
         // Điều hướng Menu theo Role
             switch (role.trim().toUpperCase()) {
                 case "SITE_MANAGER":
+                    clearConsoleIDE();
                     new UserSiteManagerMenu().displayMenuLv(currentUser, pm, am);
+                    running = false;
                     break;
                 case "SAFETY_OFFICER":
+                    clearConsoleIDE();
                     new UserSafetyOfficerMenu().displayMenuLv(currentUser, pm, am);
+                    running = false;
                     break;
                 case "WORKER":
+                    clearConsoleIDE();
                     new UserWorkerMenu().displayMenuLv(currentUser, pm, am);
+                    running = false;
                     break;
                 case "CONTRACTOR":
+                    clearConsoleIDE();
                     new UserContractorMenu().displayMenuLv(currentUser, pm, am);
+                    running = false;
                     break;
                 case "VISITOR":
+                    clearConsoleIDE();
                     new UserVisitorMenu().displayMenuLv(currentUser, pm, am);
+                    running = false;
                     break;
                 default:
                     System.out.println("[!] Unknown role: " + role);
