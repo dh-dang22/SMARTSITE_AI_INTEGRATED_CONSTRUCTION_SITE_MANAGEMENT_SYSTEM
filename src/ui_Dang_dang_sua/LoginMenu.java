@@ -53,26 +53,25 @@ public class LoginMenu {
             displayMenuGreeting();//in lời chào
             displayMenuLine();//in gạch
             System.out.println("");
-            System.out.println("                                    [!] NOTICE: Please enter your code and password below!!!");
+            System.out.println("                            [!] NOTICE: Please enter your code and password below!!!");
             System.out.println("");
-            System.out.print("         >>> Enter your code: ");
-            if (!sc.hasNextLine()) return; //xóa dữ liệu đệm, tránh lỗi sc.nextLine()
-            String code = sc.nextLine();
-            System.out.print("         >>> Enter your password:  ");
-            if (!sc.hasNextLine()) return;
-            String password = sc.nextLine();
+            
+            String code = CheckInput.checkEmpty(sc, "         >>> Enter your code: ", " [!] Code can not be empty!");
+            String password = CheckInput.checkEmpty(sc, "         >>> Enter your password: ", " [!] password can not be empty!");
 
             Person currentUser = login.login(code, password);
             if (currentUser == null) {
                 System.out.println("                                [!] Invalid code or password, or account is inactive!");
                 Draft.pause();
+                Draft.clearConsoleIDE();
                 return;
             }
 
-            System.out.println("\n                              [+] Login successful!");
-            System.out.println("                            [+] Welcome, " + currentUser.getFullName() + " [" + currentUser.getRole() + "]");
+            System.out.println("\n                                         [+] Login successful!");
+            System.out.println("                                    [+] Welcome, " + currentUser.getFullName() + " [" + currentUser.getRole() + "]");
             System.out.println("");
             Draft.displayMenuLine();
+            Draft.pause();
             Draft.clearConsoleIDE();
             
             String role = currentUser.getRole();

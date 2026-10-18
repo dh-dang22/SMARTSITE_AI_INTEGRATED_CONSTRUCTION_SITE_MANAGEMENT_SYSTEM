@@ -16,9 +16,7 @@ public class UniqueSiteManagerMenu {
    // AddPerson và UniqueSiteManagerMenu: lấy cùng danh sách
     private final PersonManager pm = PersonManager.getInstance();
 
-    UniqueSiteManagerMenu(PersonManager pm) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    public UniqueSiteManagerMenu(PersonManager pm) {}
     
     public void displayManagerFeature(){
         boolean running = true;
