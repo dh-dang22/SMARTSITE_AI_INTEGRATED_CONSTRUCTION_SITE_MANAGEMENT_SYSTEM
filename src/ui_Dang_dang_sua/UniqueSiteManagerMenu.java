@@ -59,19 +59,17 @@ public class UniqueSiteManagerMenu {
                         pause();
                         break;
                     case (2):
-                        System.out.println(Draft.RED + "                                        Function is not completed yet!" + Draft.BAS);
-                        Draft.pause();
-                        Draft.clearConsoleIDE();
+                        int n = CheckInput.readRange(sc,"Enter number of people you want to add [1-10]:", 1, 10, "Please enter the number in range 1-10!");
+                        for (int i = 1; i<=n; i++){
+                            AddPerson apM = new AddPerson();
+                            apM.addPersonFromInput();   
+                    }
                         break;
                     case (3):
-                        System.out.println(Draft.RED + "                                        Function is not completed yet!" + Draft.BAS);
-                        Draft.pause();
-                        Draft.clearConsoleIDE();
+                        Draft.functionIsNotCompletedYet();
                         break;
                     case (4):
-                        System.out.println(Draft.RED + "                                        Function is not completed yet!" + Draft.BAS);
-                        Draft.pause();
-                        Draft.clearConsoleIDE();
+                        Draft.functionIsNotCompletedYet();
                         break;
                     case (5):
                         pm.displayAll();
@@ -79,14 +77,10 @@ public class UniqueSiteManagerMenu {
                         Draft.clearConsoleIDE();
                         break;
                     case (6):
-                    System.out.println(Draft.RED + "                                        Function is not completed yet!" + Draft.BAS);
-                        Draft.pause();
-                        Draft.clearConsoleIDE();
+                        Draft.functionIsNotCompletedYet();
                         break;
                     case (7):
-                        System.out.println(Draft.RED + "                                        Function is not completed yet!" + Draft.BAS);
-                        Draft.pause();
-                        Draft.clearConsoleIDE();
+                        Draft.functionIsNotCompletedYet();
                         break;
                 }
             }
