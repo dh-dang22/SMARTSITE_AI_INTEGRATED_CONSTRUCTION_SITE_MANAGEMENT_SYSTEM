@@ -27,10 +27,17 @@ public class Draft {
     
     //ngưng màn hình đến khi ấn Enter
     public static void pause() { // ngưng màn hình
-        System.out.println("\n                                          Press [ENTER] to continue...");
+        System.out.println("\n                                            Press [ENTER] to continue...");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
     }
+    
+    public static void functionIsNotCompletedYet(){
+        System.out.println(Draft.RED + "                                        Function is not completed yet!" + Draft.BAS);
+        Draft.pause();
+        Draft.clearConsoleIDE();
+    };
+    
     
     
     //in đường kẻ ngang
@@ -80,25 +87,25 @@ public class Draft {
     
     //hiển thị lời chào
     public static void displayMenuGreeting(){
-            System.out.println("                                         WELCOME TO THE S-SMARTSITE");
-            System.out.println("                                      Version 2.4.7 | Terminal Edition"); //Version Semester.Lab.TimeConfig
+            System.out.println("                                             WELCOME TO THE S-SMARTSITE");
+            System.out.println("                                          Version 2.4.7 | Terminal Edition"); //Version Semester.Lab.TimeConfig
             // Forrmateed HH/MM/SS: Giờ:Phút:Giây
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
                 LocalTime now = LocalTime.now();
                 // In ghi đè lên dòng cũ bằng '\r' trên Console/Terminal
-            System.out.println("\r                                            Time: " + now.format(formatter));  
+            System.out.println("\r                                                Time: " + now.format(formatter));  
     }
     
     
     public static void displayWelcomeMenuOption(){
         String option = 
-            "               [!] NOTICE: The system is ready to work. Please choose one of the option below\n" +
-            "                           +-------------------------------------------------+\n" +
-            "                           | 1. Sign in                                      |\n" +
-            "                           | 2. View area information                        |\n" +
-            "                           | 3. Exit                                         |\n" +
-            "                           +-------------------------------------------------+\n";
+            "                   [!] NOTICE: The system is ready to work. Please choose one of the option below\n" +
+            "                               +-------------------------------------------------+\n" +
+            "                               | 1. Sign in                                      |\n" +
+            "                               | 2. View area information                        |\n" +
+            "                               | 3. Exit                                         |\n" +
+            "                               +-------------------------------------------------+\n";
         System.out.println(option);
     }
     

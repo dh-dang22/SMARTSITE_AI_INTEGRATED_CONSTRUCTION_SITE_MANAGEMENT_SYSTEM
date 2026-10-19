@@ -34,7 +34,7 @@ public abstract class MenuUserLv00 {
                 // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
                 choice = Integer.parseInt(sc.nextLine().trim());
             } catch (NumberFormatException e) {
-                System.out.println("[!] Invalid choice! Please enter a number.");
+                System.out.println(Draft.RED + "                                        Please enter a valid number!" + Draft.BAS);
                 pause();
                 continue;
             }

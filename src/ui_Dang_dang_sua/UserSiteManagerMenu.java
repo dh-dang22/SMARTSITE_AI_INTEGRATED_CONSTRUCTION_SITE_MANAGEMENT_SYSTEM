@@ -19,27 +19,16 @@ public class UserSiteManagerMenu extends MenuUserLv00{
             case (0):
                 break;
             case (1):
-                System.out.println(Draft.RED+"                              Function is not completed yet!"+Draft.BAS);
-                Draft.clearConsoleIDE();
-                Draft.pause();
+                Draft.functionIsNotCompletedYet();
                 break;
             case (2):
-                System.out.println(Draft.GRN+"                                      Check-in successful!"+Draft.BAS);
-                System.out.println(Draft.BLU+"                                            ... but ..."+Draft.BAS);
-                System.out.println(Draft.RED+"                              Function is not completed yet!"+Draft.BAS);
-                Draft.pause();
-                Draft.clearConsoleIDE();
+                Draft.functionIsNotCompletedYet();
+                break;
             case (3):
-                System.out.println(Draft.GRN+"                                      Check-out successful!"+Draft.BAS);
-                System.out.println(Draft.BLU+"                                            ... but ..."+Draft.BAS);
-                System.out.println(Draft.RED+"                              Function is not completed yet!"+Draft.BAS);
-                Draft.pause();
-                Draft.clearConsoleIDE();
+                Draft.functionIsNotCompletedYet();
                 break;
             case (4):
-                System.out.println(Draft.RED+"                              Function is not completed yet!"+Draft.BAS);
-                Draft.clearConsoleIDE();
-                Draft.pause();
+                Draft.functionIsNotCompletedYet();
                 break;
             case (5):
                 UniqueSiteManagerMenu ht = new UniqueSiteManagerMenu();

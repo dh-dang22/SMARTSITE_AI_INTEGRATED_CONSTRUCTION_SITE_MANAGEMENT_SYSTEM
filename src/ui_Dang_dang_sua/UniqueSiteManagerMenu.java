@@ -59,30 +59,34 @@ public class UniqueSiteManagerMenu {
                         pause();
                         break;
                     case (2):
-                        System.out.println("                                         Function is not completed yet ...");
-                        pause();
+                        System.out.println(Draft.RED + "                                        Function is not completed yet!" + Draft.BAS);
+                        Draft.pause();
+                        Draft.clearConsoleIDE();
                         break;
                     case (3):
-                        System.out.println("                                         Function is not completed yet ...");
-                        pause();
+                        System.out.println(Draft.RED + "                                        Function is not completed yet!" + Draft.BAS);
+                        Draft.pause();
+                        Draft.clearConsoleIDE();
                         break;
                     case (4):
-                        //findPersonByID ap = new findPersonByID();
-                        //ap.findPersonByID();   
-                        System.out.println("                                         Function is not completed yet ...");
-                        pause();
+                        System.out.println(Draft.RED + "                                        Function is not completed yet!" + Draft.BAS);
+                        Draft.pause();
+                        Draft.clearConsoleIDE();
                         break;
                     case (5):
-                        pm.displayAll();
-                        pause();
+                        System.out.println(Draft.RED + "                                        Function is not completed yet!" + Draft.BAS);
+                        Draft.pause();
+                        Draft.clearConsoleIDE();
                         break;
                     case (6):
-                        System.out.println("                                         Function is not completed yet ...");
-                        pause();
+                    System.out.println(Draft.RED + "                                        Function is not completed yet!" + Draft.BAS);
+                        Draft.pause();
+                        Draft.clearConsoleIDE();
                         break;
                     case (7):
-                        System.out.println("                                         Function is not completed yet ...");
-                        pause();
+                        System.out.println(Draft.RED + "                                        Function is not completed yet!" + Draft.BAS);
+                        Draft.pause();
+                        Draft.clearConsoleIDE();
                         break;
                 }
             }
