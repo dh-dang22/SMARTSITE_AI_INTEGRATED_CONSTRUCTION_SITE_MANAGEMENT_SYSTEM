@@ -18,27 +18,29 @@ public class UserVisitorMenu extends MenuUserLv00{
             case (0):
                 break;
             case (1):
-                System.out.println("Function not complete yet!");
-                pause();
-                //displayInformation();
+                System.out.println(Draft.RED+"                              Function is not completed yet!"+Draft.BAS);
+                Draft.clearConsoleIDE();
+                Draft.pause();
                 break;
             case (2):
-                System.out.println("Function not complete yet!");
-                //getCheckInTime();
-                pause();
+                System.out.println(Draft.RED+"                              Function is not completed yet!"+Draft.BAS);
+                Draft.clearConsoleIDE();
+                Draft.pause();
                 break;
             case (3):
-                System.out.println("Function not complete yet!");
-                //getCheckOutTime();
-                pause();
+                System.out.println(Draft.RED+"                              Function is not completed yet!"+Draft.BAS);
+                Draft.clearConsoleIDE();
+                Draft.pause();
                 break;
             case (4):
-                System.out.println("Function not complete yet!");
-                pause();
+                System.out.println(Draft.RED+"                              Function is not completed yet!"+Draft.BAS);
+                Draft.clearConsoleIDE();
+                Draft.pause();
                 break;
             default:
-                System.out.println("Invalid choice! Please select again");
-                pause();
+                System.out.println(Draft.RED+"                           Invalid choice! Please select again"+Draft.BAS);
+                Draft.pause();
+                Draft.clearConsoleIDE();
         }
     }
 }

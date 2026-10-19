@@ -56,12 +56,12 @@ public class LoginMenu {
             System.out.println("                            [!] NOTICE: Please enter your code and password below!!!");
             System.out.println("");
             
-            String code = CheckInput.checkEmpty(sc, "         >>> Enter your code: ", " [!] Code can not be empty!");
+            String code = CheckInput.checkEmpty(sc, "         >>> Enter your code: ", Draft.RED+" [!] Code can not be empty!"+Draft.BAS);
             String password = CheckInput.checkEmpty(sc, "         >>> Enter your password: ", " [!] password can not be empty!");
 
             Person currentUser = login.login(code, password);
             if (currentUser == null) {
-                System.out.println("                                [!] Invalid code or password, or account is inactive!");
+                System.out.println(Draft.RED+"                                [!] Invalid code or password, or account is inactive!"+Draft.BAS);
                 Draft.pause();
                 Draft.clearConsoleIDE();
                 return;
@@ -76,7 +76,7 @@ public class LoginMenu {
             
             String role = currentUser.getRole();
             if (role == null) {
-                System.out.println("[!] Account has no role assigned.");
+                System.out.println(Draft.RED+"                                [!] Account has no role assigned."+Draft.BAS);
                 return;
             }
         // Điều hướng Menu theo Role
@@ -107,7 +107,7 @@ public class LoginMenu {
                     running = false;
                     break;
                 default:
-                    System.out.println("[!] Unknown role: " + role);
+                    System.out.println(Draft.RED+"                                [!] Unknown role: " + role + Draft.BAS);
                     ui_Dang_dang_sua.Draft.pause();
             }
         }//while running for menu
