@@ -11,6 +11,9 @@ public class UserSiteManagerMenu extends MenuUserLv00{
         System.out.println("    [3] ➔ Check-out");
         System.out.println("    [4] ➔ Display History Attendance");
         System.out.println("    [5] ➔ Display human resources management functions");
+        System.out.println("    [6] ➔ Display zone management functions");
+        System.out.println("    [7] ➔ Display all History Attendance Report");
+        System.out.println("    [8] ➔ Display all Incident Report");
     }
     
     @Override
@@ -31,8 +34,19 @@ public class UserSiteManagerMenu extends MenuUserLv00{
                 Draft.functionIsNotCompletedYet();
                 break;
             case (5):
+                Draft.displayMenuLine();
+                System.out.println("                                         Human Resource Management Menu ");
                 UniqueSiteManagerMenu ht = new UniqueSiteManagerMenu();
                 ht.displayManagerFeature();
+                break;
+            case (6):
+                Draft.functionIsNotCompletedYet();
+                break;
+            case (7):
+                Draft.functionIsNotCompletedYet();
+                break;
+            case (8):
+                Draft.functionIsNotCompletedYet();
                 break;
             default:
                 System.out.println("                                         Invalid choice! Please select again");

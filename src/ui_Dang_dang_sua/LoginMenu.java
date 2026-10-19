@@ -67,8 +67,8 @@ public class LoginMenu {
                 return;
             }
 
-            System.out.println("\n                                               [+] Login successful!");
-            System.out.println("                                        [+] Welcome, " + currentUser.getFullName() + " [" + currentUser.getRole() + "]");
+            System.out.println(Draft.GRN+"\n                                               [+] Login successful!"+Draft.BAS);
+            System.out.println("                                        [+] Welcome, " +Draft.BLU+ currentUser.getFullName() +Draft.BAS+ " [" + currentUser.getRole() + "]");
             System.out.println("");
             Draft.displayMenuLine();
             Draft.pause();

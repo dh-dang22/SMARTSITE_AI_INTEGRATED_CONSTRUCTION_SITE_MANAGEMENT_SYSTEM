@@ -8,10 +8,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import smartsite.CheckInput;
 
-/**
- *
- * @author Minh_Khang
- */
+
 public class AddPerson {
     private final PersonManager pm = PersonManager.getInstance();
 
@@ -139,4 +136,7 @@ private String chooseRole() {
         }
     }
 }
+
+
+
 }
