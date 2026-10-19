@@ -14,14 +14,14 @@ import static ui_Dang_dang_sua.Draft.displayMenuHeader;
 import static ui_Dang_dang_sua.Draft.displayMenuLine;
    
 public class LoginMenu {
-    private PersonManager pm = PersonManager.getInstance();
+    private PersonManager pm = PersonManager.getInstance(); // Khai bao them doi tuong pm moi
     private AttendanceManager am;
     private final CheckPassword checker = new CheckPassword();
     private boolean loadPeople;
 
     // Constructor mặc định tự khởi tạo Manager nếu chưa có
     public LoginMenu() {
-        this.pm = new PersonManager(); // Hoặc cách khởi tạo tương ứng trong project của bạn
+        this.pm = PersonManager.getInstance(); 
         this.am = new AttendanceManager();
         this.loadPeople = true;
     }
