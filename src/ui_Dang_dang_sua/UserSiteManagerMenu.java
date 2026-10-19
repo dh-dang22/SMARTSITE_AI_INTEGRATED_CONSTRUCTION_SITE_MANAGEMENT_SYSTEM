@@ -19,31 +19,27 @@ public class UserSiteManagerMenu extends MenuUserLv00{
             case (0):
                 break;
             case (1):
-                //displayInformation();
-                System.out.println("                                         Function is not completed yet!");
-                Draft.pause();
+                System.out.println(Draft.RED+"                              Function is not completed yet!"+Draft.BAS);
                 Draft.clearConsoleIDE();
+                Draft.pause();
                 break;
             case (2):
-                //getCheckInTime();
-                System.out.println("                                            Check-in successful!");
-                System.out.println("                                                ... but ...");
-                System.out.println("                                         Function is not completed yet!");
+                System.out.println(Draft.GRN+"                                      Check-in successful!"+Draft.BAS);
+                System.out.println(Draft.BLU+"                                            ... but ..."+Draft.BAS);
+                System.out.println(Draft.RED+"                              Function is not completed yet!"+Draft.BAS);
                 Draft.pause();
                 Draft.clearConsoleIDE();
-                break;
             case (3):
-                //getCheckOutTime();
-                System.out.println("                                            Check-out successful!");
-                System.out.println("                                                ... but ...");
-                System.out.println("                                         Function is not completed yet!");
+                System.out.println(Draft.GRN+"                                      Check-out successful!"+Draft.BAS);
+                System.out.println(Draft.BLU+"                                            ... but ..."+Draft.BAS);
+                System.out.println(Draft.RED+"                              Function is not completed yet!"+Draft.BAS);
                 Draft.pause();
                 Draft.clearConsoleIDE();
                 break;
             case (4):
-                System.out.println("                                         Function is not completed yet!");
-                Draft.pause();
+                System.out.println(Draft.RED+"                              Function is not completed yet!"+Draft.BAS);
                 Draft.clearConsoleIDE();
+                Draft.pause();
                 break;
             case (5):
                 UniqueSiteManagerMenu ht = new UniqueSiteManagerMenu();

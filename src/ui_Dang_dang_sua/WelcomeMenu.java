@@ -26,17 +26,19 @@ public class WelcomeMenu {
                     menu.displayLoginMenu();
                     break;
                 case (2):
-                    System.out.println("Function is not completed yet!");
+                    System.out.println(Draft.RED + "                    Function is not completed yet!" + Draft.BAS);
                     running = false;
                     //displayZoneInformation();
                     break;
                 case (3):
                     //turnOff();
-                    System.out.println("See you late!");
+                    System.out.println("                                          See you late!");
                     running = false;
                     break;
                 default:
-                    System.out.println("Invalid choice!!!");
+                    System.out.println(Draft.RED+"                                        Invalid choice!!!" + Draft.BAS);
+                    Draft.pause();
+                    Draft.clearConsoleIDE();
                     break;
             }//switch-case choice
 
