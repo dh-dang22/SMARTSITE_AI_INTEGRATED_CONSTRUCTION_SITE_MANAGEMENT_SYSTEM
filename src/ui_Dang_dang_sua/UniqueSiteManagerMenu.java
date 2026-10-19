@@ -74,7 +74,7 @@ public class UniqueSiteManagerMenu {
                         Draft.clearConsoleIDE();
                         break;
                     case (5):
-                        System.out.println(Draft.RED + "                                        Function is not completed yet!" + Draft.BAS);
+                        pm.displayAll();
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
