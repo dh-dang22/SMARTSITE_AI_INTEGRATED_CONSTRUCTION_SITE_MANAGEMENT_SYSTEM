@@ -19,34 +19,22 @@ public class UserSafetyOfficerMenu extends MenuUserLv00{
             case (0):
                 break;
             case (1):
-                System.out.println(Draft.RED+"                              Function is not completed yet!"+Draft.BAS);
-                Draft.clearConsoleIDE();
-                Draft.pause();
+                Draft.functionIsNotCompletedYet();
                 break;
             case (2):
-                System.out.println(Draft.RED+"                              Function is not completed yet!"+Draft.BAS);
-                Draft.clearConsoleIDE();
-                Draft.pause();
+                Draft.functionIsNotCompletedYet();
                 break;
             case (3):
-                 System.out.println(Draft.RED+"                              Function is not completed yet!"+Draft.BAS);
-                Draft.clearConsoleIDE();
-                Draft.pause();
+                Draft.functionIsNotCompletedYet();
                 break;
             case (4):
-                System.out.println(Draft.RED+"                              Function is not completed yet!"+Draft.BAS);
-                Draft.clearConsoleIDE();
-                Draft.pause();
+                Draft.functionIsNotCompletedYet();
                 break;
             case (5):
-                 System.out.println(Draft.RED+"                              Function is not completed yet!"+Draft.BAS);
-                Draft.clearConsoleIDE();
-                Draft.pause();
+                Draft.functionIsNotCompletedYet();
                 break;
             default:
-                System.out.println(Draft.RED+"                           Invalid choice! Please select again"+Draft.BAS);
-                Draft.pause();
-                Draft.clearConsoleIDE();
+                Draft.functionIsNotCompletedYet();
         }
     }
 }

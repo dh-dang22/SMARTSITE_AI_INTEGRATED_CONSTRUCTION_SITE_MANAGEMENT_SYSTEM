@@ -17,7 +17,19 @@ public class WelcomeMenu {
             Draft.displayWelcomeMenuOption();//in option lựa chọn
             Draft.displayMenuLine();//in gạch
             System.out.print("   >>> Enter your action[1-3]: ");
-            int choice = Integer.parseInt(sc.nextLine());
+
+            //nhập và kiểm tra phải số không
+            int choice;
+            try {
+                choice = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                // Nếu nhập chữ hoặc ký tự, bắt lỗi ở đây
+                System.out.println(Draft.RED + "                                        Please enter a valid number [1-3]!" + Draft.BAS);
+                Draft.pause();
+                Draft.clearConsoleIDE();
+                continue;
+            }
+
             Draft.displayMenuLine();//in gạch
             switch (choice){
                 case (1):
@@ -26,17 +38,17 @@ public class WelcomeMenu {
                     menu.displayLoginMenu();
                     break;
                 case (2):
-                    System.out.println(Draft.RED + "                    Function is not completed yet!" + Draft.BAS);
-                    running = false;
-                    //displayZoneInformation();
+                    Draft.functionIsNotCompletedYet();
                     break;
                 case (3):
                     //turnOff();
                     System.out.println("                                          See you late!");
                     running = false;
+                    Draft.pause();
+                    Draft.clearConsoleIDE();
                     break;
                 default:
-                    System.out.println(Draft.RED+"                                        Invalid choice!!!" + Draft.BAS);
+                    System.out.println(Draft.RED+"                                              Invalid choice!!!" + Draft.BAS);
                     Draft.pause();
                     Draft.clearConsoleIDE();
                     break;
