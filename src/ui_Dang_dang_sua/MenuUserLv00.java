@@ -59,7 +59,7 @@ public abstract class MenuUserLv00 {
         Draft.displayMenuGreeting();
         Draft.displayMenuLine();
         System.out.println("");
-        System.out.println("                                            " + userRole + " Menu ");
+        System.out.println("                                                " + userRole + " Menu ");
         System.out.println("");
         
     }
