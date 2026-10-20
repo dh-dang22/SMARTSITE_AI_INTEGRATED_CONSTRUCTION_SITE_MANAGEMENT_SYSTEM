@@ -23,7 +23,8 @@ public class ZoneManager2 {
     // add, delete,findByName, findById, update, display 
     // showRestrictedZones
 
-    public void addZone(Scanner sc) {
+    public void addZone() {
+        Scanner sc = new Scanner(System.in);
         int n = CheckInput.readRange(sc, "Input the number of zones needed to add: ", 1, 20, "The number must be greater than 0 ! Try again!");
 
         // Trường hợp ngắt luồng nhập (EOF) từ CheckInput

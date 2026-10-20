@@ -34,13 +34,13 @@ public class UserSiteManagerMenu extends MenuUserLv00{
                 Draft.functionIsNotCompletedYet();
                 break;
             case (5):
-                Draft.displayMenuLine();
-                System.out.println("                                         Human Resource Management Menu ");
+                Draft.clearConsoleIDE();
                 UniqueSiteManagerMenu ht = new UniqueSiteManagerMenu();
-                ht.displayManagerFeature();
+                ht.displayHumanResourceManagementMenu();
                 break;
             case (6):
-                Draft.functionIsNotCompletedYet();
+                UniqueSiteManagerMenu htZone = new UniqueSiteManagerMenu();
+                htZone.displayZoneManagementMenu();
                 break;
             case (7):
                 Draft.functionIsNotCompletedYet();
