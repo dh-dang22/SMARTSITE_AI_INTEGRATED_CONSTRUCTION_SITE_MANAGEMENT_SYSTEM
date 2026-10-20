@@ -3,7 +3,7 @@ package Incident;
 import Zone.RestrictedZone;
 import Zone.Zone;
 import Zone.ZoneManager2; 
-import smartsite.CheckInput;
+import Validatable.CheckInput;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -2,7 +2,7 @@
     
 import Person.AddPerson;
 import java.util.Scanner;
-import smartsite.CheckInput;
+import Validatable.CheckInput;
 import Person.PersonManager;
 import Zone.ZoneManager2;
 import static java.time.temporal.TemporalQueries.zoneId;

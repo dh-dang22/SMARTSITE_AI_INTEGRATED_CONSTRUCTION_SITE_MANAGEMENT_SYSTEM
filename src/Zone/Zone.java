@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Zone;
-import smartsite.Validatable ; 
+import Validatable.Validatable ; 
 /**
  *
  * @author Minh_Khang
