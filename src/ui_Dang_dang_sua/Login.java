@@ -1,7 +1,7 @@
 package ui_Dang_dang_sua;
 import Person.Person;
 import Person.PersonManager;
-import smartsite.CheckPassword;
+import Validatable.CheckPassword;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

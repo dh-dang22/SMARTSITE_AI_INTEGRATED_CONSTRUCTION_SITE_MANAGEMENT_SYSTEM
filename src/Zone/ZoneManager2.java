@@ -6,7 +6,7 @@ package Zone;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import smartsite.CheckInput;
+import Validatable.CheckInput;
        
 /**
  *

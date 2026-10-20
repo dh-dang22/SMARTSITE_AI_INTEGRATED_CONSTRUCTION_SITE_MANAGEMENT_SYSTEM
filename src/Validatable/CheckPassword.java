@@ -1,4 +1,4 @@
-package smartsite;
+package Validatable;
 
 import java.io.BufferedReader;
 import java.io.IOException;
