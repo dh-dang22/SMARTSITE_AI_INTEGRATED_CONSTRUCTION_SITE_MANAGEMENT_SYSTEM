@@ -7,7 +7,7 @@
 package Incident;
 import java.time.LocalDateTime;
 import Zone.Zone;
-import smartsite.Validatable;
+import Validatable.Validatable;
 
 /**
  *

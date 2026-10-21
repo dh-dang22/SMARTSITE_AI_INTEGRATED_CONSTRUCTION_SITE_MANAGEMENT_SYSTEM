@@ -4,7 +4,7 @@
  */
 package Person;
 
-import smartsite.Validatable;
+import Validatable.Validatable;
 
 /**
  *

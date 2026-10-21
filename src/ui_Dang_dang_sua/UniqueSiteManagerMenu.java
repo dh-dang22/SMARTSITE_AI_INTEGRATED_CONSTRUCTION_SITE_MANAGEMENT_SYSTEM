@@ -2,8 +2,10 @@
     
 import Person.AddPerson;
 import java.util.Scanner;
-import smartsite.CheckInput;
+import Validatable.CheckInput;
 import Person.PersonManager;
+import Zone.ZoneManager2;
+import static java.time.temporal.TemporalQueries.zoneId;
     
 public class UniqueSiteManagerMenu {
     private final Scanner sc = CheckInput.getScanner();
@@ -13,9 +15,15 @@ public class UniqueSiteManagerMenu {
     UniqueSiteManagerMenu() {
     }
     
-    public void displayManagerFeature(){
+    public void displayHumanResourceManagementMenu(){
         boolean running = true;
         while (running){
+            Draft.displayMenuLine();
+            Draft.displayMenuHeader();
+            Draft.displayMenuLine();
+            Draft.displayMenuGreeting();
+            Draft.displayMenuLine();
+            System.out.println("                                         Human Resource Management Menu ");
             System.out.println("");
             System.out.println("    [1] ➔ Add Person(s) to system");
             System.out.println("    [2] ➔ Find a Person information");
@@ -40,6 +48,7 @@ public class UniqueSiteManagerMenu {
                 running = false;
                 System.out.println("The system is backing to general menu ...");
                 Draft.pause();
+                Draft.clearConsoleIDE();
             } else {
                 switch(choice){
                     case (1): // add
@@ -95,6 +104,93 @@ public class UniqueSiteManagerMenu {
                         break;
                     case (5): // display list
                         pm.displayAll();
+                        Draft.pause();
+                        Draft.clearConsoleIDE();
+                        break;
+                }
+            }
+        } //while
+    }//display
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public void displayZoneManagementMenu(){
+        ZoneManager2 tempZone = new ZoneManager2();
+        Scanner tempSC = new Scanner(System.in);
+        boolean running = true;
+        while (running){
+            Draft.displayMenuLine();
+            Draft.displayMenuHeader();
+            Draft.displayMenuLine();
+            Draft.displayMenuGreeting();
+            Draft.displayMenuLine();
+            System.out.println("                                                Zone Management Menu ");
+            System.out.println("");
+            System.out.println("    [1] ➔ Add Zone(s) to system");
+            System.out.println("    [2] ➔ Find a Zone information");
+            System.out.println("    [3] ➔ Update a Zone information");
+            System.out.println("    [4] ➔ Delete a Zone");
+            System.out.println("    [5] ➔ Display all Zone information"); //
+            System.out.println("");
+            System.out.println("    [0] ➔ Back to general menu");
+            System.out.println("");
+            System.out.println("    ➔ Please enter your action [0-7]: ");
+            int choice;
+            try {
+                // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
+                choice = Integer.parseInt(sc.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("[!] Invalid choice! Please enter a number.");
+                Draft.pause();
+                continue;
+            }
+
+            if (choice == 0) {                          // Thoát menu
+                running = false;
+                System.out.println("The system is backing to general menu ...");
+                Draft.pause();
+                Draft.clearConsoleIDE();
+            } else {
+                switch(choice){
+                    case (1): // add
+                        tempZone.addZone();   
+                        Draft.pause();
+                        Draft.clearConsoleIDE();
+                        break;
+                    case (2): // find
+                        System.out.print("    Enter the Zone code: ");
+                       
+                        String tempID = tempSC.nextLine();
+                        System.out.println(tempZone.findZoneById(tempID));
+                        Draft.pause();
+                        Draft.clearConsoleIDE();
+                        break;
+                    case (3): //update
+                        System.out.print("    Enter your Zone ID: ");
+                        
+                        break;
+                    case (4): // delete
+                        System.out.print("    Enter the Zone code: ");
+                        String adb;
+                        System.out.println(tempZone.deleteZoneById(tempSC));
+                        Draft.pause();
+                        Draft.clearConsoleIDE();
+                        break;
+                   case (5): // display list
+                        tempZone.displayList();
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;

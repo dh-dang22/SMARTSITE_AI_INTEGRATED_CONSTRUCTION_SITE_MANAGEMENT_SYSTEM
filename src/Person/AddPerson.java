@@ -6,7 +6,7 @@ package Person;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import smartsite.CheckInput;
+import Validatable.CheckInput;
 
 
 public class AddPerson {
