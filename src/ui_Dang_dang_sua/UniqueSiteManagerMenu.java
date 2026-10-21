@@ -1,6 +1,6 @@
     package ui_Dang_dang_sua;
     
-import Person.AddPerson;
+import Person.ConditionPerson;
 import java.util.Scanner;
 import Person.PersonManager;
 import Validatable.InputScanner;
@@ -9,7 +9,7 @@ import Zone.ZoneManager2;
     
 public class UniqueSiteManagerMenu {
     private final Scanner sc = InputScanner.getScanner();
-   // AddPerson và UniqueSiteManagerMenu: lấy cùng danh sách
+   // ConditionPerson và UniqueSiteManagerMenu: lấy cùng danh sách
     private final PersonManager pm = PersonManager.getInstance();
 
     UniqueSiteManagerMenu() {
@@ -52,10 +52,16 @@ public class UniqueSiteManagerMenu {
             } else {
                 switch(choice){
                     case (1): // add
-                       int n = InputScanner.readRange(sc,"    - Enter number of people you want to add [1-10]:", 1, 10, "Please enter the number in range 1-10!");
+                       int n = InputScanner.readRange(
+                 sc,
+                "Enter number of people [1-10]: ",
+                1,
+                10,
+                "Please enter a number from 1 to 10!"
+                );
                         for (int i = 1; i<=n; i++){
-                            AddPerson apM = new AddPerson();
-                            pm.addPersonFromInput();   
+                            PersonManager apM = new PersonManager();
+                            apM.addPersonFromInput();   
                             Draft.clearConsoleIDE();
                         }
                         Draft.pause();

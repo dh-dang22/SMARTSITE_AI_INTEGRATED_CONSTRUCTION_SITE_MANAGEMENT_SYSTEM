@@ -6,18 +6,39 @@ import java.util.Scanner;
 public class InputScanner {
 
     private static final Scanner scanner = new Scanner(System.in);
-
-    public static int readRange(Scanner sc, String _____Enter_number_of_people_you_want_to_a, int i, int i0, String please_enter_the_number_in_range_110) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     private InputScanner() {
     }
 
     public static Scanner getScanner() {
         return scanner;
     }
+    public static int readRange(
+        Scanner sc,
+        String message,
+        int min,
+        int max,
+        String errorMessage) {
 
+    while (true) {
+        System.out.print(message);
+
+        if (!sc.hasNextLine()) {
+            return -1; // Hết đầu vào
+        }
+
+        try {
+            int value = Integer.parseInt(sc.nextLine().trim());
+
+            if (value >= min && value <= max) {
+                return value;
+            }
+        } catch (NumberFormatException e) {
+            // Nhập chữ hoặc số không chuyển được sang int.
+        }
+
+        System.out.println(errorMessage);
+    }
+}
     public static String nextLine() {
         while (true) {
             try {
