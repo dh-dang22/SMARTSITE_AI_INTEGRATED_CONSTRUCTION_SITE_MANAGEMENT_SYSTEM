@@ -1,4 +1,4 @@
-package AttendanceValid;
+package Validatable;
 
 import java.util.Scanner;
 

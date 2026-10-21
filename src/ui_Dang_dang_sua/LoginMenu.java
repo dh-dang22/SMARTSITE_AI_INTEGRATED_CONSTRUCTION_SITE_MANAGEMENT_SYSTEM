@@ -6,7 +6,7 @@ import Person.Person;
 import Person.PersonManager;
 import Attendance.AttendanceManager;
 import java.io.IOException;
-import Validatable.CheckInput;
+import Validatable.CheckCode;
 import Validatable.CheckPassword;
 import static ui_Dang_dang_sua.Draft.clearConsoleIDE;
 import static ui_Dang_dang_sua.Draft.displayMenuGreeting;
@@ -44,7 +44,7 @@ public class LoginMenu {
             return;
         }
         Login login = new Login(pm, checker);
-        Scanner sc = CheckInput.getScanner();
+        Scanner sc = new getScanner();
         boolean running = true;
         while (running){
             displayMenuLine();//in gạch
@@ -55,11 +55,17 @@ public class LoginMenu {
             System.out.println("");
             System.out.println("                            [!] NOTICE: Please enter your code and password below!!!");
             System.out.println("");
+            // String code 
+            System.out.println( "         >>> Enter your code: ");
+           
+            System.out.println("\" [!] Code can not be empty!\"+Draft.BAS");
             
-            String code = CheckInput.checkEmpty(sc, "         >>> Enter your code: ", Draft.RED+" [!] Code can not be empty!"+Draft.BAS);
-            String password = CheckInput.checkEmpty(sc, "         >>> Enter your password: ", " [!] password can not be empty!");
-
+            
+         //   String password = CheckInput.checkEmpty(sc,, " [!] password can not be empty!");
+            System.out.println("         >>> Enter your password: ");
             Person currentUser = login.login(code, password);
+            
+            
             if (currentUser == null) {
                 System.out.println(Draft.RED+"                                [!] Invalid code or password, or account is inactive!"+Draft.BAS);
                 Draft.pause();

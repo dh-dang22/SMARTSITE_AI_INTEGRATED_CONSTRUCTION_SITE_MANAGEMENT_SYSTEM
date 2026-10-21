@@ -183,9 +183,7 @@ public class UniqueSiteManagerMenu {
                         
                         break;
                     case (4): // delete
-                        System.out.print("    Enter the Zone code: ");
-                        String adb;
-                        System.out.println(tempZone.deleteZoneById(tempSC));
+                        tempZone.deleteZoneById();
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
