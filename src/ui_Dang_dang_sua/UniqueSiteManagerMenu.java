@@ -54,11 +54,12 @@ public class UniqueSiteManagerMenu {
                     case (1): // add
                         int n = sc2.nextInt();
                        for (int i = 1; i<=n; i++){
-                            AddPerson apM = new AddPerson();
-                            pm.addPersonFromInput();   
+                            PersonManager apM = new PersonManager();
+                           apM.addPersonFromInput();
                             Draft.clearConsoleIDE();
                         }
                         Draft.pause();
+                        Draft.clearConsoleIDE();
                     case (2): // find
                         System.out.println("    a. Search by ID");
                         System.out.println("    b. Search by code");
@@ -91,6 +92,7 @@ public class UniqueSiteManagerMenu {
                                 System.out.println("    - ERROR!!! ");
                                 break;
                         }
+                        Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
 
@@ -167,32 +169,26 @@ public class UniqueSiteManagerMenu {
                 switch(choice){
                     case (1): // add
                         tempZone.addZone();   
-                        Draft.pause();
-                        Draft.clearConsoleIDE();
                         break;
                     case (2): // find
                         System.out.print("    Enter the Zone code: ");
                        
                         String tempID = tempSC.nextLine();
                         System.out.println(tempZone.findZoneById(tempID));
-                        Draft.pause();
-                        Draft.clearConsoleIDE();
                         break;
                     case (3): //update
                         tempZone.updateZoneById();
                         break;
                     case (4): // delete
                         tempZone.deleteZoneById();
-                        Draft.pause();
-                        Draft.clearConsoleIDE();
                         break;
                    case (5): // display list
                         tempZone.displayList();
-                        Draft.pause();
-                        Draft.clearConsoleIDE();
                         break;
                 }
             }
+            Draft.pause();
+            Draft.clearConsoleIDE();
         } //while
     }//display
     
