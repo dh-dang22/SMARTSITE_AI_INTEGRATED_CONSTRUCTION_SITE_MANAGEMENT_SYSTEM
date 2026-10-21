@@ -5,11 +5,11 @@ import java.util.Scanner;
 import Person.PersonManager;
 import Validatable.InputScanner;
 import Zone.ZoneManager2;
-
+//import Zone.ZoneManager2;
     
 public class UniqueSiteManagerMenu {
-    private final Scanner sc = InputScanner.getScanner();
-   // ConditionPerson và UniqueSiteManagerMenu: lấy cùng danh sách
+    private final Scanner sc2 = new Scanner(System.in);
+   // AddPerson và UniqueSiteManagerMenu: lấy cùng danh sách
     private final PersonManager pm = PersonManager.getInstance();
 
     UniqueSiteManagerMenu() {
@@ -37,7 +37,7 @@ public class UniqueSiteManagerMenu {
             int choice;
             try {
                 // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
-                choice = Integer.parseInt(sc.nextLine().trim());
+                choice = Integer.parseInt(sc2.nextLine().trim());
             } catch (NumberFormatException e) {
                 System.out.println("[!] Invalid choice! Please enter a number.");
                 Draft.pause();
@@ -52,19 +52,14 @@ public class UniqueSiteManagerMenu {
             } else {
                 switch(choice){
                     case (1): // add
-                       int n = InputScanner.readRange(
-                 sc,
-                "Enter number of people [1-10]: ",
-                1,
-                10,
-                "Please enter a number from 1 to 10!"
-                );
-                        for (int i = 1; i<=n; i++){
+                        int n = sc2.nextInt();
+                       for (int i = 1; i<=n; i++){
                             PersonManager apM = new PersonManager();
-                            apM.addPersonFromInput();   
+                           apM.addPersonFromInput();
                             Draft.clearConsoleIDE();
                         }
                         Draft.pause();
+                        Draft.clearConsoleIDE();
                     case (2): // find
                         System.out.println("    a. Search by ID");
                         System.out.println("    b. Search by code");
@@ -72,7 +67,7 @@ public class UniqueSiteManagerMenu {
                         int findChoice = 1;
                         try {
                             // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
-                            choice = Integer.parseInt(sc.nextLine().trim());
+                            choice = Integer.parseInt(sc2.nextLine().trim());
                         } catch (NumberFormatException e) {
                             System.out.println("[!] Invalid choice! Please enter a number.");
                             Draft.pause();
@@ -97,6 +92,7 @@ public class UniqueSiteManagerMenu {
                                 System.out.println("    - ERROR!!! ");
                                 break;
                         }
+                        Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
 
@@ -153,11 +149,11 @@ public class UniqueSiteManagerMenu {
             System.out.println("");
             System.out.println("    [0] ➔ Back to general menu");
             System.out.println("");
-            System.out.println("    ➔ Please enter your action [0-7]: ");
+            System.out.print("    ➔ Please enter your action [0-7]: ");
             int choice;
             try {
                 // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
-                choice = Integer.parseInt(sc.nextLine().trim());
+                choice = Integer.parseInt(sc2.nextLine().trim());
             } catch (NumberFormatException e) {
                 System.out.println("[!] Invalid choice! Please enter a number.");
                 Draft.pause();
@@ -173,34 +169,35 @@ public class UniqueSiteManagerMenu {
                 switch(choice){
                     case (1): // add
                         tempZone.addZone();   
-                        Draft.pause();
-                        Draft.clearConsoleIDE();
                         break;
                     case (2): // find
                         System.out.print("    Enter the Zone code: ");
                        
                         String tempID = tempSC.nextLine();
                         System.out.println(tempZone.findZoneById(tempID));
-                        Draft.pause();
-                        Draft.clearConsoleIDE();
                         break;
                     case (3): //update
-                        System.out.print("    Enter your Zone ID: ");
-                        
+                        tempZone.updateZoneById();
                         break;
                     case (4): // delete
                         tempZone.deleteZoneById();
-                        Draft.pause();
-                        Draft.clearConsoleIDE();
                         break;
                    case (5): // display list
                         tempZone.displayList();
-                        Draft.pause();
-                        Draft.clearConsoleIDE();
                         break;
                 }
             }
+            Draft.pause();
+            Draft.clearConsoleIDE();
         } //while
     }//display
     
+    
+    
+    
+    
+    
+//    public void displayAllIncident(){
+//        Incident.IncidentManager.displayIncidents();
+//    }//display
 }//class
