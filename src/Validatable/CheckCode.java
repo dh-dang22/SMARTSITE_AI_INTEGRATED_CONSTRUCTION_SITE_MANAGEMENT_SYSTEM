@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public class CheckCode {
     private static final Scanner sc = new Scanner(System.in);
-
+    
     public static String checkWorkerCode() {
         while (true) {
-            System.out.print("Enter Code [Wxxx]: ");
+            System.out.print("Enter Code [WKxxx]: ");
             String code = sc.nextLine().trim();
 
             if (code.isEmpty()) {

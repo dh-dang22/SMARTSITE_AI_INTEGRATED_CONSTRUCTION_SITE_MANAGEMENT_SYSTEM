@@ -39,7 +39,7 @@ public class CheckPassword {
                     System.out.println("[!] Dòng account không hợp lệ (cần code|password).");
                     continue;
                 }
-
+                    
                 boolean added = addAccount(parts[0].trim(), parts[1]);
                 if (!added) {
                     System.out.println("[!] Không thể nạp account: " + parts[0]);
