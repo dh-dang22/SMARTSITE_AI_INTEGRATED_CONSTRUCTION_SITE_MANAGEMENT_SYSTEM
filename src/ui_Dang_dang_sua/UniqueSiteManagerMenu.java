@@ -25,15 +25,15 @@ public class UniqueSiteManagerMenu {
             Draft.displayMenuLine();
             System.out.println("                                         Human Resource Management Menu ");
             System.out.println("");
-            System.out.println("    [1] ➔ Add Person(s) to system");
-            System.out.println("    [2] ➔ Find a Person information");
-            System.out.println("    [3] ➔ Update a Person information");
-            System.out.println("    [4] ➔ Delete a Person");
-            System.out.println("    [5] ➔ Display all people information"); //
+            System.out.println("    [1]  Add Person(s) to system");
+            System.out.println("    [2]  Find a Person information");
+            System.out.println("    [3]  Update a Person information");
+            System.out.println("    [4]  Delete a Person");
+            System.out.println("    [5]  Display all people information"); //
             System.out.println("");
-            System.out.println("    [0] ➔ Back to general menu");
+            System.out.println("    [0]  Back to general menu");
             System.out.println("");
-            System.out.println("    ➔ Please enter your action [0-7]: ");
+            System.out.print("    ➔ Please enter your action [0-7]: ");
             int choice;
             try {
                 // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
@@ -46,16 +46,17 @@ public class UniqueSiteManagerMenu {
 
             if (choice == 0) {                          // Thoát menu
                 running = false;
-                System.out.println("The system is backing to general menu ...");
+                System.out.println("                                The system is backing to general menu ...");
                 Draft.pause();
                 Draft.clearConsoleIDE();
             } else {
                 switch(choice){
                     case (1): // add
                         int n = sc2.nextInt();
+                        System.out.println("     Enter number of Person(s) you want to add: ");
                        for (int i = 1; i<=n; i++){
                             PersonManager apM = new PersonManager();
-                           apM.addPersonFromInput();
+                            apM.addPersonFromInput();
                             Draft.clearConsoleIDE();
                         }
                         Draft.pause();
@@ -141,11 +142,11 @@ public class UniqueSiteManagerMenu {
             Draft.displayMenuLine();
             System.out.println("                                                Zone Management Menu ");
             System.out.println("");
-            System.out.println("    [1] ➔ Add Zone(s) to system");
-            System.out.println("    [2] ➔ Find a Zone information");
-            System.out.println("    [3] ➔ Update a Zone information");
-            System.out.println("    [4] ➔ Delete a Zone");
-            System.out.println("    [5] ➔ Display all Zone information"); //
+            System.out.println("    [1] Add Zone(s) to system");
+            System.out.println("    [2] Find a Zone information");
+            System.out.println("    [3] Update a Zone information");
+            System.out.println("    [4] Delete a Zone");
+            System.out.println("    [5] Display all Zone information"); //
             System.out.println("");
             System.out.println("    [0] ➔ Back to general menu");
             System.out.println("");
@@ -162,7 +163,7 @@ public class UniqueSiteManagerMenu {
 
             if (choice == 0) {                          // Thoát menu
                 running = false;
-                System.out.println("The system is backing to general menu ...");
+                System.out.println("                                The system is backing to general menu ...");
                 Draft.pause();
                 Draft.clearConsoleIDE();
             } else {

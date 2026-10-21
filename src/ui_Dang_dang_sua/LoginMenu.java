@@ -7,7 +7,6 @@ import Person.PersonManager;
 import Attendance.AttendanceManager;
 import java.io.IOException;
 import Validatable.CheckPassword;
-import Validatable.InputScanner;
 import static ui_Dang_dang_sua.Draft.clearConsoleIDE;
 import static ui_Dang_dang_sua.Draft.displayMenuGreeting;
 import static ui_Dang_dang_sua.Draft.displayMenuHeader;
@@ -44,11 +43,8 @@ public class LoginMenu {
             return;
         }
         Login login = new Login(pm, checker);
-<<<<<<< Updated upstream
-        Scanner sc = InputScanner.getScanner();
-=======
-        Scanner sc = new Scanner();
->>>>>>> Stashed changes
+
+        Scanner sc = new Scanner(System.in);
         boolean running = true;
         while (running){
             displayMenuLine();//in gạch

@@ -25,15 +25,18 @@ public class Zone implements Validatable {
 
     @Override
     public boolean isValid() {
-        if (zoneId == null || !zoneId.trim().matches("^Z\\d{3}$")) {
+        if (zoneId == null || !zoneId.trim().matches("^ZN\\d{4}$")) {
             return false;
         }
+
         if (zoneName == null || zoneName.trim().isEmpty()) {
             return false;
         }
+
         if (zoneDetails == null || zoneDetails.trim().isEmpty()) {
             return false;
         }
+
         return true;
     }
 
@@ -43,7 +46,7 @@ public class Zone implements Validatable {
 
     public final void setZoneId(String zoneId) {
         if (zoneId == null || zoneId.trim().isEmpty()) {
-            throw new IllegalArgumentException("Zone id cannot be empty.");
+            throw new IllegalArgumentException("Zone ID cannot be empty.");
         }
         this.zoneId = zoneId;
     }

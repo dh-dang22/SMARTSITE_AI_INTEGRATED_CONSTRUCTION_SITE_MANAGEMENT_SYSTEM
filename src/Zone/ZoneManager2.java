@@ -18,27 +18,27 @@ public class ZoneManager2 {
 
     public void addZone() {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Input the number of zones needed to add: ");
+        System.out.print("    ➔ Input the number of Zone(s) you want to add: ");
         int n;
         try {
             n = Integer.parseInt(sc.nextLine().trim());
             if (n <= 0) {
-                System.out.println("[Error]: The number must be greater than 0!");
+                System.out.println("    [Error]: The number must be greater than 0!");
                 return;
             }
         } catch (NumberFormatException e) {
-            System.out.println("[Error]: Invalid number input!");
+            System.out.println("    [Error]: Invalid number input!");
             return;
         }
 
         for (int i = 1; i <= n; i++) {
-            System.out.println("\n--- Zone [" + i + "] ---");
+            System.out.println("\n                                                  --- Zone [" + i + "] ---");
             String id;
 
             while (true) {
                 id = CheckZoneId.checkZoneId();
                 if (findZoneById(id) != null) {
-                    System.out.println("[Error]: Zone ID [" + id + "] already exists! Try again.");
+                    System.out.println("                      [Error]: Zone ID [" + id + "] already exists! Try again.");
                     continue;
                 }
                 break;
@@ -51,13 +51,13 @@ public class ZoneManager2 {
                 Zone z = new Zone(id, name, description);
                 if (z.isValid()) {
                     this.list.add(z);
-                    System.out.println("-> Add Zone [" + id + "] successfully!");
+                    System.out.println("                                         Add Zone [" + id + "] successfully!");
                 } else {
-                    System.out.println("[Error]: Failed to add Zone [" + id + "]: Invalid object state!");
+                    System.out.println("    [Error]: Failed to add Zone [" + id + "]: Invalid object state!");
                     i--;
                 }
             } catch (IllegalArgumentException e) {
-                System.out.println("[Error]: " + e.getMessage() + "! Try again.");
+                System.out.println("    [Error]: " + e.getMessage() + "! Try again.");
                 i--;
             }
         }
@@ -77,18 +77,18 @@ public class ZoneManager2 {
         Zone z = this.findZoneById(zoneId);
         if (z != null) {
             list.remove(z);
-            System.out.println("-> Delete Zone [" + zoneId + "] successfully!");
+            System.out.println("     Delete Zone [" + zoneId + "] successfully!");
         } else {
-            System.out.println("[Error]: Zone ID [" + zoneId + "] not found!");
+            System.out.println("    [Error]: Zone ID [" + zoneId + "] not found!");
         }
     }
 
     public void updateZoneById() {
-        String zoneId = CheckZoneId.checkZoneId();
+        String zoneId = "   ➔" + CheckZoneId.checkZoneId();
         Zone z = this.findZoneById(zoneId);
 
         if (z != null) {
-            System.out.println("Current Zone Info: " + z);
+            System.out.println("    Current Zone Info: " + z);
 
             String newName = CheckZoneName.checkZoneName();
             String newDescription = CheckZoneDetails.checkZoneDetails();
@@ -96,21 +96,21 @@ public class ZoneManager2 {
             try {
                 z.setZoneName(newName);
                 z.setZoneDetails(newDescription);
-                System.out.println("-> Update Zone [" + zoneId + "] successfully!");
+                System.out.println("     Update Zone [" + zoneId + "] successfully!");
             } catch (IllegalArgumentException e) {
-                System.out.println("[Error]: Update failed! " + e.getMessage());
+                System.out.println("    [Error]: Update failed! " + e.getMessage());
             }
         } else {
-            System.out.println("[Error]: Zone ID [" + zoneId + "] not found!");
+            System.out.println("    [Error]: Zone ID [" + zoneId + "] not found!");
         }
     }
 
     public void displayList() {
         if (list.isEmpty()) {
-            System.out.println("Zone list is empty now! Add more zones.");
+            System.out.println("     [ERROR] Zone list is empty now! Add more Zone(s).");
             return;
         }
-        System.out.println("\n--- List of Zones ---");
+        System.out.println("                                        \n--- List of Zones ---");
         for (Zone z : this.list) {
             System.out.println(z);
         }
@@ -166,7 +166,7 @@ public class ZoneManager2 {
 
     public void displayRestrictedZonesOnly() {
         boolean found = false;
-        System.out.println("\n--- List of Restricted Zones ---");
+        System.out.println("\n                                          --- List of Restricted Zones ---");
         for (Zone z : this.list) {
             if (z.isAccessRestricted()) {
                 System.out.println(z);
