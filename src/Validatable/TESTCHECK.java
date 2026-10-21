@@ -9,15 +9,15 @@ public class TESTCHECK {
 
         System.out.println("=== TEST CHECK CODE V2 ===");
 
-//        // 1. Test cho WORKER (Prefix: WK)
-//        System.out.println("\n--- 1. Testing WORKER ---");
-//        String workerCode = CheckCode_v2.checkCode(pm, "WORKER");
-//        System.out.println("-> Result Code: " + workerCode);
-//
-//        // 2. Test cho SAFETYOFFICER (Prefix: SO)
-//        System.out.println("\n--- 2. Testing SAFETYOFFICER ---");
-//        String safetyOfficerCode = CheckCode_v2.checkCode(pm, "SAFETYOFFICER");
-//        System.out.println("-> Result Code: " + safetyOfficerCode);
+        // 1. Test cho WORKER (Prefix: WK)
+        System.out.println("\n--- 1. Testing WORKER ---");
+        String workerCode = CheckCode_v2.checkCode(pm, "WORKER");
+        System.out.println("-> Result Code: " + workerCode);
+
+        // 2. Test cho SAFETYOFFICER (Prefix: SO)
+        System.out.println("\n--- 2. Testing SAFETYOFFICER ---");
+        String safetyOfficerCode = CheckCode_v2.checkCode(pm, "SAFETYOFFICER");
+        System.out.println("-> Result Code: " + safetyOfficerCode);
         
          System.out.println("\n--- 3. Testing PersonId ---");
         String personId = CheckId_v2.checkId("Person");

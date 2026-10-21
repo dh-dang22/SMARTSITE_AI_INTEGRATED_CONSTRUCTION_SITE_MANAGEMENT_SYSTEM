@@ -9,15 +9,15 @@ public class CheckZoneId {
     // Kiểm tra Zone ID (dạng Zxxx hoặc RZxxx)
     public static String checkZoneId() {
         while (true) {
-            System.out.print("Enter Zone ID [Zxxx or RZxxx]: ");
+            System.out.print("Enter Zone ID [ZNxxxx ]: ");
             String id = sc.nextLine().trim();
 
             if (id.isEmpty()) {
                 System.out.println("[Error]: Zone ID cannot be empty! Please try again.");
                 continue;
             }
-            if (!id.matches("^(Z|RZ)\\d{3}$")) {
-                System.out.println("[Error]: Zone ID must follow format [Zxxx] or [RZxxx] (e.g., Z001, RZ001)! Please try again.");
+            if (!id.matches("^(ZN)\\d{4}$")) {
+                System.out.println("[Error]: Zone ID must follow format [ZNxxxx]  (e.g., Z0001)! Please try again.");
                 continue;
             }
             return id;
