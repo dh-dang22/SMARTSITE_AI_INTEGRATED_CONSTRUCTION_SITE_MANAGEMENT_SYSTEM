@@ -15,14 +15,23 @@ public class InputScanner {
     }
 
     public static String nextLine() {
-        try {
-            if (!scanner.hasNextLine()) {
-                return null;
+        while (true) {
+            try {
+                if (!scanner.hasNextLine()) {
+                    return null;
+                }
+                String input = scanner.nextLine();
+                String cleanInput = input.trim().replaceAll("\\s+", " ");
+
+                if (cleanInput.isEmpty()) {
+                    System.out.println("[Error]: Input cannot be empty! Please try again.");
+                    continue;
+                }
+                    
+                return cleanInput;
+            } catch (NoSuchElementException e) {
+                return null; 
             }
-            String input = scanner.nextLine();
-            return input.trim().replaceAll("\\s+", " ");
-        } catch (NoSuchElementException e) {
-            return null;
         }
     }
 }
