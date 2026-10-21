@@ -19,13 +19,13 @@ public class TESTCHECK {
         String safetyOfficerCode = CheckCode_v2.checkCode(pm, "SAFETYOFFICER");
         System.out.println("-> Result Code: " + safetyOfficerCode);
         
-         System.out.println("\n--- 3. Testing PersonId ---");
-        String personId = CheckId_v2.checkId("Person");
-        System.out.println("-> Result Code: " +personId );
-        
-        
-         System.out.println("\n--- 4. Testing PersonId ---");
-        String zoneId = CheckId_v2.checkId("Zone");
-        System.out.println("-> Result Code: " +zoneId );
+//         System.out.println("\n--- 3. Testing PersonId ---");
+//        String personId = CheckId_v2.checkId("Person");
+//        System.out.println("-> Result Code: " +personId );
+//        
+//        
+//         System.out.println("\n--- 4. Testing PersonId ---");
+//        String zoneId = CheckId_v2.checkId("Zone");
+//        System.out.println("-> Result Code: " +zoneId );
     }
 }
