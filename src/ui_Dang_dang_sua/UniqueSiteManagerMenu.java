@@ -1,6 +1,6 @@
     package ui_Dang_dang_sua;
     
-import Person.AddPerson;
+import Person.ConditionPerson;
 import java.util.Scanner;
 import Person.PersonManager;
 import Validatable.InputScanner;

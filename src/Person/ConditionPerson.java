@@ -9,10 +9,10 @@ import java.util.Scanner;
 import Validatable.InputScanner;
 
 
-public class AddPerson {
+public class ConditionPerson {
     private final PersonManager pm = PersonManager.getInstance();
 
-    public AddPerson() {
+    public ConditionPerson() {
     }
    
     public static String checkValid(Person p, PersonManager pm) {
@@ -53,7 +53,7 @@ public class AddPerson {
         }
     }
     }
-    // Trong AddPerson.java
+    // Trong ConditionPerson.java
 public Person inputPerson() {
     String role = chooseRole();
 

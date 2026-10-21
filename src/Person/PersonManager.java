@@ -60,7 +60,7 @@ public class PersonManager {
      
     public void addPersonFromInput() {
     try {
-        AddPerson input = new AddPerson();
+        ConditionPerson input = new ConditionPerson();
         Person person = input.inputPerson();
 
         if (person == null) {
