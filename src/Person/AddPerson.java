@@ -14,7 +14,26 @@ public class AddPerson {
 
     public AddPerson() {
     }
-    
+   
+    public static String checkValid(Person p, PersonManager pm) {
+    if (p == null) {
+        return "Person khong duoc null!";
+    }
+
+    if (!p.isValid()) {
+        return "Thong tin Person khong hop le!";
+    }
+
+    if (pm.findPersonByID(p.getId()) != null) {
+        return "ID da ton tai!";
+    }
+
+    if (pm.findPersonByCode(p.getCode()) != null) {
+        return "Code da ton tai!";
+    }
+
+    return null;
+}
     private String readRequired(String message) {
     while (true) {
         System.out.print(message);
@@ -28,90 +47,22 @@ public class AddPerson {
         if (value.isEmpty()) {
             System.out.println("Thong tin khong duoc de trong!");
         } else if (value.contains("|")) {
-            System.out.println("Thong tin khong duoc chua dau |");
+            System.out.println("Thong    tin khong duoc chua dau |");
         } else {
             return value;
         }
     }
-}
-
-public void addPersonFromInput() {
-    try {
-        String role = chooseRole();
-
-        if (role == null) {
-            return;
-        }
-
-        String id = readRequired("Nhap ID: ");
-        if (pm.findPersonByID(id) != null) {
-            System.out.println("ID da ton tai!");
-            return;
-        }
-
-        String name = readRequired("Nhap ho ten: ");
-        String code = readRequired("Nhap code dang nhap: ");
-
-        if (pm.findPersonByCode(code) != null) {
-            System.out.println("Code da ton tai!");
-            return;
-        }
-
-        Person person;
-        String status = "ACTIVE";
-
-        switch (role) {
-            case "WORKER":
-            case "CONTRACTOR":
-                String company = readRequired("Nhap cong ty: ");
-                String contract = readRequired("Nhap loai hop dong: ");
-
-                person = new Worker(
-                    id, name, code, role, status, company, contract
-                );
-                break;
-
-            case "VISITOR":
-                String purpose = readRequired("Nhap muc dich den: ");
-                String host = readRequired("Nhap nguoi tiep don: ");
-
-                person = new Visitor(
-                    id, name, code, role, status, purpose, host
-                );
-                break;
-
-            case "SAFETY_OFFICER":
-                String license = readRequired("Nhap giay phep: ");
-
-                person = new SafetyOfficer(
-                    id, name, code, role, status, 0, license
-                );
-                break;
-
-            case "SITE_MANAGER":
-                String department = readRequired("Nhap bo phan: ");
-
-                person = new SiteManager(
-                    id, name, code, role, status, department
-                );
-                break;
-
-            default:
-                return;
-        }
-
-        if (pm.addPerson(person)) {
-            System.out.println("Da them vao danh sach trong bo nho!");
-        } else {
-            System.out.println(
-                "Them that bai: du lieu khong hop le hoac ID/code trung."
-            );
-        }
-    } catch (NoSuchElementException e) {
-        System.out.println("Da dung nhap du lieu.");
     }
-}
+    // Trong AddPerson.java
+public Person inputPerson() {
+    String role = chooseRole();
 
+    if (role == null) {
+        return null; // Chọn hủy
+    }
+
+    return inputPerson(role); // Gọi hàm private bạn đã viết
+}
 private String chooseRole() {
     while (true) {
         System.out.println("\n--- CHON ROLE ---");
@@ -136,7 +87,62 @@ private String chooseRole() {
         }
     }
 }
+    
+private Person inputPerson(String role) {
+    if (role == null) {
+        throw new IllegalArgumentException("Role khong duoc null!");
+    }
 
+    String id = readRequired("Nhap ID: ");
+    String name = readRequired("Nhap ho ten: ");
+    String code = readRequired("Nhap code dang nhap: ");
+    String status = "ACTIVE";
 
+    switch (role) {
+        case "WORKER":
+        case "CONTRACTOR": {
+            String company = readRequired("Nhap cong ty: ");
+            String contract = readRequired("Nhap loai hop dong: ");
 
+            return new Worker(
+                id, name, code, role, status, company, contract
+            );
+        }
+
+        case "VISITOR": {
+            String purpose = readRequired("Nhap muc dich den: ");
+            String host = readRequired("Nhap nguoi tiep don: ");
+
+            return new Visitor(
+                id, name, code, role, status, purpose, host
+            );
+        }
+
+        case "SAFETY_OFFICER": {
+            String license = readRequired("Nhap giay phep: ");
+
+            return new SafetyOfficer(
+                id, name, code, role, status, 0, license
+            );
+        }
+
+        case "SITE_MANAGER": {
+            String department = readRequired("Nhap bo phan: ");
+
+            return new SiteManager(
+                id, name, code, role, status, department
+            );
+        }
+
+        default:
+            throw new IllegalArgumentException(
+                "Role khong hop le: " + role
+            );
+    }
 }
+}
+    
+    
+
+
+

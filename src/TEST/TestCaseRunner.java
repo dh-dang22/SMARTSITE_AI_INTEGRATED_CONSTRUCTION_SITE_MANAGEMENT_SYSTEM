@@ -1,4 +1,4 @@
-package smartsite;
+package TEST;
 
 import Person.Person;
 import Person.Visitor;

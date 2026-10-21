@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+import smartsite.CheckInput;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -40,7 +43,7 @@ public class PersonManager {
     // ----------------------------------------------------------------
     // Thêm người vào danh sách
     // ----------------------------------------------------------------
-    public boolean addPerson(Person p) {
+     public boolean addPerson(Person p) {
         if (p == null || p.getId() == null || p.getId().trim().isEmpty()) {
             return false;
         }
@@ -59,6 +62,27 @@ public class PersonManager {
         size++;
         return true;
     }
+     
+    public void addPersonFromInput() {
+    try {
+        AddPerson input = new AddPerson();
+        Person person = input.inputPerson();
+
+        if (person == null) {
+            System.out.println("Da huy them Person.");
+            return;
+        }
+
+        if (addPerson(person)) {
+            System.out.println("Da them Person vao bo nho!");
+        }
+    } catch (java.util.NoSuchElementException e) {
+        System.out.println("Da dung nhap du lieu.");
+    }
+    }
+    
+
+
 
     // ----------------------------------------------------------------
     // Tìm theo ID

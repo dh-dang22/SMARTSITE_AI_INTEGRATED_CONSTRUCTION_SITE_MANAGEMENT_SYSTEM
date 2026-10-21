@@ -55,7 +55,7 @@ public class UniqueSiteManagerMenu {
                        int n = CheckInput.readRange(sc,"    - Enter number of people you want to add [1-10]:", 1, 10, "Please enter the number in range 1-10!");
                         for (int i = 1; i<=n; i++){
                             AddPerson apM = new AddPerson();
-                            apM.addPersonFromInput();   
+                            pm.addPersonFromInput();   
                             Draft.clearConsoleIDE();
                         }
                         Draft.pause();
