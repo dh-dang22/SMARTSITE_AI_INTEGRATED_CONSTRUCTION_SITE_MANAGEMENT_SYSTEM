@@ -5,10 +5,10 @@ import java.util.Scanner;
 import Person.PersonManager;
 import Validatable.InputScanner;
 import Zone.ZoneManager2;
-
+//import Zone.ZoneManager2;
     
 public class UniqueSiteManagerMenu {
-    private final Scanner sc = InputScanner.getScanner();
+    private final Scanner sc2 = new Scanner(System.in);
    // AddPerson và UniqueSiteManagerMenu: lấy cùng danh sách
     private final PersonManager pm = PersonManager.getInstance();
 
@@ -37,7 +37,7 @@ public class UniqueSiteManagerMenu {
             int choice;
             try {
                 // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
-                choice = Integer.parseInt(sc.nextLine().trim());
+                choice = Integer.parseInt(sc2.nextLine().trim());
             } catch (NumberFormatException e) {
                 System.out.println("[!] Invalid choice! Please enter a number.");
                 Draft.pause();
@@ -52,8 +52,8 @@ public class UniqueSiteManagerMenu {
             } else {
                 switch(choice){
                     case (1): // add
-                       int n = InputScanner.readRange(sc,"    - Enter number of people you want to add [1-10]:", 1, 10, "Please enter the number in range 1-10!");
-                        for (int i = 1; i<=n; i++){
+                        int n = sc2.nextInt();
+                       for (int i = 1; i<=n; i++){
                             AddPerson apM = new AddPerson();
                             pm.addPersonFromInput();   
                             Draft.clearConsoleIDE();
@@ -66,7 +66,7 @@ public class UniqueSiteManagerMenu {
                         int findChoice = 1;
                         try {
                             // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
-                            choice = Integer.parseInt(sc.nextLine().trim());
+                            choice = Integer.parseInt(sc2.nextLine().trim());
                         } catch (NumberFormatException e) {
                             System.out.println("[!] Invalid choice! Please enter a number.");
                             Draft.pause();
@@ -147,11 +147,11 @@ public class UniqueSiteManagerMenu {
             System.out.println("");
             System.out.println("    [0] ➔ Back to general menu");
             System.out.println("");
-            System.out.println("    ➔ Please enter your action [0-7]: ");
+            System.out.print("    ➔ Please enter your action [0-7]: ");
             int choice;
             try {
                 // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
-                choice = Integer.parseInt(sc.nextLine().trim());
+                choice = Integer.parseInt(sc2.nextLine().trim());
             } catch (NumberFormatException e) {
                 System.out.println("[!] Invalid choice! Please enter a number.");
                 Draft.pause();
@@ -179,8 +179,7 @@ public class UniqueSiteManagerMenu {
                         Draft.clearConsoleIDE();
                         break;
                     case (3): //update
-                        System.out.print("    Enter your Zone ID: ");
-                        
+                        tempZone.updateZoneById();
                         break;
                     case (4): // delete
                         tempZone.deleteZoneById();
@@ -197,4 +196,12 @@ public class UniqueSiteManagerMenu {
         } //while
     }//display
     
+    
+    
+    
+    
+    
+//    public void displayAllIncident(){
+//        Incident.IncidentManager.displayIncidents();
+//    }//display
 }//class
