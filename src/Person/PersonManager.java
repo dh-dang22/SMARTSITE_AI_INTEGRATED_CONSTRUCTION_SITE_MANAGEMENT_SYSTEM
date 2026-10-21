@@ -5,9 +5,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
-import smartsite.CheckInput;
+import Validatable.InputScanner;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -158,21 +157,55 @@ public class PersonManager {
             System.out.println("Id has removed");
         }
     }
+        public void deletePersonFromInput() {
+         Scanner scanner = InputScanner.getScanner();
 
-    // ----------------------------------------------------------------
-    // Đăng nhập chỉ bằng code (không kiểm tra password)
-    // ----------------------------------------------------------------
-    public Person login(String code) {
-        if (code == null || code.trim().isEmpty()) return null;
+         System.out.print("Nhap ID nguoi can xoa: ");
 
-        for (int i = 0; i < size; i++) {
-            if (people[i].getCode().equalsIgnoreCase(code.trim()) && people[i].isActive()) {
-                return people[i];
-            }
-        }
-        return null;
+         if (!scanner.hasNextLine()) {
+             return;
+         }
+
+         String id = scanner.nextLine().trim();
+
+         if (id.isEmpty()) {
+             System.out.println("ID khong duoc de trong!");
+             return;
+         }
+
+         deleteByID(id);
+     }
+
+    //--------------------------
+        // Tìm theo ID
+    //--------------------
+        public void findPersonFromInput() {
+    Scanner scanner = InputScanner.getScanner();
+
+    System.out.print("Nhap ID nguoi can tim: ");
+
+    if (!scanner.hasNextLine()) {
+        return;
     }
 
+    String id = scanner.nextLine().trim();
+
+    if (id.isEmpty()) {
+        System.out.println("ID khong duoc de trong!");
+        return;
+    }
+
+    Person person = findPersonByID(id);
+
+    if (person == null) {
+        System.out.println("Khong tim thay nguoi co ID: " + id);
+        return;
+    }
+    
+
+    System.out.println("Thong tin nguoi can tim:");
+    System.out.println(person);
+}
     // ----------------------------------------------------------------
     // Hiển thị tất cả
     // ----------------------------------------------------------------

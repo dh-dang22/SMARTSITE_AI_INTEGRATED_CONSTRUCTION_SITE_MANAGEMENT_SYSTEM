@@ -6,8 +6,8 @@ import Person.Person;
 import Person.PersonManager;
 import Attendance.AttendanceManager;
 import java.io.IOException;
-import Validatable.CheckCode;
 import Validatable.CheckPassword;
+import Validatable.InputScanner;
 import static ui_Dang_dang_sua.Draft.clearConsoleIDE;
 import static ui_Dang_dang_sua.Draft.displayMenuGreeting;
 import static ui_Dang_dang_sua.Draft.displayMenuHeader;
@@ -44,7 +44,7 @@ public class LoginMenu {
             return;
         }
         Login login = new Login(pm, checker);
-        Scanner sc = new getScanner();
+        Scanner sc = InputScanner.getScanner();
         boolean running = true;
         while (running){
             displayMenuLine();//in gạch
@@ -56,22 +56,33 @@ public class LoginMenu {
             System.out.println("                            [!] NOTICE: Please enter your code and password below!!!");
             System.out.println("");
             // String code 
-            System.out.println( "         >>> Enter your code: ");
-            
-            System.out.println("\" [!] Code can not be empty!\"+Draft.BAS");
-            
-            
-         //   String password = CheckInput.checkEmpty(sc,, " [!] password can not be empty!");
-            System.out.println("         >>> Enter your password: ");
+            System.out.print("         >>> Enter your code: ");
+            if (!sc.hasNextLine()) return;
+            String code = sc.nextLine().trim();
+
+            /* if (!CheckPassword.checrekCode(code)) {
+            System.out.println("[!]Invalid code format");
+            continue;
+            }*/
+
+            System.out.print("         >>> Enter your password: ");
+            if (!sc.hasNextLine()) return;
+            String password = sc.nextLine();
+
+            /*if (password.isEmpty()) {
+            System.out.println("[!] Password is wrong");
+            continue;
+            }*/
             Person currentUser = login.login(code, password);
             
-            
             if (currentUser == null) {
-                System.out.println(Draft.RED+"                                [!] Invalid code or password, or account is inactive!"+Draft.BAS);
-                Draft.pause();
-                Draft.clearConsoleIDE();
-                return;
-            }
+            System.out.println(
+                "[!] Invalid code or password, or account is inactive!"
+            );
+            Draft.pause();
+            Draft.clearConsoleIDE();
+            continue;
+        }
 
             System.out.println(Draft.GRN+"\n                                               [+] Login successful!"+Draft.BAS);
             System.out.println("                                        [+] Welcome, " +Draft.BLU+ currentUser.getFullName() +Draft.BAS+ " [" + currentUser.getRole() + "]");

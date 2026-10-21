@@ -7,6 +7,10 @@ public class InputScanner {
 
     private static final Scanner scanner = new Scanner(System.in);
 
+    public static int readRange(Scanner sc, String _____Enter_number_of_people_you_want_to_a, int i, int i0, String please_enter_the_number_in_range_110) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     private InputScanner() {
     }
 

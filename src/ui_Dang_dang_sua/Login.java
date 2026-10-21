@@ -33,6 +33,12 @@ public class Login {
         }
 
         // Hàm này đã kiểm tra code và trạng thái ACTIVE.
-        return pm.login(code);
+       Person person = pm.findPersonByCode(code);
+
+        if (person == null || !person.isActive()) {
+            return null;
+        }
+
+        return person;
     }
 }

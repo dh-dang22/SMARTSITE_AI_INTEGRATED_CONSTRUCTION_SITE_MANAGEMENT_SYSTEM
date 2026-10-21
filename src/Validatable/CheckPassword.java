@@ -23,6 +23,9 @@ public class CheckPassword {
     }
     // Nạp dữ liệu từ file accounts.txt
     // Format mỗi dòng: code|password
+    public static boolean checkCode(String code) {
+    return code != null && code.matches("[a-zA-Z0-9@#]+");
+    }
     public void loadFromFile(String fileName) throws IOException {
         try (BufferedReader reader = Files.newBufferedReader(
                 Paths.get(fileName), StandardCharsets.UTF_8)) {
