@@ -1,4 +1,4 @@
-package IncidentValid;
+package Validatable;
 
 import java.util.Scanner;
 

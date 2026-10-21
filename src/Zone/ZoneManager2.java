@@ -1,9 +1,9 @@
 package Zone;
 
-import ZoneValid.CheckZoneId;
-import ZoneValid.CheckZoneName;
-import ZoneValid.CheckZoneDetails;
-import ZoneValid.CheckPinCode;
+import Validatable.CheckZoneId;
+import Validatable.CheckZoneName;
+import Validatable.CheckZoneDetails;
+import Validatable.CheckPinCode;
 
 import java.util.ArrayList;
 import java.util.Scanner;

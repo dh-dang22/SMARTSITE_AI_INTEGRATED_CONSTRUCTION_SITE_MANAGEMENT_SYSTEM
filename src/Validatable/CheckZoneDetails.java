@@ -1,4 +1,4 @@
-package ZoneValid;
+package Validatable;
 
 import java.util.Scanner;
 

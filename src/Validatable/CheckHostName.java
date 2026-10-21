@@ -1,4 +1,4 @@
-package PersonValid;
+package Validatable;
 
 import java.util.Scanner;
 
