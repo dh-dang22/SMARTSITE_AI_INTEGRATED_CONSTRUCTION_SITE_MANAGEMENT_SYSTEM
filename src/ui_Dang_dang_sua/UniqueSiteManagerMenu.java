@@ -4,6 +4,7 @@ import Person.ConditionPerson;
 import java.util.Scanner;
 import Person.PersonManager;
 import Validatable.InputScanner;
+import Validatable.InputScanner;
 import Zone.ZoneManager2;
 //import Zone.ZoneManager2;
     

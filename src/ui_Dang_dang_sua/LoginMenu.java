@@ -8,6 +8,7 @@ import Attendance.AttendanceManager;
 import java.io.IOException;
 import Validatable.CheckPassword;
 import Validatable.InputScanner;
+import Validatable.InputScanner;
 import static ui_Dang_dang_sua.Draft.clearConsoleIDE;
 import static ui_Dang_dang_sua.Draft.displayMenuGreeting;
 import static ui_Dang_dang_sua.Draft.displayMenuHeader;
@@ -77,9 +78,33 @@ public class LoginMenu {
             System.out.println("[!] Password is wrong");
             continue;
             }*/
+            System.out.print("         >>> Enter your code: ");
+            if (!sc.hasNextLine()) return;
+            String code = sc.nextLine().trim();
+
+            /* if (!CheckPassword.checrekCode(code)) {
+            System.out.println("[!]Invalid code format");
+            continue;
+            }*/
+
+            System.out.print("         >>> Enter your password: ");
+            if (!sc.hasNextLine()) return;
+            String password = sc.nextLine();
+
+            /*if (password.isEmpty()) {
+            System.out.println("[!] Password is wrong");
+            continue;
+            }*/
             Person currentUser = login.login(code, password);
             
             if (currentUser == null) {
+            System.out.println(
+                "[!] Invalid code or password, or account is inactive!"
+            );
+            Draft.pause();
+            Draft.clearConsoleIDE();
+            continue;
+        }
             System.out.println(
                 "[!] Invalid code or password, or account is inactive!"
             );

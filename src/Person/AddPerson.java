@@ -6,7 +6,7 @@ package Person;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import Validatable.CheckInput;
+import Validatable.InputScanner;
 
 
 public class AddPerson {
