@@ -18,7 +18,7 @@ public class AddPerson {
     private String readRequired(String message) {
     while (true) {
         System.out.print(message);
-        Scanner sc = CheckInput().getScanner();
+        Scanner sc = InputScanner.getScanner();
         if (!sc.hasNextLine()) {
             throw new NoSuchElementException();
         }
