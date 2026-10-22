@@ -25,21 +25,13 @@ public class UniqueSiteManagerMenu {
             Draft.displayMenuLine();
             System.out.println("                                         Human Resource Management Menu ");
             System.out.println("");
-<<<<<<< Updated upstream
             System.out.println("    [1]  Add Person(s) to system");
             System.out.println("    [2]  Find a Person information");
             System.out.println("    [3]  Update a Person information");
             System.out.println("    [4]  Delete a Person");
             System.out.println("    [5]  Display all people information"); //
-=======
-            System.out.println("    [1] ➔ Add Person(s) to system");
-            System.out.println("    [2] ➔ Find a Person information");
-            System.out.println("    [3] ➔ Update a Person information");
-            System.out.println("    [4] ➔ Delete a Person");
-            System.out.println("    [6] Sort people by name");
-            System.out.println("    [7] Display role descriptions");
-            System.out.println("    [5] ➔ Display all people information"); //
->>>>>>> Stashed changes
+            System.out.println("    [6]  Sort people by name");
+            System.out.println("    [7]  Display role descriptions");
             System.out.println("");
             System.out.println("    [0]  Back to general menu");
             System.out.println("");
@@ -63,49 +55,6 @@ public class UniqueSiteManagerMenu {
             } else {
                 switch(choice){
                     case (1): // add
-<<<<<<< Updated upstream
-                        int n = sc2.nextInt();
-                        System.out.println("     Enter number of Person(s) you want to add: ");
-                       for (int i = 1; i<=n; i++){
-                            PersonManager apM = new PersonManager();
-                            apM.addPersonFromInput();
-                            Draft.clearConsoleIDE();
-                        }
-                        Draft.pause();
-                        Draft.clearConsoleIDE();
-                    case (2): // find
-                        System.out.println("    a. Search by ID");
-                        System.out.println("    b. Search by code");
-                        System.out.println("    - Enter the methods you want to use to search[1-2]: ");
-                        int findChoice = 1;
-                        try {
-                            // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
-                            choice = Integer.parseInt(sc2.nextLine().trim());
-                        } catch (NumberFormatException e) {
-                            System.out.println("[!] Invalid choice! Please enter a number.");
-                            Draft.pause();
-                            continue;
-                        }
-                        switch (findChoice) {
-                            case 1:
-                                System.out.println("    - Enter the Person ID you want to search: ");
-                                String tempID = "";
-                                
-                                PersonManager findID = new PersonManager();
-                                findID.findPersonByID(tempID);
-                                break;
-                            case 2:
-                                System.out.println("    - Enter the Person ID you want to search: ");
-                                String tempCode = "";
-                                
-                                PersonManager findCode = new PersonManager();
-                                findCode.findPersonByCode(tempCode);
-                                break;                            
-                            default:
-                                System.out.println("    - ERROR!!! ");
-                                break;
-                        }
-=======
                             int n = InputScanner.readRange(
         sc2,
         "Nhap so luong Person can them [1-100]: ",
@@ -125,7 +74,6 @@ public class UniqueSiteManagerMenu {
     break;
                     case 2:
                         pm.findPersonFromInput();
->>>>>>> Stashed changes
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
@@ -168,21 +116,11 @@ public class UniqueSiteManagerMenu {
             Draft.displayMenuLine();
             System.out.println("                                                Zone Management Menu ");
             System.out.println("");
-<<<<<<< Updated upstream
             System.out.println("    [1] Add Zone(s) to system");
             System.out.println("    [2] Find a Zone information");
             System.out.println("    [3] Update a Zone information");
             System.out.println("    [4] Delete a Zone");
             System.out.println("    [5] Display all Zone information"); //
-=======
-            System.out.println("    [1]  Add Zone(s) to system");
-            System.out.println("    [2]  Find a Zone information");
-            System.out.println("    [3]  Update a Zone information");
-            System.out.println("    [4]  Delete a Zone");
-            System.out.println("    [5]  Display all Zone information"); //
-            System.out.println("    [6]  Add restricted zone(s)");
-            System.out.println("    [7]  Display restricted zones");
->>>>>>> Stashed changes
             System.out.println("");
             System.out.println("    [0] ➔ Back to general menu");
             System.out.println("");

@@ -2,7 +2,6 @@ package Incident;
 
 import Zone.RestrictedZone;
 import Zone.Zone;
-<<<<<<< Updated upstream
 import Zone.ZoneManager2;
 
 import Validatable.CheckZoneId;
@@ -12,10 +11,6 @@ import Validatable.CheckAssigneeId;
 import Validatable.CheckDetails;
 import Validatable.CheckIncidentStatus;
 
-=======
-import Zone.ZoneManager2; 
-import Validatable.InputScanner;
->>>>>>> Stashed changes
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -31,7 +26,6 @@ public class IncidentManager {
         this.incidents = new ArrayList<>();
     }
 
-<<<<<<< Updated upstream
     public void addIncident(ZoneManager2 zoneManager) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Input number of incidents to add: ");
@@ -46,37 +40,13 @@ public class IncidentManager {
             System.out.println("[Error]: Invalid number input!");
             return;
         }
-=======
-   
-    public void addIncident(Scanner sc, ZoneManager2 zoneManager) {
-        int n = InputScanner.readRange(
-            sc, 
-            "Input number of incidents to add: ", 
-            1, 
-            100, 
-            "The number must be greater than 0!"
-        );
-
-        if (n == -1) return; // EOF check
->>>>>>> Stashed changes
 
         for (int i = 1; i <= n; i++) {
             System.out.println("\n--- Incident [" + i + "] ---");
 
             String incidentId;
             while (true) {
-<<<<<<< Updated upstream
                 incidentId = CheckIncidentId.checkIncidentId();
-=======
-                incidentId = InputScanner.readPattern(
-                    sc, 
-                    "Enter Incident ID [ICxxx]: ", 
-                    "^IC\\d{3}$", 
-                    "Incident ID must follow format [ICxxx]!"
-                );
-                if (incidentId.isEmpty()) return;
-
->>>>>>> Stashed changes
                 if (searchIncidentById(incidentId) != null) {
                     System.out.println("[Error]: Incident ID [" + incidentId + "] already exists! Please try again.");
                     continue;
@@ -86,13 +56,7 @@ public class IncidentManager {
 
             Zone selectedZone = null;
             while (true) {
-<<<<<<< Updated upstream
                 String zoneId = CheckZoneId.checkZoneId();
-=======
-                String zoneId = InputScanner.readPattern(sc, "Enter Zone ID for this incident [ZNxxxx]: ", "^ZN\\d{4}$",  "Zone ID must follow format [ZNxxxx]!");
-                if (zoneId.isEmpty()) return;
-
->>>>>>> Stashed changes
                 selectedZone = zoneManager.findZoneById(zoneId);
 
                 if (selectedZone == null) {
@@ -102,28 +66,11 @@ public class IncidentManager {
                 break;
             }
 
-<<<<<<< Updated upstream
             String reportId = CheckReportId.checkReportId();
             String assigneeId = CheckAssigneeId.checkAssigneeId();
             String description = CheckDetails.checkDetails();
             String status = CheckIncidentStatus.checkIncidentStatus();
 
-=======
-            // 3. Nhập Report ID, Assignee ID, Description, Status
-            String reportId = InputScanner.checkEmpty(sc, "Enter Report ID: ", "Report ID can not be empty!");
-            if (reportId.isEmpty()) return;
-
-            String assigneeId = InputScanner.checkEmpty(sc, "Enter Assignee ID: ", "Assignee ID can not be empty!");
-            if (assigneeId.isEmpty()) return;
-
-            String description = InputScanner.checkEmpty(sc, "Enter Description: ", "Description can not be empty!");
-            if (description.isEmpty()) return;
-
-            String status = InputScanner.checkEmpty(sc, "Enter Status (e.g. OPEN, IN_PROGRESS, RESOLVED): ", "Status can not be empty!");
-            if (status.isEmpty()) return;
-
-            // Tự động lấy thời gian hiện tại
->>>>>>> Stashed changes
             String currentDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
             try {
@@ -237,5 +184,9 @@ public class IncidentManager {
             }
         }
         return result;
+    }
+
+    public void addIncident(Scanner sc, ZoneManager2 ZONES) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

@@ -27,7 +27,7 @@ public class Draft {
     
     //ngưng màn hình đến khi ấn Enter
     public static void pause() {
-    System.out.println("\nPress [ENTER] to continue...");
+    System.out.println("                                                                                        \nPress [ENTER] to continue...");
 
     Scanner scanner = InputScanner.getScanner();
     if (scanner.hasNextLine()) {
