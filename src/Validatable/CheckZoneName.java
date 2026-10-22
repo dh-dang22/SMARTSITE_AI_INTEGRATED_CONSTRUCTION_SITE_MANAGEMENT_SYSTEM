@@ -21,7 +21,7 @@ public class CheckZoneName {
             }
 
             // 3. Regex chỉ cho phép chữ cái (tiếng Việt & Anh) và khoảng trắng (không chứa số, không chứa ký tự đặc biệt) nhờ AI về regex tiếng việt
-            if (!zoneName.matches("^[a-zA-ZÀ-ỹ\\s]+$")) {
+            if (!zoneName.matches("^(?!(?:.*\\d){4})[a-zA-Z0-9\\s]+$")) {// cho phep nhap toi da 3 so 
                 System.out.println("[Error]: Zone Name must contain letters only (no numbers or special characters)! Please try again.");
                 continue;
             }

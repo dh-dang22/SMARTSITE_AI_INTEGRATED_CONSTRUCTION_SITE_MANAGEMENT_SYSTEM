@@ -18,7 +18,7 @@ public class CheckIncidentStatus {
                 continue;
             }
 
-            if (!status.matches("^[a-zA-Z0-9À-ỹ\\s_\\-]+$")) {
+            if (!status.matches("^[a-zA-Z0-9\\s_\\-]+$")) {
                 System.out.println("[Error]: Incident Status must not contain special characters! Please try again.");
                 continue;
             }

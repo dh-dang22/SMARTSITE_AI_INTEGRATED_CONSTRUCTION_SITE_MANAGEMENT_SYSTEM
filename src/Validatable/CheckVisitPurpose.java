@@ -15,7 +15,7 @@ public class CheckVisitPurpose {
                 System.out.println("[Error]: Visit Purpose length must be between 1 and 100 characters! Please try again.");
                 continue;
             }
-            if (!visitPurpose.matches("^[a-zA-Z0-9À-ỹ\\s]+$")) {
+            if (!visitPurpose.matches("^[a-zA-Z0-9\\s]+$")) {
                 System.out.println("[Error]: Visit Purpose must not contain special characters! Please try again.");
                 continue;
             }

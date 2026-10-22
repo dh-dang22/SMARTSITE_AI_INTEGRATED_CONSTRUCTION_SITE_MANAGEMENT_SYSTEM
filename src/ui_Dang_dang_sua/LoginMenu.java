@@ -45,8 +45,7 @@ public class LoginMenu {
             return;
         }
         Login login = new Login(pm, checker);
-
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = InputScanner.getScanner();
         boolean running = true;
         while (running){
             displayMenuLine();//in gạch
