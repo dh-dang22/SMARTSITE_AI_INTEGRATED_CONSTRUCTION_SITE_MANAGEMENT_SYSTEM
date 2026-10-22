@@ -211,13 +211,7 @@ public class PersonManager {
 
     // ----------------------------------------------------------------
     // BUG-07: Đọc và parse Person.txt thành các Person object
-    //
-    // Format từng dòng trong Person.txt:
-    //   WORKER        → WORKER|ID|FullName|Code|Status|CompanyName|ContractType
-    //   CONTRACTOR    → CONTRACTOR|ID|FullName|Code|Status|CompanyName|ContractType
-    //   VISITOR       → VISITOR|ID|FullName|Code|Status|VisitPurpose|HostName
-    //   SAFETY_OFFICER→ SAFETY_OFFICER|ID|FullName|Code|Status|License
-    //   SITE_MANAGER  → SITE_MANAGER|ID|FullName|Code|Status|Department
+    
     // ----------------------------------------------------------------
     public void loadFromFile(String fileName) throws IOException {
         try (BufferedReader reader = Files.newBufferedReader(
