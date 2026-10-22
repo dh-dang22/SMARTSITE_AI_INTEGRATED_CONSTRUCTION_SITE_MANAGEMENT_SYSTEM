@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class CheckPinCode {
 
-    private static final Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = InputScanner.getScanner();
 
     public static String checkPinCode() {
         while (true) {

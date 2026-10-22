@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import Zone.Zone;
+import Zone.RestrictedZone;
 import Zone.ZoneManager2;
 
 /**
@@ -96,32 +97,25 @@ public class AttendanceManager {
 
     zm.displayList();
 
-   // Scanner sc = CheckInput.getScanner();
-    //String zoneId = CheckInput.readPattern(
-        //sc,
-      //  "Nhap Zone ID [Zxxx/RZxxx]: "
-     //   "^(Z|RZ)\\d{3}$",
-       // "Zone ID khong dung dinh dang!"
- //   );
-
- /* if (zoneId.isEmpty()) {
- return; // Het dau vao
+    java.util.Scanner sc = Validatable.InputScanner.getScanner();
+    System.out.print("Enter Zone ID: ");
+    if (!sc.hasNextLine()) return;
+    Zone zone = zm.findZoneById(sc.nextLine().trim());
+    if (zone == null) {
+        System.out.println("Zone not found.");
+        return;
+    }
+    if (zone instanceof RestrictedZone) {
+        System.out.print("Enter zone PIN: ");
+        if (!sc.hasNextLine()) return;
+        if (!((RestrictedZone) zone).getPinCode().equals(sc.nextLine().trim())) {
+            System.out.println("Incorrect PIN.");
+            return;
+        }
+    }
+    System.out.println(checkIn(currentUser, zone) ? "Check-in successful." : "Check-in failed.");
  }
- 
- Zone zone = zm.findZoneById(zoneId);
- 
- if (zone == null) {
- System.out.println("Khong tim thay khu vuc!");
- return;
- }
- 
- if (checkIn(currentUser, zone)) {
- System.out.println("Check-in thanh cong tai " + zone.getZoneName());
- } else {
- System.out.println("Check-in that bai!");
- }
- }  */  
- /* public void checkOutFromInput(Person currentUser) {
+ public void checkOutFromInput(Person currentUser) {
  if (currentUser == null
  || currentUser.getId() == null
  || currentUser.getId().trim().isEmpty()) {
@@ -180,6 +174,5 @@ public class AttendanceManager {
  ));
  System.out.println("So phut   : " + record.calculateDurationMinutes());
  }
- */
-}
+
 }

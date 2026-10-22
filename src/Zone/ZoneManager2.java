@@ -17,8 +17,13 @@ public class ZoneManager2 {
     }
 
     public void addZone() {
+<<<<<<< Updated upstream
         Scanner sc = new Scanner(System.in);
         System.out.print("    ➔ Input the number of Zone(s) you want to add: ");
+=======
+        Scanner sc = Validatable.InputScanner.getScanner();
+        System.out.print("Input the number of zones needed to add: ");
+>>>>>>> Stashed changes
         int n;
         try {
             n = Integer.parseInt(sc.nextLine().trim());
@@ -117,7 +122,7 @@ public class ZoneManager2 {
     }
 
     public void addRestrictedZone() {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = Validatable.InputScanner.getScanner();
         System.out.print("Input the number of restricted zones needed to add: ");
         int n;
         try {

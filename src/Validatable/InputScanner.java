@@ -59,4 +59,17 @@ public class InputScanner {
             }
         }
     }
+    public static String readPattern(Scanner sc, String message, String pattern, String error) {
+        while (true) {
+            System.out.print(message);
+            if (!sc.hasNextLine()) return "";
+            String value = sc.nextLine().trim();
+            if (value.matches(pattern)) return value;
+            System.out.println(error);
+        }
+    }
+
+    public static String checkEmpty(Scanner sc, String message, String error) {
+        return readPattern(sc, message, ".*\\S.*", error);
+    }
 }
