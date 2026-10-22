@@ -17,7 +17,7 @@ public class CheckZoneId {
                 continue;
             }
             if (!id.matches("^(ZN)\\d{4}$")) {
-                System.out.println("[Error]: Zone ID must follow format [ZNxxxx]  (e.g., Z0001)! Please try again.");
+                System.out.println("[Error]: Zone ID must follow format [ZNxxxx]  (e.g., ZN0001)! Please try again.");
                 continue;
             }
             return id;
