@@ -1,7 +1,9 @@
     package ui_Dang_dang_sua;
     
+import Person.ConditionPerson;
 import java.util.Scanner;
 import Person.PersonManager;
+import Validatable.InputScanner;
 import Validatable.InputScanner;
 import Zone.ZoneManager2;
 //import Zone.ZoneManager2;
@@ -103,10 +105,25 @@ public class UniqueSiteManagerMenu {
             }
         } //while
     }//display
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public void displayZoneManagementMenu(){
-        ZoneManager2 tempZone = MenuSession.ZONES;
-        Scanner tempSC = InputScanner.getScanner();
+        ZoneManager2 tempZone = new ZoneManager2();
+        Scanner tempSC = new Scanner(System.in);
         boolean running = true;
         while (running){
             Draft.displayMenuLine();
@@ -116,11 +133,11 @@ public class UniqueSiteManagerMenu {
             Draft.displayMenuLine();
             System.out.println("                                                Zone Management Menu ");
             System.out.println("");
-            System.out.println("    [1] Add Zone(s) to system");
-            System.out.println("    [2] Find a Zone information");
-            System.out.println("    [3] Update a Zone information");
-            System.out.println("    [4] Delete a Zone");
-            System.out.println("    [5] Display all Zone information"); //
+            System.out.println("    [1] ➔ Add Zone(s) to system");
+            System.out.println("    [2] ➔ Find a Zone information");
+            System.out.println("    [3] ➔ Update a Zone information");
+            System.out.println("    [4] ➔ Delete a Zone");
+            System.out.println("    [5] ➔ Display all Zone information"); //
             System.out.println("");
             System.out.println("    [0] ➔ Back to general menu");
             System.out.println("");
@@ -128,7 +145,6 @@ public class UniqueSiteManagerMenu {
             int choice;
             try {
                 // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
-                if (!sc2.hasNextLine()) return;
                 choice = Integer.parseInt(sc2.nextLine().trim());
             } catch (NumberFormatException e) {
                 System.out.println("[!] Invalid choice! Please enter a number.");
@@ -138,20 +154,12 @@ public class UniqueSiteManagerMenu {
 
             if (choice == 0) {                          // Thoát menu
                 running = false;
-                System.out.println("                                The system is backing to general menu ...");
+                System.out.println("The system is backing to general menu ...");
                 Draft.pause();
                 Draft.clearConsoleIDE();
-                return;
             } else {
                 switch(choice){
-                    case 6:
-                        tempZone.addRestrictedZone();
-                        break;
-                    case 7:
-                        tempZone.displayRestrictedZonesOnly();
-                        break;
                     case (1): // add
-                        if (!sc2.hasNextLine()) return;
                         tempZone.addZone();   
                         break;
                     case (2): // find

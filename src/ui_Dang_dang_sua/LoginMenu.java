@@ -8,7 +8,6 @@ import Attendance.AttendanceManager;
 import java.io.IOException;
 import Validatable.CheckPassword;
 import Validatable.InputScanner;
-import Validatable.InputScanner;
 import static ui_Dang_dang_sua.Draft.clearConsoleIDE;
 import static ui_Dang_dang_sua.Draft.displayMenuGreeting;
 import static ui_Dang_dang_sua.Draft.displayMenuHeader;
@@ -83,11 +82,6 @@ public class LoginMenu {
                 Draft.pause();
                 continue;
             }
-
-            System.out.println(
-                Draft.GRN + "\n[+] Login successful!" + Draft.BAS
-            );
-
             System.out.println(Draft.GRN+"\n                                               [+] Login successful!"+Draft.BAS);
             System.out.println("                                        [+] Welcome, " +Draft.BLU+ currentUser.getFullName() +Draft.BAS+ " [" + currentUser.getRole() + "]");
             System.out.println("");
