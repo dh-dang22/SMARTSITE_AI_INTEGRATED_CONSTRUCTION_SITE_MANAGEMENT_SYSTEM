@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class CheckZoneDetails {
 
-    private static final Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = InputScanner.getScanner();
 
     public static String checkZoneDetails() {
         while (true) {

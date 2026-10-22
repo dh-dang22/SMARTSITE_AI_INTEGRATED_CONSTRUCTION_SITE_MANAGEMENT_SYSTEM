@@ -185,4 +185,8 @@ public class IncidentManager {
         }
         return result;
     }
+
+    public void addIncident(Scanner sc, ZoneManager2 ZONES) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

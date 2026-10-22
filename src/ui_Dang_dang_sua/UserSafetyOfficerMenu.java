@@ -10,28 +10,17 @@ public class UserSafetyOfficerMenu extends MenuUserLv00{
         System.out.println("    [2] ➔ Check-in");
         System.out.println("    [3] ➔ Check-out");
         System.out.println("    [4] ➔ Display History Attendance");
-        System.out.println("    [5] ➔ Display unique function");
+        System.out.println("    [5] ➔ Manage incident reports");
     }
     
     @Override
     public void chooseOption(int choice){
+        if (handleCommonOption(choice)) return;
         switch (choice){
             case (0):
                 break;
-            case (1):
-                Draft.functionIsNotCompletedYet();
-                break;
-            case (2):
-                Draft.functionIsNotCompletedYet();
-                break;
-            case (3):
-                Draft.functionIsNotCompletedYet();
-                break;
-            case (4):
-                Draft.functionIsNotCompletedYet();
-                break;
             case (5):
-                Draft.functionIsNotCompletedYet();
+                new IncidentMenu().display();
                 break;
             default:
                 Draft.functionIsNotCompletedYet();

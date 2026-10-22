@@ -19,11 +19,12 @@ public class LoginMenu {
     private AttendanceManager am;
     private final CheckPassword checker = new CheckPassword();
     private boolean loadPeople;
+    private static boolean peopleLoaded;
 
     // Constructor mặc định tự khởi tạo Manager nếu chưa có
     public LoginMenu() {
         this.pm = PersonManager.getInstance(); 
-        this.am = new AttendanceManager();
+        this.am = MenuSession.ATTENDANCE;
         this.loadPeople = true;
     }
 
@@ -35,8 +36,9 @@ public class LoginMenu {
     public void displayLoginMenu() {
         // Đọc dữ liệu trước khi nhận thông tin đăng nhập.
         try {
-            if (loadPeople) {
+            if (loadPeople && !peopleLoaded) {
                 pm.loadFromFile("data/Person.txt");
+                peopleLoaded = true;
                 loadPeople = false;
             }
             checker.loadFromFile("data/accounts.txt");
@@ -74,40 +76,17 @@ public class LoginMenu {
             System.out.println("[!] Password is wrong");
             continue;
             }*/
-            System.out.print("         >>> Enter your code: ");
-            if (!sc.hasNextLine()) return;
-            String code = sc.nextLine().trim();
-
-            /* if (!CheckPassword.checrekCode(code)) {
-            System.out.println("[!]Invalid code format");
-            continue;
-            }*/
-
-            System.out.print("         >>> Enter your password: ");
-            if (!sc.hasNextLine()) return;
-            String password = sc.nextLine();
-
-            /*if (password.isEmpty()) {
-            System.out.println("[!] Password is wrong");
-            continue;
-            }*/
             Person currentUser = login.login(code, password);
-            
-            if (currentUser == null) {
+
+              if (currentUser == null) {
+                System.out.println("Dang nhap that bai!");
+                Draft.pause();
+                continue;
+            }
+
             System.out.println(
-                "[!] Invalid code or password, or account is inactive!"
+                Draft.GRN + "\n[+] Login successful!" + Draft.BAS
             );
-            Draft.pause();
-            Draft.clearConsoleIDE();
-            continue;
-        }
-            System.out.println(
-                "[!] Invalid code or password, or account is inactive!"
-            );
-            Draft.pause();
-            Draft.clearConsoleIDE();
-            continue;
-        }
 
             System.out.println(Draft.GRN+"\n                                               [+] Login successful!"+Draft.BAS);
             System.out.println("                                        [+] Welcome, " +Draft.BLU+ currentUser.getFullName() +Draft.BAS+ " [" + currentUser.getRole() + "]");

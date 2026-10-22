@@ -6,11 +6,11 @@ public class TempMainMenu {
 //        WelcomeMenu ht = new WelcomeMenu();
 //        ht.displayWelcomeMenu();
         
-//        UniqueSiteManagerMenu ht2 = new UniqueSiteManagerMenu();
-//        ht2.displayHumanResourceManagementMenu();
-
         UniqueSiteManagerMenu ht2 = new UniqueSiteManagerMenu();
-        ht2.displayZoneManagementMenu();
+       ht2.displayHumanResourceManagementMenu();
+
+/*  UniqueSiteManagerMenu ht2 = new UniqueSiteManagerMenu();
+ht2.displayZoneManagementMenu();*/
 
     }
 }

@@ -19,7 +19,7 @@ public abstract class MenuUserLv00 {
         this.pm = pm;
         this.am = am;
 
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = Validatable.InputScanner.getScanner();
         boolean running = true;
 
         while (running) {
@@ -32,6 +32,7 @@ public abstract class MenuUserLv00 {
             int choice;
             try {
                 // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
+                if (!sc.hasNextLine()) return;
                 choice = Integer.parseInt(sc.nextLine().trim());
             } catch (NumberFormatException e) {
                 System.out.println(Draft.RED + "                                        Please enter a valid number!" + Draft.BAS);
@@ -62,6 +63,19 @@ public abstract class MenuUserLv00 {
         System.out.println("                                                " + userRole + " Menu ");
         System.out.println("");
         
+    }
+
+    protected boolean handleCommonOption(int choice) {
+        switch (choice) {
+            case 1: System.out.println(currentUser); break;
+            case 2: am.checkInFromInput(currentUser, MenuSession.ZONES); break;
+            case 3: am.checkOutFromInput(currentUser); break;
+            case 4: am.displayHistory(currentUser.getId()); break;
+            default: return false;
+        }
+        Draft.pause();
+        Draft.clearConsoleIDE();
+        return true;
     }
 
      abstract void displayOption();

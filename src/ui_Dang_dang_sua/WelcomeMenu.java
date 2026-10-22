@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class WelcomeMenu {
 
     public void displayWelcomeMenu(){
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = Validatable.InputScanner.getScanner();
         boolean running = true;
         while (running) {
             Draft.displayMenuLine();//in gạch
@@ -21,6 +21,7 @@ public class WelcomeMenu {
             //nhập và kiểm tra phải số không
             int choice;
             try {
+                if (!sc.hasNextLine()) return;
                 choice = Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
                 // Nếu nhập chữ hoặc ký tự, bắt lỗi ở đây
@@ -38,7 +39,8 @@ public class WelcomeMenu {
                     menu.displayLoginMenu();
                     break;
                 case (2):
-                    Draft.functionIsNotCompletedYet();
+                    MenuSession.ZONES.displayList();
+                    Draft.pause();
                     break;
                 case (3):
                     //turnOff();

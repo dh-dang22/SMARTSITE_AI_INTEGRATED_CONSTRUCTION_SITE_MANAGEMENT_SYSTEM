@@ -12,20 +12,9 @@ public class UserContractorMenu extends MenuUserLv00{
     
     @Override
     public void chooseOption(int choice){
+        if (handleCommonOption(choice)) return;
         switch (choice){
             case (0):
-                break;
-            case (1):
-                Draft.functionIsNotCompletedYet();
-                break;
-            case (2):
-                Draft.functionIsNotCompletedYet();
-                break;
-            case (3):
-                Draft.functionIsNotCompletedYet();
-                break;
-            case (4):
-                Draft.functionIsNotCompletedYet();
                 break;
             default:
                 Draft.functionIsNotCompletedYet();

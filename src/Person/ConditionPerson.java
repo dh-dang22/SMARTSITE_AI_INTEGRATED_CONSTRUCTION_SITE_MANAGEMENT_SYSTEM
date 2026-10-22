@@ -99,15 +99,23 @@ private Person inputPerson(String role) {
     String status = "ACTIVE";
 
     switch (role) {
-        case "WORKER":
-        case "CONTRACTOR": {
-            String company = readRequired("Nhap cong ty: ");
-            String contract = readRequired("Nhap loai hop dong: ");
+        case "WORKER": {
+    String company = readRequired("Nhap cong ty: ");
+    String contract = readRequired("Nhap loai hop dong: ");
 
-            return new Worker(
-                id, name, code, role, status, company, contract
-            );
-        }
+        return new Worker(
+            id, name, code, role, status, company, contract
+        );
+    }
+
+    case "CONTRACTOR": {
+        String contactPerson = readRequired("Nhap nguoi lien he: ");
+        String contractStatus = readRequired("Nhap trang thai hop dong: ");
+
+        return new Contractor(
+            id, name, code, status, contactPerson, contractStatus
+        );
+    }
 
         case "VISITOR": {
             String purpose = readRequired("Nhap muc dich den: ");

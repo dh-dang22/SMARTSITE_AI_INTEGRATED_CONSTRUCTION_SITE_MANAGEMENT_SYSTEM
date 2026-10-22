@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class CheckZoneId {
 
-    private static final Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = InputScanner.getScanner();
 
     // Kiểm tra Zone ID (dạng Zxxx hoặc RZxxx)
     public static String checkZoneId() {

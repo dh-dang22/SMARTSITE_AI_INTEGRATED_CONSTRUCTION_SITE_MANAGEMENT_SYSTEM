@@ -1,20 +1,19 @@
     package ui_Dang_dang_sua;
     
-import Person.ConditionPerson;
 import java.util.Scanner;
 import Person.PersonManager;
-import Validatable.InputScanner;
 import Validatable.InputScanner;
 import Zone.ZoneManager2;
 //import Zone.ZoneManager2;
     
 public class UniqueSiteManagerMenu {
-    private final Scanner sc2 = new Scanner(System.in);
+   private final Scanner sc2 = InputScanner.getScanner();
    // AddPerson và UniqueSiteManagerMenu: lấy cùng danh sách
-    private final PersonManager pm = PersonManager.getInstance();
+    private final PersonManager pm;
 
-    UniqueSiteManagerMenu() {
-    }
+    UniqueSiteManagerMenu() { this(PersonManager.getInstance()); }
+
+    UniqueSiteManagerMenu(PersonManager pm) { this.pm = pm; }
     
     public void displayHumanResourceManagementMenu(){
         boolean running = true;
@@ -31,6 +30,8 @@ public class UniqueSiteManagerMenu {
             System.out.println("    [3]  Update a Person information");
             System.out.println("    [4]  Delete a Person");
             System.out.println("    [5]  Display all people information"); //
+            System.out.println("    [6]  Sort people by name");
+            System.out.println("    [7]  Display role descriptions");
             System.out.println("");
             System.out.println("    [0]  Back to general menu");
             System.out.println("");
@@ -38,6 +39,7 @@ public class UniqueSiteManagerMenu {
             int choice;
             try {
                 // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
+                if (!sc2.hasNextLine()) return;
                 choice = Integer.parseInt(sc2.nextLine().trim());
             } catch (NumberFormatException e) {
                 System.out.println("[!] Invalid choice! Please enter a number.");
@@ -53,57 +55,43 @@ public class UniqueSiteManagerMenu {
             } else {
                 switch(choice){
                     case (1): // add
-                        int n = sc2.nextInt();
-                        System.out.println("     Enter number of Person(s) you want to add: ");
-                       for (int i = 1; i<=n; i++){
-                            PersonManager apM = new PersonManager();
-                            apM.addPersonFromInput();
-                            Draft.clearConsoleIDE();
-                        }
-                        Draft.pause();
-                        Draft.clearConsoleIDE();
-                    case (2): // find
-                        System.out.println("    a. Search by ID");
-                        System.out.println("    b. Search by code");
-                        System.out.println("    - Enter the methods you want to use to search[1-2]: ");
-                        int findChoice = 1;
-                        try {
-                            // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
-                            choice = Integer.parseInt(sc2.nextLine().trim());
-                        } catch (NumberFormatException e) {
-                            System.out.println("[!] Invalid choice! Please enter a number.");
-                            Draft.pause();
-                            continue;
-                        }
-                        switch (findChoice) {
-                            case 1:
-                                System.out.println("    - Enter the Person ID you want to search: ");
-                                String tempID = "";
-                                
-                                PersonManager findID = new PersonManager();
-                                findID.findPersonByID(tempID);
-                                break;
-                            case 2:
-                                System.out.println("    - Enter the Person ID you want to search: ");
-                                String tempCode = "";
-                                
-                                PersonManager findCode = new PersonManager();
-                                findCode.findPersonByCode(tempCode);
-                                break;                            
-                            default:
-                                System.out.println("    - ERROR!!! ");
-                                break;
-                        }
+                            int n = InputScanner.readRange(
+        sc2,
+        "Nhap so luong Person can them [1-100]: ",
+        1,
+        100,
+        "Vui long nhap so nguyen tu 1 den 100!"
+    );
+    if (n == -1) {
+        return;
+    }
+    for (int i = 0; i < n; i++) {
+        System.out.println("--- Person " + (i + 1) + " ---");
+        pm.addPersonFromInput();
+    }
+    Draft.pause();
+    Draft.clearConsoleIDE();
+    break;
+                    case 2:
+                        pm.findPersonFromInput();
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
-
+                    case 6:
+                        pm.sortByName();
+                        pm.displayAll();
+                        Draft.pause();
+                        break;
+                    case 7:
+                        pm.displayRoleDescriptions();
+                        Draft.pause();
+                        break;
                     case (3): //update
                         Draft.functionIsNotCompletedYet();
-                        Draft.clearConsoleIDE();
                         break;
-                    case (4): // delete
-                        Draft.functionIsNotCompletedYet();
+                   case 4: // delete
+                        pm.deletePersonFromInput();
+                        Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
                     case (5): // display list
@@ -115,25 +103,10 @@ public class UniqueSiteManagerMenu {
             }
         } //while
     }//display
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     public void displayZoneManagementMenu(){
-        ZoneManager2 tempZone = new ZoneManager2();
-        Scanner tempSC = new Scanner(System.in);
+        ZoneManager2 tempZone = MenuSession.ZONES;
+        Scanner tempSC = InputScanner.getScanner();
         boolean running = true;
         while (running){
             Draft.displayMenuLine();
@@ -155,6 +128,7 @@ public class UniqueSiteManagerMenu {
             int choice;
             try {
                 // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
+                if (!sc2.hasNextLine()) return;
                 choice = Integer.parseInt(sc2.nextLine().trim());
             } catch (NumberFormatException e) {
                 System.out.println("[!] Invalid choice! Please enter a number.");
@@ -167,9 +141,17 @@ public class UniqueSiteManagerMenu {
                 System.out.println("                                The system is backing to general menu ...");
                 Draft.pause();
                 Draft.clearConsoleIDE();
+                return;
             } else {
                 switch(choice){
+                    case 6:
+                        tempZone.addRestrictedZone();
+                        break;
+                    case 7:
+                        tempZone.displayRestrictedZonesOnly();
+                        break;
                     case (1): // add
+                        if (!sc2.hasNextLine()) return;
                         tempZone.addZone();   
                         break;
                     case (2): // find
