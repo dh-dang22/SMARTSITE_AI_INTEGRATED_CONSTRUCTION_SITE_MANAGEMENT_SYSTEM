@@ -15,7 +15,7 @@ public class CheckHostName {
                 System.out.println("[Error]: Host Name length must be between 2 and 50 characters! Please try again.");
                 continue;
             }
-            if (!hostName.matches("^[a-zA-ZÀ-ỹ\\s]+$")) {
+            if (!hostName.matches("^[a-zA-Z\\s]+$")) {
                 System.out.println("[Error]: Host Name must contain letters only (no numbers or special characters)! Please try again.");
                 continue;
             }

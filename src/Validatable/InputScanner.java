@@ -1,11 +1,11 @@
 package Validatable;
+
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class InputScanner {
 
     private static final Scanner scanner = new Scanner(System.in);
-
     private InputScanner() {
     }
 

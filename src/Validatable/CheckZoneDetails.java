@@ -21,7 +21,7 @@ public class CheckZoneDetails {
             }
 
             // 3. Regex chỉ cho phép chữ cái, số và khoảng trắng (không chứa ký tự đặc biệt)
-            if (!zoneDetails.matches("^[a-zA-Z0-9À-ỹ\\s]+$")) {
+            if (!zoneDetails.matches("^[a-zA-Z0-9\\s]+$")) {
                 System.out.println("[Error]: Zone Details must not contain special characters! Please try again.\n");
                 continue;
             }

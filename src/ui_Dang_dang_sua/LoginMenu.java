@@ -45,11 +45,7 @@ public class LoginMenu {
             return;
         }
         Login login = new Login(pm, checker);
-<<<<<<< Updated upstream
         Scanner sc = InputScanner.getScanner();
-=======
-        Scanner sc = new Scanner();
->>>>>>> Stashed changes
         boolean running = true;
         while (running){
             displayMenuLine();//in gạch
