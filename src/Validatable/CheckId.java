@@ -2,7 +2,7 @@ package Validatable;
 
 import java.util.Scanner;
 // include : checkPersonId, checkZoneId, checkIncidentId, checkAssgineeId, checkRecordId, checkReportId
-public class CheckId_v3 {
+public class CheckId {
     private static final Scanner sc = new Scanner(System.in);
 
     public static String checkPersonId() {

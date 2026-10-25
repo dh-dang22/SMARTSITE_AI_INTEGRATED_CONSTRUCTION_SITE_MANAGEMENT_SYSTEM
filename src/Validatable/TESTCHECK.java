@@ -11,12 +11,12 @@ public class TESTCHECK {
 
         // 1. Test cho WORKER (Prefix: WK)
         System.out.println("\n--- 1. Testing WORKER ---");
-        String workerCode = CheckCode_v2.checkCode(pm, "WORKER");
+        String workerCode = CheckCode.checkCode(pm, "WORKER");
         System.out.println("-> Result Code: " + workerCode);
 
         // 2. Test cho SAFETYOFFICER (Prefix: SO)
         System.out.println("\n--- 2. Testing SAFETYOFFICER ---");
-        String safetyOfficerCode = CheckCode_v2.checkCode(pm, "SAFETYOFFICER");
+        String safetyOfficerCode = CheckCode.checkCode(pm, "SAFETYOFFICER");
         System.out.println("-> Result Code: " + safetyOfficerCode);
         
 //         System.out.println("\n--- 3. Testing PersonId ---");

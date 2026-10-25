@@ -1,10 +1,10 @@
 package Zone;
 
-import Validatable.CheckZoneId;
-import Validatable.CheckZoneName;
-import Validatable.CheckZoneDetails;
-import Validatable.CheckPinCode;
-
+import Validatable.CheckId;
+import Validatable.CheckName;
+import Validatable.CheckDetails;
+import Validatable.CheckCode;
+import Validatable.InputScanner;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -36,7 +36,7 @@ public class ZoneManager2 {
             String id;
 
             while (true) {
-                id = CheckZoneId.checkZoneId();
+                id = CheckId.checkZoneId();
                 if (findZoneById(id) != null) {
                     System.out.println("[Error]: Zone ID [" + id + "] already exists! Try again.");
                     continue;
@@ -44,18 +44,21 @@ public class ZoneManager2 {
                 break;
             }
 
-            String name = CheckZoneName.checkZoneName();
-            String description = CheckZoneDetails.checkZoneDetails();
+            String name = CheckName.checkZoneName();
+            String description = CheckDetails.checkZoneDetails();
 
             try {
                 Zone z = new Zone(id, name, description);
-                if (z.isValid()) {
-                    this.list.add(z);
-                    System.out.println("-> Add Zone [" + id + "] successfully!");
-                } else {
-                    System.out.println("[Error]: Failed to add Zone [" + id + "]: Invalid object state!");
-                    i--;
-                }
+                this.list.add(z);
+                System.out.println(z);
+                
+//                if (z.isValid()) {
+//                    this.list.add(z);
+//                    System.out.println("-> Add Zone [" + id + "] successfully!");
+//                } else {
+//                    System.out.println("[Error]: Failed to add Zone [" + id + "]: Invalid object state!");
+//                    i--;
+//                }
             } catch (IllegalArgumentException e) {
                 System.out.println("[Error]: " + e.getMessage() + "! Try again.");
                 i--;
@@ -73,25 +76,44 @@ public class ZoneManager2 {
     }
 
     public void deleteZoneById() {
-        String zoneId = CheckZoneId.checkZoneId();
+        String zoneId = CheckId.checkZoneId();
         Zone z = this.findZoneById(zoneId);
-        if (z != null) {
-            list.remove(z);
-            System.out.println("-> Delete Zone [" + zoneId + "] successfully!");
-        } else {
+
+        if (z == null) {
             System.out.println("[Error]: Zone ID [" + zoneId + "] not found!");
+            return;
+        }
+
+        System.out.println("Zone found: " + z);
+
+        while (true) {
+            System.out.print("Are you sure you want to delete this zone? (Y/N): ");
+            String confirm = InputScanner.nextLine();
+
+            if (confirm == null) return; // Bắt ngắt luồng EOF
+
+            if (confirm.equalsIgnoreCase("Y") || confirm.equalsIgnoreCase("YES")) {
+                list.remove(z);
+                System.out.println("-> Delete Zone [" + zoneId + "] successfully!");
+                break;
+            } else if (confirm.equalsIgnoreCase("N") || confirm.equalsIgnoreCase("NO")) {
+                System.out.println("-> Deletion cancelled.");
+                break;
+            } else {
+                System.out.println("[Error]: Invalid input! Please enter 'Y' (Yes) or 'N' (No).");
+            }
         }
     }
 
     public void updateZoneById() {
-        String zoneId = CheckZoneId.checkZoneId();
+        String zoneId = CheckId.checkZoneId();
         Zone z = this.findZoneById(zoneId);
 
         if (z != null) {
             System.out.println("Current Zone Info: " + z);
 
-            String newName = CheckZoneName.checkZoneName();
-            String newDescription = CheckZoneDetails.checkZoneDetails();
+            String newName = CheckName.checkZoneName();
+            String newDescription = CheckDetails.checkZoneDetails();
 
             try {
                 z.setZoneName(newName);
@@ -136,7 +158,7 @@ public class ZoneManager2 {
 
             String id;
             while (true) {
-                id = CheckZoneId.checkZoneId();
+                id = CheckId.checkZoneId();
                 if (findZoneById(id) != null) {
                     System.out.println("[Error]: Zone ID [" + id + "] already exists! Try again.");
                     continue;
@@ -144,9 +166,9 @@ public class ZoneManager2 {
                 break;
             }
 
-            String name = CheckZoneName.checkZoneName();
-            String description = CheckZoneDetails.checkZoneDetails();
-            String pinCode = CheckPinCode.checkPinCode();
+            String name = CheckName.checkZoneName();
+            String description = CheckDetails.checkZoneDetails();
+            String pinCode = CheckCode.checkPinCode();
 
             try {
                 RestrictedZone rz = new RestrictedZone(id, name, description, pinCode);

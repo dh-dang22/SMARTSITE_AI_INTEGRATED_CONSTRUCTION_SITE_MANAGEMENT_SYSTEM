@@ -5,11 +5,11 @@ import Zone.Zone;
 import Zone.ZoneManager2;
 
 import Validatable.CheckZoneId;
-import Validatable.CheckIncidentId;
+import Validatable.CheckId;
 import Validatable.CheckReportId;
-import Validatable.CheckAssigneeId;
+import Validatable.CheckId;
 import Validatable.CheckDetails;
-import Validatable.CheckIncidentStatus;
+import Validatable.CheckDetails;
 
 
 import java.time.LocalDateTime;
@@ -46,7 +46,7 @@ public class IncidentManager {
 
             String incidentId;
             while (true) {
-                incidentId = CheckIncidentId.checkIncidentId();
+                incidentId = CheckId.checkIncidentId();
                 if (searchIncidentById(incidentId) != null) {
                     System.out.println("[Error]: Incident ID [" + incidentId + "] already exists! Please try again.");
                     continue;
@@ -67,9 +67,9 @@ public class IncidentManager {
             }
 
             String reportId = CheckReportId.checkReportId();
-            String assigneeId = CheckAssigneeId.checkAssigneeId();
+            String assigneeId = CheckId.checkAssigneeId();
             String description = CheckDetails.checkDetails();
-            String status = CheckIncidentStatus.checkIncidentStatus();
+            String status = CheckDetails.checkIncidentStatus();
 
             String currentDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
@@ -155,9 +155,7 @@ public class IncidentManager {
         }
         System.out.println("\n=== INCIDENT LIST ===");
         for (Incident inc : incidents) {
-            System.out.println("ID: " + inc.getIncidentId()
-                    + " | Zone: " + (inc.getZone() != null ? inc.getZone().getZoneId() : "N/A")
-                    + " | Status: " + inc.getIncidentStatus()
+            System.out.println("ID: " + inc.getIncidentId() + " | Zone: " + (inc.getZone() != null ? inc.getZone().getZoneId() : "N/A") + " | Status: " + inc.getIncidentStatus()
                     + " | Desc: " + inc.getDescription()
                     + " | Time: " + inc.getLocateDateTime());
         }
