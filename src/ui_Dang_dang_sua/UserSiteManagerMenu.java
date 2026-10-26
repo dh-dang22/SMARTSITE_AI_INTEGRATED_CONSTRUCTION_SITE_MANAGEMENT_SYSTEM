@@ -21,11 +21,11 @@ public class UserSiteManagerMenu extends MenuUserLv00{
                 break;
             case (5):
                 Draft.clearConsoleIDE();
-                UniqueSiteManagerMenu ht = new UniqueSiteManagerMenu(pm);
+                UniqueSiteManagerMenu ht = new UniqueSiteManagerMenu();
                 ht.displayHumanResourceManagementMenu();
                 break;
             case (6):
-                UniqueSiteManagerMenu htZone = new UniqueSiteManagerMenu(pm);
+                UniqueSiteManagerMenu htZone = new UniqueSiteManagerMenu();
                 htZone.displayZoneManagementMenu();
                 break;
             case (7):
