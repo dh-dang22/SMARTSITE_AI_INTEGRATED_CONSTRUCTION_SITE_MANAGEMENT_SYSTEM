@@ -25,7 +25,7 @@ public class WelcomeMenu {
                 choice = Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
                 // Nếu nhập chữ hoặc ký tự, bắt lỗi ở đây
-                System.out.println(Draft.RED + "                                        Please enter a valid number [1-3]!" + Draft.BAS);
+                System.out.println(Draft.center(Draft.RED + "Please enter a valid number [1-3]!" + Draft.BAS));
                 Draft.pause();
                 Draft.clearConsoleIDE();
                 continue;
@@ -44,13 +44,13 @@ public class WelcomeMenu {
                     break;
                 case (3):
                     //turnOff();
-                    System.out.println("                                          See you late!");
+                    System.out.println(Draft.center("See you late!"));
                     running = false;
                     Draft.pause();
                     Draft.clearConsoleIDE();
                     break;
                 default:
-                    System.out.println(Draft.RED+"                                              Invalid choice!!!" + Draft.BAS);
+                    System.out.println(Draft.center(Draft.RED+"Invalid choice!!!" + Draft.BAS));
                     Draft.pause();
                     Draft.clearConsoleIDE();
                     break;
