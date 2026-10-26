@@ -10,7 +10,7 @@ public class UserSiteManagerMenu extends MenuUserLv00{
         System.out.println("    [5] Display human resources management functions");
         System.out.println("    [6] Display zone management functions");
         System.out.println("    [7] Display all History Attendance Report");
-        System.out.println("    [8]  Manage incident reports");
+        System.out.println("    [8] Display all Incident Reports");
     }
     
     @Override

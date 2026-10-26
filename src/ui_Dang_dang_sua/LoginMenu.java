@@ -58,7 +58,7 @@ public class LoginMenu {
             System.out.println("                            [!] NOTICE: Please enter your code and password below!!!");
             System.out.println("");
             // String code 
-            System.out.print("         >>> Enter your code: ");
+            System.out.print("     >>> Enter your code: ");
             if (!sc.hasNextLine()) return;
             String code = sc.nextLine().trim();
 
@@ -67,7 +67,7 @@ public class LoginMenu {
             continue;
             }*/
 
-            System.out.print("         >>> Enter your password: ");
+            System.out.print("     >>> Enter your password: ");
             if (!sc.hasNextLine()) return;
             String password = sc.nextLine();
 
@@ -78,10 +78,13 @@ public class LoginMenu {
             Person currentUser = login.login(code, password);
 
               if (currentUser == null) {
-                System.out.println("Dang nhap that bai!");
+                System.out.println(Draft.RED+"                                                Login fail!"+Draft.BAS);
                 Draft.pause();
+                Draft.clearConsoleIDE();
                 continue;
             }
+
+
             System.out.println(Draft.GRN+"\n                                               [+] Login successful!"+Draft.BAS);
             System.out.println("                                        [+] Welcome, " +Draft.BLU+ currentUser.getFullName() +Draft.BAS+ " [" + currentUser.getRole() + "]");
             System.out.println("");
@@ -123,7 +126,7 @@ public class LoginMenu {
                     break;
                 default:
                     System.out.println(Draft.RED+"                                [!] Unknown role: " + role + Draft.BAS);
-                    ui_Dang_dang_sua.Draft.pause();
+                    Draft.pause();
             }
         }//while running for menu
     }//displayLoginMenu
