@@ -8,7 +8,6 @@ import Attendance.AttendanceManager;
 import java.io.IOException;
 import Validatable.CheckPassword;
 import Validatable.InputScanner;
-import Validatable.InputScanner;
 import static ui_Dang_dang_sua.Draft.clearConsoleIDE;
 import static ui_Dang_dang_sua.Draft.displayMenuGreeting;
 import static ui_Dang_dang_sua.Draft.displayMenuHeader;
@@ -59,7 +58,7 @@ public class LoginMenu {
             System.out.println("                            [!] NOTICE: Please enter your code and password below!!!");
             System.out.println("");
             // String code 
-            System.out.print("         >>> Enter your code: ");
+            System.out.print("     >>> Enter your code: ");
             if (!sc.hasNextLine()) return;
             String code = sc.nextLine().trim();
 
@@ -68,7 +67,7 @@ public class LoginMenu {
             continue;
             }*/
 
-            System.out.print("         >>> Enter your password: ");
+            System.out.print("     >>> Enter your password: ");
             if (!sc.hasNextLine()) return;
             String password = sc.nextLine();
 
@@ -79,14 +78,12 @@ public class LoginMenu {
             Person currentUser = login.login(code, password);
 
               if (currentUser == null) {
-                System.out.println("Dang nhap that bai!");
+                System.out.println(Draft.RED+"                                                Login fail!"+Draft.BAS);
                 Draft.pause();
+                Draft.clearConsoleIDE();
                 continue;
             }
 
-            System.out.println(
-                Draft.GRN + "\n[+] Login successful!" + Draft.BAS
-            );
 
             System.out.println(Draft.GRN+"\n                                               [+] Login successful!"+Draft.BAS);
             System.out.println("                                        [+] Welcome, " +Draft.BLU+ currentUser.getFullName() +Draft.BAS+ " [" + currentUser.getRole() + "]");

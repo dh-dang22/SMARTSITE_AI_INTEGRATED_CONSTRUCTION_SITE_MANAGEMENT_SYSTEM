@@ -55,36 +55,21 @@ public class UniqueSiteManagerMenu {
             } else {
                 switch(choice){
                     case (1): // add
-                            int n = InputScanner.readRange(
-        sc2,
-        "Nhap so luong Person can them [1-100]: ",
-        1,
-        100,
-        "Vui long nhap so nguyen tu 1 den 100!"
-    );
-    if (n == -1) {
-        return;
-    }
-    for (int i = 0; i < n; i++) {
-        System.out.println("--- Person " + (i + 1) + " ---");
-        pm.addPersonFromInput();
-    }
-    Draft.pause();
-    Draft.clearConsoleIDE();
-    break;
+                        int n = InputScanner.readRange(sc2, "Enter a number of Person(s) you want to add[1-100][-1 to cancel]: ", 1, 100, "Please enter a number between 1-100!");
+                        if (n == -1) {
+                            return;
+                        }
+                        for (int i = 0; i < n; i++) {
+                            System.out.println("--- Person " + (i + 1) + " ---");
+                            pm.addPersonFromInput();
+                        }
+                        Draft.pause();
+                        Draft.clearConsoleIDE();
+                        break;
                     case 2:
                         pm.findPersonFromInput();
                         Draft.pause();
                         Draft.clearConsoleIDE();
-                        break;
-                    case 6:
-                        pm.sortByName();
-                        pm.displayAll();
-                        Draft.pause();
-                        break;
-                    case 7:
-                        pm.displayRoleDescriptions();
-                        Draft.pause();
                         break;
                     case (3): //update
                         Draft.functionIsNotCompletedYet();
@@ -99,6 +84,15 @@ public class UniqueSiteManagerMenu {
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
+                    case 6:
+                        pm.sortByName();
+                        pm.displayAll();
+                        Draft.pause();
+                        break;
+                    case 7:
+                        //pm.displayRoleDescriptions();
+                        Draft.functionIsNotCompletedYet();
+                        break;                
                 }
             }
         } //while

@@ -26,14 +26,20 @@ public class Draft {
     }
     
     //ngưng màn hình đến khi ấn Enter
+//    public static void pause() {
+//        System.out.println("                                                                                        \nPress [ENTER] to continue...");
+//
+//        Scanner scanner = InputScanner.getScanner();
+//        if (scanner.hasNextLine()) {
+//            scanner.nextLine();
+//        }
+//    }
+    
     public static void pause() {
-    System.out.println("                                                                                        \nPress [ENTER] to continue...");
-
-    Scanner scanner = InputScanner.getScanner();
-    if (scanner.hasNextLine()) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\n                                            Press [ENTER] to continue...");
         scanner.nextLine();
     }
-}
     
     public static void functionIsNotCompletedYet(){
         System.out.println(Draft.RED + "                                        Function is not completed yet!" + Draft.BAS);

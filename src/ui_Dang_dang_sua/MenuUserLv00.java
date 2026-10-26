@@ -1,7 +1,6 @@
 package ui_Dang_dang_sua;
 
 import java.util.Scanner;
-import static ui_Dang_dang_sua.Draft.pause;
 import Person.Person;
 import Person.PersonManager;
 import Attendance.AttendanceManager;
@@ -36,14 +35,14 @@ public abstract class MenuUserLv00 {
                 choice = Integer.parseInt(sc.nextLine().trim());
             } catch (NumberFormatException e) {
                 System.out.println(Draft.RED + "                                        Please enter a valid number!" + Draft.BAS);
-                pause();
+                Draft.pause();
                 continue;
             }
 
             if (choice == 0) {                          // Thoát menu
                 running = false;
                 System.out.println("    ➔ The system is logging out...");
-                pause();
+                Draft.pause();
             } else {
                 chooseOption(choice);                   // Xử lý chức năng đã chọn
             }
@@ -81,7 +80,7 @@ public abstract class MenuUserLv00 {
      abstract void displayOption();
 
     public void displayLogOut() {
-        System.out.println("    [0] ➔ Log out");
+        System.out.println("    [0] Log out");
     }
 
      abstract void chooseOption(int choice);

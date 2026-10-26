@@ -3,14 +3,14 @@ package ui_Dang_dang_sua;
 public class UserSiteManagerMenu extends MenuUserLv00{
     @Override
     public void displayOption(){
-        System.out.println("    [1] ➔ Display your information");
-        System.out.println("    [2] ➔ Check-in");
-        System.out.println("    [3] ➔ Check-out");
-        System.out.println("    [4] ➔ Display History Attendance");
-        System.out.println("    [5] ➔ Display human resources management functions");
-        System.out.println("    [6] ➔ Display zone management functions");
-        System.out.println("    [7] ➔ Display all History Attendance Report");
-        System.out.println("    [8] ➔ Manage incident reports");
+        System.out.println("    [1] Display your information");
+        System.out.println("    [2] Check-in");
+        System.out.println("    [3] Check-out");
+        System.out.println("    [4] Display History Attendance");
+        System.out.println("    [5] Display human resources management functions");
+        System.out.println("    [6] Display zone management functions");
+        System.out.println("    [7] Display all History Attendance Report");
+        System.out.println("    [8] Manage incident reports");
     }
     
     @Override
