@@ -25,7 +25,7 @@ public class Zone implements Validatable {
 
     @Override
     public boolean isValid() {
-        if (zoneId == null || !zoneId.trim().matches("^Z\\d{3}$")) {
+        if (zoneId == null || !zoneId.trim().matches("^ZN\\d{4}$")) {
             return false;
         }
         if (zoneName == null || zoneName.trim().isEmpty()) {
