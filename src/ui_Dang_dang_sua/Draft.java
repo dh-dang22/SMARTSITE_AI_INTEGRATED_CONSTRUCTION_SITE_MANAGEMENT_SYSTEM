@@ -4,7 +4,6 @@ package ui_Dang_dang_sua;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-import Validatable.InputScanner;
 public class Draft {
     
     static final String RED = "\u001B[31m";
@@ -132,6 +131,7 @@ public class Draft {
     //chooseOption(); xử lý lựa chọn chức năng
 
 
+    
 
 }
 

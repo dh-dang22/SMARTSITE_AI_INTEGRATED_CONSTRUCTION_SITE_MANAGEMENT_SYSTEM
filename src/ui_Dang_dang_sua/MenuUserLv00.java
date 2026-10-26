@@ -27,7 +27,7 @@ public abstract class MenuUserLv00 {
             System.out.println("");
             displayLogOut();                            // Hiển thị: 0. Log out
             
-            System.out.print("    ➔ Please enter your action : ");
+            System.out.print(Draft.BLU+"    ➔ Please enter your action : "+Draft.BAS);
             int choice;
             try {
                 // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ

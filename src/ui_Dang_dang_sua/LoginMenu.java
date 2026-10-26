@@ -126,7 +126,7 @@ public class LoginMenu {
                     break;
                 default:
                     System.out.println(Draft.RED+"                                [!] Unknown role: " + role + Draft.BAS);
-                    ui_Dang_dang_sua.Draft.pause();
+                    Draft.pause();
             }
         }//while running for menu
     }//displayLoginMenu

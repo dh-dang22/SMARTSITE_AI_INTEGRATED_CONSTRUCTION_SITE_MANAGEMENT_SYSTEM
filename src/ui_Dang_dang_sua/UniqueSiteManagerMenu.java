@@ -35,7 +35,7 @@ public class UniqueSiteManagerMenu {
             System.out.println("");
             System.out.println("    [0]  Back to general menu");
             System.out.println("");
-            System.out.print("    ➔ Please enter your action [0-7]: ");
+            System.out.print(Draft.BLU+"    ➔ Please enter your action [0-7]: "+Draft.BAS);
             int choice;
             try {
                 // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
