@@ -1,20 +1,18 @@
     package ui_Dang_dang_sua;
-    
-import Person.ConditionPerson;
 import java.util.Scanner;
 import Person.PersonManager;
-import Validatable.InputScanner;
 import Validatable.InputScanner;
 import Zone.ZoneManager2;
 //import Zone.ZoneManager2;
     
 public class UniqueSiteManagerMenu {
-    private final Scanner sc2 = new Scanner(System.in);
+   private final Scanner sc2 = InputScanner.getScanner();
    // AddPerson và UniqueSiteManagerMenu: lấy cùng danh sách
-    private final PersonManager pm = PersonManager.getInstance();
+    private final PersonManager pm;
 
-    UniqueSiteManagerMenu() {
-    }
+    UniqueSiteManagerMenu() { this(PersonManager.getInstance()); }
+
+    UniqueSiteManagerMenu(PersonManager pm) { this.pm = pm; }
     
     public void displayHumanResourceManagementMenu(){
         boolean running = true;
@@ -26,18 +24,21 @@ public class UniqueSiteManagerMenu {
             Draft.displayMenuLine();
             System.out.println("                                         Human Resource Management Menu ");
             System.out.println("");
-            System.out.println("    [1] ➔ Add Person(s) to system");
-            System.out.println("    [2] ➔ Find a Person information");
-            System.out.println("    [3] ➔ Update a Person information");
-            System.out.println("    [4] ➔ Delete a Person");
-            System.out.println("    [5] ➔ Display all people information"); //
+            System.out.println("    [1]  Add Person(s) to system");
+            System.out.println("    [2]  Find a Person information");
+            System.out.println("    [3]  Update a Person information");
+            System.out.println("    [4]  Delete a Person");
+            System.out.println("    [5]  Display all people information"); //
+            System.out.println("    [6]  Sort people by name");
+            System.out.println("    [7]  Display role descriptions");
             System.out.println("");
-            System.out.println("    [0] ➔ Back to general menu");
+            System.out.println("    [0]  Back to general menu");
             System.out.println("");
-            System.out.println("    ➔ Please enter your action [0-7]: ");
+            System.out.print(Draft.BLU+"    ➔ Please enter your action [0-7]: "+Draft.BAS);
             int choice;
             try {
                 // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
+                if (!sc2.hasNextLine()) return;
                 choice = Integer.parseInt(sc2.nextLine().trim());
             } catch (NumberFormatException e) {
                 System.out.println("[!] Invalid choice! Please enter a number.");
@@ -47,62 +48,34 @@ public class UniqueSiteManagerMenu {
 
             if (choice == 0) {                          // Thoát menu
                 running = false;
-                System.out.println("The system is backing to general menu ...");
+                System.out.println("                                The system is backing to general menu ...");
                 Draft.pause();
                 Draft.clearConsoleIDE();
             } else {
                 switch(choice){
                     case (1): // add
-                        int n = sc2.nextInt();
-                       for (int i = 1; i<=n; i++){
-                            PersonManager apM = new PersonManager();
-                           apM.addPersonFromInput();
-                            Draft.clearConsoleIDE();
+                        int n = InputScanner.readRange(sc2, "Enter a number of Person(s) you want to add[1-100][-1 to cancel]: ", 1, 100, "Please enter a number between 1-100!");
+                        if (n == -1) {
+                            return;
                         }
-                        Draft.pause();
-                        Draft.clearConsoleIDE();
-                    case (2): // find
-                        System.out.println("    a. Search by ID");
-                        System.out.println("    b. Search by code");
-                        System.out.println("    - Enter the methods you want to use to search[1-2]: ");
-                        int findChoice = 1;
-                        try {
-                            // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
-                            choice = Integer.parseInt(sc2.nextLine().trim());
-                        } catch (NumberFormatException e) {
-                            System.out.println("[!] Invalid choice! Please enter a number.");
-                            Draft.pause();
-                            continue;
-                        }
-                        switch (findChoice) {
-                            case 1:
-                                System.out.println("    - Enter the Person ID you want to search: ");
-                                String tempID = "";
-                                
-                                PersonManager findID = new PersonManager();
-                                findID.findPersonByID(tempID);
-                                break;
-                            case 2:
-                                System.out.println("    - Enter the Person ID you want to search: ");
-                                String tempCode = "";
-                                
-                                PersonManager findCode = new PersonManager();
-                                findCode.findPersonByCode(tempCode);
-                                break;                            
-                            default:
-                                System.out.println("    - ERROR!!! ");
-                                break;
+                        for (int i = 0; i < n; i++) {
+                            System.out.println("--- Person " + (i + 1) + " ---");
+                            pm.addPersonFromInput();
                         }
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
-
+                    case 2:
+                        pm.findPersonFromInput();
+                        Draft.pause();
+                        Draft.clearConsoleIDE();
+                        break;
                     case (3): //update
                         Draft.functionIsNotCompletedYet();
-                        Draft.clearConsoleIDE();
                         break;
-                    case (4): // delete
-                        Draft.functionIsNotCompletedYet();
+                   case 4: // delete
+                        pm.deletePersonFromInput();
+                        Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
                     case (5): // display list
@@ -110,6 +83,15 @@ public class UniqueSiteManagerMenu {
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
+                    case 6:
+                        pm.sortByName();
+                        pm.displayAll();
+                        Draft.pause();
+                        break;
+                    case 7:
+                        //pm.displayRoleDescriptions();
+                        Draft.functionIsNotCompletedYet();
+                        break;                
                 }
             }
         } //while

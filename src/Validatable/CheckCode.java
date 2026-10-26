@@ -1,8 +1,6 @@
 package Validatable;
 
 import Person.PersonManager;
-import Person.PersonManager;
-import Validatable.InputScanner;
 import java.util.Scanner;
 
 public class CheckCode {

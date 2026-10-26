@@ -4,7 +4,6 @@ package ui_Dang_dang_sua;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-
 public class Draft {
     
     static final String RED = "\u001B[31m";
@@ -26,9 +25,18 @@ public class Draft {
     }
     
     //ngưng màn hình đến khi ấn Enter
-    public static void pause() { // ngưng màn hình
-        System.out.println("\n                                            Press [ENTER] to continue...");
+//    public static void pause() {
+//        System.out.println("                                                                                        \nPress [ENTER] to continue...");
+//
+//        Scanner scanner = InputScanner.getScanner();
+//        if (scanner.hasNextLine()) {
+//            scanner.nextLine();
+//        }
+//    }
+    
+    public static void pause() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("\n                                            Press [ENTER] to continue...");
         scanner.nextLine();
     }
     
@@ -123,6 +131,7 @@ public class Draft {
     //chooseOption(); xử lý lựa chọn chức năng
 
 
+    
 
 }
 

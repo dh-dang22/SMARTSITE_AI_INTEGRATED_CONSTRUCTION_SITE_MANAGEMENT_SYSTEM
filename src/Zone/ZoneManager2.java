@@ -4,7 +4,6 @@ import Validatable.CheckId;
 import Validatable.CheckName;
 import Validatable.CheckDetails;
 import Validatable.CheckCode;
-import Validatable.InputScanner;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,28 +16,28 @@ public class ZoneManager2 {
     }
 
     public void addZone() {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = Validatable.InputScanner.getScanner();
         System.out.print("Input the number of zones needed to add: ");
         int n;
         try {
             n = Integer.parseInt(sc.nextLine().trim());
             if (n <= 0) {
-                System.out.println("[Error]: The number must be greater than 0!");
+                System.out.println("    [Error]: The number must be greater than 0!");
                 return;
             }
         } catch (NumberFormatException e) {
-            System.out.println("[Error]: Invalid number input!");
+            System.out.println("    [Error]: Invalid number input!");
             return;
         }
 
         for (int i = 1; i <= n; i++) {
-            System.out.println("\n--- Zone [" + i + "] ---");
+            System.out.println("\n                                                  --- Zone [" + i + "] ---");
             String id;
 
             while (true) {
                 id = CheckId.checkZoneId();
                 if (findZoneById(id) != null) {
-                    System.out.println("[Error]: Zone ID [" + id + "] already exists! Try again.");
+                    System.out.println("                      [Error]: Zone ID [" + id + "] already exists! Try again.");
                     continue;
                 }
                 break;
@@ -49,18 +48,15 @@ public class ZoneManager2 {
 
             try {
                 Zone z = new Zone(id, name, description);
-                this.list.add(z);
-                System.out.println(z);
-                
-//                if (z.isValid()) {
-//                    this.list.add(z);
-//                    System.out.println("-> Add Zone [" + id + "] successfully!");
-//                } else {
-//                    System.out.println("[Error]: Failed to add Zone [" + id + "]: Invalid object state!");
-//                    i--;
-//                }
+                if (z.isValid()) {
+                    this.list.add(z);
+                    System.out.println("                                         Add Zone [" + id + "] successfully!");
+                } else {
+                    System.out.println("    [Error]: Failed to add Zone [" + id + "]: Invalid object state!");
+                    i--;
+                }
             } catch (IllegalArgumentException e) {
-                System.out.println("[Error]: " + e.getMessage() + "! Try again.");
+                System.out.println("    [Error]: " + e.getMessage() + "! Try again.");
                 i--;
             }
         }
@@ -78,39 +74,20 @@ public class ZoneManager2 {
     public void deleteZoneById() {
         String zoneId = CheckId.checkZoneId();
         Zone z = this.findZoneById(zoneId);
-
-        if (z == null) {
-            System.out.println("[Error]: Zone ID [" + zoneId + "] not found!");
-            return;
-        }
-
-        System.out.println("Zone found: " + z);
-
-        while (true) {
-            System.out.print("Are you sure you want to delete this zone? (Y/N): ");
-            String confirm = InputScanner.nextLine();
-
-            if (confirm == null) return; // Bắt ngắt luồng EOF
-
-            if (confirm.equalsIgnoreCase("Y") || confirm.equalsIgnoreCase("YES")) {
-                list.remove(z);
-                System.out.println("-> Delete Zone [" + zoneId + "] successfully!");
-                break;
-            } else if (confirm.equalsIgnoreCase("N") || confirm.equalsIgnoreCase("NO")) {
-                System.out.println("-> Deletion cancelled.");
-                break;
-            } else {
-                System.out.println("[Error]: Invalid input! Please enter 'Y' (Yes) or 'N' (No).");
-            }
+        if (z != null) {
+            list.remove(z);
+            System.out.println("     Delete Zone [" + zoneId + "] successfully!");
+        } else {
+            System.out.println("    [Error]: Zone ID [" + zoneId + "] not found!");
         }
     }
 
     public void updateZoneById() {
-        String zoneId = CheckId.checkZoneId();
+        String zoneId = "   ➔" + CheckId.checkZoneId();
         Zone z = this.findZoneById(zoneId);
 
         if (z != null) {
-            System.out.println("Current Zone Info: " + z);
+            System.out.println("    Current Zone Info: " + z);
 
             String newName = CheckName.checkZoneName();
             String newDescription = CheckDetails.checkZoneDetails();
@@ -118,28 +95,28 @@ public class ZoneManager2 {
             try {
                 z.setZoneName(newName);
                 z.setZoneDetails(newDescription);
-                System.out.println("-> Update Zone [" + zoneId + "] successfully!");
+                System.out.println("     Update Zone [" + zoneId + "] successfully!");
             } catch (IllegalArgumentException e) {
-                System.out.println("[Error]: Update failed! " + e.getMessage());
+                System.out.println("    [Error]: Update failed! " + e.getMessage());
             }
         } else {
-            System.out.println("[Error]: Zone ID [" + zoneId + "] not found!");
+            System.out.println("    [Error]: Zone ID [" + zoneId + "] not found!");
         }
     }
 
     public void displayList() {
         if (list.isEmpty()) {
-            System.out.println("Zone list is empty now! Add more zones.");
+            System.out.println("     [ERROR] Zone list is empty now! Add more Zone(s).");
             return;
         }
-        System.out.println("\n--- List of Zones ---");
+        System.out.println("                                        \n--- List of Zones ---");
         for (Zone z : this.list) {
             System.out.println(z);
         }
     }
 
     public void addRestrictedZone() {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = Validatable.InputScanner.getScanner();
         System.out.print("Input the number of restricted zones needed to add: ");
         int n;
         try {
@@ -188,7 +165,7 @@ public class ZoneManager2 {
 
     public void displayRestrictedZonesOnly() {
         boolean found = false;
-        System.out.println("\n--- List of Restricted Zones ---");
+        System.out.println("\n                                          --- List of Restricted Zones ---");
         for (Zone z : this.list) {
             if (z.isAccessRestricted()) {
                 System.out.println(z);

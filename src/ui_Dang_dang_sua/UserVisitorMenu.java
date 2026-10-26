@@ -1,6 +1,5 @@
 package ui_Dang_dang_sua;
 
-import static ui_Dang_dang_sua.Draft.pause;
 
 public class UserVisitorMenu extends MenuUserLv00{
 
@@ -14,20 +13,9 @@ public class UserVisitorMenu extends MenuUserLv00{
     
     @Override
     public void chooseOption(int choice){
+        if (handleCommonOption(choice)) return;
         switch (choice){
             case (0):
-                break;
-            case (1):
-                Draft.functionIsNotCompletedYet();
-                break;
-            case (2):
-                Draft.functionIsNotCompletedYet();
-                break;
-            case (3):
-                Draft.functionIsNotCompletedYet();
-                break;
-            case (4):
-                Draft.functionIsNotCompletedYet();
                 break;
             default:
                 System.out.println(Draft.RED+"                           Invalid choice! Please select again"+Draft.BAS);

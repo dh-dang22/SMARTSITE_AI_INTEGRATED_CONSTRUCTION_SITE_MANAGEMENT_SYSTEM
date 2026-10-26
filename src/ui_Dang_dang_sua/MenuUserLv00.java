@@ -1,7 +1,6 @@
 package ui_Dang_dang_sua;
 
 import java.util.Scanner;
-import static ui_Dang_dang_sua.Draft.pause;
 import Person.Person;
 import Person.PersonManager;
 import Attendance.AttendanceManager;
@@ -19,7 +18,7 @@ public abstract class MenuUserLv00 {
         this.pm = pm;
         this.am = am;
 
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = Validatable.InputScanner.getScanner();
         boolean running = true;
 
         while (running) {
@@ -28,21 +27,22 @@ public abstract class MenuUserLv00 {
             System.out.println("");
             displayLogOut();                            // Hiển thị: 0. Log out
             
-            System.out.print("    ➔ Please enter your action : ");
+            System.out.print(Draft.BLU+"    ➔ Please enter your action : "+Draft.BAS);
             int choice;
             try {
                 // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
+                if (!sc.hasNextLine()) return;
                 choice = Integer.parseInt(sc.nextLine().trim());
             } catch (NumberFormatException e) {
                 System.out.println(Draft.RED + "                                        Please enter a valid number!" + Draft.BAS);
-                pause();
+                Draft.pause();
                 continue;
             }
 
             if (choice == 0) {                          // Thoát menu
                 running = false;
                 System.out.println("    ➔ The system is logging out...");
-                pause();
+                Draft.pause();
             } else {
                 chooseOption(choice);                   // Xử lý chức năng đã chọn
             }
@@ -64,10 +64,23 @@ public abstract class MenuUserLv00 {
         
     }
 
+    protected boolean handleCommonOption(int choice) {
+        switch (choice) {
+            case 1: System.out.println(currentUser); break;
+            case 2: am.checkInFromInput(currentUser, MenuSession.ZONES); break;
+            case 3: am.checkOutFromInput(currentUser); break;
+            case 4: am.displayHistory(currentUser.getId()); break;
+            default: return false;
+        }
+        Draft.pause();
+        Draft.clearConsoleIDE();
+        return true;
+    }
+
      abstract void displayOption();
 
     public void displayLogOut() {
-        System.out.println("    [0] ➔ Log out");
+        System.out.println("    [0] Log out");
     }
 
      abstract void chooseOption(int choice);

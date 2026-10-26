@@ -1,17 +1,10 @@
 package Incident;
-
 import Zone.RestrictedZone;
 import Zone.Zone;
 import Zone.ZoneManager2;
-
 import Validatable.CheckZoneId;
 import Validatable.CheckId;
-import Validatable.CheckReportId;
-import Validatable.CheckId;
 import Validatable.CheckDetails;
-import Validatable.CheckDetails;
-
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -66,7 +59,7 @@ public class IncidentManager {
                 break;
             }
 
-            String reportId = CheckReportId.checkReportId();
+            String reportId = CheckId.checkReportId();
             String assigneeId = CheckId.checkAssigneeId();
             String description = CheckDetails.checkDetails();
             String status = CheckDetails.checkIncidentStatus();
@@ -182,5 +175,9 @@ public class IncidentManager {
             }
         }
         return result;
+    }
+
+    public void addIncident(Scanner sc, ZoneManager2 ZONES) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

@@ -69,16 +69,14 @@ public class PersonManager {
         }
 
         if (addPerson(person)) {
-            System.out.println("Da them Person vao bo nho!");
-        }
+    System.out.println("Da them Person vao bo nho!");
+        } else {
+    System.out.println("Them that bai: ID rong hoac da ton tai!");
+}
     } catch (java.util.NoSuchElementException e) {
         System.out.println("Da dung nhap du lieu.");
     }
     }
-    
-
-
-
     // ----------------------------------------------------------------
     // Tìm theo ID
     // ----------------------------------------------------------------
@@ -176,32 +174,21 @@ public class PersonManager {
         // Tìm theo ID
     //--------------------
         public void findPersonFromInput() {
-    Scanner scanner = InputScanner.getScanner();
-
-    System.out.print("Nhap ID nguoi can tim: ");
-
-    if (!scanner.hasNextLine()) {
-        return;
+        Scanner scanner = InputScanner.getScanner();
+        int method = InputScanner.readRange(scanner,
+            "Search by: 1. ID / 2. Code: ", 1, 2, "Enter 1 or 2.");
+        if (method == -1) return;
+        System.out.print(method == 1 ? "Enter Person ID: " : "Enter Person code: ");
+        if (!scanner.hasNextLine()) return;
+        String keyword = scanner.nextLine().trim();
+        if (keyword.isEmpty()) {
+            System.out.println("Search value cannot be empty.");
+            return;
+        }
+        Person person = method == 1 ? findPersonByID(keyword) : findPersonByCode(keyword);
+        if (person == null) System.out.println("Person not found.");
+        else System.out.println(person);
     }
-
-    String id = scanner.nextLine().trim();
-
-    if (id.isEmpty()) {
-        System.out.println("ID khong duoc de trong!");
-        return;
-    }
-
-    Person person = findPersonByID(id);
-
-    if (person == null) {
-        System.out.println("Khong tim thay nguoi co ID: " + id);
-        return;
-    }
-    
-
-    System.out.println("Thong tin nguoi can tim:");
-    System.out.println(person);
-}
     // ----------------------------------------------------------------
     // Hiển thị tất cả
     // ----------------------------------------------------------------
@@ -224,13 +211,7 @@ public class PersonManager {
 
     // ----------------------------------------------------------------
     // BUG-07: Đọc và parse Person.txt thành các Person object
-    //
-    // Format từng dòng trong Person.txt:
-    //   WORKER        → WORKER|ID|FullName|Code|Status|CompanyName|ContractType
-    //   CONTRACTOR    → CONTRACTOR|ID|FullName|Code|Status|CompanyName|ContractType
-    //   VISITOR       → VISITOR|ID|FullName|Code|Status|VisitPurpose|HostName
-    //   SAFETY_OFFICER→ SAFETY_OFFICER|ID|FullName|Code|Status|License
-    //   SITE_MANAGER  → SITE_MANAGER|ID|FullName|Code|Status|Department
+    
     // ----------------------------------------------------------------
     public void loadFromFile(String fileName) throws IOException {
         try (BufferedReader reader = Files.newBufferedReader(
