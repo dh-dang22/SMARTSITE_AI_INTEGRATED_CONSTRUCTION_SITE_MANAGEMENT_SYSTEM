@@ -17,8 +17,9 @@ public class UserContractorMenu extends MenuUserLv00{
             case (0):
                 break;
             default:
-                Draft.functionIsNotCompletedYet();
-                break;
+                System.out.println(Draft.center(Draft.RED+"Invalid choice! Please select again"+Draft.BAS));
+                Draft.pause();
+                Draft.clearConsoleIDE();
         }
     }
 }

@@ -22,7 +22,7 @@ public class UniqueSiteManagerMenu {
             Draft.displayMenuLine();
             Draft.displayMenuGreeting();
             Draft.displayMenuLine();
-            System.out.println("                                         Human Resource Management Menu ");
+            System.out.println(Draft.center("Human Resource Management Menu"));
             System.out.println("");
             System.out.println("    [1]  Add Person(s) to system");
             System.out.println("    [2]  Find a Person information");
@@ -41,14 +41,14 @@ public class UniqueSiteManagerMenu {
                 if (!sc2.hasNextLine()) return;
                 choice = Integer.parseInt(sc2.nextLine().trim());
             } catch (NumberFormatException e) {
-                System.out.println("[!] Invalid choice! Please enter a number.");
+                System.out.println(Draft.center(Draft.RED+"[!] Invalid choice! Please enter a number!"+Draft.BAS));
                 Draft.pause();
                 continue;
             }
 
             if (choice == 0) {                          // Thoát menu
                 running = false;
-                System.out.println("                                The system is backing to general menu ...");
+                System.out.println(Draft.center("The system is backing to general menu ..."));
                 Draft.pause();
                 Draft.clearConsoleIDE();
             } else {
@@ -59,7 +59,7 @@ public class UniqueSiteManagerMenu {
                             return;
                         }
                         for (int i = 0; i < n; i++) {
-                            System.out.println("--- Person " + (i + 1) + " ---");
+                            System.out.println(Draft.center("--- Person " + (i + 1) + " ---"));
                             pm.addPersonFromInput();
                         }
                         Draft.pause();
@@ -176,11 +176,17 @@ public class UniqueSiteManagerMenu {
     }//display
     
     
+
+    
+    
+    public void displayAllAttendance(){
+        Draft.functionIsNotCompletedYet();
+    }//display
     
     
     
+    public void displayAllIncident(){
+        Draft.functionIsNotCompletedYet();
+    }//display
     
-//    public void displayAllIncident(){
-//        Incident.IncidentManager.displayIncidents();
-//    }//display
 }//class

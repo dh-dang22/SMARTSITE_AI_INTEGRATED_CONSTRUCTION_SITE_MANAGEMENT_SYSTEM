@@ -34,7 +34,7 @@ public abstract class MenuUserLv00 {
                 if (!sc.hasNextLine()) return;
                 choice = Integer.parseInt(sc.nextLine().trim());
             } catch (NumberFormatException e) {
-                System.out.println(Draft.RED + "                                        Please enter a valid number!" + Draft.BAS);
+                System.out.println(Draft.center(Draft.RED + "Please enter a valid number!" + Draft.BAS));
                 Draft.pause();
                 continue;
             }
@@ -59,7 +59,7 @@ public abstract class MenuUserLv00 {
         Draft.displayMenuGreeting();
         Draft.displayMenuLine();
         System.out.println("");
-        System.out.println("                                                " + userRole + " Menu ");
+        System.out.println(Draft.center(userRole + " Menu "));
         System.out.println("");
         
     }

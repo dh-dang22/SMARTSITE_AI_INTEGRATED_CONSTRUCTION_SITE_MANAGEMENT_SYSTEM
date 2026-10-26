@@ -42,7 +42,7 @@ public class LoginMenu {
             }
             checker.loadFromFile("data/accounts.txt");
         } catch (IOException e) {
-            System.out.println("[!] Cannot load login data: " + e.getMessage());
+            System.out.println(Draft.center("[!] Cannot load login data: " + e.getMessage()));
             return;
         }
         Login login = new Login(pm, checker);
@@ -55,7 +55,7 @@ public class LoginMenu {
             displayMenuGreeting();//in lời chào
             displayMenuLine();//in gạch
             System.out.println("");
-            System.out.println("                            [!] NOTICE: Please enter your code and password below!!!");
+            System.out.println(Draft.center("[!] NOTICE: Please enter your code and password below!!!"));
             System.out.println("");
             // String code 
             System.out.print("     >>> Enter your code: ");
@@ -78,15 +78,15 @@ public class LoginMenu {
             Person currentUser = login.login(code, password);
 
               if (currentUser == null) {
-                System.out.println(Draft.RED+"                                                Login fail!"+Draft.BAS);
+                System.out.println(Draft.center(Draft.RED+"Login fail!"+Draft.BAS));
                 Draft.pause();
                 Draft.clearConsoleIDE();
                 continue;
             }
 
 
-            System.out.println(Draft.GRN+"\n                                               [+] Login successful!"+Draft.BAS);
-            System.out.println("                                        [+] Welcome, " +Draft.BLU+ currentUser.getFullName() +Draft.BAS+ " [" + currentUser.getRole() + "]");
+            System.out.println(Draft.center(Draft.GRN+"[+] Login successful!"+Draft.BAS));
+            System.out.println(Draft.center("[+] Welcome, " +Draft.BLU+ currentUser.getFullName() +Draft.BAS+ " [" + currentUser.getRole() + "]"));
             System.out.println("");
             Draft.displayMenuLine();
             Draft.pause();
@@ -94,7 +94,7 @@ public class LoginMenu {
             
             String role = currentUser.getRole();
             if (role == null) {
-                System.out.println(Draft.RED+"                                [!] Account has no role assigned."+Draft.BAS);
+                System.out.println(Draft.center(Draft.RED+"[!] Account has no role assigned."+Draft.BAS));
                 return;
             }
         // Điều hướng Menu theo Role
@@ -125,7 +125,7 @@ public class LoginMenu {
                     running = false;
                     break;
                 default:
-                    System.out.println(Draft.RED+"                                [!] Unknown role: " + role + Draft.BAS);
+                    System.out.println(Draft.center(Draft.RED+"[!] Unknown role: " + role + Draft.BAS));
                     Draft.pause();
             }
         }//while running for menu
