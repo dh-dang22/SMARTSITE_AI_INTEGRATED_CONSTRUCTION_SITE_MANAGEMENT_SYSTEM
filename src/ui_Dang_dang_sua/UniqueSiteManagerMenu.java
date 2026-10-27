@@ -6,7 +6,7 @@ import Zone.ZoneManager2;
 //import Zone.ZoneManager2;
     
 public class UniqueSiteManagerMenu {
-   private final Scanner sc2 = InputScanner.getScanner();
+   private final Scanner sc2 = new Scanner(System.in);
    // AddPerson và UniqueSiteManagerMenu: lấy cùng danh sách
     private final PersonManager pm;
 
@@ -22,6 +22,7 @@ public class UniqueSiteManagerMenu {
             Draft.displayMenuLine();
             Draft.displayMenuGreeting();
             Draft.displayMenuLine();
+            System.out.println("");
             System.out.println(Draft.center("Human Resource Management Menu"));
             System.out.println("");
             System.out.println("    [1]  Add Person(s) to system");
@@ -45,16 +46,17 @@ public class UniqueSiteManagerMenu {
                 Draft.pause();
                 continue;
             }
-
+            Draft.displayMenuLine();
+            
             if (choice == 0) {                          // Thoát menu
                 running = false;
-                System.out.println(Draft.center("The system is backing to general menu ..."));
+                System.out.println("    ➔ The system is backing to general menu ...");
                 Draft.pause();
                 Draft.clearConsoleIDE();
             } else {
                 switch(choice){
                     case (1): // add
-                        int n = InputScanner.readRange(sc2, "Enter a number of Person(s) you want to add[1-100][-1 to cancel]: ", 1, 100, "Please enter a number between 1-100!");
+                        int n = InputScanner.readRange(sc2, "   ➔ Enter a number of Person(s) you want to add[1-100][-1 to cancel]: ", 1, 100, "Please enter a number between 1-100!");
                         if (n == -1) {
                             return;
                         }
@@ -73,7 +75,7 @@ public class UniqueSiteManagerMenu {
                     case (3): //update
                         Draft.functionIsNotCompletedYet();
                         break;
-                   case 4: // delete
+                    case 4: // delete
                         pm.deletePersonFromInput();
                         Draft.pause();
                         Draft.clearConsoleIDE();

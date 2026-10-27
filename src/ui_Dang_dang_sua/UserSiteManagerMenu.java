@@ -18,6 +18,18 @@ public class UserSiteManagerMenu extends MenuUserLv00{
         switch (choice){
             case (0):
                 break;
+            case (1):
+                Draft.functionIsNotCompletedYet();
+                break;
+            case (2):
+                Draft.functionIsNotCompletedYet();
+                break;
+            case (3):
+                Draft.functionIsNotCompletedYet();
+                break;
+            case (4):
+                Draft.functionIsNotCompletedYet();
+                break;
             case (5):
                 Draft.clearConsoleIDE();
                 UniqueSiteManagerMenu ht5 = new UniqueSiteManagerMenu();
