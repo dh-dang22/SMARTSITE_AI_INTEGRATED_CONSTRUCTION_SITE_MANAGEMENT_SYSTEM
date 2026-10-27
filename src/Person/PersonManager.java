@@ -7,14 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import Validatable.InputScanner;
-
-
-
-/**
- * Quản lý danh sách người dùng (Person, Worker, Visitor, etc.)
- *
- * @author Minh_Khang
- */
+import java.util.NoSuchElementException;
 public class PersonManager {
     private Person[] people;
     private int size;
@@ -58,25 +51,133 @@ public class PersonManager {
         return true;
     }
      
-    public void addPersonFromInput() {
-    try {
-        ConditionPerson input = new ConditionPerson();
-        Person person = input.inputPerson();
+    private String readRequired(String message) {
+    while (true) {
+        System.out.print(message);
+        Scanner sc = InputScanner.getScanner();
+        if (!sc.hasNextLine()) {
+            throw new NoSuchElementException();
+        }
 
-        if (person == null) {
-            System.out.println("Da huy them Person.");
+        String value = sc.nextLine().trim();
+
+        if (value.isEmpty()) {
+            System.out.println("Thong tin khong duoc de trong!");
+        } else if (value.contains("|")) {
+            System.out.println("Thong tin khong duoc chua dau |");
+        } else {
+            return value;
+        }
+    }
+}
+
+public void addPersonFromInput() {
+    try {
+        String role = chooseRole();
+
+        if (role == null) {
             return;
         }
 
-        if (addPerson(person)) {
-    System.out.println("Da them Person vao bo nho!");
+        String id = readRequired("Nhap ID: ");
+        if (this.findPersonByID(id) != null) {
+            System.out.println("ID da ton tai!");
+            return;
+        }
+
+        String name = readRequired("Nhap ho ten: ");
+        String code = readRequired("Nhap code dang nhap: ");
+
+        if (this.findPersonByCode(code) != null) {
+            System.out.println("Code da ton tai!");
+            return;
+        } 
+
+        Person person;
+        String status = "ACTIVE";
+
+        switch (role) {
+            case "WORKER":
+                String company = readRequired("Nhap cong ty dang lam: ");
+                String contract = readRequired("Nhap loai hop dong: ");
+                 person = new Worker(
+                    id, name, code, role, status, company, contract
+                );
+                break;
+            case "CONTRACTOR":
+                String contractPerson = readRequired("Nhap nguoi lao dong can quan ly: ");
+                String contractStatus = readRequired("Nhap trang thai ket  noi: ");
+
+                person = new Contractor(
+                    id, name, code, status, contractPerson, contractStatus
+                );
+                break;
+
+            case "VISITOR":
+                String purpose = readRequired("Nhap muc dich den: ");
+                String host = readRequired("Nhap nguoi tiep don: ");
+
+                person = new Visitor(
+                    id, name, code, role, status, purpose, host
+                );
+                break;
+
+            case "SAFETY_OFFICER":
+                String license = readRequired("Nhap giay phep: ");
+
+                person = new SafetyOfficer(
+                    id, name, code, role, status, 0, license
+                );
+                break;
+
+            case "SITE_MANAGER":
+                String department = readRequired("Nhap bo phan: ");
+
+                person = new SiteManager(
+                    id, name, code, role, status, department
+                );
+                break;
+
+            default:
+                return;
+        }
+
+        if (this.addPerson(person)) {
+            System.out.println("Da them vao danh sach trong bo nho!");
         } else {
-    System.out.println("Them that bai: ID rong hoac da ton tai!");
-}
-    } catch (java.util.NoSuchElementException e) {
+            System.out.println(
+                "Them that bai: du lieu khong hop le hoac ID/code trung."
+            );
+        }
+    } catch (NoSuchElementException e) {
         System.out.println("Da dung nhap du lieu.");
     }
+}
+private String chooseRole() {
+    while (true) {
+        System.out.println("\n--- CHON ROLE ---");
+        System.out.println("1. Worker");
+        System.out.println("2. Contractor");
+        System.out.println("3. Visitor");
+        System.out.println("4. Safety Officer");
+        System.out.println("5. Site Manager");
+        System.out.println("0. Huy");
+
+        String choice = readRequired("Lua chon: ");
+
+        switch (choice) {
+            case "1": return "WORKER";
+            case "2": return "CONTRACTOR";
+            case "3": return "VISITOR";
+            case "4": return "SAFETY_OFFICER";
+            case "5": return "SITE_MANAGER";
+            case "0": return null;
+            default:
+                System.out.println("Vui long chon tu 0 den 5!");
+        }
     }
+}
+
     // ----------------------------------------------------------------
     // Tìm theo ID
     // ----------------------------------------------------------------

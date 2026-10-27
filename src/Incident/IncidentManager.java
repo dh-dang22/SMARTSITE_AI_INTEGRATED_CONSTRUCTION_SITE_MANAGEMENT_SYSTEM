@@ -5,6 +5,7 @@ import Zone.ZoneManager2;
 import Validatable.CheckZoneId;
 import Validatable.CheckId;
 import Validatable.CheckDetails;
+import Validatable.InputScanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -14,13 +15,19 @@ import java.util.Scanner;
 public class IncidentManager {
 
     private final List<Incident> incidents;
-
+     private static IncidentManager instance;
     public IncidentManager() {
         this.incidents = new ArrayList<>();
     }
-
+    public static IncidentManager getInstance() {
+        if (instance == null) {
+            instance = new IncidentManager();
+        }
+        return instance;
+    }
+    
     public void addIncident(ZoneManager2 zoneManager) {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = InputScanner.getScanner();
         System.out.print("Input number of incidents to add: ");
         int n;
         try {

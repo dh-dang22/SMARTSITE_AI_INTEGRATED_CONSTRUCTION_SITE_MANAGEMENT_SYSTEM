@@ -4,7 +4,6 @@
 import java.util.Scanner;
 import Person.Person;
 import Person.PersonManager;
-import Attendance.AttendanceManager;
 import java.io.IOException;
 import Validatable.CheckPassword;
 import Validatable.InputScanner;
@@ -15,7 +14,6 @@ import static ui_Dang_dang_sua.Draft.displayMenuLine;
    
 public class LoginMenu {
     private PersonManager pm = PersonManager.getInstance(); // Khai bao them doi tuong pm moi
-    private AttendanceManager am;
     private final CheckPassword checker = new CheckPassword();
     private boolean loadPeople;
     private static boolean peopleLoaded;
@@ -23,13 +21,10 @@ public class LoginMenu {
     // Constructor mặc định tự khởi tạo Manager nếu chưa có
     public LoginMenu() {
         this.pm = PersonManager.getInstance(); 
-        this.am = MenuSession.ATTENDANCE;
         this.loadPeople = true;
     }
-
-    public LoginMenu(PersonManager pm, AttendanceManager am) {
+    public LoginMenu(PersonManager pm) {
         this.pm = pm;
-        this.am = am;
     }  
     
     public void displayLoginMenu() {
@@ -37,15 +32,13 @@ public class LoginMenu {
         try {
             if (loadPeople && !peopleLoaded) {
                 pm.loadFromFile("data/Person.txt");
-                peopleLoaded = true;
-                loadPeople = false;
             }
             checker.loadFromFile("data/accounts.txt");
         } catch (IOException e) {
             System.out.println(Draft.center("[!] Cannot load login data: " + e.getMessage()));
             return;
         }
-        Login login = new Login(pm, checker);
+        
         Scanner sc = InputScanner.getScanner();
         boolean running = true;
         while (running){
@@ -66,16 +59,17 @@ public class LoginMenu {
             System.out.println("[!]Invalid code format");
             continue;
             }*/
-
+           
             System.out.print("     >>> Enter your password: ");
             if (!sc.hasNextLine()) return;
             String password = sc.nextLine();
-
-            /*if (password.isEmpty()) {
-            System.out.println("[!] Password is wrong");
-            continue;
-            }*/
-            Person currentUser = login.login(code, password);
+            if (!checker.check(code, password)) {
+           System.out.println(Draft.center(Draft.RED + "Login fail!" + Draft.BAS));
+           Draft.pause();
+           Draft.clearConsoleIDE();
+           continue;
+        } 
+           Person currentUser = pm.findPersonByCode(code);
 
               if (currentUser == null) {
                 System.out.println(Draft.center(Draft.RED+"Login fail!"+Draft.BAS));
@@ -101,27 +95,27 @@ public class LoginMenu {
             switch (role.trim().toUpperCase()) {
                 case "SITE_MANAGER":
                     clearConsoleIDE();
-                    new UserSiteManagerMenu().displayMenuLv(currentUser, pm, am);
+                    new UserSiteManagerMenu().displayMenuLv(currentUser);
                     running = false;
                     break;
                 case "SAFETY_OFFICER":
                     clearConsoleIDE();
-                    new UserSafetyOfficerMenu().displayMenuLv(currentUser, pm, am);
+                    new UserSafetyOfficerMenu().displayMenuLv(currentUser);
                     running = false;
                     break;
                 case "WORKER":
                     clearConsoleIDE();
-                    new UserWorkerMenu().displayMenuLv(currentUser, pm, am);
+                    new UserWorkerMenu().displayMenuLv(currentUser);
                     running = false;
                     break;
                 case "CONTRACTOR":
                     clearConsoleIDE();
-                    new UserContractorMenu().displayMenuLv(currentUser, pm, am);
+                    new UserContractorMenu().displayMenuLv(currentUser);
                     running = false;
                     break;
                 case "VISITOR":
                     clearConsoleIDE();
-                    new UserVisitorMenu().displayMenuLv(currentUser, pm, am);
+                    new UserVisitorMenu().displayMenuLv(currentUser);
                     running = false;
                     break;
                 default:
@@ -130,4 +124,5 @@ public class LoginMenu {
             }
         }//while running for menu
     }//displayLoginMenu
+    
 }//class

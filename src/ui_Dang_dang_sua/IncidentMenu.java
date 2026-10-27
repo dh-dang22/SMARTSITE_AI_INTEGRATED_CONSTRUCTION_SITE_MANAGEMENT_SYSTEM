@@ -9,9 +9,10 @@ import java.util.Scanner;
 
 /** Input and navigation for the existing incident operations. */
 public class IncidentMenu {
-    private final Scanner sc = InputScanner.getScanner();
-    private final IncidentManager manager = MenuSession.INCIDENTS;
-
+   private final Scanner sc = InputScanner.getScanner();
+   private final IncidentManager manager = IncidentManager.getInstance();
+   
+   //ham hien thi 
     public void display() {
         while (true) {
             System.out.println("=== INCIDENT MANAGEMENT ===");
@@ -29,8 +30,7 @@ public class IncidentMenu {
             try {
                 switch (choice) {
                     case 1:
-                        MenuSession.ZONES.displayList();
-                        manager.addIncident(sc, MenuSession.ZONES);
+                       
                         break;
                     case 2:
                         Incident incident = manager.searchIncidentById(read("Incident ID: "));
@@ -70,7 +70,9 @@ public class IncidentMenu {
 
     private void showAll(List<Incident> incidents) {
         if (incidents.isEmpty()) System.out.println("No matching incidents.");
-        for (Incident incident : incidents) show(incident);
+        for (Incident incident : incidents) {
+            show(incident);
+        }
     }
 
     private void show(Incident incident) {

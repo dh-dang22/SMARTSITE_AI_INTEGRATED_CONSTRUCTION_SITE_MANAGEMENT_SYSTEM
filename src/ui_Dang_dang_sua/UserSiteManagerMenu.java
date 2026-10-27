@@ -15,7 +15,6 @@ public class UserSiteManagerMenu extends MenuUserLv00{
     
     @Override
     public void chooseOption(int choice){
-        if (handleCommonOption(choice)) return;
         switch (choice){
             case (0):
                 break;
