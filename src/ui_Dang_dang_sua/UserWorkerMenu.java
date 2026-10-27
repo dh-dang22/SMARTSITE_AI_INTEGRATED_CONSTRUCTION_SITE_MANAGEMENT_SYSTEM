@@ -10,10 +10,18 @@ public class UserWorkerMenu extends MenuUserLv00{
         System.out.println("    [4] Display History Attendance");
     }
     
+    
     @Override
     public void chooseOption(int choice){
-        if (handleCommonOption(choice)) return;
         switch (choice){
+            case (1):
+                break;
+            case (2):
+                break;
+            case (3):
+                break;
+            case (4):
+                break;
             case (0):
                 break;
             default:

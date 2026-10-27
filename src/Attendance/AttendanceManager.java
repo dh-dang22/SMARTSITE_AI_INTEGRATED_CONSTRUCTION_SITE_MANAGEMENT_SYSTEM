@@ -5,6 +5,7 @@
 package Attendance;
 
 import Person.Person;
+import Person.PersonManager;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,19 +18,15 @@ import Zone.ZoneManager2;
  * @author Minh_Khang
  */
 public class AttendanceManager {
+    private static AttendanceManager instance;
     private final List<AttendanceRecord> records = new ArrayList<>();
-    //B1: tim ban ghi dang mo
-    /*  public boolean checkIn(Person person, Zone zone) {
-    String personid = person.getid();
-    for (AttendanceRecord rec : records) {
-    if (rec.getPersonId().equals(personid) && rec.getCheckOutTime() == null) {
-    return false;
+    // Khai báo instance giong nhu ben class person
+    public static AttendanceManager getInstance() {
+        if (instance == null) {
+            instance = new AttendanceManager();
+        }
+        return instance;
     }
-    }
-    
-TODO: Tạo bản ghi check-in mới    // 
-    return false;
-    }*/
       public boolean checkIn(Person person, Zone zone) {
 
     if (person == null || zone == null

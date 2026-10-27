@@ -124,13 +124,13 @@ public class UniqueSiteManagerMenu {
             Draft.displayMenuLine();
             System.out.println("                                                Zone Management Menu ");
             System.out.println("");
-            System.out.println("    [1] ➔ Add Zone(s) to system");
-            System.out.println("    [2] ➔ Find a Zone information");
-            System.out.println("    [3] ➔ Update a Zone information");
-            System.out.println("    [4] ➔ Delete a Zone");
-            System.out.println("    [5] ➔ Display all Zone information"); //
+            System.out.println("    [1] Add Zone(s) to system");
+            System.out.println("    [2] Find a Zone information");
+            System.out.println("    [3] Update a Zone information");
+            System.out.println("    [4] Delete a Zone");
+            System.out.println("    [5] Display all Zone information"); //
             System.out.println("");
-            System.out.println("    [0] ➔ Back to general menu");
+            System.out.println("    [0] Back to general menu");
             System.out.println("");
             System.out.print("    ➔ Please enter your action [0-7]: ");
             int choice;

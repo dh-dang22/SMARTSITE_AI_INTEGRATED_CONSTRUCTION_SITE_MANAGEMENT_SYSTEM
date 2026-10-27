@@ -39,7 +39,7 @@ public class WelcomeMenu {
                     menu.displayLoginMenu();
                     break;
                 case (2):
-                    MenuSession.ZONES.displayList();
+                 
                     Draft.pause();
                     break;
                 case (3):
