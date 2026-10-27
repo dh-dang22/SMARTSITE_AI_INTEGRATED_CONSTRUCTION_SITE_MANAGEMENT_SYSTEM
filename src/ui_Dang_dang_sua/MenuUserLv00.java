@@ -12,7 +12,7 @@ public abstract class MenuUserLv00 {
         // Lưu lại dữ liệu truyền vào
         this.currentUser = currentUser;
 
-        Scanner sc = Validatable.InputScanner.getScanner();
+        Scanner sc = new Scanner(System.in);
         boolean running = true;
 
         while (running) {
@@ -43,6 +43,8 @@ public abstract class MenuUserLv00 {
         } // while
     } // displayMenuLv
 
+    
+    
     public void displayHeader() {
         String userRole = currentUser.getRole();
 

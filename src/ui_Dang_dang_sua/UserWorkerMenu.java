@@ -15,12 +15,16 @@ public class UserWorkerMenu extends MenuUserLv00{
     public void chooseOption(int choice){
         switch (choice){
             case (1):
+                Draft.functionIsNotCompletedYet();
                 break;
             case (2):
+                Draft.functionIsNotCompletedYet();
                 break;
             case (3):
+                Draft.functionIsNotCompletedYet();
                 break;
             case (4):
+                Draft.functionIsNotCompletedYet();
                 break;
             case (0):
                 break;
