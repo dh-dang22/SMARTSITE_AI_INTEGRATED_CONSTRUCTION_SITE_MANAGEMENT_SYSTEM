@@ -117,7 +117,7 @@ public class UniqueSiteManagerMenu {
     
     
     public void displayZoneManagementMenu(){
-        ZoneManager2 tempZone = ZoneManager2.getInstance();
+        ZoneManager2 tempZone = new ZoneManager2();
         Scanner tempSC = new Scanner(System.in);
         boolean running = true;
         while (running){

@@ -13,16 +13,18 @@ public class Zone implements Validatable {
     protected String zoneId;
     protected String zoneName;
     protected String zoneDetails;
-    private String allowedRole;
+    protected String allowedRole;
+    protected boolean isRestricted ; 
 
     public Zone() {
     }
 
-    public Zone(String zoneId, String zoneName, String zoneDetails, String allowedRole) {
-        this.zoneId = zoneId;
-        this.zoneName = zoneName;
-        this.zoneDetails = zoneDetails;
-        this.allowedRole = allowedRole;
+    public Zone(boolean isRestricted,String zoneId , String zoneName, String zoneDetails, String allowedRole) {
+        this.setIsRestricted(isRestricted);
+        this.setZoneId(zoneId);
+        this.setZoneName(zoneName);
+        this.setZoneDetails(zoneDetails);
+        this.setAllowedRole(allowedRole);
     }
 
 
@@ -77,12 +79,20 @@ public class Zone implements Validatable {
         this.zoneDetails = zoneDetails;
     }
 
+    public boolean isRestricted() {
+        return isRestricted;
+    }
+
+    public void setIsRestricted(boolean isRestricted) {
+        this.isRestricted = isRestricted;
+    }
+
     public boolean isAccessRestricted() {
         return false;
     }
-          public String getAllowedRole() {
-    return allowedRole;
-                    }
+    public String getAllowedRole() {
+        return allowedRole;
+    }
 
     public void setAllowedRole(String allowedRole) {
     this.allowedRole = allowedRole;
