@@ -9,17 +9,10 @@ public class Contractor extends Person {
         super();
     }
 
-    public Contractor(
-            String id,
-            String fullName,
-            String code,
-            String status,
-            String contactPerson,
-            String contractStatus) {
+    public Contractor(String id, String fullName, String code, String status, String contactPerson){
 
         super(id, fullName, code, "CONTRACTOR", status);
         this.contactPerson = contactPerson;
-        this.contractStatus = contractStatus;
     }
 
     public String getContactPerson() {
