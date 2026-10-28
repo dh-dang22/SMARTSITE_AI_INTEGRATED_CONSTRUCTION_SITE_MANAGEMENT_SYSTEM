@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import Validatable.InputScanner;
 import java.util.NoSuchElementException;
+import ui_Dang_dang_sua.Draft;
 public class PersonManager {
     private Person[] people;
     private int size;
@@ -79,17 +80,17 @@ public void addPersonFromInput() {
             return;
         }
 
-        String id = readRequired("Nhap ID: ");
+        String id = readRequired("    ➔ Enter Person's ID: ");
         if (this.findPersonByID(id) != null) {
-            System.out.println("ID da ton tai!");
+            System.out.println(Draft.center(Draft.RED+"ID already exists!"+Draft.BAS));
             return;
         }
 
-        String name = readRequired("Nhap ho ten: ");
-        String code = readRequired("Nhap code dang nhap: ");
+        String name = readRequired("    ➔ Enter Person's name: ");
+        String code = readRequired("    ➔ Enter Person's code: ");
 
         if (this.findPersonByCode(code) != null) {
-            System.out.println("Code da ton tai!");
+            System.out.println(Draft.center(Draft.RED+"Code already exists!"+Draft.BAS));
             return;
         } 
 
@@ -98,24 +99,22 @@ public void addPersonFromInput() {
 
         switch (role) {
             case "WORKER":
-                String company = readRequired("Nhap cong ty dang lam: ");
-                String contract = readRequired("Nhap loai hop dong: ");
+                String company = readRequired("    ➔ Enter the Company: ");
+                String contract = readRequired("    ➔ Enter the contract type: ");
                  person = new Worker(
                     id, name, code, role, status, company, contract
                 );
                 break;
             case "CONTRACTOR":
-                String contractPerson = readRequired("Nhap nguoi lao dong can quan ly: ");
-                String contractStatus = readRequired("Nhap trang thai ket  noi: ");
+                String contractPerson = readRequired("    ➔ Enter the Company: ");
 
                 person = new Contractor(
-                    id, name, code, status, contractPerson, contractStatus
-                );
+                    id, name, code, status, contractPerson);
                 break;
 
             case "VISITOR":
-                String purpose = readRequired("Nhap muc dich den: ");
-                String host = readRequired("Nhap nguoi tiep don: ");
+                String purpose = readRequired("    ➔ Enter the purpose of your visit here:");
+                String host = readRequired("    ➔ Enter the greeter: ");
 
                 person = new Visitor(
                     id, name, code, role, status, purpose, host
@@ -123,7 +122,7 @@ public void addPersonFromInput() {
                 break;
 
             case "SAFETY_OFFICER":
-                String license = readRequired("Nhap giay phep: ");
+                String license = readRequired("    ➔ Enter the license: ");
 
                 person = new SafetyOfficer(
                     id, name, code, role, status, 0, license
@@ -131,7 +130,7 @@ public void addPersonFromInput() {
                 break;
 
             case "SITE_MANAGER":
-                String department = readRequired("Nhap bo phan: ");
+                String department = readRequired("    ➔ Enter the area you manage: ");
 
                 person = new SiteManager(
                     id, name, code, role, status, department
@@ -143,27 +142,25 @@ public void addPersonFromInput() {
         }
 
         if (this.addPerson(person)) {
-            System.out.println("Da them vao danh sach trong bo nho!");
+            System.out.println(Draft.center(Draft.GRN+"This person has been added to the list!"+Draft.BAS));
         } else {
-            System.out.println(
-                "Them that bai: du lieu khong hop le hoac ID/code trung."
-            );
+            System.out.println(Draft.center(Draft.RED+"Added failure: invalid data or existed ID/code!"+Draft.BAS));
         }
     } catch (NoSuchElementException e) {
-        System.out.println("Da dung nhap du lieu.");
+        System.out.println(Draft.center("Cancel the adding process!"));
     }
 }
 private String chooseRole() {
     while (true) {
-        System.out.println("\n--- CHON ROLE ---");
-        System.out.println("1. Worker");
-        System.out.println("2. Contractor");
-        System.out.println("3. Visitor");
-        System.out.println("4. Safety Officer");
-        System.out.println("5. Site Manager");
-        System.out.println("0. Huy");
+        System.out.println(Draft.center("--- Enter the ROLE ---"));
+        System.out.println("    1. Worker");
+        System.out.println("    2. Contractor");
+        System.out.println("    3. Visitor");
+        System.out.println("    4. Safety Officer");
+        System.out.println("");
+        System.out.println("    0. Cancel");
 
-        String choice = readRequired("Lua chon: ");
+        String choice = readRequired("    Enter your action: ");
 
         switch (choice) {
             case "1": return "WORKER";
@@ -173,7 +170,7 @@ private String chooseRole() {
             case "5": return "SITE_MANAGER";
             case "0": return null;
             default:
-                System.out.println("Vui long chon tu 0 den 5!");
+                System.out.println(Draft.center(Draft.RED+"Please enter the number between 0-4!"+Draft.BAS));
         }
     }
 }
