@@ -1,0 +1,32 @@
+[33m9bc0a9e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mKhang_1[m[33m, [m[1;31morigin/Khang_1[m[33m, [m[1;32mrescue-my-code[m[33m)[m HEAD@{0}: reset: moving to 9bc0a9e
+[33m9bc0a9e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mKhang_1[m[33m, [m[1;31morigin/Khang_1[m[33m, [m[1;32mrescue-my-code[m[33m)[m HEAD@{1}: checkout: moving from rescue-my-code to Khang_1
+[33m9bc0a9e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mKhang_1[m[33m, [m[1;31morigin/Khang_1[m[33m, [m[1;32mrescue-my-code[m[33m)[m HEAD@{2}: checkout: moving from Khang_1 to rescue-my-code
+[33m9bc0a9e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mKhang_1[m[33m, [m[1;31morigin/Khang_1[m[33m, [m[1;32mrescue-my-code[m[33m)[m HEAD@{3}: checkout: moving from main to Khang_1
+[33m15017db[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{4}: pull: Fast-forward
+[33m07f5c39[m HEAD@{5}: checkout: moving from rescue-my-code to main
+[33m9bc0a9e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mKhang_1[m[33m, [m[1;31morigin/Khang_1[m[33m, [m[1;32mrescue-my-code[m[33m)[m HEAD@{6}: checkout: moving from Khang_1 to rescue-my-code
+[33m9bc0a9e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mKhang_1[m[33m, [m[1;31morigin/Khang_1[m[33m, [m[1;32mrescue-my-code[m[33m)[m HEAD@{7}: checkout: moving from main to Khang_1
+[33m07f5c39[m HEAD@{8}: pull: Fast-forward
+[33m4ca8501[m HEAD@{9}: checkout: moving from Khang_1 to main
+[33m9bc0a9e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mKhang_1[m[33m, [m[1;31morigin/Khang_1[m[33m, [m[1;32mrescue-my-code[m[33m)[m HEAD@{10}: commit: Khang sua all Zone, RestZone, Zmanager
+[33m759421a[m HEAD@{11}: commit: Change file md
+[33m398c61c[m HEAD@{12}: checkout: moving from main to Khang_1
+[33m4ca8501[m HEAD@{13}: commit: update worker menu, checkin, checkout some special feature
+[33m3fab546[m HEAD@{14}: pull: Fast-forward
+[33mfe75d1e[m HEAD@{15}: checkout: moving from Khang_1 to main
+[33m398c61c[m HEAD@{16}: commit: Khang repaired code when problem name class, varable in Person, personmanager, incident, variable for menu
+[33mfe75d1e[m HEAD@{17}: checkout: moving from main to Khang_1
+[33mfe75d1e[m HEAD@{18}: commit (merge): Merge branch 'main' of https://github.com/minhkhang-IO/SMARTSITE_AI_INTEGRATED_CONSTRUCTION_SITE_MANAGEMENT_SYSTEM
+[33m44bd64e[m HEAD@{19}: commit (merge): change merge branch Huy
+[33m03f8fd2[m HEAD@{20}: commit (merge): Merge branch 'ghuy457-Huy'
+[33mb9198ec[m HEAD@{21}: checkout: moving from ghuy457-Huy to main
+[33md9be274[m[33m ([m[1;32mghuy457-Huy[m[33m)[m HEAD@{22}: pull https://github.com/ghuy457/SMARTSITE_AI_INTEGRATED_CONSTRUCTION_SITE_MANAGEMENT_SYSTEM.git Huy: Fast-forward
+[33mb9198ec[m HEAD@{23}: checkout: moving from Khang to ghuy457-Huy
+[33mf6260bf[m[33m ([m[1;31morigin/Khang[m[33m, [m[1;32mKhang[m[33m)[m HEAD@{24}: commit: Dang da fix
+[33m3bac83e[m HEAD@{25}: commit: khangsua
+[33m754c8bf[m HEAD@{26}: commit: Update attendance, validation and user menus
+[33m4b018ff[m HEAD@{27}: commit (merge): update
+[33m66d7484[m HEAD@{28}: reset: moving to HEAD
+[33m66d7484[m HEAD@{29}: commit: Kh chỉnh
+[33mb9198ec[m HEAD@{30}: checkout: moving from main to Khang
+[33mb9198ec[m HEAD@{31}: clone: from https://github.com/minhkhang-IO/SMARTSITE_AI_INTEGRATED_CONSTRUCTION_SITE_MANAGEMENT_SYSTEM.git

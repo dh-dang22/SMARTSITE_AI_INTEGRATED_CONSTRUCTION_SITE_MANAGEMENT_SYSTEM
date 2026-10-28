@@ -18,11 +18,14 @@ public class Zone implements Validatable {
     public Zone() {
     }
 
-    public Zone(String zoneId, String zoneName, String zoneDetails) {
-        this.setZoneId(zoneId);
-        this.setZoneName(zoneName);
-        this.setZoneDetails(zoneDetails);
+    public Zone(String zoneId, String zoneName, String zoneDetails, String allowedRole) {
+        this.zoneId = zoneId;
+        this.zoneName = zoneName;
+        this.zoneDetails = zoneDetails;
+        this.allowedRole = allowedRole;
     }
+
+
 
     @Override
     public boolean isValid() {

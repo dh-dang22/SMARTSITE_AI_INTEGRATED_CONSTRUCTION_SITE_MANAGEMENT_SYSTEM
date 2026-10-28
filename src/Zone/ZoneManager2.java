@@ -156,7 +156,7 @@ public class ZoneManager2 {
                     break;
                 }
 
-                        String name = CheckName.checkZoneName();
+            String name = CheckName.checkZoneName();
             String description = CheckDetails.checkZoneDetails();
             String pinCode = CheckCode.checkPinCode();
 
