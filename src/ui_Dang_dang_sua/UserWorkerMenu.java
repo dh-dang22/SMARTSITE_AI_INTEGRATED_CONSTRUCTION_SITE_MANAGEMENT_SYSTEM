@@ -1,7 +1,10 @@
 package ui_Dang_dang_sua;
 
+import Attendance.AttendanceManager;
+
 public class UserWorkerMenu extends MenuUserLv00{
 
+        AttendanceManager attendanceManager = AttendanceManager.getInstance();
     @Override
     public void displayOption(){
         System.out.println("    [1] Display your information");
@@ -15,12 +18,18 @@ public class UserWorkerMenu extends MenuUserLv00{
     public void chooseOption(int choice){
         switch (choice){
             case (1):
+                new UniqueSiteManagerMenu().displayPersonInformation(currentUser);
+                Draft.pause();
                 break;
             case (2):
+                attendanceManager.checkInFromInput();
                 break;
             case (3):
+                 attendanceManager.checkOutFromInput();
                 break;
             case (4):
+                attendanceManager.displayHistory(currentUser.getId());
+                Draft.pause();
                 break;
             case (0):
                 break;
@@ -30,4 +39,5 @@ public class UserWorkerMenu extends MenuUserLv00{
                 Draft.clearConsoleIDE();
         }
     }
+
 }

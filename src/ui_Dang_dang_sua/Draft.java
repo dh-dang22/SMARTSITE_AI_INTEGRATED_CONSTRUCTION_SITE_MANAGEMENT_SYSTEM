@@ -6,10 +6,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 public class Draft {
     
-    static final String RED = "\u001B[31m";
-    static final String GRN = "\u001B[32m";
-    static final String BLU = "\u001B[34m";
-    static final String BAS = "\u001B[0m";
+    public static final String RED = "\u001B[31m";
+    public static final String GRN = "\u001B[32m";
+    public static final String BLU = "\u001B[34m";
+    public static final String BAS = "\u001B[0m";
     public static final int CONSOLE_WIDTH = 120;
     
     
@@ -59,12 +59,12 @@ public class Draft {
     public static void displayMenuHeader(){
 
         String header = 
-            RED+ "   _  __                                         "+BAS+""+BLU+"  ____                                     "+BAS+""+GRN+" _   _             \n" +
-            GRN+"    | |/ /  _ __     __ _   _ __     __ _           "+BAS+""+RED+"|  _ \\    __ _   _ __     __ _            "+BAS+""+BLU+"| | | |  _   _  __  __\n" +
-            BLU+"    | ' /  | '_ \\   / _` | | '_ \\   / _` |          "+BAS+""+GRN+"| | | |  / _` | | '_ \\   / _` |           "+BAS+""+RED+"| |_| | | | | | \\ \\/ /\n" +
-            RED+"    | . \\  | | | | | (_| | | | | | | (_| |          "+BAS+""+BLU+"| |_| | | (_| | | | | | | (_| |           "+BAS+""+GRN+"|  _  | | |_| |   / / \n" +
-            GRN+"   |_|\\_\\ |_| |_|  \\__,_| |_| |_|  \\__, |          "+BAS+""+RED+"|____/   \\__,_| |_| |_|  \\__, |           "+BAS+""+BLU+"|_| |_|  \\__,_|  /_/\n" +
-            BLU+"                                    |___/                "+BAS+""+GRN+"                    |___/                   "+BAS+""+RED+"              \n"+BAS;
+            RED+ "_  __                                       "+BAS+""+BLU+"  ____                                  "+BAS+""+GRN+" _   _             \n" +
+            GRN+"  | |/ /  _ __     __ _   _ __     __ _         "+BAS+""+RED+"|  _ \\    __ _   _ __     __ _         "+BAS+""+BLU+"| | | |  _   _  __  __\n" +
+            BLU+"  | ' /  | '_ \\   / _` | | '_ \\   / _` |        "+BAS+""+GRN+"| | | |  / _` | | '_ \\   / _` |        "+BAS+""+RED+"| |_| | | | | | \\ \\/ /\n" +
+            RED+"  | . \\  | | | | | (_| | | | | | | (_| |        "+BAS+""+BLU+"| |_| | | (_| | | | | | | (_| |        "+BAS+""+GRN+"|  _  | | |_| |   / / \n" +
+            GRN+"|_|\\_\\ |_| |_|  \\__,_| |_| |_|  \\__, |        "+BAS+""+RED+"|____/   \\__,_| |_| |_|  \\__, |        "+BAS+""+BLU+"|_| |_|  \\__,_|  /_/\n" +
+            BLU+"                                  |___/              "+BAS+""+GRN+"                    |___/                "+BAS+""+RED+"              \n"+BAS;
         printCenteredBlock(header);
     }
     

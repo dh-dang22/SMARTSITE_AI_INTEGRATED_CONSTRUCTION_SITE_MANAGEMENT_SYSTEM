@@ -113,8 +113,7 @@ private Person inputPerson(String role) {
         String contractStatus = readRequired("Nhap trang thai hop dong: ");
 
         return new Contractor(
-            id, name, code, status, contactPerson, contractStatus
-        );
+            id, name, code, status, contactPerson);
     }
 
         case "VISITOR": {
