@@ -17,7 +17,7 @@ public class CheckName {
                 System.out.println("[Error]: Full Name length must be between 2 and 50 characters! Please try again.");
                 continue;
             }
-            if (!cleanName.matches("^[a-zA-ZÀ-ỹ\\s]+")) {
+            if (!cleanName.matches("^[a-zA-Z\\s]+")) {
                 System.out.println("[Error]: Full Name must contain letters and one number ! Please try again.");
                 continue;
             }
@@ -39,7 +39,7 @@ public class CheckName {
                 continue;
             }
 
-            // 3. Regex chỉ cho phép chữ cái (tiếng Việt & Anh) và khoảng trắng (không chứa số, không chứa ký tự đặc biệt) nhờ AI về regex tiếng việt
+            // 3. Regex chỉ cho phép chữ cái (Anh) và khoảng trắng (không chứa số, không chứa ký tự đặc biệt) 
             if (!zoneName.matches("^(?!(?:.*\\d){4})[a-zA-Z0-9\\s]+$")) {// cho phep nhap toi da 3 so 
                 System.out.println("[Error]: Zone Name must contain letters only (no numbers or special characters)! Please try again.");
                 continue;
@@ -77,7 +77,7 @@ public class CheckName {
                 System.out.println("[Error]: Company Name length must be between 1 and 100 characters! Please try again.");
                 continue;
             }
-            if (!companyName.matches("^[a-zA-Z0-9À-ỹ\\s]+$")) {
+            if (!companyName.matches("^[a-zA-Z0-9\\s]+$")) {
                 System.out.println("[Error]: Company Name must not contain special characters! Please try again.");
                 continue;
             }

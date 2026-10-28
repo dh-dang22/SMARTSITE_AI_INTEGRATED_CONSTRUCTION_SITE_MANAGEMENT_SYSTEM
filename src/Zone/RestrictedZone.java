@@ -22,8 +22,8 @@ public class RestrictedZone extends Zone {
         this.pinCode = pinCode;
     }
 */
-    public RestrictedZone( String zoneId, String zoneName, String zoneDetails,/* int accessLevel, */ String pinCode) {
-        super(zoneId, zoneName, zoneDetails);
+    public RestrictedZone( String zoneId, boolean isRestricted, String zoneName, String zoneDetails,/* int accessLevel, */ String pinCode) {
+        super(zoneId, true, zoneName, zoneDetails);
       //  this.setAccessLevel(accessLevel);
         this.setPinCode(pinCode);
     }
@@ -43,13 +43,15 @@ public class RestrictedZone extends Zone {
 //         this.accessLevel = accessLevel ; 
 //
 //    }
-
+    
+ 
     public final void setPinCode(String pinCode) {
         if (pinCode.isEmpty()){
             System.out.println("Pin Code can not be empty!");
         }
         this.pinCode = pinCode;
-    }   
+    }  
+    
     @Override
     public boolean isAccessRestricted() {
         return true;
@@ -64,4 +66,8 @@ public class RestrictedZone extends Zone {
     public String toString() {
         return super.toString() +/* " | Restricted [Access Level: " + accessLevel + */" PinCode : " + pinCode ;
     }
+    @Override
+    public String toFileString() {
+        return super.toFileString() + "|" + pinCode;
+}
 }
