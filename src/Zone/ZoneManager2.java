@@ -24,55 +24,58 @@ public class ZoneManager2 {
 
     public void addZone() {
         Scanner sc = Validatable.InputScanner.getScanner();
-        System.out.print("Input the number of zones needed to add: ");
         int n;
-        try {
-            n = Integer.parseInt(sc.nextLine().trim());
-            if (n <= 0) {
-                System.out.println("    [Error]: The number must be greater than 0!");
-                return;
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("    [Error]: Invalid number input!");
-            return;
-        }
-
-        for (int i = 1; i <= n; i++) {
-            System.out.println("\n                                                  --- Zone [" + i + "] ---");
-            String id;
-
-            while (true) {
-                id = CheckId.checkZoneId();
-                if (findZoneById(id) != null) {
-                    System.out.println("                      [Error]: Zone ID [" + id + "] already exists! Try again.");
+        while (true) {
+            System.out.print("Input the number of zones needed to add: ");
+            try {
+                n = Integer.parseInt(sc.nextLine().trim());
+                if (n <= 0) {
+                    System.out.println("    [Error]: The number must be greater than 0!");
                     continue;
                 }
-                break;
+            } catch (NumberFormatException e) {
+                System.out.println("    [Error]: Invalid number input!");
+                continue;
             }
 
-            String name = CheckName.checkZoneName();
-            String description = CheckDetails.checkZoneDetails();
+            for (int i = 1; i <= n; i++) {
+                System.out.println("\n                                                  --- Zone [" + i + "] ---");
+                String id;
 
-            String allowedRole = chooseAllowedRole();
-            if (allowedRole == null) {
-                System.out.println("Đã hủy thao tác thêm Zone.");
-                return;
-            }
+                while (true) {
+                    id = CheckId.checkZoneId();
+                    if (findZoneById(id) != null) {
+                        System.out.println("                      [Error]: Zone ID [" + id + "] already exists! Try again.");
+                        continue;
+                    }
+                    break;
+                }
 
-            try {
-                Zone z = new Zone(false, id, name, description, allowedRole);
+                String name = CheckName.checkZoneName();
+                String description = CheckDetails.checkZoneDetails();
 
-                if (z.isValid()) {
-                    this.list.add(z);
-                    System.out.println("Add Zone [" + id + "] successfully!");
-                } else {
-                    System.out.println("Zone data is invalid.");
+                String allowedRole = chooseAllowedRole();
+                if (allowedRole == null) {
+                    System.out.println("Đã hủy thao tác thêm Zone.");
+                    return;
+                }
+
+                try {
+                    Zone z = new Zone(false, id, name, description, allowedRole);
+
+                    if (z.isValid()) {
+                        this.list.add(z);
+                        System.out.println("Add Zone [" + id + "] successfully!");
+                    } else {
+                        System.out.println("Zone data is invalid.");
+                        i--;
+                    }
+                } catch (IllegalArgumentException e) {
+                    System.out.println("[Error]: " + e.getMessage());
                     i--;
                 }
-            } catch (IllegalArgumentException e) {
-                System.out.println("[Error]: " + e.getMessage());
-                i--;
             }
+            break;
         }
     }
 
@@ -152,56 +155,59 @@ public class ZoneManager2 {
 
     public void addRestrictedZone() {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Allowed role (WORKER/SAFETY_OFFICER/CONTRACTOR/VISITOR): ");
         int n;
-        try {
-            n = Integer.parseInt(sc.nextLine().trim());
-            if (n <= 0) {
-                System.out.println("[Error]: The number must be greater than 0!");
-                return;
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("[Error]: Invalid number input!");
-            return;
-        }
-
-        for (int i = 1; i <= n; i++) {
-            System.out.println("\n--- Restricted Zone [" + i + "] ---");
-
-            String id;
-            while (true) {
-                id = CheckId.checkZoneId();
-                if (findZoneById(id) != null) {
-                    System.out.println("[Error]: Zone ID [" + id + "] already exists! Try again.");
-                    continue;
-                }
-                break;
-            }
-
-            String name = CheckName.checkZoneName();
-            String description = CheckDetails.checkZoneDetails();
-            String pinCode = CheckCode.checkPinCode();
-
-            String allowedRole = chooseAllowedRole();
-            if (allowedRole == null) {
-                System.out.println("Đã hủy thao tác thêm Restricted Zone.");
-                return;
-            }
-
+        while (true) {
+            System.out.print("Allowed role (WORKER/SAFETY_OFFICER/CONTRACTOR/VISITOR): ");
             try {
-                RestrictedZone rz = new RestrictedZone(true, id, name, description, pinCode, allowedRole);
+                n = Integer.parseInt(sc.nextLine().trim());
+                if (n <= 0) {
+                    System.out.println("[Error]: The number must be greater than 0!");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("[Error]: Invalid number input!");
+                return;
+            }
 
-                if (rz.isValid()) {
-                    this.list.add(rz);
-                    System.out.println("Restricted Zone [" + id + "] added successfully!");
-                } else {
-                    System.out.println("Restricted Zone data is invalid.");
+            for (int i = 1; i <= n; i++) {
+                System.out.println("\n--- Restricted Zone [" + i + "] ---");
+
+                String id;
+                while (true) {
+                    id = CheckId.checkZoneId();
+                    if (findZoneById(id) != null) {
+                        System.out.println("[Error]: Zone ID [" + id + "] already exists! Try again.");
+                        continue;
+                    }
+                    break;
+                }
+
+                String name = CheckName.checkZoneName();
+                String description = CheckDetails.checkZoneDetails();
+                String pinCode = CheckCode.checkPinCode();
+
+                String allowedRole = chooseAllowedRole();
+                if (allowedRole == null) {
+                    System.out.println("Đã hủy thao tác thêm Restricted Zone.");
+                    return;
+                }
+
+                try {
+                    RestrictedZone rz = new RestrictedZone(true, id, name, description, pinCode, allowedRole);
+
+                    if (rz.isValid()) {
+                        this.list.add(rz);
+                        System.out.println("Restricted Zone [" + id + "] added successfully!");
+                    } else {
+                        System.out.println("Restricted Zone data is invalid.");
+                        i--;
+                    }
+                } catch (IllegalArgumentException e) {
+                    System.out.println("[Error]: " + e.getMessage());
                     i--;
                 }
-            } catch (IllegalArgumentException e) {
-                System.out.println("[Error]: " + e.getMessage());
-                i--;
             }
+            break;
         }
     }
 
