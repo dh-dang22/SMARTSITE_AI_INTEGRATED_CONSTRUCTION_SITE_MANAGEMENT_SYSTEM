@@ -13,6 +13,7 @@ public class Zone implements Validatable {
     protected String zoneId;
     protected String zoneName;
     protected String zoneDetails;
+    private String allowedRole;
 
     public Zone() {
     }
@@ -76,6 +77,13 @@ public class Zone implements Validatable {
     public boolean isAccessRestricted() {
         return false;
     }
+          public String getAllowedRole() {
+    return allowedRole;
+                    }
+
+    public void setAllowedRole(String allowedRole) {
+    this.allowedRole = allowedRole;
+}
 
     @Override
     public String toString() {

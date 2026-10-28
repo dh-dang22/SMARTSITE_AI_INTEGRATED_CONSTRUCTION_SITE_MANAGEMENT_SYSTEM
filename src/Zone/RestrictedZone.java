@@ -13,7 +13,7 @@ package Zone;
 public class RestrictedZone extends Zone {
     // private int accessLevel ; 
     private String pinCode ; 
-
+    protected String allowedRole;   
     public RestrictedZone() {
     }
 /*
@@ -22,12 +22,15 @@ public class RestrictedZone extends Zone {
         this.pinCode = pinCode;
     }
 */
-    public RestrictedZone( String zoneId, String zoneName, String zoneDetails,/* int accessLevel, */ String pinCode) {
-        super(zoneId, zoneName, zoneDetails);
-      //  this.setAccessLevel(accessLevel);
-        this.setPinCode(pinCode);
-    }
-
+public RestrictedZone(
+        String zoneId,
+        String zoneName,
+        String zoneDetails,
+        String pinCode,
+        String allowedRole) {
+   super(zoneId, zoneName, zoneDetails, allowedRole);
+    this.setPinCode(pinCode);
+}
 //    public int getAccessLevel() {
 //        return accessLevel;
 //    }
