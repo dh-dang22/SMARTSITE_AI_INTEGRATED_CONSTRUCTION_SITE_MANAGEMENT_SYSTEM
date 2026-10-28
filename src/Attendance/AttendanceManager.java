@@ -160,7 +160,7 @@ try {
         return;
     }
 
-    ZoneManager2 zoneManager = ZoneManager2.getInstance();
+    ZoneManager2 zoneManager = new ZoneManager2();
     checkInFromInput(currentUser, zoneManager);
 }
 

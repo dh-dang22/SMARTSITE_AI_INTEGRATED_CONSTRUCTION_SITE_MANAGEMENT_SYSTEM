@@ -19,7 +19,10 @@ public class UserSiteManagerMenu extends MenuUserLv00{
             case (0):
                 break;
             case (1):
-                Draft.functionIsNotCompletedYet();
+                UniqueSiteManagerMenu ht1 = new UniqueSiteManagerMenu();
+                ht1.displayPersonInformation(currentUser);
+                Draft.pause();
+                Draft.clearConsoleIDE();
                 break;
             case (2):
                 Draft.functionIsNotCompletedYet();

@@ -5,6 +5,7 @@
 package Person;
 
 import Validatable.Validatable;
+import ui_Dang_dang_sua.Draft;
 
 /**
  *
@@ -54,7 +55,7 @@ public abstract class Person implements Validatable {
 
     public void setId(String id) {
         if (isBlank(id)) {
-            throw new IllegalArgumentException("Person id cannot be empty.");
+            throw new IllegalArgumentException(Draft.center(Draft.RED+"Person id cannot be empty."+Draft.BAS));
         }
         this.id = id;
     }
@@ -65,7 +66,7 @@ public abstract class Person implements Validatable {
 
     public void setFullName(String fullName) {
         if (isBlank(fullName)) {
-            throw new IllegalArgumentException("Full name cannot be empty.");
+            throw new IllegalArgumentException(Draft.center(Draft.RED+"Full name cannot be empty."+Draft.BAS));
         }
         this.fullName = fullName;
     }
