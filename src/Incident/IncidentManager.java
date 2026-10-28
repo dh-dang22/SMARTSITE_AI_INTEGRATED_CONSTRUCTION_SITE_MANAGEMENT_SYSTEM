@@ -90,16 +90,16 @@ public class IncidentManager {
         }
     }
 
-    public boolean addIncident(Incident incident) {
-        if (incident == null || !incident.isValid()) {
-            return false;
-        }
-        if (searchIncidentById(incident.getIncidentId()) != null) {
-            return false; // Đã tồn tại ID
-        }
-        incidents.add(incident);
-        return true;
-    }
+//    public boolean addIncident(Incident incident) {
+//        if (incident == null || !incident.isValid()) {
+//            return false;
+//        }
+//        if (searchIncidentById(incident.getIncidentId()) != null) {
+//            return false; // Đã tồn tại ID
+//        }
+//        incidents.add(incident);
+//        return true;
+//    }
 
     public boolean updateIncidentStatus(String incidentId, String status) {
         Incident inc = searchIncidentById(incidentId);
@@ -184,7 +184,7 @@ public class IncidentManager {
         return result;
     }
 
-    public void addIncident(Scanner sc, ZoneManager2 ZONES) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+//    public void addIncident(Scanner sc, ZoneManager2 ZONES) {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
 }

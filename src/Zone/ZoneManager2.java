@@ -23,48 +23,51 @@ public class ZoneManager2 {
     }
     public void addZone() {
         Scanner sc = Validatable.InputScanner.getScanner();
-        System.out.print("Input the number of zones needed to add: ");
         int n;
-        try {
-            n = Integer.parseInt(sc.nextLine().trim());
-            if (n <= 0) {
-                System.out.println("    [Error]: The number must be greater than 0!");
-                return;
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("    [Error]: Invalid number input!");
-            return;
-        }
-
-        for (int i = 1; i <= n; i++) {
-            System.out.println("\n                                                  --- Zone [" + i + "] ---");
-            String id;
-
-            while (true) {
-                id = CheckId.checkZoneId();
-                if (findZoneById(id) != null) {
-                    System.out.println("                      [Error]: Zone ID [" + id + "] already exists! Try again.");
+        while (true){
+            System.out.print("Input the number of zones needed to add: ");
+            try {
+                n = Integer.parseInt(sc.nextLine().trim());
+                if (n <= 0) {
+                    System.out.println("    [Error]: The number must be greater than 0!");
                     continue;
                 }
-                break;
+            } catch (NumberFormatException e) {
+                System.out.println("    [Error]: Invalid number input!");
+                continue;
             }
 
-            String name = CheckName.checkZoneName();
-            String description = CheckDetails.checkZoneDetails();
+            for (int i = 1; i <= n; i++) {
+                System.out.println("\n                                                  --- Zone [" + i + "] ---");
+                String id;
 
-            try {
-                Zone z = new Zone(id, name, description);
-                if (z.isValid()) {
-                    this.list.add(z);
-                    System.out.println("                                         Add Zone [" + id + "] successfully!");
-                } else {
-                    System.out.println("    [Error]: Failed to add Zone [" + id + "]: Invalid object state!");
+                while (true) {
+                    id = CheckId.checkZoneId();
+                    if (findZoneById(id) != null) {
+                        System.out.println("                      [Error]: Zone ID [" + id + "] already exists! Try again.");
+                        continue;
+                    }
+                    break;
+                }
+
+                String name = CheckName.checkZoneName();
+                String description = CheckDetails.checkZoneDetails();
+                try {
+                    Zone z = new Zone(id, false, name, description);
+                    if (z.isValid()) {
+                        this.list.add(z);
+                        System.out.println("                                         Add Zone [" + id + "] successfully!");
+                        
+                    } else {
+                        System.out.println("    [Error]: Failed to add Zone [" + id + "]: Invalid object state!");
+                        i--;
+                    }
+                } catch (IllegalArgumentException e) {
+                    System.out.println("    [Error]: " + e.getMessage() + "! Try again.");
                     i--;
                 }
-            } catch (IllegalArgumentException e) {
-                System.out.println("    [Error]: " + e.getMessage() + "! Try again.");
-                i--;
             }
+            break;
         }
     }
 
@@ -154,7 +157,7 @@ public class ZoneManager2 {
             String pinCode = CheckCode.checkPinCode();
 
             try {
-                RestrictedZone rz = new RestrictedZone(id, name, description, pinCode);
+                RestrictedZone rz = new RestrictedZone(id, true, name, description, pinCode);
                 if (rz.isValid()) {
                     this.list.add(rz);
                     System.out.println("-> Add Restricted Zone [" + id + "] successfully!");

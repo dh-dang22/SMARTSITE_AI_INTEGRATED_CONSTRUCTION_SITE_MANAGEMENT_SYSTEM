@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Zone;
-import Validatable.Validatable ; 
+
+import Validatable.Validatable;
+
 /**
  *
  * @author Minh_Khang
@@ -13,11 +15,13 @@ public class Zone implements Validatable {
     protected String zoneId;
     protected String zoneName;
     protected String zoneDetails;
+    protected boolean isRestricted;
 
     public Zone() {
     }
 
-    public Zone(String zoneId, String zoneName, String zoneDetails) {
+    public Zone(String zoneId, boolean isRestricted, String zoneName, String zoneDetails) {
+        this.setIsRestricted(isRestricted);
         this.setZoneId(zoneId);
         this.setZoneName(zoneName);
         this.setZoneDetails(zoneDetails);
@@ -73,13 +77,26 @@ public class Zone implements Validatable {
         this.zoneDetails = zoneDetails;
     }
 
+    public boolean isRestricted() {
+        return isRestricted;
+    }
+
+    public void setIsRestricted(boolean isRestricted) {
+        this.isRestricted = isRestricted;
+    }
+
     public boolean isAccessRestricted() {
-        return false;
+        return this.isRestricted;
     }
 
     @Override
     public String toString() {
-        return"ZoneId : " + zoneId + ", ZoneName : " + zoneName + ", ZoneDetails : " + zoneDetails ;
+        String restrictedStr = isRestricted ? "Yes" : "No";
+        return "ZoneId : " + zoneId + ", IsRestricted : " + restrictedStr + ", ZoneName : " + zoneName + ", ZoneDetails : " + zoneDetails;
     }
 
+    public String toFileString() {
+        String restrictedStr = isRestricted ? "Yes" : "No";
+        return zoneId + "|" + restrictedStr + "|" + zoneName + "|" + zoneDetails;
+    }
 }
