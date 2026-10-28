@@ -95,27 +95,37 @@ public class LoginMenu {
             switch (role.trim().toUpperCase()) {
                 case "SITE_MANAGER":
                     clearConsoleIDE();
+                    TempSession.setCurrentUser(currentUser); // Luu gia tri nguoi dung vao de sai cho viec checkin
+                                                               //checkout
                     new UserSiteManagerMenu().displayMenuLv(currentUser);
+                    TempSession.clear();
                     running = false;
                     break;
                 case "SAFETY_OFFICER":
                     clearConsoleIDE();
+                    TempSession.setCurrentUser(currentUser);
                     new UserSafetyOfficerMenu().displayMenuLv(currentUser);
+                    TempSession.clear();
                     running = false;
                     break;
                 case "WORKER":
                     clearConsoleIDE();
+                    TempSession.setCurrentUser(currentUser);
                     new UserWorkerMenu().displayMenuLv(currentUser);
                     running = false;
                     break;
                 case "CONTRACTOR":
                     clearConsoleIDE();
+                    TempSession.setCurrentUser(currentUser);
                     new UserContractorMenu().displayMenuLv(currentUser);
+                    TempSession.clear();
                     running = false;
                     break;
                 case "VISITOR":
                     clearConsoleIDE();
+                    TempSession.setCurrentUser(currentUser);
                     new UserVisitorMenu().displayMenuLv(currentUser);
+                     TempSession.clear();
                     running = false;
                     break;
                 default:

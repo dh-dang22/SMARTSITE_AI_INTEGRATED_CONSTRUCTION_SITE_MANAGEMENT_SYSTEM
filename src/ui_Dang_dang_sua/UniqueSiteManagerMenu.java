@@ -1,6 +1,8 @@
     package ui_Dang_dang_sua;
+import Person.Person;
 import java.util.Scanner;
 import Person.PersonManager;
+import Person.Worker;
 import Validatable.InputScanner;
 import Zone.ZoneManager2;
 //import Zone.ZoneManager2;
@@ -115,7 +117,7 @@ public class UniqueSiteManagerMenu {
     
     
     public void displayZoneManagementMenu(){
-        ZoneManager2 tempZone = new ZoneManager2();
+        ZoneManager2 tempZone = ZoneManager2.getInstance();
         Scanner tempSC = new Scanner(System.in);
         boolean running = true;
         while (running){
@@ -191,4 +193,24 @@ public class UniqueSiteManagerMenu {
         Draft.functionIsNotCompletedYet();
     }//display
     
+ public void displayPersonInformation(Person person) {
+    if (person == null) {
+        System.out.println("Không tìm thấy người dùng đang đăng nhập.");
+        return;
+    }
+
+    System.out.println("\n=== MY PROFILE ===");
+    System.out.println("ID     : " + person.getId());
+    System.out.println("Name   : " + person.getFullName());
+    System.out.println("Role   : " + person.getRole());
+    System.out.println("Status : " + person.getStatus());
+
+    if (person instanceof Worker) {
+        Worker worker = (Worker) person;
+
+        // Thay bằng đúng getter có trong Worker.java
+        System.out.println("Company       : " + worker.getCompanyName());
+        System.out.println("Contract type : " + worker.getContractType());
+    }
+}
 }//class

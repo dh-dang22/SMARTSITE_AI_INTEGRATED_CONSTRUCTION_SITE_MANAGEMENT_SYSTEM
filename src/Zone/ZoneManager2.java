@@ -14,7 +14,13 @@ public class ZoneManager2 {
     public ZoneManager2() {
         this.list = new ArrayList<>();
     }
-
+    private static ZoneManager2 instance;
+       public static ZoneManager2 getInstance() {
+        if (instance == null) {
+            instance = new ZoneManager2();
+        }
+        return instance;
+    }
     public void addZone() {
         Scanner sc = Validatable.InputScanner.getScanner();
         System.out.print("Input the number of zones needed to add: ");

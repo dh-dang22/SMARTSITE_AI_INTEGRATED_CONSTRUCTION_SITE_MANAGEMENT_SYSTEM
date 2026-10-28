@@ -12,6 +12,14 @@ import java.util.List;
 import Zone.Zone;
 import Zone.RestrictedZone;
 import Zone.ZoneManager2;
+//import cho phan doc file va check file attendance record
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  *
@@ -45,9 +53,16 @@ public class AttendanceManager {
         LocalDateTime.now(),
         null
     );
-
     records.add(record);
+
+try {
+    saveToFile();
     return true;
+} catch (IOException e) {
+    records.remove(record);
+    System.out.println("Không lưu được Attendance: " + e.getMessage());
+    return false;
+}
 }
         public boolean checkOut(String personId) {
          for (AttendanceRecord rec : records) {
@@ -56,7 +71,19 @@ public class AttendanceManager {
                  rec.setCheckOutTime(LocalDateTime.now()); // Ghi nhận giờ ra
                  return true; // Check-out thành công!
              }
+             LocalDateTime oldCheckOut = rec.getCheckOutTime();
+            rec.setCheckOutTime(LocalDateTime.now());
+
+            try {
+                saveToFile();
+                return true;
+            } catch (IOException e) {
+                rec.setCheckOutTime(oldCheckOut);
+                System.out.println("Không lưu được Attendance: " + e.getMessage());
+                return false;
+            }
          }
+         
          return false; // Không tìm thấy lượt check-in nào đang mở
      }
         public AttendanceRecord findOpenRecord(String personId) {
@@ -125,6 +152,79 @@ public class AttendanceManager {
  System.out.println("Ban chua check-in hoac da check-out!");
  }
  }
+ public void checkInFromInput() {
+    Person currentUser = ui_Dang_dang_sua.TempSession.getCurrentUser();
+
+    if (currentUser == null) {
+        System.out.println("Không tìm thấy người dùng đang đăng nhập.");
+        return;
+    }
+
+    ZoneManager2 zoneManager = ZoneManager2.getInstance();
+    checkInFromInput(currentUser, zoneManager);
+}
+
+public void checkOutFromInput() {
+    Person currentUser = ui_Dang_dang_sua.TempSession.getCurrentUser();
+
+    if (currentUser == null) {
+        System.out.println("Không tìm thấy người dùng đang đăng nhập.");
+        return;
+    }
+
+    checkOutFromInput(currentUser);
+}
+private static final String ATTENDANCE_FILE = "data/Attendance.txt";
+
+public void loadFromFile() throws IOException {
+    Path path = Paths.get(ATTENDANCE_FILE);
+
+    if (!Files.exists(path)) {
+        Files.createDirectories(path.getParent());
+        Files.createFile(path);
+    }
+
+    List<AttendanceRecord> loaded = new ArrayList<>();
+
+    try (BufferedReader reader =
+                 Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
+        String line;
+        int lineNumber = 0;
+
+        while ((line = reader.readLine()) != null) {
+            lineNumber++;
+
+            if (line.trim().isEmpty()) {
+                continue;
+            }
+
+            try {
+                loaded.add(AttendanceRecord.fromFileLine(line));
+            } catch (RuntimeException e) {
+                System.out.println(
+                        "Bỏ qua dòng Attendance lỗi " + lineNumber
+                                + ": " + e.getMessage()
+                );
+            }
+        }
+    }
+
+    records.clear();
+    records.addAll(loaded);
+}
+
+private void saveToFile() throws IOException {
+    Path path = Paths.get(ATTENDANCE_FILE);
+    Files.createDirectories(path.getParent());
+
+    try (BufferedWriter writer =
+                 Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
+        for (AttendanceRecord record : records) {
+            writer.write(record.toFileLine());
+            writer.newLine();
+        }
+    }
+}
  public void displayHistory(String personId) {
  if (personId == null || personId.trim().isEmpty()) {
  System.out.println("Person ID khong hop le!");

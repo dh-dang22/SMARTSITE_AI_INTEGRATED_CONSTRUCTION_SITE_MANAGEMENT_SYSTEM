@@ -6,7 +6,7 @@ package Attendance;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-
+import java.time.format.DateTimeParseException;
 /**
  *
  * @author Minh_Khang
@@ -80,5 +80,27 @@ public class AttendanceRecord {
                 + ", zoneId=" + zoneId + ", checkInTime=" + checkInTime
                 + ", checkOutTime=" + checkOutTime + '}';
     }
+    // Method in file ra 
+    public static AttendanceRecord fromFileLine(String line) {
+    String[] fields = line.split("\\|", -1);
+
+    if (fields.length != 5) {
+        throw new IllegalArgumentException("Attendance row must contain 5 fields.");
+    }
+
+    LocalDateTime checkIn = LocalDateTime.parse(fields[3]);
+    LocalDateTime checkOut =
+            fields[4].trim().isEmpty()
+                    ? null
+                    : LocalDateTime.parse(fields[4]);
+
+    return new AttendanceRecord(
+            fields[0].trim(),
+            fields[1].trim(),
+            fields[2].trim(),
+            checkIn,
+            checkOut
+    );
+}
 }
 
