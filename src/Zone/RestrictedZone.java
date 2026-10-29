@@ -4,33 +4,29 @@
  */
 package Zone;
 
-
-
 /**
  *
  * @author GIA HUY
  */
 public class RestrictedZone extends Zone {
+
     // private int accessLevel ; 
-    private String pinCode ; 
-    protected String allowedRole;   
+    private String pinCode;
+    protected String allowedRole;
+
     public RestrictedZone() {
     }
-/*
+
+    /*
     public RestrictedZone(int accessLevel, String pinCode) {
         this.accessLevel = accessLevel;
         this.pinCode = pinCode;
     }
-*/
-public RestrictedZone(
-        String zoneId,
-        String zoneName,
-        String zoneDetails,
-        String pinCode,
-        String allowedRole) {
-   super(zoneId, zoneName, zoneDetails, allowedRole);
-    this.setPinCode(pinCode);
-}
+     */
+    public RestrictedZone(boolean isRestricted, String zoneId, String zoneName, String zoneDetails, String pinCode, String allowedRole) {
+        super(true, zoneId, zoneName, zoneDetails, allowedRole);
+        this.setPinCode(pinCode);
+    }
 //    public int getAccessLevel() {
 //        return accessLevel;
 //    }
@@ -46,13 +42,13 @@ public RestrictedZone(
 //         this.accessLevel = accessLevel ; 
 //
 //    }
-
     public final void setPinCode(String pinCode) {
-        if (pinCode.isEmpty()){
+        if (pinCode.isEmpty()) {
             System.out.println("Pin Code can not be empty!");
         }
         this.pinCode = pinCode;
-    }   
+    }
+
     @Override
     public boolean isAccessRestricted() {
         return true;
@@ -65,6 +61,6 @@ public RestrictedZone(
 
     @Override
     public String toString() {
-        return super.toString() +/* " | Restricted [Access Level: " + accessLevel + */" PinCode : " + pinCode ;
+        return super.toString() +/* " | Restricted [Access Level: " + accessLevel + */ " PinCode : " + pinCode;
     }
 }
