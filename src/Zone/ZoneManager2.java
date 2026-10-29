@@ -4,6 +4,7 @@ import Validatable.CheckId;
 import Validatable.CheckName;
 import Validatable.CheckDetails;
 import Validatable.CheckCode;
+import Validatable.InputScanner;
 import java.util.ArrayList;
 import java.util.Scanner;
 //import ham load from file;
@@ -12,7 +13,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
+import ui_Dang_dang_sua.Draft;
 public class ZoneManager2 {
 
     private ArrayList<Zone> list;
@@ -89,39 +90,34 @@ public class ZoneManager2 {
     }
 
     public void deleteZoneById() {
+        Scanner scanner = InputScanner.getScanner();
         String zoneId = CheckId.checkZoneId();
         Zone z = this.findZoneById(zoneId);
-
+        
         if (z == null) {
-            System.out.println("[Error]: Zone ID [" + zoneId + "] not found!");
+            System.out.println(Draft.center(Draft.RED+"Please enter the Zone ID!"+Draft.BAS));
             return;
         }
-
-        System.out.println("Zone found: " + z);
-
-        while (true) {
-            System.out.print("Are you sure you want to delete this zone? (Y/N): ");
-            String confirm = Validatable.InputScanner.nextLine();
-
-            if (confirm == null) {
-                return;
+        
+            System.out.print("    Are you sure you want to delete this Zone["+z+"]? [Y/N]: ");
+            String YN = scanner.nextLine().trim();
+        do{
+            switch(YN){
+                case "n":
+                    System.out.println(Draft.center("Cancel deleting mod!"));
+                    System.out.println(Draft.center("No one has been removed!"));
+                    return;
+                case "y":
+                    list.remove(z);
+                    System.out.println(Draft.center("Deleting sucessfully!"));
+                default:
+                    System.out.println(Draft.center(Draft.RED+"Please enter a valid choice!"+Draft.BAS));
             }
-
-            if (confirm.equalsIgnoreCase("Y") || confirm.equalsIgnoreCase("YES")) {
-                list.remove(z);
-                System.out.println("-> Delete Zone [" + zoneId + "] successfully!");
-                break;
-            } else if (confirm.equalsIgnoreCase("N") || confirm.equalsIgnoreCase("NO")) {
-                System.out.println("-> Deletion cancelled.");
-                break;
-            } else {
-                System.out.println("[Error]: Invalid input! Please enter 'Y' (Yes) or 'N' (No).");
-            }
-        }
+        }while (true);        
     }
 
     public void updateZoneById() {
-        String zoneId = "   ➔" + CheckId.checkZoneId();
+        String zoneId = "    ➔ " + CheckId.checkZoneId();
         Zone z = this.findZoneById(zoneId);
 
         if (z != null) {
@@ -133,21 +129,23 @@ public class ZoneManager2 {
             try {
                 z.setZoneName(newName);
                 z.setZoneDetails(newDescription);
-                System.out.println("     Update Zone [" + zoneId + "] successfully!");
+                System.out.println(Draft.center(Draft.GRN+"Update Zone [" + zoneId + "] successfully!"+Draft.BAS));
             } catch (IllegalArgumentException e) {
-                System.out.println("    [Error]: Update failed! " + e.getMessage());
+                System.out.println(Draft.center(Draft.RED+"[Error]: Update failed! " + e.getMessage()+Draft.BAS));
             }
         } else {
-            System.out.println("    [Error]: Zone ID [" + zoneId + "] not found!");
+            System.out.println(Draft.center(Draft.RED+"[Error]: Zone ID [" + zoneId + "] not found!"+Draft.BAS));
         }
     }
 
     public void displayList() {
         if (list.isEmpty()) {
-            System.out.println("     [ERROR] Zone list is empty now! Add more Zone(s).");
+            System.out.println(Draft.center(Draft.RED+"[ERROR] Zone list is empty now! Add more Zone(s)."+Draft.BAS));
             return;
         }
-        System.out.println("                                        \n--- List of Zones ---");
+        System.out.println("");
+        System.out.println(Draft.center("--- List of Zones ---"));
+        System.out.println("");
         for (Zone z : this.list) {
             System.out.println(z);
         }
@@ -161,22 +159,22 @@ public class ZoneManager2 {
             try {
                 n = Integer.parseInt(sc.nextLine().trim());
                 if (n <= 0) {
-                    System.out.println("[Error]: The number must be greater than 0!");
+                    System.out.println(Draft.center(Draft.RED+"[Error]: The number must be greater than 0!"+Draft.BAS));
                     return;
                 }
             } catch (NumberFormatException e) {
-                System.out.println("[Error]: Invalid number input!");
+                System.out.println(Draft.center(Draft.RED+"[Error]: Invalid number input!"+Draft.BAS));
                 return;
             }
 
             for (int i = 1; i <= n; i++) {
-                System.out.println("\n--- Restricted Zone [" + i + "] ---");
+                System.out.println(Draft.center("--- Restricted Zone [" + i + "] ---"));
 
                 String id;
                 while (true) {
                     id = CheckId.checkZoneId();
                     if (findZoneById(id) != null) {
-                        System.out.println("[Error]: Zone ID [" + id + "] already exists! Try again.");
+                        System.out.println(Draft.center(Draft.RED+"[Error]: Zone ID [" + id + "] already exists! Try again!"+Draft.BAS));
                         continue;
                     }
                     break;
@@ -186,11 +184,11 @@ public class ZoneManager2 {
                 String description = CheckDetails.checkZoneDetails();
                 String pinCode = CheckCode.checkPinCode();
 
-                String allowedRole = chooseAllowedRole();
-                if (allowedRole == null) {
-                    System.out.println("Đã hủy thao tác thêm Restricted Zone.");
-                    return;
-                }
+            String allowedRole = chooseAllowedRole();
+            if (allowedRole == null) {
+                System.out.println("Đã hủy thao tác thêm Restricted Zone.");
+                return;
+    }
 
                 try {
                     RestrictedZone rz = new RestrictedZone(true, id, name, description, pinCode, allowedRole);

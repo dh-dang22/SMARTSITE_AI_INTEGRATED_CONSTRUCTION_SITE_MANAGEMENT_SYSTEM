@@ -246,7 +246,7 @@ private String chooseRole() {
             }
             people[size - 1] = null;
             size--;
-            System.out.println("Id has removed");
+            System.out.println(Draft.center(Draft.GRN+"ID has removed"+Draft.BAS));
         }
     }
     public void deletePersonFromInput() {
