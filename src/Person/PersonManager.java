@@ -63,9 +63,9 @@ public class PersonManager {
         String value = sc.nextLine().trim();
 
         if (value.isEmpty()) {
-            System.out.println("Thong tin khong duoc de trong!");
+            System.out.println(Draft.center(Draft.RED+"The information can no be empty!"+Draft.BAS));
         } else if (value.contains("|")) {
-            System.out.println("Thong tin khong duoc chua dau |");
+            System.out.println(Draft.center(Draft.RED+"The information can not contain |"+Draft.BAS));
         } else {
             return value;
         }
@@ -249,10 +249,10 @@ private String chooseRole() {
             System.out.println("Id has removed");
         }
     }
-        public void deletePersonFromInput() {
+    public void deletePersonFromInput() {
          Scanner scanner = InputScanner.getScanner();
 
-         System.out.print("Nhap ID nguoi can xoa: ");
+         System.out.print("    ➔ Enter the ID of Person you want to delete: ");
 
          if (!scanner.hasNextLine()) {
              return;
@@ -261,11 +261,25 @@ private String chooseRole() {
          String id = scanner.nextLine().trim();
 
          if (id.isEmpty()) {
-             System.out.println("ID khong duoc de trong!");
+             System.out.println(Draft.center(Draft.RED+"ID can not be emtpy!"+Draft.BAS));
              return;
          }
-
-         deleteByID(id);
+            System.out.print("    Are you sure you want to delete this Person["+id+"]? [Y/N]: ");
+            String YN = scanner.nextLine().trim();
+            
+        do{
+            switch(YN){
+                case "n":
+                    System.out.println(Draft.center("Cancel deleting mod!"));
+                    System.out.println(Draft.center("No one has been removed!"));
+                    return;
+                case "y":
+                    deleteByID(id);
+                    System.out.println(Draft.center("Deleting sucessfully!"));
+                default:
+                    System.out.println(Draft.center(Draft.RED+"Please enter a valid choice!"+Draft.BAS));
+            }
+        }while (true);
      }
 
     //--------------------------
@@ -273,18 +287,18 @@ private String chooseRole() {
     //--------------------
         public void findPersonFromInput() {
         Scanner scanner = InputScanner.getScanner();
-        int method = InputScanner.readRange(scanner,
-            "Search by: 1. ID / 2. Code: ", 1, 2, "Enter 1 or 2.");
+        int method = InputScanner.readRange(scanner,"    Search by: 1. ID / 2. Code: ", 1, 2, Draft.center(Draft.RED+"Please enter 1 or 2!"+Draft.BAS));
+        Draft.displayMenuLine();
         if (method == -1) return;
-        System.out.print(method == 1 ? "Enter Person ID: " : "Enter Person code: ");
+        System.out.print(method == 1 ? "    ➔ Enter Person ID: " : "    ➔ Enter Person code: ");
         if (!scanner.hasNextLine()) return;
         String keyword = scanner.nextLine().trim();
         if (keyword.isEmpty()) {
-            System.out.println("Search value cannot be empty.");
+            System.out.println(Draft.center(Draft.RED+"Search value cannot be empty!"+Draft.BAS));
             return;
         }
         Person person = method == 1 ? findPersonByID(keyword) : findPersonByCode(keyword);
-        if (person == null) System.out.println("Person not found.");
+        if (person == null) System.out.println(Draft.center(Draft.RED+"Person not found!"+Draft.BAS));
         else System.out.println(person);
     }
     // ----------------------------------------------------------------
@@ -292,15 +306,56 @@ private String chooseRole() {
     // ----------------------------------------------------------------
     public void displayAll() {
         if (size == 0) {
-            System.out.println("Danh sach trong!");
+            System.out.println(Draft.center(Draft.RED+"The list is empty!"+Draft.BAS));
             return;
         }
-        System.out.println("=== DANH SACH NGUOI DUNG SMARTSITE ===");
+        Draft.displayMenuLine();
+        System.out.println(Draft.center("=== The list of Person(s) using S-SMARTSITE ==="));
         for (int i = 0; i < size; i++) {
             System.out.println(people[i]);
         }
     }
 
+    public void displayAllByGehihi() { //code lại bởi Gehihi dựa trên hàm displayAll viết bởi MKhang bên trên
+        if (size == 0) {
+            System.out.println(Draft.center(Draft.RED + "The list is empty!" + Draft.BAS));
+            return;
+        }
+        
+        Draft.displayMenuLine();
+        System.out.println();
+        System.out.println(Draft.center("=== The list of Person(s) using S-SMARTSITE ==="));
+        System.out.println();
+        System.out.println();
+        
+        // In dòng tiêu đề bảng
+        System.out.printf("        %-6s | %-18s | %-15s | %-10s | %-30s%n", 
+                          "ID", "Full Name", "Role", "Status", "Additional Details");
+        
+        // Dùng chuỗi gạch ngang tĩnh thay cho .repeat() để tương thích mọi phiên bản Java
+        System.out.println("      ------------------------------------------------------------------------------------------------------------");
+
+        // Duyệt qua danh sách và in từng dòng dữ liệu
+        for (int i = 0; i < size; i++) {
+            Person p = people[i];
+            if (p != null) {
+                String id = p.getId();
+                String name = p.getFullName();
+                String role = p.getRole();
+                String status = p.getStatus();
+                String details = p.getCode(); 
+
+                System.out.printf("        %-6s | %-18s | %-15s | %-10s | %-43s%n", 
+                                  id, name, role, status, details);
+            }
+        }
+        
+        System.out.println("      ------------------------------------------------------------------------------------------------------------");
+        System.out.println();
+    }
+    
+    
+    
     public void displayRoleDescriptions() {
         for (int i = 0; i < size; i++) {
             System.out.println(people[i].getRoleDescription());

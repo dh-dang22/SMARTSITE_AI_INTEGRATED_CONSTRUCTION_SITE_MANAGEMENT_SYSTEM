@@ -57,12 +57,14 @@ public class UniqueSiteManagerMenu {
                 Draft.clearConsoleIDE();
             } else {
                 switch(choice){
-                    case (1): // add
+                    case (1): // add đã xong
                         int n = InputScanner.readRange(sc2, "   ➔ Enter a number of Person(s) you want to add[1-100][-1 to cancel]: ", 1, 100, "Please enter a number between 1-100!");
+                        System.out.println("");
                         if (n == -1) {
                             return;
                         }
                         for (int i = 0; i < n; i++) {
+                            Draft.displayMenuLine();
                             System.out.println(Draft.center("--- Person " + (i + 1) + " ---"));
                             pm.addPersonFromInput();
                         }
@@ -77,13 +79,13 @@ public class UniqueSiteManagerMenu {
                     case (3): //update
                         Draft.functionIsNotCompletedYet();
                         break;
-                    case 4: // delete
+                    case 4: // delete đã xong
                         pm.deletePersonFromInput();
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
-                    case (5): // display list
-                        pm.displayAll();
+                    case (5): // display list đã xong
+                        pm.displayAllByGehihi();
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
@@ -195,22 +197,24 @@ public class UniqueSiteManagerMenu {
     
  public void displayPersonInformation(Person person) {
     if (person == null) {
-        System.out.println("Không tìm thấy người dùng đang đăng nhập.");
+        System.out.println(Draft.center(Draft.RED+"Can not find the logged in Person."+Draft.BAS));
         return;
     }
-
-    System.out.println("\n=== MY PROFILE ===");
-    System.out.println("ID     : " + person.getId());
-    System.out.println("Name   : " + person.getFullName());
-    System.out.println("Role   : " + person.getRole());
-    System.out.println("Status : " + person.getStatus());
+    Draft.displayMenuLine();
+     System.out.println("");
+    System.out.println(Draft.center("=== MY PROFILE ==="));
+     System.out.println("");
+    System.out.println("    ID     : " + person.getId());
+    System.out.println("    Name   : " + person.getFullName());
+    System.out.println("    Role   : " + person.getRole());
+    System.out.println("    Status : " + person.getStatus());
 
     if (person instanceof Worker) {
         Worker worker = (Worker) person;
 
         // Thay bằng đúng getter có trong Worker.java
-        System.out.println("Company       : " + worker.getCompanyName());
-        System.out.println("Contract type : " + worker.getContractType());
+        System.out.println("    Company       : " + worker.getCompanyName());
+        System.out.println("    Contract type : " + worker.getContractType());
     }
 }
 }//class
