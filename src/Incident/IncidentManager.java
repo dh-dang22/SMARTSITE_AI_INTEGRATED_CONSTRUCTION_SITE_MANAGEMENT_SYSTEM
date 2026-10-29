@@ -2,7 +2,6 @@ package Incident;
 import Zone.RestrictedZone;
 import Zone.Zone;
 import Zone.ZoneManager2;
-import Validatable.CheckZoneId;
 import Validatable.CheckId;
 import Validatable.CheckDetails;
 import Validatable.InputScanner;
@@ -56,7 +55,7 @@ public class IncidentManager {
 
             Zone selectedZone = null;
             while (true) {
-                String zoneId = CheckZoneId.checkZoneId();
+                String zoneId = CheckId.checkZoneId();
                 selectedZone = zoneManager.findZoneById(zoneId);
 
                 if (selectedZone == null) {
