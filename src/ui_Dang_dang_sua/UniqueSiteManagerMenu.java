@@ -128,7 +128,7 @@ public class UniqueSiteManagerMenu {
             Draft.displayMenuLine();
             Draft.displayMenuGreeting();
             Draft.displayMenuLine();
-            System.out.println("                                                Zone Management Menu ");
+            System.out.println(Draft.center("Zone Management Menu"));
             System.out.println("");
             System.out.println("    [1] Add Zone(s) to system");
             System.out.println("    [2] Find a Zone information");
@@ -138,20 +138,20 @@ public class UniqueSiteManagerMenu {
             System.out.println("");
             System.out.println("    [0] Back to general menu");
             System.out.println("");
-            System.out.print("    ➔ Please enter your action [0-7]: ");
+            System.out.print((Draft.BLU+"    ➔ Please enter your action [0-7]: "+Draft.BAS));
             int choice;
             try {
                 // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
                 choice = Integer.parseInt(sc2.nextLine().trim());
             } catch (NumberFormatException e) {
-                System.out.println("[!] Invalid choice! Please enter a number.");
+                System.out.println(Draft.center(Draft.RED+"[!] Invalid choice! Please enter a number."+Draft.BAS));
                 Draft.pause();
                 continue;
             }
 
             if (choice == 0) {                          // Thoát menu
                 running = false;
-                System.out.println("The system is backing to general menu ...");
+                System.out.println(Draft.center("The system is backing to general menu ..."));
                 Draft.pause();
                 Draft.clearConsoleIDE();
             } else {
@@ -160,7 +160,7 @@ public class UniqueSiteManagerMenu {
                         tempZone.addZone();   
                         break;
                     case (2): // find
-                        System.out.print("    Enter the Zone code: ");
+                        System.out.print("    ➔ Enter the Zone code: ");
                        
                         String tempID = tempSC.nextLine();
                         System.out.println(tempZone.findZoneById(tempID));
