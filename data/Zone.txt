@@ -1,3 +1,5 @@
-ZONE|Z001|Main Gate|Main entrance and exit area
-ZONE|Z002|Storage Area|Material storage area
-RESTRICTED_ZONE|Z003|Tower A|High risk construction zone|Permit-A|Safety Officer only
+ZONE|ZN0002|Safety Area|Area assigned to safety officers|SAFETY_OFFICER
+ZONE|ZN0001|Worker Area|Area assigned to workers|WORKER
+
+REST|ZN0003|Restricted Area|Restricted work zone|SAFETY_OFFICER|ABC123
+
