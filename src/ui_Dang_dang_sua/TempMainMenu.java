@@ -3,13 +3,16 @@ package ui_Dang_dang_sua;
 public class TempMainMenu {
 
     public static void main(String[] args) {
-    WelcomeMenu ht = new WelcomeMenu();
+        WelcomeMenu ht = new WelcomeMenu();
         ht.displayWelcomeMenu();
-//          UserWorkerMenu ht1= new UserWorkerMenu();
-//     ht1.displayOption();
+        
+//        UserWorkerMenu ht1= new UserWorkerMenu();
+//        ht1.displayOption();
+
 //        UniqueSiteManagerMenu ht2 = new UniqueSiteManagerMenu();
 //        ht2.displayHumanResourceManagementMenu();
-//         UniqueSiteManagerMenu ht2 = new UniqueSiteManagerMenu();
-//      ht2.displayZoneManagementMenu();
+
+//        UniqueSiteManagerMenu ht2 = new UniqueSiteManagerMenu();
+//        ht2.displayZoneManagementMenu();
     }
 }
