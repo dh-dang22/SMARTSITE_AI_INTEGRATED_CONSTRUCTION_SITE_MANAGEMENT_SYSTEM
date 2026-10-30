@@ -12,7 +12,6 @@ public class RestrictedZone extends Zone {
 
     // private int accessLevel ; 
     private String pinCode;
-    protected String allowedRole;
 
     public RestrictedZone() {
     }
@@ -23,7 +22,7 @@ public class RestrictedZone extends Zone {
         this.pinCode = pinCode;
     }
      */
-    public RestrictedZone(boolean isRestricted, String zoneId, String zoneName, String zoneDetails, String pinCode, String allowedRole) {
+    public RestrictedZone( String zoneId, String zoneName, String zoneDetails, String allowedRole,String pinCode) {
         super(true, zoneId, zoneName, zoneDetails, allowedRole);
         this.setPinCode(pinCode);
     }
@@ -62,5 +61,9 @@ public class RestrictedZone extends Zone {
     @Override
     public String toString() {
         return super.toString() +/* " | Restricted [Access Level: " + accessLevel + */ " PinCode : " + pinCode;
+    }
+    @Override
+    public String toFileString(){
+        return super.toFileString()+ "|" + pinCode ;
     }
 }

@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Zone;
-import Validatable.Validatable ; 
+
+import Validatable.Validatable;
+
 /**
  *
  * @author Minh_Khang
@@ -14,12 +16,12 @@ public class Zone implements Validatable {
     protected String zoneName;
     protected String zoneDetails;
     protected String allowedRole;
-    protected boolean isRestricted ; 
-
+    protected boolean isRestricted;
+    
     public Zone() {
     }
 
-    public Zone(boolean isRestricted,String zoneId , String zoneName, String zoneDetails, String allowedRole) {
+    public Zone(boolean isRestricted, String zoneId, String zoneName, String zoneDetails, String allowedRole) {
         this.setIsRestricted(isRestricted);
         this.setZoneId(zoneId);
         this.setZoneName(zoneName);
@@ -27,8 +29,10 @@ public class Zone implements Validatable {
         this.setAllowedRole(allowedRole);
     }
 
-
-
+    public Zone(String zoneId, String zoneName, String zoneDetails, String allowedRole) {
+    this(false, zoneId, zoneName, zoneDetails, allowedRole);
+}
+    
     @Override
     public boolean isValid() {
         if (zoneId == null || !zoneId.trim().matches("^ZN\\d{4}$")) {
@@ -90,17 +94,23 @@ public class Zone implements Validatable {
     public boolean isAccessRestricted() {
         return false;
     }
+
     public String getAllowedRole() {
         return allowedRole;
     }
 
     public void setAllowedRole(String allowedRole) {
-    this.allowedRole = allowedRole;
-}
+        this.allowedRole = allowedRole;
+    }
 
     @Override
     public String toString() {
-        return"ZoneId : " + zoneId + ", ZoneName : " + zoneName + ", ZoneDetails : " + zoneDetails ;
+        return "ZoneId : " + zoneId + ", ZoneName : " + zoneName + ", ZoneDetails : " + zoneDetails + ", AllowedRole : "+ allowedRole;
+    }
+
+    public String toFileString() {
+        String isRes = this.isRestricted() ? "REST" : "ZONE";
+        return isRes + "|" + zoneId + "|" + zoneName + "|" + zoneDetails + "|"+ allowedRole;
     }
 
 }
