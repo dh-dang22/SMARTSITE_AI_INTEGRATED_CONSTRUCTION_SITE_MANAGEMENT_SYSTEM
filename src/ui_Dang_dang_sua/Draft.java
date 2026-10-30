@@ -163,6 +163,13 @@ public class Draft {
         }
     }
     
-    
+    public static void displayProfile(String ID, String Name, String Role, String Status) {
+        System.out.println("  ┌────────────────────────────────────────────────────────┐");
+        System.out.printf("  │  🆔  ID     : %-40s │%n" + ID);
+        System.out.printf("  │  👤  Name   : %-40s │%n" + Name);
+        System.out.printf("  │  💼  Role   : %-40s │%n" + Role);
+        System.out.printf("  │  🟢  Status : %-33s │%n" + Status);
+        System.out.println("  └────────────────────────────────────────────────────────┘");
+    }
 }
 

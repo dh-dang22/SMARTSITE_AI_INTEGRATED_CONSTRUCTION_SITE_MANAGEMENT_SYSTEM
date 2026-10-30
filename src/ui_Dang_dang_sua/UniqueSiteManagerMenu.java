@@ -138,7 +138,7 @@ public class UniqueSiteManagerMenu {
             System.out.println("");
             System.out.println("    [0] Back to general menu");
             System.out.println("");
-            System.out.print((Draft.BLU+"    ➔ Please enter your action [0-7]: "+Draft.BAS));
+            System.out.print(Draft.BLU+"    ➔ Please enter your action [0-5]: "+Draft.BAS);
             int choice;
             try {
                 // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
@@ -202,13 +202,13 @@ public class UniqueSiteManagerMenu {
     }
     Draft.displayMenuLine();
      System.out.println("");
-    System.out.println(Draft.center("=== MY PROFILE ==="));
+    System.out.println(Draft.center("=== ACCOUNT INFORMATION ==="));
      System.out.println("");
-    System.out.println("    ID     : " + person.getId());
-    System.out.println("    Name   : " + person.getFullName());
-    System.out.println("    Role   : " + person.getRole());
-    System.out.println("    Status : " + person.getStatus());
-
+    System.out.println("    🆔  ID    : " + person.getId());
+    System.out.println("    👤  Name  : " + person.getFullName());
+    System.out.println("    💼  Role  : " + person.getRole());
+    System.out.println("    🟢  Status: " + person.getStatus());
+    //person.getId(), person.getFullName(), person.getRole(), person.getStatus()
     if (person instanceof Worker) {
         Worker worker = (Worker) person;
 
