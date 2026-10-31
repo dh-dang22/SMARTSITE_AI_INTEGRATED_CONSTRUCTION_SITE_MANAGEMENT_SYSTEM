@@ -39,8 +39,7 @@ public class WelcomeMenu {
                     menu.displayLoginMenu();
                     break;
                 case (2):
-                 
-                    Draft.pause();
+                    Draft.functionIsNotCompletedYet();
                     break;
                 case (3):
                     //turnOff();

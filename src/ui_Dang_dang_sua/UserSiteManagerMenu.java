@@ -37,18 +37,22 @@ public class UserSiteManagerMenu extends MenuUserLv00{
                 Draft.clearConsoleIDE();
                 UniqueSiteManagerMenu ht5 = new UniqueSiteManagerMenu();
                 ht5.displayHumanResourceManagementMenu();
+                Draft.clearConsoleIDE();
                 break;
             case (6):
                 UniqueSiteManagerMenu ht6 = new UniqueSiteManagerMenu();
                 ht6.displayZoneManagementMenu();
+                Draft.clearConsoleIDE();
                 break;
             case (7):
                 UniqueSiteManagerMenu ht7 = new UniqueSiteManagerMenu();
                 ht7.displayAllAttendance();
+                Draft.clearConsoleIDE();
                 break;
             case (8):
                 UniqueSiteManagerMenu ht8 = new UniqueSiteManagerMenu();
                 ht8.displayAllIncident();
+                Draft.clearConsoleIDE();
                 break;
             default:
                 System.out.println(Draft.center(Draft.RED+"Invalid choice! Please select again"+Draft.BAS));
