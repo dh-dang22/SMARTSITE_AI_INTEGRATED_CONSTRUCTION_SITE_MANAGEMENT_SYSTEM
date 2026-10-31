@@ -5,6 +5,7 @@ import Person.PersonManager;
 import Person.Worker;
 import Validatable.InputScanner;
 import Zone.ZoneManager2;
+import java.io.IOException;
 //import Zone.ZoneManager2;
     
 public class UniqueSiteManagerMenu {
@@ -134,7 +135,10 @@ public class UniqueSiteManagerMenu {
             System.out.println("    [2] Find a Zone information");
             System.out.println("    [3] Update a Zone information");
             System.out.println("    [4] Delete a Zone");
-            System.out.println("    [5] Display all Zone information"); //
+            System.out.println("    [5] Display all Zone information"); 
+            System.out.println("    [6] Display only Restricted Zone information"); 
+            System.out.println("    [7] Save file"); 
+            System.out.println("    [8] Load file"); 
             System.out.println("");
             System.out.println("    [0] Back to general menu");
             System.out.println("");
@@ -156,12 +160,20 @@ public class UniqueSiteManagerMenu {
                 Draft.clearConsoleIDE();
             } else {
                 switch(choice){
-                    case (1): // add
-                        tempZone.addZone();   
+                    case (1): // add (NOR and RES) check
+                        System.out.print("    ➔ Enter the type of Zone: [1] NOR / [2] RES : ");
+                        int choiceAdd = tempSC.nextInt();
+                        switch (choiceAdd){
+                            case (1):
+                                tempZone.addZone();
+                                break;
+                            case (2):
+                                tempZone.addRestrictedZone();
+                                break;
+                        }
                         break;
                     case (2): // find
-                        System.out.print("    ➔ Enter the Zone code: ");
-                       
+                        System.out.print("    ➔ Enter the Zone ID(e.g., ZN0001): ");
                         String tempID = tempSC.nextLine();
                         System.out.println(tempZone.findZoneById(tempID));
                         break;
@@ -173,6 +185,20 @@ public class UniqueSiteManagerMenu {
                         break;
                    case (5): // display list
                         tempZone.displayList();
+                        break;
+                   case (6):
+                        tempZone.displayRestrictedZonesOnly();
+                    case (7):
+                        System.out.println(Draft.center("--- [TEST]: Save Data to File ---"));
+                        tempZone.saveToFile();
+                        break;
+                    case (8):
+                        System.out.println(Draft.center("--- [TEST]: Load Data from File ---"));
+                        try {
+                            tempZone.loadFromFile("Zone6"+ ".txt");
+                        } catch (IOException e) {
+                            System.out.println("[Error]: Failed to load file: " + e.getMessage());
+                        }
                         break;
                 }
             }

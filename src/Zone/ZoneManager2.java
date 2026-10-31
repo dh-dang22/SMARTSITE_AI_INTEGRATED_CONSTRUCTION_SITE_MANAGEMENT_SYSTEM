@@ -37,7 +37,7 @@ public class ZoneManager2 {
         Scanner sc = Validatable.InputScanner.getScanner();
         int n;
         while (true) {
-            System.out.print("    Input the number of zones needed to add: ");
+            System.out.print("    ➔ Input the number of zones needed to add: ");
             try {
                 n = Integer.parseInt(sc.nextLine().trim());
                 if (n <= 0) {
