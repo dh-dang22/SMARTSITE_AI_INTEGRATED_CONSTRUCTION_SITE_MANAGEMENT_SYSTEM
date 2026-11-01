@@ -105,12 +105,12 @@ public class Zone implements Validatable {
 
     @Override
     public String toString() {
-        return "ZoneId : " + zoneId + ", ZoneName : " + zoneName + ", ZoneDetails : " + zoneDetails + ", AllowedRole : "+ allowedRole;
+        return "ZoneId : " + zoneId + "; ZoneName : " + zoneName + "; ZoneDetails : " + zoneDetails + "; AllowedRole : "+ allowedRole;
     }
 
     public String toFileString() {
-        String isRes = this.isRestricted() ? "REST" : "ZONE";
-        return isRes + "|" + zoneId + "|" + zoneName + "|" + zoneDetails + "|"+ allowedRole;
+        String isRes = this.isRestricted() ? "RES" : "NOR";
+        return  zoneId + "|" + isRes +  "|" + zoneName + "|" + zoneDetails + "|"+ allowedRole;
     }
 
 }

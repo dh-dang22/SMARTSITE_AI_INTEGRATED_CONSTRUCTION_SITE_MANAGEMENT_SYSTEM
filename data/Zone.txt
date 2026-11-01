@@ -1,5 +1,6 @@
-ZONE|ZN0002|Safety Area|Area assigned to safety officers|SAFETY_OFFICER
-ZONE|ZN0001|Worker Area|Area assigned to workers|WORKER
-REST|ZN0003|Restricted Area|Restricted work zone|SAFETY_OFFICER|ABC123
-ZONE|ZN0004|Passio|Cafeteria|SAFETY_OFFICER
-REST|ZN0005|CEO Office|No phan su No vao|SAFETY_OFFICER|ABC123
+ZN0001|NOR|Worker Area|Area assigned to workers|WORKER
+ZN0002|NOR|Safety Area|Area assigned to safety officers|SAFETY_OFFICER
+ZN0003|RES|Restricted Area|Restricted work  NOR|SAFETY_OFFICER|ABC123
+ZN0004|NOR|Passio|Cafeteria|SAFETY_OFFICER
+ZN0005|RES|CEO Office|Receiving and recording and arranging disseminationg information|SAFETY_OFFICER|ABC123
+ZN0006|NOR|Warehouse|Contains equipments and tools|WORKER
