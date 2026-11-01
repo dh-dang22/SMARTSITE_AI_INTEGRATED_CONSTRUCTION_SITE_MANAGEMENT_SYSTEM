@@ -60,7 +60,7 @@ public class RestrictedZone extends Zone {
 
     @Override
     public String toString() {
-        return super.toString() +/* " | Restricted [Access Level: " + accessLevel + */ " PinCode : " + pinCode;
+        return super.toString() +/* " | Restricted [Access Level: " + accessLevel + */ "; PinCode : " + pinCode;
     }
     @Override
     public String toFileString(){

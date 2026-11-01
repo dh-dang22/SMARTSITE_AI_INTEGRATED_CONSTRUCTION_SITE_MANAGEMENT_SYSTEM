@@ -22,7 +22,7 @@ public class CheckDetails {
                 continue;
             }
 
-            if (!details.matches("^[a-zA-Z0-9\\s]+$")) {
+            if (!details.matches("^[a-zA-Z0-9\\s,]+$")) {
                 System.out.println("[Error]: Details must not contain special characters! Please try again.\n");
                 continue;
             }
@@ -65,7 +65,7 @@ public class CheckDetails {
             }
 
             // 3. Regex chỉ cho phép chữ cái, số và khoảng trắng (không chứa ký tự đặc biệt)
-            if (!zoneDetails.matches("^[a-zA-Z0-9\\s]+$")) {
+            if (!zoneDetails.matches("^[a-zA-Z0-9\\s,]+$")) {
                 System.out.println("[Error]: Zone Details must not contain special characters! Please try again.\n");
                 continue;
             }

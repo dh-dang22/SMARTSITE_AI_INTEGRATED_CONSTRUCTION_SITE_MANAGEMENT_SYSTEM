@@ -28,8 +28,12 @@ public class ZoneManager2 {
     public ZoneManager2() {
         this.list = new ArrayList<>();
         try {
+            int cnt = 1;
             this.loadFromFile("data/Zone.txt");
-            System.out.println("Load data successfully!");
+            if (cnt == 1) {
+                System.out.println("Load data successfully!");
+                cnt -= 1;
+            }
         } catch (IOException e) {
             System.out.println("[Notice]: No existing data file found or failed to load. Starting with an empty list.");
         }
@@ -137,30 +141,33 @@ public class ZoneManager2 {
             return;
         }
 
-        System.out.print("    Are you sure you want to delete this Zone[" + z + "]? [Y/N]: ");
-        String YN = scanner.nextLine().trim();
-        do {
-            switch (YN) {
-                case "n":
-                    System.out.println(Draft.center("Cancel deleting mod!"));
-                    System.out.println(Draft.center("No one has been removed!"));
-                    return;
-                case "y":
-                    list.remove(z);
-                    System.out.println(Draft.center("Deleting sucessfully!"));
-                    return;
-                default:
-                    System.out.println(Draft.center(Draft.RED + "Please enter a valid choice!" + Draft.BAS));
-            }
-        } while (true);
+        System.out.println("➔ Are you sure you want to delete this Zone: ");
+        System.out.print(z + " ? [Y/N]: ");
+        String choice = scanner.nextLine().trim();
+
+        switch (choice.toUpperCase()) {
+            case "N":
+                System.out.println(Draft.center("Cancel deleting mod!"));
+                System.out.println(Draft.center("No zone has been removed!"));
+                break;
+            case "Y":
+                list.remove(z);
+                System.out.println(Draft.center("Deleting sucessfully!"));
+                break;
+            default:
+                System.out.println(Draft.center(Draft.RED + "Please enter a valid choice!" + Draft.BAS));
+                break;
+        }
+
     }
 
     public void updateZoneById() {
-        String zoneId = "    ➔ " + CheckId.checkZoneId();
+        //   System.out.print( "   ➔ ");
+        String zoneId = CheckId.checkZoneId();
         Zone z = this.findZoneById(zoneId);
 
         if (z != null) {
-            System.out.println("    Current Zone Info: " + z);
+            System.out.println("Current Zone Info: " + z);
 
             String newName = CheckName.checkZoneName();
             String newDescription = CheckDetails.checkZoneDetails();
@@ -177,17 +184,58 @@ public class ZoneManager2 {
         }
     }
 
+    private String truncate(String text, int maxLength) { // hàm cắt text khi display
+        if (text == null) {
+            return "";
+        }
+        if (text.length() <= maxLength) {
+            return text;
+        }
+        return text.substring(0, maxLength - 3) + "...";
+    }
+
     public void displayList() {
-        if (list.isEmpty()) {
-            System.out.println(Draft.center(Draft.RED + "[ERROR] Zone list is empty now! Add more Zone(s)." + Draft.BAS));
+        if (list == null || list.isEmpty()) {
+            System.out.println(Draft.center(Draft.RED + "The Zone list is empty!" + Draft.BAS));
             return;
         }
-        System.out.println("");
-        System.out.println(Draft.center("--- List of Zones ---"));
-        System.out.println("");
-        for (Zone z : this.list) {
-            System.out.println(z);
+
+        Draft.displayMenuLine();
+        System.out.println();
+        System.out.println(Draft.center("=== The list of Zone(s) in S-SMARTSITE ==="));
+        System.out.println();
+        System.out.println();
+
+        // In dòng tiêu đề bảng
+        System.out.printf("        %-8s | %-8s | %-16s | %-20s | %-40s | %-10s%n",
+                "Zone ID", "Type", "Allowed Role", "Zone Name", "Zone Details", "PIN Code");
+
+        // Chuỗi gạch ngang định hình phân cách bảng
+        System.out.println("      ----------------------------------------------------------------------------------------------------------------------------");
+
+        // Duyệt qua danh sách và in từng dòng dữ liệu
+        for (Zone z : list) {
+            if (z != null) {
+                String id = z.getZoneId();
+                String isRes = z.isRestricted() ? "RES" : "NOR";
+                String name = z.getZoneName();
+                String role = z.getAllowedRole();
+                String details = truncate(z.getZoneDetails(), 40);
+
+                // Xử lý riêng trường PIN Code nếu là RestrictedZone
+                String pinCode = "N/A";
+                if (z instanceof RestrictedZone) {
+                    RestrictedZone rz = (RestrictedZone) z;
+                    pinCode = rz.getPinCode();
+                }
+
+                System.out.printf("        %-8s | %-8s | %-16s | %-20.20s | %-40.40s | %-10s%n",
+                        id, isRes, role, name, details, pinCode);
+            }
         }
+
+        System.out.println("      ----------------------------------------------------------------------------------------------------------------------------");
+        System.out.println();
     }
 
     public void sortZonesById() {
@@ -259,18 +307,69 @@ public class ZoneManager2 {
         }
     }
 
+//    public void displayRestrictedZonesOnly() {
+//        boolean found = false;
+//        System.out.println("\n                                          --- List of Restricted Zones ---");
+//        for (Zone z : this.list) {
+//            if (z.isAccessRestricted()) {
+//                System.out.println(z);
+//                found = true;
+//            }
+//        }
+//        if (!found) {
+//            System.out.println("No restricted zones found.");
+//        }
+//    }
     public void displayRestrictedZonesOnly() {
-        boolean found = false;
-        System.out.println("\n                                          --- List of Restricted Zones ---");
-        for (Zone z : this.list) {
-            if (z.isAccessRestricted()) {
-                System.out.println(z);
-                found = true;
+        if (list == null || list.isEmpty()) {
+            System.out.println(Draft.center(Draft.RED + "The Zone list is empty!" + Draft.BAS));
+            return;
+        }
+
+        // Đếm xem có bao nhiêu RestrictedZone trong danh sách
+        int countRes = 0;
+        for (Zone z : list) {
+            if (z instanceof RestrictedZone) {
+                countRes++;
             }
         }
-        if (!found) {
-            System.out.println("No restricted zones found.");
+
+        // Nếu không tìm thấy RestrictedZone nào
+        if (countRes == 0) {
+            System.out.println(Draft.center(Draft.RED + "No restricted zones found in the system!" + Draft.BAS));
+            return;
         }
+
+        Draft.displayMenuLine();
+        System.out.println();
+        System.out.println(Draft.center("=== The list of RESTRICTED ZONE(S) in S-SMARTSITE ==="));
+        System.out.println();
+        System.out.println();
+
+        // In dòng tiêu đề bảng (Lược bỏ cột Restricted vì tất cả ở đây đều là RestrictedZone)
+        System.out.printf("        %-8s | %-20s | %-16s | %-40s | %-10s%n",
+                "Zone ID", "Zone Name", "Allowed Role", "Zone Details", "PIN Code");
+
+        // Chuỗi gạch ngang định hình phân cách bảng
+        System.out.println("      -----------------------------------------------------------------------------------------------------------");
+
+        // Duyệt danh sách và chỉ in ra các đối tượng thuộc lớp RestrictedZone
+        for (Zone z : list) {
+            if (z instanceof RestrictedZone) {
+                RestrictedZone rz = (RestrictedZone) z;
+                String id = rz.getZoneId();
+                String name = rz.getZoneName();
+                String role = rz.getAllowedRole();
+                String details = truncate(rz.getZoneDetails(), 40);
+                String pinCode = rz.getPinCode();
+
+                System.out.printf("        %-8s | %-20s | %-16s | %-40.40s | %-10s%n",
+                        id, name, role, details, pinCode);
+            }
+        }
+
+        System.out.println("      -----------------------------------------------------------------------------------------------------------");
+        System.out.println();
     }
 
     public void loadFromFile(String fileName) throws IOException {
@@ -292,17 +391,17 @@ public class ZoneManager2 {
                 String[] parts = line.split("\\s*\\|\\s*", -1);
                 try {
                     Zone zone = null;
-                    String type = parts[0].trim();
+                    String type = parts[1].trim();
 
-                    if ("ZONE".equalsIgnoreCase(type) && parts.length == 5) {
-                        String id = parts[1].trim();
+                    if ("NOR".equalsIgnoreCase(type) && parts.length == 5) {
+                        String id = parts[0].trim();
                         String name = parts[2].trim();
                         String details = parts[3].trim();
                         String allowedRole = parts[4].trim();
 
                         zone = new Zone(id, name, details, allowedRole);
-                    } else if ("REST".equalsIgnoreCase(type) && parts.length == 6) {
-                        String id = parts[1].trim();
+                    } else if ("RES".equalsIgnoreCase(type) && parts.length == 6) {
+                        String id = parts[0].trim();
                         String name = parts[2].trim();
                         String details = parts[3].trim();
                         String allowedRole = parts[4].trim();
@@ -377,4 +476,5 @@ public class ZoneManager2 {
             }
         }
     }
+
 }
