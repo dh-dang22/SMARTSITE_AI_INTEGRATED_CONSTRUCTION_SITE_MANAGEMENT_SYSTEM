@@ -80,14 +80,14 @@ public void addPersonFromInput() {
             return;
         }
 
-        String id = readRequired("    ➔ Enter Person's ID: ");
+        String id = readRequired("    ➔ Enter Person's ID     : ");
         if (this.findPersonByID(id) != null) {
             System.out.println(Draft.center(Draft.RED+"ID already exists!"+Draft.BAS));
             return;
         }
 
-        String name = readRequired("    ➔ Enter Person's name: ");
-        String code = readRequired("    ➔ Enter Person's code: ");
+        String name = readRequired("    ➔ Enter Person's name   : ");
+        String code = readRequired("    ➔ Enter Person's code   : ");
 
         if (this.findPersonByCode(code) != null) {
             System.out.println(Draft.center(Draft.RED+"Code already exists!"+Draft.BAS));
@@ -99,22 +99,22 @@ public void addPersonFromInput() {
 
         switch (role) {
             case "WORKER":
-                String company = readRequired("    ➔ Enter the Company: ");
+                String company = readRequired("    ➔ Enter Person's Company: ");
                 String contract = readRequired("    ➔ Enter the contract type: ");
                  person = new Worker(
                     id, name, code, role, status, company, contract
                 );
                 break;
             case "CONTRACTOR":
-                String contractPerson = readRequired("    ➔ Enter the Company: ");
+                String contractPerson = readRequired("    ➔ Enter Person's Company: ");
 
                 person = new Contractor(
                     id, name, code, status, contractPerson);
                 break;
 
             case "VISITOR":
-                String purpose = readRequired("    ➔ Enter the purpose of your visit here:");
-                String host = readRequired("    ➔ Enter the greeter: ");
+                String purpose = readRequired("    ➔ Enter Person's purpose: ");
+                String host = readRequired("    ➔ Enter Person's greeter: ");
 
                 person = new Visitor(
                     id, name, code, role, status, purpose, host
@@ -153,21 +153,20 @@ public void addPersonFromInput() {
 private String chooseRole() {
     while (true) {
         System.out.println(Draft.center("--- Enter the ROLE ---"));
-        System.out.println("    1. Worker");
-        System.out.println("    2. Contractor");
-        System.out.println("    3. Visitor");
-        System.out.println("    4. Safety Officer");
+        System.out.println("    [1]  Worker");
+        System.out.println("    [2]  Contractor");
+        System.out.println("    [3]  Visitor");
+        System.out.println("    [4]  Safety Officer");
+        System.out.println("    [0]  Cancel");
         System.out.println("");
-        System.out.println("    0. Cancel");
 
-        String choice = readRequired("    Enter your action: ");
+        String choice = readRequired(Draft.BLU+"    ➔ Enter Person's role   : "+Draft.BAS);
 
         switch (choice) {
             case "1": return "WORKER";
             case "2": return "CONTRACTOR";
             case "3": return "VISITOR";
             case "4": return "SAFETY_OFFICER";
-            case "5": return "SITE_MANAGER";
             case "0": return null;
             default:
                 System.out.println(Draft.center(Draft.RED+"Please enter the number between 0-4!"+Draft.BAS));
@@ -276,6 +275,7 @@ private String chooseRole() {
                 case "y":
                     deleteByID(id);
                     System.out.println(Draft.center("Deleting sucessfully!"));
+                    return;
                 default:
                     System.out.println(Draft.center(Draft.RED+"Please enter a valid choice!"+Draft.BAS));
             }
@@ -329,7 +329,7 @@ private String chooseRole() {
         System.out.println();
         
         // In dòng tiêu đề bảng
-        System.out.printf("        %-6s | %-18s | %-15s | %-10s | %-30s%n", 
+        System.out.printf("        %-6s | %-28s | %-15s | %-10s | %-20s%n", 
                           "ID", "Full Name", "Role", "Status", "Additional Details");
         
         // Dùng chuỗi gạch ngang tĩnh thay cho .repeat() để tương thích mọi phiên bản Java
@@ -345,7 +345,7 @@ private String chooseRole() {
                 String status = p.getStatus();
                 String details = p.getCode(); 
 
-                System.out.printf("        %-6s | %-18s | %-15s | %-10s | %-43s%n", 
+                System.out.printf("        %-6s | %-28s | %-15s | %-10s | %-33s%n", 
                                   id, name, role, status, details);
             }
         }

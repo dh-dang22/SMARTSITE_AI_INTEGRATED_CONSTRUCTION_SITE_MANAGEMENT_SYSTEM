@@ -1,5 +1,5 @@
 ZONE|ZN0002|Safety Area|Area assigned to safety officers|SAFETY_OFFICER
 ZONE|ZN0001|Worker Area|Area assigned to workers|WORKER
-
 REST|ZN0003|Restricted Area|Restricted work zone|SAFETY_OFFICER|ABC123
-
+ZONE|ZN0004|Passio|Cafeteria|SAFETY_OFFICER
+REST|ZN0005|CEO Office|No phan su No vao|SAFETY_OFFICER|ABC123

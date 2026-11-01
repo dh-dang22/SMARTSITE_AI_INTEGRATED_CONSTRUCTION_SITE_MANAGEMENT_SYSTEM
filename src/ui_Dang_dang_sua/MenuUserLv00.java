@@ -38,6 +38,7 @@ public abstract class MenuUserLv00 {
                 Draft.pause();
                 continue;
             }
+            Draft.displayMenuLine();
 
             if (choice == 0) {                          // Thoát menu
                 running = false;

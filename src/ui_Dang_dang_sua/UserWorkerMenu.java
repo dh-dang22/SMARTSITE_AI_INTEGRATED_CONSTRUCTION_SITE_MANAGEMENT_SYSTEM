@@ -22,13 +22,13 @@ public class UserWorkerMenu extends MenuUserLv00{
                 Draft.pause();
                 break;
             case (2):
-                attendanceManager.checkInFromInput();
+                Draft.functionIsNotCompletedYet();
                 break;
             case (3):
-                 attendanceManager.checkOutFromInput();
+                Draft.functionIsNotCompletedYet();
                 break;
             case (4):
-                attendanceManager.displayHistory(currentUser.getId());
+                Draft.functionIsNotCompletedYet();
                 Draft.pause();
                 break;
             case (0):

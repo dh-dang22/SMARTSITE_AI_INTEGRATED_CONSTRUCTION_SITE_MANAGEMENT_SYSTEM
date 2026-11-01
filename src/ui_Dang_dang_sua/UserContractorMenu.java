@@ -16,7 +16,21 @@ public class UserContractorMenu extends MenuUserLv00{
         switch (choice){
             case (0):
                 break;
-            default:
+            case (1):
+                UniqueSiteManagerMenu ht1 = new UniqueSiteManagerMenu();
+                ht1.displayPersonInformation(currentUser);
+                Draft.pause();
+                Draft.clearConsoleIDE();
+                break;
+            case (2):
+                Draft.functionIsNotCompletedYet();
+                break;
+            case (3):
+                Draft.functionIsNotCompletedYet();
+                break;
+            case (4):
+                Draft.functionIsNotCompletedYet();
+                break;            default:
                 System.out.println(Draft.center(Draft.RED+"Invalid choice! Please select again"+Draft.BAS));
                 Draft.pause();
                 Draft.clearConsoleIDE();
