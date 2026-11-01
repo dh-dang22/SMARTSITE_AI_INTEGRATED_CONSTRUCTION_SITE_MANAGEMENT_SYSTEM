@@ -1,8 +1,10 @@
 package ui_Dang_dang_sua;
 
+import Person.PersonManager;
+import Attendance.AttendanceManager;
 
 public class UserVisitorMenu extends MenuUserLv00{
-
+    AttendanceManager attendanceManager = AttendanceManager.getInstance();
     @Override
     public void displayOption(){
         System.out.println("    [1] Display your information");
@@ -17,19 +19,18 @@ public class UserVisitorMenu extends MenuUserLv00{
             case (0):
                 break;
             case (1):
-                UniqueSiteManagerMenu ht1 = new UniqueSiteManagerMenu();
-                ht1.displayPersonInformation(currentUser);
+                new PersonManager().displayPersonInformation(currentUser);
                 Draft.pause();
-                Draft.clearConsoleIDE();
                 break;
             case (2):
-                Draft.functionIsNotCompletedYet();
+                attendanceManager.checkInFromInput();
                 break;
             case (3):
-                Draft.functionIsNotCompletedYet();
+                 attendanceManager.checkOutFromInput();
                 break;
             case (4):
-                Draft.functionIsNotCompletedYet();
+                attendanceManager.displayHistory(currentUser.getId());
+                Draft.pause();
                 break;
             default:
                 System.out.println(Draft.center(Draft.RED+"Invalid choice! Please select again"+Draft.BAS));

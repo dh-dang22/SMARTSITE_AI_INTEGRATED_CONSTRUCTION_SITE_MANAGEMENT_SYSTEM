@@ -1,7 +1,7 @@
 package ui_Dang_dang_sua;
 
 import Attendance.AttendanceManager;
-
+import Person.PersonManager;
 public class UserWorkerMenu extends MenuUserLv00{
 
         AttendanceManager attendanceManager = AttendanceManager.getInstance();
@@ -18,17 +18,17 @@ public class UserWorkerMenu extends MenuUserLv00{
     public void chooseOption(int choice){
         switch (choice){
             case (1):
-                new UniqueSiteManagerMenu().displayPersonInformation(currentUser);
+               new PersonManager().displayPersonInformation(currentUser);
                 Draft.pause();
                 break;
             case (2):
-                Draft.functionIsNotCompletedYet();
+                attendanceManager.checkInFromInput();
                 break;
             case (3):
-                Draft.functionIsNotCompletedYet();
+                 attendanceManager.checkOutFromInput();
                 break;
             case (4):
-                Draft.functionIsNotCompletedYet();
+                attendanceManager.displayHistory(currentUser.getId());
                 Draft.pause();
                 break;
             case (0):

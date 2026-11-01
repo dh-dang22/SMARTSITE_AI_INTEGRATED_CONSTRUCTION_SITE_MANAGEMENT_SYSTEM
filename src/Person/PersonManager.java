@@ -435,4 +435,26 @@ private String chooseRole() {
             }
         }
     }
+    public void displayPersonInformation(Person person) {
+    if (person == null) {
+        System.out.println(Draft.center(Draft.RED+"Can not find the logged in Person."+Draft.BAS));
+        return;
+    }
+    Draft.displayMenuLine();
+     System.out.println("");
+    System.out.println(Draft.center("=== ACCOUNT INFORMATION ==="));
+     System.out.println("");
+    System.out.println("    🆔  ID    : " + person.getId());
+    System.out.println("    👤  Name  : " + person.getFullName());
+    System.out.println("    💼  Role  : " + person.getRole());
+    System.out.println("    🟢  Status: " + person.getStatus());
+    //person.getId(), person.getFullName(), person.getRole(), person.getStatus()
+    if (person instanceof Worker) {
+        Worker worker = (Worker) person;
+
+        // Thay bằng đúng getter có trong Worker.java
+        System.out.println("    Company       : " + worker.getCompanyName());
+        System.out.println("    Contract type : " + worker.getContractType());
+    }
+}
 }

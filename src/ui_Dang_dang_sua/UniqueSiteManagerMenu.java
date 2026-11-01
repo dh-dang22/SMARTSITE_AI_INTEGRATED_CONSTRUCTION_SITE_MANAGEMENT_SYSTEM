@@ -1,12 +1,14 @@
     package ui_Dang_dang_sua;
-import Person.Person;
 import java.util.Scanner;
+
+import Attendance.AttendanceManager;
 import Person.PersonManager;
-import Person.Worker;
 import Validatable.InputScanner;
 import Zone.Zone;
 import Zone.ZoneManager2;
 import java.io.IOException;
+
+
 //import Zone.ZoneManager2;
     
 public class UniqueSiteManagerMenu {
@@ -15,6 +17,8 @@ public class UniqueSiteManagerMenu {
     private final PersonManager pm;
     ZoneManager2 zm = ZoneManager2.getInstance();
     Zone activeZone = zm.getRandomActiveZone();
+    AttendanceManager attendanceManager = AttendanceManager.getInstance();
+    
     UniqueSiteManagerMenu() { this(PersonManager.getInstance()); }
 
     UniqueSiteManagerMenu(PersonManager pm) { this.pm = pm; }
@@ -232,26 +236,4 @@ public class UniqueSiteManagerMenu {
         Draft.functionIsNotCompletedYet();
     }//display
     
- public void displayPersonInformation(Person person) {
-    if (person == null) {
-        System.out.println(Draft.center(Draft.RED+"Can not find the logged in Person."+Draft.BAS));
-        return;
-    }
-    Draft.displayMenuLine();
-     System.out.println("");
-    System.out.println(Draft.center("=== ACCOUNT INFORMATION ==="));
-     System.out.println("");
-    System.out.println("    🆔  ID    : " + person.getId());
-    System.out.println("    👤  Name  : " + person.getFullName());
-    System.out.println("    💼  Role  : " + person.getRole());
-    System.out.println("    🟢  Status: " + person.getStatus());
-    //person.getId(), person.getFullName(), person.getRole(), person.getStatus()
-    if (person instanceof Worker) {
-        Worker worker = (Worker) person;
-
-        // Thay bằng đúng getter có trong Worker.java
-        System.out.println("    Company       : " + worker.getCompanyName());
-        System.out.println("    Contract type : " + worker.getContractType());
-    }
-}
 }//class

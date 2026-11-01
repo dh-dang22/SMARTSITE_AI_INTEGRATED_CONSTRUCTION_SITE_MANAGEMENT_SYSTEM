@@ -8,8 +8,6 @@ import Validatable.InputScanner;
 import java.util.ArrayList;
 import java.util.Scanner;
 //import ham load from file;
-
-import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.BufferedReader;
 import java.io.IOException;

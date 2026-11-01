@@ -2,12 +2,15 @@ package ui_Dang_dang_sua;
 
 import Incident.Incident;
 import Incident.IncidentManager;
+import Person.PersonManager;
 import Validatable.InputScanner;
 import java.util.List;
 import java.util.Scanner;
+import Attendance.AttendanceManager;
+
 
 public class UserSafetyOfficerMenu extends MenuUserLv00{
-
+    AttendanceManager attendanceManager = AttendanceManager.getInstance();
     @Override
     public void displayOption(){
         System.out.println("    [1] Display your information");
@@ -23,19 +26,18 @@ public class UserSafetyOfficerMenu extends MenuUserLv00{
             case (0):
                 break;
             case (1):
-                UniqueSiteManagerMenu ht1 = new UniqueSiteManagerMenu();
-                ht1.displayPersonInformation(currentUser);
+                new PersonManager().displayPersonInformation(currentUser);
                 Draft.pause();
-                Draft.clearConsoleIDE();
                 break;
             case (2):
-                Draft.functionIsNotCompletedYet();
+                attendanceManager.checkInFromInput();
                 break;
             case (3):
-                Draft.functionIsNotCompletedYet();
+                 attendanceManager.checkOutFromInput();
                 break;
             case (4):
-                Draft.functionIsNotCompletedYet();
+                attendanceManager.displayHistory(currentUser.getId());
+                Draft.pause();
                 break;            case (5):
                 UserSafetyOfficerMenu ht5 = new UserSafetyOfficerMenu();
                 ht5.displayIncidentManagementMenu();
