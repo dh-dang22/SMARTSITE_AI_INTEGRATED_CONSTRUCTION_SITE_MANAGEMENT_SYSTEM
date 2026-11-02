@@ -24,43 +24,62 @@ public class UserSiteManagerMenu extends MenuUserLv00{
             case (1):
                 PersonManager ht1 = new PersonManager();
                 ht1.displayPersonInformation(currentUser);
+                Draft.displayMenuLine();
                 Draft.pause();
                 Draft.clearConsoleIDE();
                 break;
             case (2):
                 attendanceManager.checkInFromInput();
+                Draft.displayMenuLine();
+                Draft.pause();
+                Draft.clearConsoleIDE();
                 break;
             case (3):
                 attendanceManager.checkOutFromInput();
+                Draft.displayMenuLine();
+                Draft.pause();
+                Draft.clearConsoleIDE();
                 break;
             case (4):
                 attendanceManager.displayHistory(currentUser.getId());
+                Draft.displayMenuLine();
+                Draft.pause();
+                Draft.clearConsoleIDE();
                 break;
             case (5):
                 Draft.clearConsoleIDE();
                 UniqueSiteManagerMenu ht5 = new UniqueSiteManagerMenu();
                 ht5.displayHumanResourceManagementMenu();
                 Draft.clearConsoleIDE();
+                Draft.displayMenuLine();
+                Draft.pause();
                 break;
             case (6):
                 UniqueSiteManagerMenu ht6 = new UniqueSiteManagerMenu();
                 ht6.displayZoneManagementMenu();
-                Draft.clearConsoleIDE();
+                Draft.displayMenuLine();
+                Draft.pause();
+                Draft.clearConsoleIDE();                
                 break;
             case (7):
                 UniqueSiteManagerMenu ht7 = new UniqueSiteManagerMenu();
                 ht7.displayAllAttendance();
-                Draft.clearConsoleIDE();
+                Draft.displayMenuLine();
+                Draft.pause();
+                Draft.clearConsoleIDE();                
                 break;
             case (8):
                 UniqueSiteManagerMenu ht8 = new UniqueSiteManagerMenu();
                 ht8.displayAllIncident();
-                Draft.clearConsoleIDE();
+                Draft.displayMenuLine();
+                Draft.pause();
+                Draft.clearConsoleIDE();                
                 break;
             default:
                 System.out.println(Draft.center(Draft.RED+"Invalid choice! Please select again"+Draft.BAS));
+                Draft.displayMenuLine();
                 Draft.pause();
-                Draft.clearConsoleIDE();
+                Draft.clearConsoleIDE();        
         }
     }
 }
