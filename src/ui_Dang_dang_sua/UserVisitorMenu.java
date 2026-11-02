@@ -20,20 +20,30 @@ public class UserVisitorMenu extends MenuUserLv00{
                 break;
             case (1):
                 new PersonManager().displayPersonInformation(currentUser);
+                Draft.displayMenuLine();
                 Draft.pause();
-                break;
+                Draft.clearConsoleIDE();                break;
             case (2):
                 attendanceManager.checkInFromInput();
+                Draft.displayMenuLine();
+                Draft.pause();
+                Draft.clearConsoleIDE();
                 break;
             case (3):
-                 attendanceManager.checkOutFromInput();
+                attendanceManager.checkOutFromInput();
+                Draft.displayMenuLine();
+                Draft.pause();
+                Draft.clearConsoleIDE();
                 break;
             case (4):
                 attendanceManager.displayHistory(currentUser.getId());
+                Draft.displayMenuLine();
                 Draft.pause();
+                Draft.clearConsoleIDE();
                 break;
             default:
                 System.out.println(Draft.center(Draft.RED+"Invalid choice! Please select again"+Draft.BAS));
+                Draft.displayMenuLine();
                 Draft.pause();
                 Draft.clearConsoleIDE();
         }
