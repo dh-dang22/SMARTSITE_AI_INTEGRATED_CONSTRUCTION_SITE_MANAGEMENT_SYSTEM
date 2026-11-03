@@ -111,6 +111,8 @@ public class Draft {
     public static void displayWelcomeMenuOption(){
         String option = 
             "[!] NOTICE: The system is ready to work. Please choose one of the option below\n" +
+                "\n" +
+                "\n" +
             "+-------------------------------------------------+\n" +
             "| 1. Sign in                                      |\n" +
             "| 2. View area information                        |\n" +
