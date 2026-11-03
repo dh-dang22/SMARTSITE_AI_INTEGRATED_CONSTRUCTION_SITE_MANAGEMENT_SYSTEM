@@ -18,12 +18,15 @@ public class WelcomeMenu {
             Draft.displayMenuHeader();//in banner
             Draft.displayMenuLine();//in gạch
             Draft.displayMenuGreeting();//in lời chào
+
+            Draft.displayMenuLine();//in gạch
+            System.out.println("");
             if (activeZone != null) {
                 System.out.println(Draft.center("CURRENT LOCATION: " + activeZone.getZoneName() + " (" + activeZone.getZoneId() + ")"));
             } else {
                 System.out.println(Draft.center("CURRENT LOCATION: No active zone assigned"));
             }
-            Draft.displayMenuLine();//in gạch
+            System.out.println("");
             Draft.displayWelcomeMenuOption();//in option lựa chọn
             Draft.displayMenuLine();//in gạch
             System.out.print("   >>> Enter your action[1-3]: ");
