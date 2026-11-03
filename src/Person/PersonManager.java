@@ -1,10 +1,13 @@
 package Person;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 import Validatable.InputScanner;
 import java.util.ArrayList;
@@ -433,6 +436,34 @@ private void displayList(List<Person> list) {
         // Thay bằng đúng getter có trong Worker.java
         System.out.println("    Company       : " + worker.getCompanyName());
         System.out.println("    Contract type : " + worker.getContractType());
+    }
+}
+ private static final String DATA_FILE = "data/Person.txt";   // dùng chung cho load và save
+
+  public boolean saveToFile() {
+    Path target = Paths.get(DATA_FILE);
+    Path temp = Paths.get(DATA_FILE + ".tmp");
+    try {
+
+        try (BufferedWriter writer = Files.newBufferedWriter(temp, StandardCharsets.UTF_8)) {
+            int index = 0;
+            for (Person p : people) {
+                if (p == null) {
+                    System.out.println("Found null element at index " + index);
+                    index++;
+                    continue;
+                }
+                writer.write(p.toFileLine());
+                writer.newLine();
+                index++;
+            }
+        }   // writer tự đóng ở đây, rồi mới move
+
+        Files.move(temp, target, StandardCopyOption.REPLACE_EXISTING);
+        return true;
+    } catch (IOException e) {
+        System.out.println(Draft.center(Draft.RED + "Cannot save file: " + e.getMessage() + Draft.BAS));
+        return false;
     }
 }
 }

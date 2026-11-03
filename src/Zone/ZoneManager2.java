@@ -20,7 +20,6 @@ public class ZoneManager2 {
     private static ZoneManager2 instance;
     private ArrayList<Zone> list;
     private Zone activeZone;
-    private static ZoneManager2 instance;
 
     public ZoneManager2() {
         this.list = new ArrayList<>();
