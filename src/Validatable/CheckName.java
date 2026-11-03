@@ -1,6 +1,7 @@
 package Validatable;
 
 import java.util.Scanner;
+import ui_Dang_dang_sua.Draft;
 // include : checkName, checkZoneName, checkHostName
 
 public class CheckName {
@@ -27,7 +28,7 @@ public class CheckName {
 
     public static String checkZoneName() {
         while (true) {
-            System.out.print("Enter Zone Name: ");
+            System.out.print("    ➔ Enter Zone Name: ");
             String input = sc.nextLine();
 
             // 1. Tự động chuyển nhiều dấu cách liên tiếp thành 1 dấu cách và xóa khoảng trắng 2 đầu
@@ -35,13 +36,13 @@ public class CheckName {
 
             // 2. Kiểm tra độ dài (từ 2 đến 50)
             if (zoneName.length() < 2 || zoneName.length() > 50) {
-                System.out.println("[Error]: Zone Name length must be between 2 and 50 characters! Please try again.");
+                System.out.println(Draft.center(Draft.RED+"[Error]: Zone Name length must be between 2 and 50 characters! Please try again."+Draft.BAS));
                 continue;
             }
 
             // 3. Regex chỉ cho phép chữ cái (Anh) và khoảng trắng (không chứa số, không chứa ký tự đặc biệt) 
             if (!zoneName.matches("^(?!(?:.*\\d){4})[a-zA-Z0-9\\s]+$")) {// cho phep nhap toi da 3 so 
-                System.out.println("[Error]: Zone Name must contain letters only (no numbers or special characters)! Please try again.");
+                System.out.println(Draft.center(Draft.RED+"[Error]: Zone Name must contain letters only (no numbers or special characters)! Please try again."+Draft.BAS));
                 continue;
             }
 
