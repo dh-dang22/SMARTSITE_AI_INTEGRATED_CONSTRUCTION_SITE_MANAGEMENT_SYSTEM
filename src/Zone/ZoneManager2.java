@@ -13,13 +13,21 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 public class ZoneManager2 {
-
+    private static ZoneManager2 instance;
     private ArrayList<Zone> list;
     private Zone activeDemoZone;
-    
-    public ZoneManager2() {
+
+    private ZoneManager2() {
         this.list = new ArrayList<>();
     }
+
+    public static ZoneManager2 getInstance() {
+        if (instance == null) {
+            instance = new ZoneManager2();
+        }
+        return instance;
+    }
+
 
     public void addZone() {
         Scanner sc = Validatable.InputScanner.getScanner();

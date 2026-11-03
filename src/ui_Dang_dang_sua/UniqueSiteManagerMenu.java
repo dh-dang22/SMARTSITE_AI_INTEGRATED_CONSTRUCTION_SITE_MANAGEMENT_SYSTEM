@@ -51,7 +51,7 @@ public class UniqueSiteManagerMenu {
             Draft.displayMenuLine();
             
             if (choice == 0) {                          // Thoát menu
-                
+                PersonManager.getInstance().saveToFile();
                 running = false;
                 System.out.println("    ➔ The system is backing to general menu ...");
                 Draft.pause();

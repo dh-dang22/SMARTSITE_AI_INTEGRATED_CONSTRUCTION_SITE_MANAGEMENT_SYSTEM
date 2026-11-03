@@ -5,7 +5,6 @@
 package Attendance;
 
 import Person.Person;
-import Person.PersonManager;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,27 +64,23 @@ try {
 }
 }
         public boolean checkOut(String personId) {
-         for (AttendanceRecord rec : records) {
-             // Tìm bản ghi đúng ID người dùng và CHƯA Check-out
-             if (rec.getPersonId().equalsIgnoreCase(personId) && rec.getCheckOutTime() == null) {
-                 rec.setCheckOutTime(LocalDateTime.now()); // Ghi nhận giờ ra
-                 return true; // Check-out thành công!
-             }
-             LocalDateTime oldCheckOut = rec.getCheckOutTime();
-            rec.setCheckOutTime(LocalDateTime.now());
+    AttendanceRecord rec = findOpenRecord(personId);
+    if (rec == null) {
+        return false;                       // chưa check-in hoặc đã check-out
+    }
 
-            try {
-                saveToFile();
-                return true;
-            } catch (IOException e) {
-                rec.setCheckOutTime(oldCheckOut);
-                System.out.println("Không lưu được Attendance: " + e.getMessage());
-                return false;
-            }
-         }
-         
-         return false; // Không tìm thấy lượt check-in nào đang mở
-     }
+    LocalDateTime oldCheckOut = rec.getCheckOutTime();   // null, dùng để hoàn tác
+    rec.setCheckOutTime(LocalDateTime.now());
+
+    try {
+        saveToFile();
+        return true;
+    } catch (IOException e) {
+        rec.setCheckOutTime(oldCheckOut);   // lưu lỗi thì trả lại trạng thái cũ
+        System.out.println("Không lưu được Attendance: " + e.getMessage());
+        return false;
+    }
+}
         public AttendanceRecord findOpenRecord(String personId) {
     if (personId == null || personId.trim().isEmpty()) {
         return null;

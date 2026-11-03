@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import Validatable.InputScanner;
 import java.io.BufferedWriter;
+import java.io.Writer;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.NoSuchElementException;
@@ -392,23 +393,32 @@ private String chooseRole() {
             }
         }
     }
-    private static final String DATA_FILE = "Person.txt";   // dùng chung cho load và save
+    private static final String DATA_FILE = "data/Person.txt";   // dùng chung cho load và save
 
-    public boolean saveToFile() {
-        Path target = Paths.get(DATA_FILE);
-        Path temp = Paths.get(DATA_FILE + ".tmp");
-        try {
-            try ( BufferedWriter writer = Files.newBufferedWriter(temp, StandardCharsets.UTF_8)) {
-                for (Person p : people) {
-                    writer.write(p.toFileLine());
-                    writer.newLine();
+  public boolean saveToFile() {
+    Path target = Paths.get(DATA_FILE);
+    Path temp = Paths.get(DATA_FILE + ".tmp");
+    try {
+
+        try (BufferedWriter writer = Files.newBufferedWriter(temp, StandardCharsets.UTF_8)) {
+            int index = 0;
+            for (Person p : people) {
+                if (p == null) {
+                    System.out.println("Found null element at index " + index);
+                    index++;
+                    continue;
                 }
+                writer.write(p.toFileLine());
+                writer.newLine();
+                index++;
             }
-            Files.move(temp, target, StandardCopyOption.REPLACE_EXISTING);
-            return true;
-        } catch (IOException e) {
-            System.out.println(Draft.center(Draft.RED + "Cannot save file: " + e.getMessage() + Draft.BAS));
-            return false;
-        }
+        }   // writer tự đóng ở đây, rồi mới move
+
+        Files.move(temp, target, StandardCopyOption.REPLACE_EXISTING);
+        return true;
+    } catch (IOException e) {
+        System.out.println(Draft.center(Draft.RED + "Cannot save file: " + e.getMessage() + Draft.BAS));
+        return false;
     }
+}
 }
