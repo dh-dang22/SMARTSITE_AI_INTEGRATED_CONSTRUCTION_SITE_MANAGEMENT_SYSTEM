@@ -103,8 +103,8 @@ public class UniqueSiteManagerMenu {
                         Draft.clearConsoleIDE();
                         break;
                     case 6:
-                        pm.sortByName();
-                        pm.displayAll();
+                        pm.sortFromInput();
+                        pm.displayAllByGehihi();
                         Draft.pause();
                         break;
                     case 7:
