@@ -57,43 +57,37 @@ public class AttendanceManager {
         );
         records.add(record);
 
-        try {
-            saveToFile();
-            return true;
-        } catch (IOException e) {
-            records.remove(record);
-            System.out.println("Không lưu được Attendance: " + e.getMessage());
-            return false;
-        }
+try {
+    saveToFile();
+    return true;
+} catch (IOException e) {
+    records.remove(record);
+    System.out.println("Không lưu được Attendance: " + e.getMessage());
+    return false;
+}
+}
+        public boolean checkOut(String personId) {
+    AttendanceRecord rec = findOpenRecord(personId);
+    if (rec == null) {
+        return false;                       // chưa check-in hoặc đã check-out
     }
 
-    public boolean checkOut(String personId) {
-        for (AttendanceRecord rec : records) {
-            // Tìm bản ghi đúng ID người dùng và CHƯA Check-out
-            if (rec.getPersonId().equalsIgnoreCase(personId) && rec.getCheckOutTime() == null) {
-                rec.setCheckOutTime(LocalDateTime.now()); // Ghi nhận giờ ra
-                return true; // Check-out thành công!
-            }
-            LocalDateTime oldCheckOut = rec.getCheckOutTime();
-            rec.setCheckOutTime(LocalDateTime.now());
+    LocalDateTime oldCheckOut = rec.getCheckOutTime();   // null, dùng để hoàn tác
+    rec.setCheckOutTime(LocalDateTime.now());
 
-            try {
-                saveToFile();
-                return true;
-            } catch (IOException e) {
-                rec.setCheckOutTime(oldCheckOut);
-                System.out.println("Không lưu được Attendance: " + e.getMessage());
-                return false;
-            }
-        }
-
-        return false; // Không tìm thấy lượt check-in nào đang mở
+    try {
+        saveToFile();
+        return true;
+    } catch (IOException e) {
+        rec.setCheckOutTime(oldCheckOut);   // lưu lỗi thì trả lại trạng thái cũ
+        System.out.println("Không lưu được Attendance: " + e.getMessage());
+        return false;
     }
-
-    public AttendanceRecord findOpenRecord(String personId) {
-        if (personId == null || personId.trim().isEmpty()) {
-            return null;
-        }
+}
+        public AttendanceRecord findOpenRecord(String personId) {
+    if (personId == null || personId.trim().isEmpty()) {
+        return null;
+    }
 
         for (AttendanceRecord record : records) {
             if (record.getPersonId().equalsIgnoreCase(personId.trim())

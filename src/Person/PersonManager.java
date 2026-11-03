@@ -136,9 +136,10 @@ public void addPersonFromInput() {
         }
 
         if (this.addPerson(person)) {
-            System.out.println(Draft.center(Draft.GRN+"This person has been added to the list!"+Draft.BAS));
+            System.out.println(Draft.center(Draft.GRN + "This person has been added to the list!" + Draft.BAS));
+            saveToFile();
         } else {
-            System.out.println(Draft.center(Draft.RED+"Added failure: invalid data or existed ID/code!"+Draft.BAS));
+            System.out.println(Draft.center(Draft.RED + "Added failure: invalid data or existed ID/code!" + Draft.BAS));
         }
     } catch (NoSuchElementException e) {
         System.out.println(Draft.center("Cancel the adding process!"));
@@ -364,14 +365,19 @@ private void displayList(List<Person> list) {
 
                 switch (role.toUpperCase()) {
                     case "WORKER":
+                        String companyName = data.length > 5 ? data[5].trim() : "";
+                        String contractType = data.length > 6 ? data[6].trim() : "";
+                        person = new Worker(id, fullName, code, role, status,
+                                companyName, contractType);
+                        break;
                     case "CONTRACTOR":
                         // parts[5]=companyName, parts[6]=contractType
-                        String companyName   = data.length > 5 ? data[5].trim() : "";
-                        String contractType  = data.length > 6 ? data[6].trim() : "";
-                        person = new Worker(id, fullName, code, role, status,
-                                            companyName, contractType);
+                        String contactPerson = data.length > 5 ? data[5].trim() : "";
+                        String contractStatus = data.length > 6 ? data[6].trim() : "";
+                        Contractor contractor = new Contractor(id, fullName, code, status, contactPerson);
+                        contractor.setContractStatus(contractStatus);
+                        person = contractor;
                         break;
-
                     case "VISITOR":
                         // parts[5]=visitPurpose, parts[6]=hostName
                         String visitPurpose = data.length > 5 ? data[5].trim() : "";

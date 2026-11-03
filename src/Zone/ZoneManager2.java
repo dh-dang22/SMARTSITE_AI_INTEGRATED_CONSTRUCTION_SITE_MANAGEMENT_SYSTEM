@@ -17,7 +17,7 @@ import java.util.Random;
 import ui_Dang_dang_sua.Draft;
 
 public class ZoneManager2 {
-
+    private static ZoneManager2 instance;
     private ArrayList<Zone> list;
     private Zone activeZone;
     private static ZoneManager2 instance;
