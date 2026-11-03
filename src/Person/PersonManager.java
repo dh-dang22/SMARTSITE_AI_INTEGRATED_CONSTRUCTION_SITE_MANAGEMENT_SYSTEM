@@ -7,6 +7,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import Validatable.InputScanner;
+import java.io.BufferedWriter;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.NoSuchElementException;
 import ui_Dang_dang_sua.Draft;
 public class PersonManager {
@@ -50,6 +53,7 @@ public class PersonManager {
         people[size] = p;
         size++;
         return true;
+        
     }
      
     private String readRequired(String message) {
@@ -142,9 +146,10 @@ public void addPersonFromInput() {
         }
 
         if (this.addPerson(person)) {
-            System.out.println(Draft.center(Draft.GRN+"This person has been added to the list!"+Draft.BAS));
+            System.out.println(Draft.center(Draft.GRN + "This person has been added to the list!" + Draft.BAS));
+            saveToFile();
         } else {
-            System.out.println(Draft.center(Draft.RED+"Added failure: invalid data or existed ID/code!"+Draft.BAS));
+            System.out.println(Draft.center(Draft.RED + "Added failure: invalid data or existed ID/code!" + Draft.BAS));
         }
     } catch (NoSuchElementException e) {
         System.out.println(Draft.center("Cancel the adding process!"));
@@ -285,7 +290,9 @@ private String chooseRole() {
         }
         Person person = method == 1 ? findPersonByID(keyword) : findPersonByCode(keyword);
         if (person == null) System.out.println("Person not found.");
-        else System.out.println(person);
+        else {System.out.println(person);
+         saveToFile();
+        }
     }
     // ----------------------------------------------------------------
     // Hiển thị tất cả
@@ -337,14 +344,19 @@ private String chooseRole() {
 
                 switch (role.toUpperCase()) {
                     case "WORKER":
+                        String companyName = data.length > 5 ? data[5].trim() : "";
+                        String contractType = data.length > 6 ? data[6].trim() : "";
+                        person = new Worker(id, fullName, code, role, status,
+                                companyName, contractType);
+                        break;
                     case "CONTRACTOR":
                         // parts[5]=companyName, parts[6]=contractType
-                        String companyName   = data.length > 5 ? data[5].trim() : "";
-                        String contractType  = data.length > 6 ? data[6].trim() : "";
-                        person = new Worker(id, fullName, code, role, status,
-                                            companyName, contractType);
+                        String contactPerson = data.length > 5 ? data[5].trim() : "";
+                        String contractStatus = data.length > 6 ? data[6].trim() : "";
+                        Contractor contractor = new Contractor(id, fullName, code, status, contactPerson);
+                        contractor.setContractStatus(contractStatus);
+                        person = contractor;
                         break;
-
                     case "VISITOR":
                         // parts[5]=visitPurpose, parts[6]=hostName
                         String visitPurpose = data.length > 5 ? data[5].trim() : "";
@@ -378,6 +390,25 @@ private String chooseRole() {
                             + lineNumber + " (ID trùng?): " + id);
                 }
             }
+        }
+    }
+    private static final String DATA_FILE = "Person.txt";   // dùng chung cho load và save
+
+    public boolean saveToFile() {
+        Path target = Paths.get(DATA_FILE);
+        Path temp = Paths.get(DATA_FILE + ".tmp");
+        try {
+            try ( BufferedWriter writer = Files.newBufferedWriter(temp, StandardCharsets.UTF_8)) {
+                for (Person p : people) {
+                    writer.write(p.toFileLine());
+                    writer.newLine();
+                }
+            }
+            Files.move(temp, target, StandardCopyOption.REPLACE_EXISTING);
+            return true;
+        } catch (IOException e) {
+            System.out.println(Draft.center(Draft.RED + "Cannot save file: " + e.getMessage() + Draft.BAS));
+            return false;
         }
     }
 }
