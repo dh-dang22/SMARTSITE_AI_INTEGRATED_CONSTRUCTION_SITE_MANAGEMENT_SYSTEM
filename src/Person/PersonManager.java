@@ -7,16 +7,18 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import Validatable.InputScanner;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.NoSuchElementException;
 import ui_Dang_dang_sua.Draft;
 public class PersonManager {
-    private Person[] people;
-    private int size;
+    /*private Person[] people;
+    private int size;*/
+    private final List<Person> people = new ArrayList<>();
     private static PersonManager instance;
 
     public PersonManager() {
-        people = new Person[10];
-        size = 0;
     }
 
     // ----------------------------------------------------------------
@@ -32,24 +34,16 @@ public class PersonManager {
     // ----------------------------------------------------------------
     // Thêm người vào danh sách
     // ----------------------------------------------------------------
-     public boolean addPerson(Person p) {
+    public boolean addPerson(Person p) {
         if (p == null || p.getId() == null || p.getId().trim().isEmpty()) {
             return false;
         }
-
-        if (size >= people.length) {
-            Person[] temp = new Person[people.length * 2];
-            System.arraycopy(people, 0, temp, 0, people.length);
-            people = temp;
-        }
-
         if (findPersonByID(p.getId()) != null) {
             return false;
         }
-
-        people[size] = p;
-        size++;
+        people.add(p);
         return true;
+
     }
      
     private String readRequired(String message) {
@@ -178,11 +172,12 @@ private String chooseRole() {
     // Tìm theo ID
     // ----------------------------------------------------------------
     public Person findPersonByID(String id) {
-        if (id == null) return null;
-
-        for (int i = 0; i < size; i++) {
-            if (people[i].getId().equalsIgnoreCase(id.trim())) {
-                return people[i];
+        if (id == null) {
+            return null;
+        }
+        for (Person p : people) {
+            if (p.getId().equalsIgnoreCase(id.trim())) {
+                return p;
             }
         }
         return null;
@@ -192,11 +187,12 @@ private String chooseRole() {
     // Tìm theo Code (dùng cho login)
     // ----------------------------------------------------------------
     public Person findPersonByCode(String code) {
-        if (code == null) return null;
-
-        for (int i = 0; i < size; i++) {
-            if (people[i].getCode().equalsIgnoreCase(code.trim())) {
-                return people[i];
+        if (code == null) {
+            return null;
+        }
+        for (Person p : people) {
+            if (p.getCode().equalsIgnoreCase(code.trim())) {
+                return p;
             }
         }
         return null;
@@ -205,162 +201,138 @@ private String chooseRole() {
     // ----------------------------------------------------------------
     // Sắp xếp theo tên
     // ----------------------------------------------------------------
-    public boolean sortByName() {
-        if (size <= 1) return false;
-
-        for (int i = 0; i < size - 1; i++) {
-            for (int j = 0; j < size - i - 1; j++) {
-                if (people[j].getFullName().compareToIgnoreCase(people[j + 1].getFullName()) > 0) {
-                    Person temp = people[j];
-                    people[j] = people[j + 1];
-                    people[j + 1] = temp;
-                }
-            }
-        }
-        return true;
+    public void sortFromInput() {
+    if (people.isEmpty()) {
+        System.out.println(Draft.center(Draft.RED + "The list is empty!" + Draft.BAS));
+        return;
     }
+    Scanner scanner = InputScanner.getScanner();
+    System.out.println(Draft.center("--- SORT PERSON LIST ---"));
+    System.out.println("    [1]  Sort by ID");
+    System.out.println("    [2]  Sort by Role");
+    System.out.println("    [3]  Sort by Role, then ID");
+    System.out.println("    [4]  Original order");
+    int choice = InputScanner.readRange(scanner, "    ➔ Enter your choice: ", 1, 4,
+            Draft.center(Draft.RED + "Please enter a number between 1-4!" + Draft.BAS));
+    if (choice == -1) return;
+
+    Comparator<String> text = Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER);
+    Comparator<Person> byId = Comparator.comparing(Person::getId, text);
+    Comparator<Person> byRole = Comparator.comparing(Person::getRole, text);
+
+    List<Person> view = new ArrayList<>(people);   // bản sao, people giữ nguyên
+    switch (choice) {
+        case 1: view.sort(byId); break;
+        case 2: view.sort(byRole); break;
+        case 3: view.sort(byRole.thenComparing(byId)); break;
+        default: break;                            // 4: giữ thứ tự gốc
+    }
+    displayList(view);
+}
 
     // ----------------------------------------------------------------
     // Xóa theo ID
     // ----------------------------------------------------------------
     public void deleteByID(String id) {
-        Person p = this.findPersonByID(id);
+        Person p = findPersonByID(id);
         if (p == null) {
             System.out.println("No find id");
             return;
         }
-
-        int index = -1;
-        for (int i = 0; i < size; i++) {
-            if (people[i] == p) {
-                index = i;
-                break;
-            }
-        }
-
-        if (index != -1) {
-            // Dời các phần tử sau index lên 1 vị trí
-            for (int i = index; i < size - 1; i++) {
-                people[i] = people[i + 1];
-            }
-            people[size - 1] = null;
-            size--;
-            System.out.println(Draft.center(Draft.GRN+"ID has removed"+Draft.BAS));
-        }
+        people.remove(p);              // bỏ vòng dời phần tử
+        System.out.println(Draft.center(Draft.GRN + "ID has removed" + Draft.BAS));
     }
     public void deletePersonFromInput() {
-         Scanner scanner = InputScanner.getScanner();
-
-         System.out.print("    ➔ Enter the ID of Person you want to delete: ");
-
-         if (!scanner.hasNextLine()) {
-             return;
-         }
-
-         String id = scanner.nextLine().trim();
-
-         if (id.isEmpty()) {
-             System.out.println(Draft.center(Draft.RED+"ID can not be emtpy!"+Draft.BAS));
-             return;
-         }
-            System.out.print("    Are you sure you want to delete this Person["+id+"]? [Y/N]: ");
-            String YN = scanner.nextLine().trim();
-            
-        do{
-            switch(YN){
-                case "n":
+         Scanner sc = InputScanner.getScanner();
+         Person p = findPersonFromInput();  
+          if (p == null) {
+            System.out.println("No find id");
+            return;
+        }
+          
+         
+        while(true){
+            System.out.print("    Are you sure you want to delete this Person? [Y/N]: ");
+             if(!sc.hasNextLine()){
+           return;
+           }
+            String YN = sc.nextLine().trim();
+            switch(YN.toLowerCase()){       
+                case "n":   
                     System.out.println(Draft.center("Cancel deleting mod!"));
                     System.out.println(Draft.center("No one has been removed!"));
                     return;
                 case "y":
-                    deleteByID(id);
-                    System.out.println(Draft.center("Deleting sucessfully!"));
+                    deleteByID(p.getId());
                     return;
                 default:
                     System.out.println(Draft.center(Draft.RED+"Please enter a valid choice!"+Draft.BAS));
+                    break;
             }
-        }while (true);
+        }
      }
 
     //--------------------------
         // Tìm theo ID
     //--------------------
-        public void findPersonFromInput() {
+        public Person findPersonFromInput() {
         Scanner scanner = InputScanner.getScanner();
         int method = InputScanner.readRange(scanner,"    Search by: 1. ID / 2. Code: ", 1, 2, Draft.center(Draft.RED+"Please enter 1 or 2!"+Draft.BAS));
         Draft.displayMenuLine();
-        if (method == -1) return;
+        if (method == -1) return null;
         System.out.print(method == 1 ? "    ➔ Enter Person ID: " : "    ➔ Enter Person code: ");
-        if (!scanner.hasNextLine()) return;
+        if (!scanner.hasNextLine()) return null;
         String keyword = scanner.nextLine().trim();
         if (keyword.isEmpty()) {
             System.out.println(Draft.center(Draft.RED+"Search value cannot be empty!"+Draft.BAS));
-            return;
+            return null;
         }
+        // METHOD FROM TO AI
         Person person = method == 1 ? findPersonByID(keyword) : findPersonByCode(keyword);
-        if (person == null) System.out.println(Draft.center(Draft.RED+"Person not found!"+Draft.BAS));
+        if (person == null){ System.out.println(Draft.center(Draft.RED+"Person not found!"+Draft.BAS));
+        return null;}
         else System.out.println(person);
+        //AI lam giup
+        return person;
     }
     // ----------------------------------------------------------------
     // Hiển thị tất cả
     // ----------------------------------------------------------------
     public void displayAll() {
-        if (size == 0) {
-            System.out.println(Draft.center(Draft.RED+"The list is empty!"+Draft.BAS));
-            return;
-        }
-        Draft.displayMenuLine();
-        System.out.println(Draft.center("=== The list of Person(s) using S-SMARTSITE ==="));
-        for (int i = 0; i < size; i++) {
-            System.out.println(people[i]);
-        }
+    if (people.isEmpty()) {
+        System.out.println(Draft.center(Draft.RED + "The list is empty!" + Draft.BAS));
+        return;
     }
-
-    public void displayAllByGehihi() { //code lại bởi Gehihi dựa trên hàm displayAll viết bởi MKhang bên trên
-        if (size == 0) {
-            System.out.println(Draft.center(Draft.RED + "The list is empty!" + Draft.BAS));
-            return;
-        }
-        
-        Draft.displayMenuLine();
-        System.out.println();
-        System.out.println(Draft.center("=== The list of Person(s) using S-SMARTSITE ==="));
-        System.out.println();
-        System.out.println();
-        
-        // In dòng tiêu đề bảng
-        System.out.printf("        %-6s | %-28s | %-15s | %-10s | %-20s%n", 
-                          "ID", "Full Name", "Role", "Status", "Additional Details");
-        
-        // Dùng chuỗi gạch ngang tĩnh thay cho .repeat() để tương thích mọi phiên bản Java
-        System.out.println("      ------------------------------------------------------------------------------------------------------------");
-
-        // Duyệt qua danh sách và in từng dòng dữ liệu
-        for (int i = 0; i < size; i++) {
-            Person p = people[i];
-            if (p != null) {
-                String id = p.getId();
-                String name = p.getFullName();
-                String role = p.getRole();
-                String status = p.getStatus();
-                String details = p.getCode(); 
-
-                System.out.printf("        %-6s | %-28s | %-15s | %-10s | %-33s%n", 
-                                  id, name, role, status, details);
-            }
-        }
-        
-        System.out.println("      ------------------------------------------------------------------------------------------------------------");
-        System.out.println();
+    Draft.displayMenuLine();
+    System.out.println(Draft.center("=== The list of Person(s) using S-SMARTSITE ==="));
+    for (Person p : people) {
+        System.out.println(p);
     }
-    
-    
-    
-    public void displayRoleDescriptions() {
-        for (int i = 0; i < size; i++) {
-            System.out.println(people[i].getRoleDescription());
-        }
+}
+
+public void displayAllByGehihi() {
+    displayList(people);
+}
+
+private void displayList(List<Person> list) {
+    if (list.isEmpty()) {
+        System.out.println(Draft.center(Draft.RED + "The list is empty!" + Draft.BAS));
+        return;
     }
+    Draft.displayMenuLine();
+    System.out.println();
+    System.out.println(Draft.center("=== The list of Person(s) using S-SMARTSITE ==="));
+    System.out.println();
+    System.out.printf("        %-6s | %-28s | %-15s | %-10s%n", "ID", "Full Name", "Role", "Status");
+    System.out.println("      ------------------------------------------------------------------------------------------------------------");
+    for (Person p : list) {
+        System.out.printf("        %-6s | %-28s | %-15s | %-10s%n",
+                          p.getId(), p.getFullName(), p.getRole(), p.getStatus());
+    }
+    System.out.println("      ------------------------------------------------------------------------------------------------------------");
+    System.out.println();
+}
+    
 
     // ----------------------------------------------------------------
     // BUG-07: Đọc và parse Person.txt thành các Person object
