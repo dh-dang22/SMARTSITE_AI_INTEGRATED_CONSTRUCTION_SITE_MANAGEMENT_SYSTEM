@@ -10,37 +10,21 @@ package Zone;
  */
 public class RestrictedZone extends Zone {
 
-    // private int accessLevel ; 
     private String pinCode;
 
     public RestrictedZone() {
+        super();
     }
 
-    /*
-    public RestrictedZone(int accessLevel, String pinCode) {
-        this.accessLevel = accessLevel;
-        this.pinCode = pinCode;
-    }
-     */
-    public RestrictedZone( String zoneId, String zoneName, String zoneDetails, String allowedRole,String pinCode) {
-        super(true, zoneId, zoneName, zoneDetails, allowedRole);
+    public RestrictedZone(String zoneId, String zoneName, String zoneDetails, boolean isSaved, String pinCode) {
+        super(true, zoneId, zoneName, zoneDetails, isSaved);
         this.setPinCode(pinCode);
     }
-//    public int getAccessLevel() {
-//        return accessLevel;
-//    }
 
     public String getPinCode() {
         return pinCode;
     }
 
-//    public final void setAccessLevel(int accessLevel) {
-//        if (accessLevel < 0 ){
-//           throw new IllegalArgumentException("Access level must be greater than or equal to 0!");
-//        }
-//         this.accessLevel = accessLevel ; 
-//
-//    }
     public final void setPinCode(String pinCode) {
         if (pinCode.isEmpty()) {
             System.out.println("Pin Code can not be empty!");
@@ -55,15 +39,16 @@ public class RestrictedZone extends Zone {
 
     @Override
     public boolean isValid() {
-        return super.isValid() /*&& (accessLevel >= 0 && accessLevel <= 2)*/ && (pinCode != null && pinCode.trim().matches("^[A-Z]{3}\\d{3}$"));
+        return super.isValid() && (pinCode != null && pinCode.trim().matches("^[A-Z]{3}\\d{3}$"));
     }
 
     @Override
     public String toString() {
-        return super.toString() +/* " | Restricted [Access Level: " + accessLevel + */ "; PinCode : " + pinCode;
+        return super.toString() + "; PinCode : " + pinCode;
     }
+
     @Override
     public String toFileString(){
-        return super.toFileString()+ "|" + pinCode ;
+        return super.toFileString() + "|" + pinCode;
     }
 }

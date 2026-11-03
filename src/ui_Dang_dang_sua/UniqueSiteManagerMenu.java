@@ -7,6 +7,7 @@ import Validatable.InputScanner;
 import Zone.Zone;
 import Zone.ZoneManager2;
 import java.io.IOException;
+import javax.xml.transform.OutputKeys;
 
 
 //import Zone.ZoneManager2;
@@ -164,16 +165,28 @@ public class UniqueSiteManagerMenu {
                 Draft.pause();
                 continue;
             }
+            Draft.displayMenuLine();
 
             if (choice == 0) {                          // Thoát menu
-                running = false;
-                System.out.println(Draft.center("The system is backing to general menu ..."));
-                Draft.pause();
-                Draft.clearConsoleIDE();
+                System.out.print(Draft.center("Have you saved your file yet? [Y/N]: "));
+                String areYouSure = tempSC.nextLine();
+                switch (areYouSure.toLowerCase()) {
+                    case "y":
+                        running = false;
+                        System.out.println(Draft.center("The system is backing to general menu ..."));
+                        Draft.displayMenuLine();
+                        Draft.pause();
+                        Draft.clearConsoleIDE();
+                    case "n":
+                        continue;
+                    default:
+                        System.out.println(Draft.RED+"Invalid choice!"+Draft.BAS);
+                }
+                
             } else {
                 switch(choice){
                     case (1): // add (NOR and RES) check
-                        System.out.print("    ➔ Enter the type of Zone: [1] NOR / [2] RES : ");
+                        System.out.print("    ➔ Enter the type of Zone: " + Draft.GRN+ "[1] NOR" + Draft.RED + " / " + "[2] RED" + Draft.BAS + " :");
                         int choiceAdd = tempSC.nextInt();
                         switch (choiceAdd){
                             case (1):
@@ -204,11 +217,9 @@ public class UniqueSiteManagerMenu {
                     case(7):
                         tempZone.sortZonesById();
                     case (8):
-                        System.out.println(Draft.center("--- [TEST]: Save Data to File ---"));
                         tempZone.saveToFile();
                         break;
                     case (9):
-                        System.out.println(Draft.center("--- [TEST]: Load Data from File ---"));
                         try {
                             tempZone.loadFromFile("Zone.txt");
                         } catch (IOException e) {

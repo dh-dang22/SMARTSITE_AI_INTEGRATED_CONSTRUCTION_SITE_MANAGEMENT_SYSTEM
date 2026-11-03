@@ -23,7 +23,7 @@ public class CheckId {
     }
     public static String checkZoneId() {
         while (true) {
-            System.out.print("Enter Zone ID [ZNxxxx ]: ");
+            System.out.print("    ➔ Enter Zone ID [ZNxxxx ]: ");
             String id = sc.nextLine().trim();
 
             if (id.isEmpty()) {

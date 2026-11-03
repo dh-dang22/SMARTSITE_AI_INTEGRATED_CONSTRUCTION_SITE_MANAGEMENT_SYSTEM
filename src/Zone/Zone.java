@@ -15,23 +15,24 @@ public class Zone implements Validatable {
     protected String zoneId;
     protected String zoneName;
     protected String zoneDetails;
-    protected String allowedRole;
     protected boolean isRestricted;
+    protected boolean isSaved;
     
     public Zone() {
+        this.isSaved = false;
     }
 
-    public Zone(boolean isRestricted, String zoneId, String zoneName, String zoneDetails, String allowedRole) {
+    public Zone(boolean isRestricted, String zoneId, String zoneName, String zoneDetails, boolean isSaved) {
         this.setIsRestricted(isRestricted);
         this.setZoneId(zoneId);
         this.setZoneName(zoneName);
         this.setZoneDetails(zoneDetails);
-        this.setAllowedRole(allowedRole);
+        this.isSaved = isSaved;
     }
 
-    public Zone(String zoneId, String zoneName, String zoneDetails, String allowedRole) {
-    this(false, zoneId, zoneName, zoneDetails, allowedRole);
-}
+    public Zone(String zoneId, String zoneName, String zoneDetails, boolean isSaved) {
+        this(false, zoneId, zoneName, zoneDetails, isSaved);
+    }
     
     @Override
     public boolean isValid() {
@@ -95,22 +96,22 @@ public class Zone implements Validatable {
         return false;
     }
 
-    public String getAllowedRole() {
-        return allowedRole;
+    public boolean isSaved() {
+        return isSaved;
     }
 
-    public void setAllowedRole(String allowedRole) {
-        this.allowedRole = allowedRole;
+    public void setSaved(boolean isSaved) {
+        this.isSaved = isSaved;
     }
 
     @Override
     public String toString() {
-        return "ZoneId : " + zoneId + "; ZoneName : " + zoneName + "; ZoneDetails : " + zoneDetails + "; AllowedRole : "+ allowedRole;
+        return "ZoneId : " + zoneId + "; ZoneName : " + zoneName + "; ZoneDetails : " + zoneDetails;
     }
 
     public String toFileString() {
         String isRes = this.isRestricted() ? "RES" : "NOR";
-        return  zoneId + "|" + isRes +  "|" + zoneName + "|" + zoneDetails + "|"+ allowedRole;
+        return zoneId + "|" + isRes + "|" + zoneName + "|" + zoneDetails;
     }
 
 }

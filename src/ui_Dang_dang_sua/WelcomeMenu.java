@@ -64,7 +64,6 @@ public class WelcomeMenu {
                         System.out.println(Draft.center("Zone ID: " + current.getZoneId()));
                         System.out.println(Draft.center("Zone Name : " + current.getZoneName()));
                         System.out.println(Draft.center("Details : " + current.getZoneDetails()));
-                        System.out.println(Draft.center("Allowed Role : " + current.getAllowedRole()));
                         System.out.println(Draft.center("Restricted Status : " + (current.isRestricted() ? "YES" : "NO")));
 
                         // Nếu là RestrictedZone thì in thêm Mã PIN bảo mật
