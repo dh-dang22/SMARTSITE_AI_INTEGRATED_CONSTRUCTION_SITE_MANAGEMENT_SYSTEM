@@ -6,4 +6,6 @@ ZN0005|RES|CEO Office|Receiving and recording and arranging disseminationg infor
 ZN0006|NOR|Warehouse|Contains equipments and tools
 ZN0010|NOR|Amy House|Cafeteria
 ZN0011|NOR|Vivi Coffee|Cafeteria
-ZN0021|NOR|Seven Eleven|Com bi ni
+ZN0015|RES|Nuclear testing site|It is nucleat time|ABC000
+ZN0021|NOR|Seven Eleven|Convenience store
+ZN0022|NOR|President suite|Where president takes a rest

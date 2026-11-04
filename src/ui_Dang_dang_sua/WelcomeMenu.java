@@ -80,7 +80,6 @@ public class WelcomeMenu {
 
                     System.out.println();
                     System.out.println("");
-                    Draft.displayMenuLine();
                     Draft.pause();
                     Draft.clearConsoleIDE();
                     break;

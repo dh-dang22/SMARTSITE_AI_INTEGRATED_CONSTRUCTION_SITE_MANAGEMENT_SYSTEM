@@ -94,7 +94,7 @@ public class LoginMenu {
             System.out.println(Draft.center(Draft.GRN + "[+] Login successful!" + Draft.BAS));
             System.out.println(Draft.center("[+] Welcome, " + Draft.BLU + currentUser.getFullName() + Draft.BAS + " [" + currentUser.getRole() + "]"));
             System.out.println("");
-            Draft.displayMenuLine();
+
             Draft.pause();
             Draft.clearConsoleIDE();
 

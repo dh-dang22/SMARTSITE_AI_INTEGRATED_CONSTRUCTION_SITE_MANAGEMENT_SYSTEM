@@ -65,12 +65,10 @@ public class UniqueSiteManagerMenu {
                 PersonManager.getInstance().saveToFile();
                 running = false;
                 System.out.println("    ➔ The system is backing to general menu ...");
-                Draft.pause();
-                Draft.clearConsoleIDE();
             } else {
                 switch(choice){
-                    case (1): // add đã xong
-                        int n = InputScanner.readRange(sc2, "   ➔ Enter a number of Person(s) you want to add[1-100][-1 to cancel]: ", 1, 100, "Please enter a number between 1-100!");
+                    case (1): // thêm Person (đã chỉnh, chưa ổn) (quên chưa ổn chỗ nào cmnr)
+                        int n = InputScanner.readRange(sc2, Draft.BLU+"   ➔ Enter a number of Person(s) you want to add[1-100][-1 to cancel]: "+Draft.BAS, 1, 100, "Please enter a number between 1-100!");
                         System.out.println("");
                         if (n == -1) {
                             return;
@@ -83,28 +81,29 @@ public class UniqueSiteManagerMenu {
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
-                    case 2:
+                    case 2: // tìm kiếm Person (chưa chỉnh, chưa ổn) (hàm tìm kiếm trả giá trị Person, hok chỉnh layout đc, yêu cầu viết hàm trả giá trị void)
                         pm.findPersonFromInput();
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
-                    case (3): //update
+                    case (3): // cập nhật Person (chưa chỉnh, chưa ổn) (chưa viết hàm chỉnh sửa)
                         Draft.functionIsNotCompletedYet();
                         break;
-                    case 4: // delete đã xong
+                    case 4: // xóa Person (chưa chỉnh, chưa ổn) (quên chưa ổn chỗ nào cmnr)
                         pm.deletePersonFromInput();
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
-                    case (5): // display list đã xong
+                    case (5): // hiển thị danh sách (đã chỉnh, chưa ổn) (đề xuất hiển thị thêm code kế bên ID)
                         pm.displayAllByGehihi();
                         Draft.displayMenuLine();
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
-                    case 6:
+                    case 6: // sắp xếp danh sách (đã chỉnh, chưa ổn) (quên chưa ổn chỗ nào cmnr)
                         pm.sortFromInput();
                         Draft.pause();
+                        Draft.clearConsoleIDE();
                         break;    
                 }
             }
@@ -170,8 +169,6 @@ public class UniqueSiteManagerMenu {
                         running = false;
                         System.out.println(Draft.center("The system is backing to general menu ..."));
                         Draft.displayMenuLine();
-                        Draft.pause();
-                        Draft.clearConsoleIDE();
                     case "n":
                         continue;
                     default:
@@ -181,7 +178,7 @@ public class UniqueSiteManagerMenu {
             } else {
                 switch(choice){
                     case (1): // add (NOR and RES) check
-                        System.out.print("    ➔ Enter the type of Zone: " + Draft.GRN+ "[1] NOR" + Draft.RED + " / " + "[2] RED" + Draft.BAS + " :");
+                        System.out.print("    ➔ Enter the type of Zone: " + Draft.GRN+ "[1] NOR" + Draft.RED + " / " + "[2] RED" + Draft.BAS + " : ");
                         int choiceAdd = tempSC.nextInt();
                         switch (choiceAdd){
                             case (1):
@@ -192,33 +189,33 @@ public class UniqueSiteManagerMenu {
                                 break;
                         }
                         break;
-                    case (2): // find
+                    case (2): // tìm kiếm khu vực (chưa chỉnh, chưa ổn) (viết lại, yêu cầu: viêt hàm tìm kiếm là void để ui chỉnh sửa đc, hàm giá trị Person chỉ dùng để gom giá trị tìm kiếm (trong Zalo có nói))
                         System.out.print("    ➔ Enter the Zone ID(e.g., ZN0001): ");
                         String tempID = tempSC.nextLine();
                         System.out.println(tempZone.findZoneById(tempID));
                         break;
-                    case (3): //update
+                    case (3): // cập nhật khu vực (đã chỉnh, chưa ổn) (yêu cầu bổ sung chỉnh sửa Type và PIN code, tạo một switch case cho người dùng chọn thông tin chỉnh sửa)
                         tempZone.updateZoneById();
                         break;
-                    case (4): // delete
+                    case (4): // xóa khu vực (đã chỉnh, ổn)
                         tempZone.deleteZoneById();
                         break;
-                   case (5): // display list
+                   case (5): // hiển thị danh sách khu vực (đã chỉnh, đã ổn, nhưng cần bổ sung) (bổ sung: 1. hiển thị tất cá danh sách (như hiện tại), 2. hiển thị chỉ RES, 3. hiển thị chỉ NOR)
                         tempZone.displayList();
                         break;
-                   case (6):
+                   case (6): // thay đổi
                         tempZone.displayRestrictedZonesOnly();
                         break;
-                    case(7):
+                    case(7): // sắp xếp danh sách khu vực (đã chỉnh, chưa ổn) (yêu cầu: Sắp xếp theo ID nhưng k làm thay đổi thứ tự gốc trong file) 
                         tempZone.sortZonesById();
-                    case (8):
+                    case (8): // lưu dữ liệu (chưa chỉnh, đã ổn)
                         tempZone.saveToFile();
                         break;
-                    case (9):
+                    case (9): // tải dữ liệu (chưa chỉnh, hok rõ)
                         try {
                             tempZone.loadFromFile("Zone.txt");
                         } catch (IOException e) {
-                            System.out.println("[Error]: Failed to load file: " + e.getMessage());
+                            System.out.println(Draft.center(Draft.RED+"[Error]: Failed to load file: " + e.getMessage()+Draft.GRN));
                         }
                         break;
                 }

@@ -61,6 +61,12 @@ public class ZoneManager2 {
         return activeZone;
     }
 
+    
+    
+    
+    //
+    // addZone và addRestrictedZone
+    //
     public void addZone() {
         Scanner sc = Validatable.InputScanner.getScanner();
         int n;
@@ -112,6 +118,59 @@ public class ZoneManager2 {
             break;
         }
     }
+    
+    public void addRestrictedZone() {
+        Scanner sc = new Scanner(System.in);
+        int n;
+        while (true) {
+            System.out.print(Draft.BLU+"    ➔ Input the number of Zone(s) needed to add: "+Draft.BAS);
+            try {
+                n = Integer.parseInt(sc.nextLine().trim());
+                if (n <= 0) {
+                    System.out.println(Draft.center(Draft.RED + "[Error]: The number must be greater than 0!" + Draft.BAS));
+                    continue;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println(Draft.center(Draft.RED + "[Error]: Invalid number input!" + Draft.BAS));
+                continue;
+            }
+            Draft.displayMenuLine();
+            for (int i = 1; i <= n; i++) {
+                System.out.println(Draft.center("--- Restricted Zone [" + i + "] ---"));
+
+                String id;
+                while (true) {
+                    id = CheckId.checkZoneId();
+                    if (findZoneById(id) != null) {
+                        System.out.println(Draft.center(Draft.RED + "[Error]: Zone ID [" + id + "] already exists! Try again!" + Draft.BAS));
+                        continue;
+                    }
+                    break;
+                }
+
+                String name = CheckName.checkZoneName();
+                String description = CheckDetails.checkZoneDetails();
+                String pinCode = CheckCode.checkPinCode();
+
+                try {
+                    // isSaved = false vì mới thêm vào RAM, chưa lưu file
+                    RestrictedZone rz = new RestrictedZone(id, name, description, false, pinCode);
+
+                    if (rz.isValid()) {
+                        this.list.add(rz);
+                        System.out.println("Restricted Zone [" + id + "] added successfully!");
+                    } else {
+                        System.out.println("Restricted Zone data is invalid.");
+                        i--;
+                    }
+                } catch (IllegalArgumentException e) {
+                    System.out.println("[Error]: " + e.getMessage());
+                    i--;
+                }
+            }
+            break;
+        }
+    }
 
     public Zone findZoneById(String zoneId) {
         for (Zone z : list) {
@@ -121,7 +180,80 @@ public class ZoneManager2 {
         }
         return null;
     }
+    
+    
+    
+    //
+    // Cập nhật thông tin của Zone
+    //
 
+public void updateZoneById() {
+        String zoneId = CheckId.checkZoneId();
+        Zone z = this.findZoneById(zoneId);
+        System.out.println("");
+
+        if (z != null) {
+            System.out.println(Draft.center("Current Zone Information"));
+            System.out.println("");
+            
+//copy code kẻ bảng từ đoạn displayList
+            // In tiêu đề bảng thông tin hiện tại
+            System.out.printf("        %-6s | %-5s | %-20s | %-53s | %-8s%n",
+                    "ID", "Type", "Zone Name", "Zone Details", "PIN Code");
+            System.out.println("      -------------------------------------------------------------------------------------------------------------");
+            
+            String id = z.getZoneId();
+            String isRes = z.isRestricted() ? "RES" : "NOR";
+            String name = z.getZoneName();
+            String details = truncate(z.getZoneDetails(), 40);
+
+            String pinCode = "N/A";
+            if (z instanceof RestrictedZone) {
+                RestrictedZone rz = (RestrictedZone) z;
+                pinCode = rz.getPinCode();
+            }
+
+            // Hiển thị màu sắc dựa theo trạng thái isSaved hiện tại
+            String colorPrefix = "";
+            String colorReset = "";
+            if (z.isSaved()) {
+                colorPrefix = Draft.BLU; // Hoặc Draft.BLU tùy theo cách bạn quy định màu xanh ở bản hiện tại
+                colorReset = Draft.BAS;
+            }
+
+            System.out.printf("%s        %-6s | %-5s | %-20.20s | %-53.53s | %-8s%s%n",
+                    colorPrefix, id, isRes, name, details, pinCode, colorReset);
+
+            System.out.println("      -------------------------------------------------------------------------------------------------------------");
+            System.out.println();
+//copy code kẻ bảng từ đoạn displayList
+
+
+            // Tiến hành nhập thông tin mới
+            String newName = CheckName.checkZoneName();
+            String newDescription = CheckDetails.checkZoneDetails();
+
+            try {
+                z.setZoneName(newName);
+                z.setZoneDetails(newDescription);
+                
+                // --- ĐÁNH DẤU LẠI TRẠNG THÁI CHƯA LƯU VÀO FILE ---
+                z.setSaved(false); 
+                
+                System.out.println(Draft.center(Draft.GRN + "Update Zone [" + zoneId + "] successfully!" + Draft.BAS));
+            } catch (IllegalArgumentException e) {
+                System.out.println(Draft.center(Draft.RED + "[Error]: Update failed! " + e.getMessage() + Draft.BAS));
+            }
+        } else {
+            System.out.println(Draft.center(Draft.RED + "[Error]: Zone ID [" + zoneId + "] not found!" + Draft.BAS));
+        }
+    }
+    
+    
+    
+    
+    
+    
     public void deleteZoneById() {
         Scanner scanner = InputScanner.getScanner();
         String zoneId = CheckId.checkZoneId();
@@ -131,9 +263,40 @@ public class ZoneManager2 {
             System.out.println(Draft.center(Draft.RED + "Please enter the Zone ID!" + Draft.BAS));
             return;
         }
+        
+//copy code kẻ bảng từ đoạn displayList
+            // In tiêu đề bảng thông tin hiện tại
+            System.out.printf("        %-6s | %-5s | %-20s | %-53s | %-8s%n",
+                    "ID", "Type", "Zone Name", "Zone Details", "PIN Code");
+            System.out.println("      -------------------------------------------------------------------------------------------------------------");
+            
+            String id = z.getZoneId();
+            String isRes = z.isRestricted() ? "RES" : "NOR";
+            String name = z.getZoneName();
+            String details = truncate(z.getZoneDetails(), 40);
 
-        System.out.println("    ➔ Are you sure you want to delete this Zone: ");
-        System.out.print(z + " ? [Y/N]: ");
+            String pinCode = "N/A";
+            if (z instanceof RestrictedZone) {
+                RestrictedZone rz = (RestrictedZone) z;
+                pinCode = rz.getPinCode();
+            }
+
+            // Hiển thị màu sắc dựa theo trạng thái isSaved hiện tại
+            String colorPrefix = "";
+            String colorReset = "";
+            if (z.isSaved()) {
+                colorPrefix = Draft.BLU; // Hoặc Draft.BLU tùy theo cách bạn quy định màu xanh ở bản hiện tại
+                colorReset = Draft.BAS;
+            }
+
+            System.out.printf("%s        %-6s | %-5s | %-20.20s | %-53.53s | %-8s%s%n",
+                    colorPrefix, id, isRes, name, details, pinCode, colorReset);
+
+            System.out.println("      -------------------------------------------------------------------------------------------------------------");
+            System.out.println();
+//copy code kẻ bảng từ đoạn displayList
+
+        System.out.print("    ➔ Are you sure you want to delete this Zone? [Y/N]: ");
         String choice = scanner.nextLine().trim();
 
         switch (choice.toUpperCase()) {
@@ -150,29 +313,10 @@ public class ZoneManager2 {
                 break;
         }
     }
-
-    public void updateZoneById() {
-        String zoneId = CheckId.checkZoneId();
-        Zone z = this.findZoneById(zoneId);
-
-        if (z != null) {
-            System.out.println("Current Zone Info: " + z);
-
-            String newName = CheckName.checkZoneName();
-            String newDescription = CheckDetails.checkZoneDetails();
-
-            try {
-                z.setZoneName(newName);
-                z.setZoneDetails(newDescription);
-                System.out.println(Draft.center(Draft.GRN + "Update Zone [" + zoneId + "] successfully!" + Draft.BAS));
-            } catch (IllegalArgumentException e) {
-                System.out.println(Draft.center(Draft.RED + "[Error]: Update failed! " + e.getMessage() + Draft.BAS));
-            }
-        } else {
-            System.out.println(Draft.center(Draft.RED + "[Error]: Zone ID [" + zoneId + "] not found!" + Draft.BAS));
-        }
-    }
-
+    
+    
+    
+    
     private String truncate(String text, int maxLength) {
         if (text == null) {
             return "";
@@ -182,6 +326,7 @@ public class ZoneManager2 {
         }
         return text.substring(0, maxLength - 3) + "...";
     }
+
 
 public void displayList() {
         if (list == null || list.isEmpty()) {
@@ -223,7 +368,7 @@ public void displayList() {
                 String colorPrefix = "";
                 String colorReset = "";
                 if (z.isSaved()) {
-                    colorPrefix = Draft.GRN;
+                    colorPrefix = Draft.BLU;
                     colorReset = Draft.BAS;
                 }
 
@@ -234,6 +379,8 @@ public void displayList() {
 
         System.out.println("      -------------------------------------------------------------------------------------------------------------");
         System.out.println();
+        System.out.println("    [!] Note: The blue data is saved in file, while the black isn't. Remember to press \"Save file\"(8) before leaving  ");
+        System.out.println("");
     }
 
     public void sortZonesById() {
@@ -246,58 +393,7 @@ public void displayList() {
         System.out.println("-> Successfully sorted zone list by Zone ID!");
     }
 
-    public void addRestrictedZone() {
-        Scanner sc = new Scanner(System.in);
-        int n;
-        while (true) {
-            System.out.println("Input the number of zones needed to add: ");
-            try {
-                n = Integer.parseInt(sc.nextLine().trim());
-                if (n <= 0) {
-                    System.out.println(Draft.center(Draft.RED + "[Error]: The number must be greater than 0!" + Draft.BAS));
-                    continue;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println(Draft.center(Draft.RED + "[Error]: Invalid number input!" + Draft.BAS));
-                continue;
-            }
 
-            for (int i = 1; i <= n; i++) {
-                System.out.println(Draft.center("--- Restricted Zone [" + i + "] ---"));
-
-                String id;
-                while (true) {
-                    id = CheckId.checkZoneId();
-                    if (findZoneById(id) != null) {
-                        System.out.println(Draft.center(Draft.RED + "[Error]: Zone ID [" + id + "] already exists! Try again!" + Draft.BAS));
-                        continue;
-                    }
-                    break;
-                }
-
-                String name = CheckName.checkZoneName();
-                String description = CheckDetails.checkZoneDetails();
-                String pinCode = CheckCode.checkPinCode();
-
-                try {
-                    // isSaved = false vì mới thêm vào RAM, chưa lưu file
-                    RestrictedZone rz = new RestrictedZone(id, name, description, false, pinCode);
-
-                    if (rz.isValid()) {
-                        this.list.add(rz);
-                        System.out.println("Restricted Zone [" + id + "] added successfully!");
-                    } else {
-                        System.out.println("Restricted Zone data is invalid.");
-                        i--;
-                    }
-                } catch (IllegalArgumentException e) {
-                    System.out.println("[Error]: " + e.getMessage());
-                    i--;
-                }
-            }
-            break;
-        }
-    }
 
 public void displayRestrictedZonesOnly() {
         if (list == null || list.isEmpty()) {
@@ -425,9 +521,9 @@ public void displayRestrictedZonesOnly() {
                 }
             }
             
-            System.out.println("-> Saved data successfully!");
+            System.out.println(Draft.center(Draft.GRN+"Saved data successfully!"+Draft.BAS));
         } catch (IOException e) {
-            System.out.println("[Error]: " + e.getMessage());
+            System.out.println(Draft.RED+"    [Error]: " + e.getMessage() + Draft.BAS);
         }
     }
 
