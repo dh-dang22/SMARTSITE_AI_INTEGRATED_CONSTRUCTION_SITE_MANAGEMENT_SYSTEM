@@ -7,7 +7,6 @@ import Validatable.InputScanner;
 import Zone.Zone;
 import Zone.ZoneManager2;
 import java.io.IOException;
-import javax.xml.transform.OutputKeys;
 
 
 //import Zone.ZoneManager2;
@@ -46,7 +45,6 @@ public class UniqueSiteManagerMenu {
             System.out.println("    [4]  Delete a Person");
             System.out.println("    [5]  Display all people information"); //
             System.out.println("    [6]  Sort people by name");
-            System.out.println("    [7]  Display role descriptions");
             System.out.println("");
             System.out.println("    [0]  Back to general menu");
             System.out.println("");
@@ -100,18 +98,14 @@ public class UniqueSiteManagerMenu {
                         break;
                     case (5): // display list đã xong
                         pm.displayAllByGehihi();
+                        Draft.displayMenuLine();
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
                     case 6:
                         pm.sortFromInput();
-                        pm.displayAllByGehihi();
                         Draft.pause();
-                        break;
-                    case 7:
-                        //pm.displayRoleDescriptions();
-                        Draft.functionIsNotCompletedYet();
-                        break;                
+                        break;    
                 }
             }
         } //while
