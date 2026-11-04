@@ -97,7 +97,7 @@ public void addPersonFromInput() {
         switch (role) {
             case "WORKER":
                 String company = readRequired("    ➔ Enter Person's Company: ");
-                String contract = readRequired("    ➔ Enter the contract type: ");
+                String contract = readRequired("    ➔ Enter Person's ct.type: ");
                  person = new Worker(
                     id, name, code, role, status, company, contract
                 );
@@ -119,7 +119,7 @@ public void addPersonFromInput() {
                 break;
 
             case "SAFETY_OFFICER":
-                String license = readRequired("    ➔ Enter the license: ");
+                String license = readRequired("    ➔ Enter Person's license: ");
 
                 person = new SafetyOfficer(
                     id, name, code, role, status, 0, license
@@ -127,7 +127,7 @@ public void addPersonFromInput() {
                 break;
 
             case "SITE_MANAGER":
-                String department = readRequired("    ➔ Enter the area you manage: ");
+                String department = readRequired("    ➔ Enter Person's area   : ");
 
                 person = new SiteManager(
                     id, name, code, role, status, department
@@ -240,7 +240,7 @@ private String chooseRole() {
     public void deleteByID(String id) {
         Person p = findPersonByID(id);
         if (p == null) {
-            System.out.println("No find id");
+            System.out.println(Draft.center(Draft.RED+"ID is not found!!!"+Draft.BAS));
             return;
         }
         people.remove(p);              // bỏ vòng dời phần tử
@@ -250,7 +250,7 @@ private String chooseRole() {
          Scanner sc = InputScanner.getScanner();
          Person p = findPersonFromInput();  
           if (p == null) {
-            System.out.println("No find id");
+            System.out.println(Draft.center(Draft.RED+"ID is not found!!!"+Draft.BAS));
             return;
         }
           
@@ -279,13 +279,22 @@ private String chooseRole() {
     //--------------------------
         // Tìm theo ID
     //--------------------
+    
+        public void displayPersonFound(){
+
+        }
+    
         public Person findPersonFromInput() {
         Scanner scanner = InputScanner.getScanner();
-        int method = InputScanner.readRange(scanner,"    Search by: 1. ID / 2. Code: ", 1, 2, Draft.center(Draft.RED+"Please enter 1 or 2!"+Draft.BAS));
+        int method = InputScanner.readRange(scanner,"    Search by: 1. ID / 2. Code / 3. Cancel: ", 1, 2, Draft.center(Draft.RED+"Please enter 1 or 2!"+Draft.BAS));
         Draft.displayMenuLine();
-        if (method == -1) return null;
+        
+        if (method == 3) 
+            return null;
         System.out.print(method == 1 ? "    ➔ Enter Person ID: " : "    ➔ Enter Person code: ");
-        if (!scanner.hasNextLine()) return null;
+        if (!scanner.hasNextLine()) 
+            return null;
+        
         String keyword = scanner.nextLine().trim();
         if (keyword.isEmpty()) {
             System.out.println(Draft.center(Draft.RED+"Search value cannot be empty!"+Draft.BAS));
@@ -299,6 +308,7 @@ private String chooseRole() {
         //AI lam giup
         return person;
     }
+        
     // ----------------------------------------------------------------
     // Hiển thị tất cả
     // ----------------------------------------------------------------
@@ -327,13 +337,14 @@ private void displayList(List<Person> list) {
     System.out.println();
     System.out.println(Draft.center("=== The list of Person(s) using S-SMARTSITE ==="));
     System.out.println();
-    System.out.printf("        %-6s | %-28s | %-15s | %-10s%n", "ID", "Full Name", "Role", "Status");
-    System.out.println("      ------------------------------------------------------------------------------------------------------------");
+    System.out.printf("                           %-6s | %-28s | %-15s | %-10s%n"                         ,
+                                                "ID", "Full Name", "Role", "Status");
+    System.out.println(Draft.center("----------------------------------------------------------------------"));
     for (Person p : list) {
-        System.out.printf("        %-6s | %-28s | %-15s | %-10s%n",
+        System.out.printf("                           %-6s | %-28s | %-15s | %-10s%n"                         ,
                           p.getId(), p.getFullName(), p.getRole(), p.getStatus());
     }
-    System.out.println("      ------------------------------------------------------------------------------------------------------------");
+    System.out.println(Draft.center("----------------------------------------------------------------------"));
     System.out.println();
 }
     
@@ -428,7 +439,8 @@ private void displayList(List<Person> list) {
     System.out.println("    🆔  ID    : " + person.getId());
     System.out.println("    👤  Name  : " + person.getFullName());
     System.out.println("    💼  Role  : " + person.getRole());
-    System.out.println("    🟢  Status: " + person.getStatus());
+    System.out.println("    🟢  Status: " + Draft.GRN+person.getStatus()+Draft.BAS);
+        System.out.println("");
     //person.getId(), person.getFullName(), person.getRole(), person.getStatus()
     if (person instanceof Worker) {
         Worker worker = (Worker) person;

@@ -27,7 +27,9 @@ public class WelcomeMenu {
                 System.out.println(Draft.center("CURRENT LOCATION: No active zone assigned"));
             }
             System.out.println("");
+            
             Draft.displayWelcomeMenuOption();//in option lựa chọn
+            System.out.println("");
             Draft.displayMenuLine();//in gạch
             System.out.print("   >>> Enter your action[1-3]: ");
 
@@ -54,29 +56,31 @@ public class WelcomeMenu {
                     menu.displayLoginMenu();
                     break;
                 case (2):
-                    System.out.println(Draft.center("=================================================="));
-                    System.out.println(Draft.center("         CURRENT LOCATION INFORMATION            "));
-                    System.out.println(Draft.center("=================================================="));
+                    System.out.println("");
+                    System.out.println(Draft.center("CURRENT LOCATION INFORMATION"));
+                    System.out.println("");
+                    System.out.println("");
+                    
 
                     Zone current = zm.getActiveZone();
 
                     if (current != null) {
                         System.out.println(Draft.center("Zone ID: " + current.getZoneId()));
                         System.out.println(Draft.center("Zone Name : " + current.getZoneName()));
-                        System.out.println(Draft.center("Details : " + current.getZoneDetails()));
-                        System.out.println(Draft.center("Restricted Status : " + (current.isRestricted() ? "YES" : "NO")));
+                        System.out.println(Draft.center("Type : " + (current.isRestricted() ? Draft.RED+"Restricted Zone"+Draft.BAS : Draft.GRN+"Normal Zone"+Draft.BAS)));
 
                         // Nếu là RestrictedZone thì in thêm Mã PIN bảo mật
-                        if (current instanceof RestrictedZone) {
-                            RestrictedZone rz = (RestrictedZone) current;
-                            System.out.println(Draft.center("Security Passcode : " + rz.getPinCode()));
-                        }
+//                        if (current instanceof RestrictedZone) {
+//                            RestrictedZone rz = (RestrictedZone) current;
+//                            System.out.println(Draft.center("Security Passcode : " + rz.getPinCode()));
+//                        }
                     } else {
                         System.out.println(Draft.center(Draft.RED + "No active zone assigned at the moment!" + Draft.BAS));
                     }
 
-                    System.out.println(Draft.center("=================================================="));
+                    System.out.println();
                     System.out.println("");
+                    Draft.displayMenuLine();
                     Draft.pause();
                     Draft.clearConsoleIDE();
                     break;
@@ -85,7 +89,6 @@ public class WelcomeMenu {
                     System.out.println(Draft.center("See you later!"));
                     running = false;
                     Draft.pause();
-                    Draft.clearConsoleIDE();
                     break;
                 default:
                     System.out.println(Draft.center(Draft.RED + "Invalid choice!!!" + Draft.BAS));
