@@ -216,7 +216,8 @@ private String chooseRole() {
     System.out.println("    [2]  Sort by Role");
     System.out.println("    [3]  Sort by Role, then ID");
     System.out.println("    [4]  Original order");
-    int choice = InputScanner.readRange(scanner, "    ➔ Enter your choice: ", 1, 4,
+        System.out.println("");
+    int choice = InputScanner.readRange(scanner, Draft.BLU+"    ➔ Enter your choice: "+Draft.BAS, 1, 4,
             Draft.center(Draft.RED + "Please enter a number between 1-4!" + Draft.BAS));
     if (choice == -1) return;
 
@@ -226,9 +227,15 @@ private String chooseRole() {
 
     List<Person> view = new ArrayList<>(people);   // bản sao, people giữ nguyên
     switch (choice) {
-        case 1: view.sort(byId); break;
-        case 2: view.sort(byRole); break;
-        case 3: view.sort(byRole.thenComparing(byId)); break;
+        case 1: 
+            view.sort(byId); 
+            break;
+        case 2: 
+            view.sort(byRole); 
+            break;
+        case 3: 
+            view.sort(byRole.thenComparing(byId)); 
+            break;
         default: break;                            // 4: giữ thứ tự gốc
     }
     displayList(view);

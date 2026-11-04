@@ -38,6 +38,7 @@ public class Draft {
     
     public static void pause() {
         Scanner scanner = new Scanner(System.in);
+        Draft.displayMenuLine();
         System.out.println(Draft.center("Press [ENTER] to continue..."));
         Draft.displayMenuLine();
         scanner.nextLine();

@@ -1,9 +1,14 @@
-VISITOR|P003|Dang Hai Dang|V001|ACTIVE|Site visit|Manager A
-SAFETY_OFFICER|P004|Pham Van D|S001|ACTIVESAFE-2026
 SITE_MANAGER|P005|Minh Khang|M001|ACTIVE|SmartSite Demo
-WORKER|PR001|Minh Khang|W)07|ACTIVE
 VISITOR|PR0001|Bach Cong Tu|VS0001|ACTIVE|To observe the process|Tran Soai Ca
 VISITOR|PR0002|Dang Cong Tu|VS0002|ACTIVE|To observe the process|Tran Soai Ca
 SAFETY_OFFICER|PR0003|Dang Cai Mang|SO0001|ACTIVEMOS
-WORKER|Moi Moi Moi|-1|-1|ACTIVE
 WORKER|PR0004|Dang So Sad|PR0005|ACTIVE
+CONTRACTOR|PR0005|David Ricardo|CT0002|ACTIVE|Comparative Advantage|null
+CONTRACTOR|PR0006|Karl Marx|Das Kapital|ACTIVE|Das Kapital|null
+CONTRACTOR|PR0007|Alfred Marshall|PR0003|ACTIVE|Principles of Economics|null
+CONTRACTOR|PR0008|John Maynard Keynes|CT0003|ACTIVE|The General Theory of Employment, Interest, and Money|null
+WORKER|PR0009|Zydrunas Savickas|WK0009|ACTIVE
+WORKER|PR0010|Mariusz Pudzianowski|WK0010|ACTIVE
+WORKER|PR0011|Hafthor Bj�rnsson|WK0011|ACTIVE
+WORKER|PR0012|Brian Shaw|WK0012|ACTIVE
+WORKER|PR0013|Bill Kazmaier|WK0013|ACTIVE
