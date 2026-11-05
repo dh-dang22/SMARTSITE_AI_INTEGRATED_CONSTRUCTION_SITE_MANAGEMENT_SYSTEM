@@ -1,5 +1,6 @@
 package Validatable;
 
+import Person.Person;
 import Person.PersonManager;
 import java.util.Scanner;
 
