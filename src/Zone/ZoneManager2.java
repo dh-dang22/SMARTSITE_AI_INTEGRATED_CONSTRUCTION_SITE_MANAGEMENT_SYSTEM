@@ -5,6 +5,7 @@ import Validatable.CheckName;
 import Validatable.CheckDetails;
 import Validatable.CheckCode;
 import Validatable.InputScanner;
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.PrintWriter;
@@ -74,8 +75,8 @@ public class ZoneManager2 {
             System.out.print("    ➔ Input the number of zones needed to add: ");
             try {
                 n = Integer.parseInt(sc.nextLine().trim());
-                if (n <= 0) {
-                    System.out.println("    [Error]: The number must be greater than 0!");
+                if (n <= 0 || n > 10) {
+                    System.out.println("    [Error]: The number must be greater than 0 and smaller than 10!");
                     continue;
                 }
             } catch (NumberFormatException e) {
@@ -126,7 +127,7 @@ public class ZoneManager2 {
             System.out.print(Draft.BLU+"    ➔ Input the number of Zone(s) needed to add: "+Draft.BAS);
             try {
                 n = Integer.parseInt(sc.nextLine().trim());
-                if (n <= 0) {
+                if (n <= 0 || n > 10 ) {
                     System.out.println(Draft.center(Draft.RED + "[Error]: The number must be greater than 0!" + Draft.BAS));
                     continue;
                 }
@@ -230,16 +231,40 @@ public void updateZoneById() {
 
 
             // Tiến hành nhập thông tin mới
-            String newName = CheckName.checkZoneName();
-            String newDescription = CheckDetails.checkZoneDetails();
+             System.out.println("    ➔ Enter information you want to update:");
+            System.out.println("[1] Name");
+            System.out.println("[2] Description");
+            System.out.println("[3] All information");
 
+            int choice = InputScanner.readRange(InputScanner.getScanner(), "   Choose [1-3]: ", 1, 3, "   Invalid choice! Enter 1-3.");
+
+            String newName = z.getZoneName();
+            String newDetails = z.getZoneDetails();
+            
+
+            switch (choice) {
+                case 1:
+                    newName = CheckName.checkZoneName();
+                    break;
+
+                case 2:
+                    newDetails = CheckDetails.checkZoneDetails();
+                    break;
+
+                case 3:
+                    newName= CheckName.checkZoneName();
+                    newDetails = CheckDetails.checkDetails();
+                    break;
+
+                default:
+                    break;
+            }
             try {
                 z.setZoneName(newName);
-                z.setZoneDetails(newDescription);
-                
-                // --- ĐÁNH DẤU LẠI TRẠNG THÁI CHƯA LƯU VÀO FILE ---
-                z.setSaved(false); 
-                
+                z.setZoneDetails(newDetails);
+
+                z.setSaved(false);
+
                 System.out.println(Draft.center(Draft.GRN + "Update Zone [" + zoneId + "] successfully!" + Draft.BAS));
             } catch (IllegalArgumentException e) {
                 System.out.println(Draft.center(Draft.RED + "[Error]: Update failed! " + e.getMessage() + Draft.BAS));
@@ -248,6 +273,7 @@ public void updateZoneById() {
             System.out.println(Draft.center(Draft.RED + "[Error]: Zone ID [" + zoneId + "] not found!" + Draft.BAS));
         }
     }
+
     
     
     
@@ -263,7 +289,7 @@ public void updateZoneById() {
             System.out.println(Draft.center(Draft.RED + "Please enter the Zone ID!" + Draft.BAS));
             return;
         }
-        
+            System.out.println("\n");
 //copy code kẻ bảng từ đoạn displayList
             // In tiêu đề bảng thông tin hiện tại
             System.out.printf("        %-6s | %-5s | %-20s | %-53s | %-8s%n",
@@ -328,7 +354,7 @@ public void updateZoneById() {
     }
 
 
-public void displayList() {
+public void displayAllZones() {
         if (list == null || list.isEmpty()) {
             System.out.println(Draft.center(Draft.RED + "The Zone list is empty!" + Draft.BAS));
             return;
@@ -383,14 +409,65 @@ public void displayList() {
         System.out.println("");
     }
 
-    public void sortZonesById() {
+
+
+  public void displayNormalZonesOnly() {
         if (list == null || list.isEmpty()) {
-            System.out.println("[Warning]: Zone list is empty. Nothing to sort.");
+            System.out.println(Draft.center(Draft.RED + "The Zone list is empty!" + Draft.BAS));
             return;
         }
-        list.sort((z1, z2) -> z1.getZoneId().compareToIgnoreCase(z2.getZoneId()));
+        int countNor = 0;
+        for (Zone z : list) {
+            countNor++;
+            if (z instanceof RestrictedZone) {
+                countNor--;
+            }
 
-        System.out.println("-> Successfully sorted zone list by Zone ID!");
+        }
+        if (countNor == 0) {
+            System.out.println(Draft.center(Draft.RED + "No zones found in the system!" + Draft.BAS));
+            return;
+        }
+
+        Draft.displayMenuLine();
+        System.out.println();
+        System.out.println(Draft.center("=== The list of Normal Zone(s) in S-SMARTSITE ==="));
+        System.out.println();
+        System.out.println();
+
+        // In dòng tiêu đề bảng
+        System.out.printf("        %-6s | %-20s | %-53s | %n",
+                "ID", "Zone Name", "Zone Details");
+
+        // Chuỗi gạch ngang định hình phân cách bảng
+        System.out.println("      -------------------------------------------------------------------------------------------------------------");
+
+        // Duyệt qua danh sách và in từng dòng dữ liệu
+        for (Zone z : list) {
+            if (z != null && !(z instanceof RestrictedZone) && !z.isRestricted) {
+
+                String id = z.getZoneId();
+                String name = z.getZoneName();
+                String details = truncate(z.getZoneDetails(), 50);
+
+                String colorPrefix = "";
+                String colorReset = "";
+                if (z.isSaved()) {
+                    colorPrefix = Draft.BLU;
+                    colorReset = Draft.BAS;
+                }
+
+                System.out.printf("%s        %-6s | %-20.20s | %-53.53s |%s%n",
+                        colorPrefix, id, name, details, colorReset);
+
+            }
+        }
+
+        System.out.println("      -------------------------------------------------------------------------------------------------------------");
+        System.out.println();
+        System.out.println("    [!] Note: The blue data is saved in file, while the black isn't. Remember to press \"Save file\"(8) before leaving  ");
+        System.out.println("");
+
     }
 
 
@@ -436,7 +513,7 @@ public void displayRestrictedZonesOnly() {
                 String colorPrefix = "";
                 String colorReset = "";
                 if (rz.isSaved()) {
-                    colorPrefix = Draft.GRN;
+                    colorPrefix = Draft.BLU;
                     colorReset = Draft.BAS;
                 }
 
@@ -448,6 +525,40 @@ public void displayRestrictedZonesOnly() {
         System.out.println("      -----------------------------------------------------------------------------------------------------------");
         System.out.println();
     }
+ public void displayOption() {
+        System.out.println("1.Display All Zone");
+        System.out.println("2.Display Normal Zone Only");
+        System.out.println("3.Display Restricted Zone Only");
+        System.out.print("Enter your choice: ");
+        Scanner sc = Validatable.InputScanner.getScanner();
+        int choice = Integer.parseInt(sc.nextLine().trim());
+        switch (choice) {
+            case (1):
+                this.displayAllZones();
+                break;
+            case (2):
+                this.displayNormalZonesOnly();
+                break;
+            case (3):
+                this.displayRestrictedZonesOnly();
+                break;
+            default : 
+                System.out.println("    [Error]: Invalid choice input!");
+        }
+
+    }
+
+
+  public void sortZonesById() {
+        if (list == null || list.isEmpty()) {
+            System.out.println("[Warning]: Zone list is empty. Nothing to sort.");
+            return;
+        }
+        list.sort((z1, z2) -> z1.getZoneId().compareToIgnoreCase(z2.getZoneId()));
+
+        System.out.println("-> Successfully sorted zone list by Zone ID!");
+    }
+  
     public void loadFromFile(String fileName) throws IOException {
         ArrayList<Zone> loaded = new ArrayList<>();
 

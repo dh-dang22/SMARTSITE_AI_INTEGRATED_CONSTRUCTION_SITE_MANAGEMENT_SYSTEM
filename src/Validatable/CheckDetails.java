@@ -12,7 +12,7 @@ public class CheckDetails {
     private static final Scanner sc = new Scanner(System.in);
     public static String checkDetails() {
         while (true) {
-            System.out.print("Enter Details: ");
+            System.out.print("    ➔ Enter Details: ");
             String input = sc.nextLine();
 
             String details = input.trim().replaceAll("\\s+", " ");
@@ -32,7 +32,7 @@ public class CheckDetails {
     }
     public static String checkIncidentStatus() {
         while (true) {
-            System.out.print("Enter Incident Status: ");
+            System.out.print("    ➔ Enter Incident Status: ");
             String input = sc.nextLine();
 
             String status = input.trim().replaceAll("\\s+", " ");
@@ -52,7 +52,7 @@ public class CheckDetails {
     }
      public static String checkZoneDetails() {
         while (true) {
-            System.out.print("Enter Zone Details: ");
+            System.out.print("    ➔ Enter Zone Details: ");
             String input = sc.nextLine();
 
             // 1. Tự động chuyển nhiều dấu cách liên tiếp thành 1 dấu cách

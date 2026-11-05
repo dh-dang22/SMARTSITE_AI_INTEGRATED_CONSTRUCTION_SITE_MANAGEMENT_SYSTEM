@@ -8,7 +8,7 @@ public class CheckPinCode {
 
     public static String checkPinCode() {
         while (true) {
-            System.out.print("Enter Restricted Zone Pin Code [ABCxxx]: ");
+            System.out.print("    ➔ Enter Restricted Zone Pin Code [ABCxxx]: ");
             String pinCode = sc.nextLine().trim();
 
             if (pinCode.isEmpty()) {

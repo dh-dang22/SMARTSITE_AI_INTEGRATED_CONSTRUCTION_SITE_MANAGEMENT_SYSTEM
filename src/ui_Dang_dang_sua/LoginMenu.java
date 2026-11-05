@@ -6,6 +6,7 @@ import Person.PersonManager;
 import java.io.IOException;
 import Validatable.CheckPassword;
 import Validatable.InputScanner;
+import Zone.RestrictedZone;
 import Zone.Zone;
 import Zone.ZoneManager2;
 import static ui_Dang_dang_sua.Draft.clearConsoleIDE;
@@ -89,6 +90,17 @@ public class LoginMenu {
                 Draft.pause();
                 Draft.clearConsoleIDE();
                 continue;
+            }
+            
+            if (activeZone instanceof RestrictedZone) { 
+                String roleUpper = currentUser.getRole().trim().toUpperCase(); 
+                if (!roleUpper.equals("SITE_MANAGER") && !roleUpper.equals("SAFETY_OFFICER")) { 
+                    System.out.println(Draft.center(Draft.RED + "[!] ACCESS DENIED: Restricted Zone only allows Site Manager & Safety Officer!" + Draft.BAS)); 
+                    System.out.println(Draft.center("Returning to Welcome Menu...")); 
+                    Draft.pause(); 
+                    Draft.clearConsoleIDE(); 
+                    return; // Thoát hàm displayLoginMenu để quay về Welcome Menu
+                }
             }
 
             System.out.println(Draft.center(Draft.GRN + "[+] Login successful!" + Draft.BAS));

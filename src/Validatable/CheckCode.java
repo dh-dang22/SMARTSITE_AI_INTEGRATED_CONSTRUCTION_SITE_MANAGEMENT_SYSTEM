@@ -40,7 +40,7 @@ public class CheckCode {
 
     public static String checkNumber(String prefix) {
         while (true) {
-            System.out.print("Enter Code : [" + prefix + "xxxx]: " + prefix);
+            System.out.print("    ➔ Enter Code : [" + prefix + "xxxx]: " + prefix);
             String number = InputScanner.nextLine();
             if (number == null) {
                 return null;
@@ -55,7 +55,7 @@ public class CheckCode {
     }
      public static String checkPinCode() {
         while (true) {
-            System.out.print("Enter Restricted Zone Pin Code [ABCxxx]: ");
+            System.out.print("    ➔ Enter Restricted Zone Pin Code [ABCxxx]: ");
             String pinCode = sc.nextLine().trim();
 
             if (pinCode.isEmpty()) {
