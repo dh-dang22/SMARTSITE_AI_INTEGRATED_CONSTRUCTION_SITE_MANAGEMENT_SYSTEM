@@ -7,7 +7,7 @@ public class CheckId {
 
     public static String checkPersonId() {
         while (true) {
-            System.out.print("Enter Person ID [PRxxxx]: ");
+            System.out.print("    ➔ Enter Person ID [PRxxxx]: ");
             String id = sc.nextLine().trim();
 
             if (id.isEmpty()) {
@@ -39,7 +39,7 @@ public class CheckId {
     }
     public static String checkIncidentId() {
         while (true) {
-            System.out.print("Enter Incident ID [INxxxx]: ");
+            System.out.print("    ➔ Enter Incident ID [INxxxx]: ");
             String id = sc.nextLine().trim();
 
             if (id.isEmpty()) {
@@ -55,7 +55,7 @@ public class CheckId {
     }
     public static String checkRecordId() {
         while (true) {
-            System.out.print("Enter Record ID [RCxxxx]: ");
+            System.out.print("    ➔ Enter Record ID [RCxxxx]: ");
             String id = sc.nextLine().trim();
 
             if (id.isEmpty()) {
@@ -71,7 +71,7 @@ public class CheckId {
     }
      public static String checkAssigneeId() {
         while (true) {
-            System.out.print("Enter Assignee ID [PRxxxx, WKxxxx, SOxxxx, SMxxxx]: ");
+            System.out.print("    ➔ Enter Assignee ID [PRxxxx, WKxxxx, SOxxxx, SMxxxx]: ");
             String id = sc.nextLine().trim();
 
             if (id.isEmpty()) {
@@ -87,7 +87,7 @@ public class CheckId {
     }
     public static String checkReportId() {
         while (true) {
-            System.out.print("Enter Report ID [RPxxxx]: ");
+            System.out.print("    ➔ Enter Report ID [RPxxxx]: ");
             String id = sc.nextLine().trim();
 
             if (id.isEmpty()) {

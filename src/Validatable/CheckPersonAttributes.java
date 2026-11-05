@@ -12,7 +12,7 @@ public class CheckPersonAttributes {
 
     public static String checkCompanyName() {
         while (true) {
-            System.out.print("Enter Company Name: ");
+            System.out.print("    ➔ Enter Company Name: ");
             String input = sc.nextLine();
             String companyName = input.trim().replaceAll("\\s+", " ");
 
@@ -30,7 +30,7 @@ public class CheckPersonAttributes {
     
     public static String checkContractType() {
         while (true) {
-            System.out.print("Enter Contract Type (FULLTIME/PARTTIME/SEASONAL): ");
+            System.out.print("    ➔ Enter Contract Type (FULLTIME/PARTTIME/SEASONAL): ");
             String contractType = sc.nextLine().trim().toUpperCase();
 
             if (contractType.equals("FULLTIME") || contractType.equals("PARTTIME") ) {
@@ -41,7 +41,7 @@ public class CheckPersonAttributes {
     }
     public static String checkDepartment() {
         while (true) {
-            System.out.print("Enter Department: ");
+            System.out.print("    ➔ Enter Department: ");
             String input = sc.nextLine();
             String dept = input.trim().replaceAll("\\s+", " ");
 
@@ -58,7 +58,7 @@ public class CheckPersonAttributes {
     }
      public static String checkLicense() {
         while (true) {
-            System.out.print("Enter Inspection License: ");
+            System.out.print("    ➔ Enter Inspection License: ");
             String input = sc.nextLine();
             
             String inspectionLicense = input.trim().replaceAll("\\s+", " ");
@@ -78,7 +78,7 @@ public class CheckPersonAttributes {
     }
      public static String checkRole() {
         while (true) {
-            System.out.print("Enter Role (WORKER, VISITOR, SITEMANAGER, SAFETYOFFICER): ");
+            System.out.print("    ➔ Enter Role (WORKER, VISITOR, SITEMANAGER, SAFETYOFFICER): ");
             String role = sc.nextLine().trim().toUpperCase();
 
             if (role.equals("WORKER") || role.equals("VISITOR") 
@@ -90,7 +90,7 @@ public class CheckPersonAttributes {
     }
       public static String checkStatus() {
         while (true) {
-            System.out.print("Enter Status (ACTIVE/INACTIVE): ");
+            System.out.print("    ➔ Enter Status (ACTIVE/INACTIVE): ");
             String input = sc.nextLine().trim().toUpperCase();
 
             if (input.equals("ACTIVE") || input.equals("INACTIVE")) {
@@ -101,7 +101,7 @@ public class CheckPersonAttributes {
     }
       public static String checkVisitPurpose() {
         while (true) {
-            System.out.print("Enter Visit Purpose: ");
+            System.out.print("    ➔ Enter Visit Purpose: ");
             String input = sc.nextLine();
             String visitPurpose = input.trim().replaceAll("\\s+", " ");
 

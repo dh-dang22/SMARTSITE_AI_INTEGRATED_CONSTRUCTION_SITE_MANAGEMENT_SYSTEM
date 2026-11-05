@@ -16,7 +16,6 @@ public class Incident implements Validatable{
 
     private String incidentId;
     private Zone zone;
-    private String reportId;
     private String assigneeId;
     private String description;
     private String incidentStatus;
@@ -25,10 +24,9 @@ public class Incident implements Validatable{
     public Incident() {
     }
 
-    public Incident(String incidentId, Zone zone, String reportId, String assigneeId, String description, String incidentStatus, String locateDateTime) {
+    public Incident(String incidentId, Zone zone, String assigneeId, String description, String incidentStatus, String locateDateTime) {
         this.setIncidentId(incidentId);
         this.setZone(zone);
-        this.setReportId(reportId);
         this.setAssigneeId(assigneeId);
         this.setDescription(description);
         this.setIncidentStatus(incidentStatus);
@@ -43,9 +41,7 @@ public class Incident implements Validatable{
         if (zone == null || isBlank(zone.getZoneId())) {
             return false;
         }
-        if (isBlank(reportId)) {
-            return false;
-        }
+       
         if (isBlank(assigneeId)) {
             return false;
         }
@@ -98,16 +94,6 @@ public class Incident implements Validatable{
         this.zone = zone ;
     }
 
-    public String getReportId() {
-        return reportId;
-    }
-
-    public final void setReportId(String reportId) {
-        if (reportId.isEmpty() ) {
-            throw new IllegalArgumentException("Report Id can not be empty");
-        }
-        this.reportId = reportId;
-    }
 
     public String getAssigneeId() {
         return assigneeId;

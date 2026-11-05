@@ -10,7 +10,7 @@ public class CheckName {
 
     public static String checkName() {
         while (true) {
-            System.out.print("Enter Full Name: ");
+            System.out.print("    ➔ Enter Full Name: ");
             String input = sc.nextLine();
             String cleanName = input.trim().replaceAll("\\s+", " ");
 
@@ -52,7 +52,7 @@ public class CheckName {
 
     public static String checkHostName() {
         while (true) {
-            System.out.print("Enter Host Name: ");
+            System.out.print("    ➔ Enter Host Name: ");
             String input = sc.nextLine();
             String hostName = input.trim().replaceAll("\\s+", " ");
 
@@ -70,7 +70,7 @@ public class CheckName {
 
     public static String checkCompanyName() {
         while (true) {
-            System.out.print("Enter Company Name: ");
+            System.out.print("    ➔ Enter Company Name: ");
             String input = sc.nextLine();
             String companyName = input.trim().replaceAll("\\s+", " ");
 

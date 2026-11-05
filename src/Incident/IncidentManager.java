@@ -65,7 +65,6 @@ public class IncidentManager {
                 break;
             }
 
-            String reportId = CheckId.checkReportId();
             String assigneeId = CheckId.checkAssigneeId();
             String description = CheckDetails.checkDetails();
             String status = CheckDetails.checkIncidentStatus();
@@ -73,7 +72,7 @@ public class IncidentManager {
             String currentDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
             try {
-                Incident inc = new Incident(incidentId, selectedZone, reportId, assigneeId, description, status, currentDateTime);
+                Incident inc = new Incident(incidentId, selectedZone, assigneeId, description, status, currentDateTime);
 
                 if (inc.isValid()) {
                     incidents.add(inc);
