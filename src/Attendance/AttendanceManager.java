@@ -234,7 +234,7 @@ try {
         }
     }
 
-    public void displayHistory(String personId) {
+    public void History(String personId) {
         if (personId == null || personId.trim().isEmpty()) {
             System.out.println("Person ID khong hop le!");
             return;
@@ -291,43 +291,13 @@ public void displayAttendanceManagementMenu() {
     displayAttendanceManagementMenu(currentUser, zoneManager);
 }
 // Dùng khi đã có sẵn người dùng và ZoneManager2
+// Anh Ð có th? s? d?ng printout c?a hàm này d? lmaf vo menu 
 public void displayAttendanceManagementMenu(
         Person currentUser,
         ZoneManager2 zoneManager) {
     if (currentUser == null || zoneManager == null) {
         System.out.println("Không có dữ liệu người dùng hoặc khu vực.");
         return;
-    }
-    Scanner sc = Validatable.InputScanner.getScanner();
-    while (true) {
-        System.out.println("\n--- ATTENDANCE MANAGEMENT ---");
-        System.out.println("[1] Check-in");
-        System.out.println("[2] Check-out");
-        System.out.println("[3] Xem lịch sử điểm danh");
-        System.out.println("[0] Quay lại");
-        System.out.print("Chọn: ");
-
-        if (!sc.hasNextLine()) {
-            return;
-        }
-
-        String choice = sc.nextLine().trim();
-
-        switch (choice) {
-            case "1":
-                checkInFromInput(currentUser, zoneManager);
-                break;
-            case "2":
-                checkOutFromInput(currentUser);
-                break;
-            case "3":
-                displayHistory(currentUser.getId());
-                break;
-            case "0":
-                return;
-            default:
-                System.out.println("Vui lòng chọn 0, 1, 2 hoặc 3.");
-        }
     }
 }
 }

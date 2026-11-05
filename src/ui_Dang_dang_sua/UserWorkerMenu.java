@@ -36,7 +36,7 @@ public class UserWorkerMenu extends MenuUserLv00{
                 Draft.clearConsoleIDE();
                  break;
             case (4):
-                attendanceManager.displayHistory(currentUser.getId());
+                attendanceManager.History(currentUser.getId());
                 Draft.displayMenuLine();
                 Draft.pause();
                 Draft.clearConsoleIDE();

@@ -41,7 +41,7 @@ public class UserSiteManagerMenu extends MenuUserLv00{
                 Draft.clearConsoleIDE();
                 break;
             case (4): //hiển thị lịch sử check-in (chưa chỉnh, chưa ổn)
-                attendanceManager.displayHistory(currentUser.getId());
+                attendanceManager.History(currentUser.getId());
                 Draft.displayMenuLine();
                 Draft.pause();
                 Draft.clearConsoleIDE();
