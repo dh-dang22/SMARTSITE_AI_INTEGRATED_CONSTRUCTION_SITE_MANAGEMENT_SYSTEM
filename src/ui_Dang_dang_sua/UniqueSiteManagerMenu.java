@@ -94,13 +94,13 @@ public class UniqueSiteManagerMenu {
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
-                    case (5): // hiển thị danh sách (đã chỉnh, chưa ổn) (đề xuất hiển thị thêm code kế bên ID)
+                    case (5): // hiển thị danh sách (đã chỉnh, chưa ổn) (đề xuất hiển thị thêm code kế bên ID, sửa lỗi license của SO dính vào status)
                         pm.displayAllByGehihi();
                         Draft.displayMenuLine();
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
-                    case 6: // sắp xếp danh sách (đã chỉnh, chưa ổn) (quên chưa ổn chỗ nào cmnr)
+                    case 6: // sắp xếp danh sách (đã chỉnh, chưa ổn) (ở phần sort theo role, cho chọn role sort ra
                         pm.sortFromInput();
                         Draft.pause();
                         Draft.clearConsoleIDE();
