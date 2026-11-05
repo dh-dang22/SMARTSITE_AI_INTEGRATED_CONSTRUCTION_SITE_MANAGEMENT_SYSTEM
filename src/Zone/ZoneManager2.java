@@ -27,7 +27,7 @@ public class ZoneManager2 {
             int cnt = 1;
             this.loadFromFile("data/Zone.txt");
             if (cnt == 1) {
-                System.out.println("Load data successfully!");
+                System.out.println(Draft.center(Draft.GRN+"Load data successfully!"+Draft.BAS));
                 cnt -= 1;
             }
         } catch (IOException e) {
@@ -484,29 +484,29 @@ public void displayRestrictedZonesOnly() {
 
                         zone = new RestrictedZone(id, name, details, true, pinCode);
                     } else {
-                        System.out.println("[Warning]: Skipped line " + lineNumber + " due to invalid column count.");
+                        System.out.println((Draft.RED+"    [Warning]: Skipped line " + lineNumber + " due to invalid column count."+Draft.BAS));
                         continue;
                     }
 
                     if (zone.isValid()) {
                         loaded.add(zone);
                     } else {
-                        System.out.println("[Warning]: Skipped invalid Zone object at line " + lineNumber + ".");
+                        System.out.println((Draft.RED+"    [Warning]: Skipped invalid Zone object at line " + lineNumber + "."+Draft.BAS));
                     }
                 } catch (IllegalArgumentException e) {
-                    System.out.println("[Error]: Skipped faulty line " + lineNumber + ": " + e.getMessage());
+                    System.out.println(Draft.RED+"    [Error]: Skipped faulty line " + lineNumber + ": " + e.getMessage()+Draft.BAS);
                 }
             }
         }
 
         this.list.clear();
         this.list.addAll(loaded);
-        System.out.println("-> Successfully loaded " + this.list.size() + " zone(s) from file [" + fileName + "]!");
+        System.out.println(Draft.center(Draft.GRN+"Successfully loaded " + this.list.size() + " zone(s) from file [" + fileName + "]!"+Draft.BAS));
     }
 
     public void saveToFile() {
         if (list == null || list.isEmpty()) {
-            System.out.println("[Warning]: List is empty. Skipping save to avoid clearing existing file data.");
+            System.out.println("    [Warning]: List is empty. Skipping save to avoid clearing existing file data.");
             return;
         }
         try (PrintWriter pw = new PrintWriter(Files.newBufferedWriter(Paths.get("data/Zone.txt"), StandardCharsets.UTF_8))) {
