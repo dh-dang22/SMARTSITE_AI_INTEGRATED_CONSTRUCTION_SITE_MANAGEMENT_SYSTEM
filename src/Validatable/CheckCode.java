@@ -7,61 +7,36 @@ public class CheckCode {
 
     private static final Scanner sc = new Scanner(System.in);
 
-    public static String checkCode(PersonManager pm, String role) {
-        while (true) {
-            String code = "";
-            String number = "";
+   public static String checkCode(
+        PersonManager pm,
+        String role,
+        String currentPersonId) {
 
-            switch (role.toUpperCase().trim()) {
-                case "WORKER": {
-                    String prefix = "WK";
-                    number = checkNumber(prefix);
-                    code = prefix.toUpperCase().trim() + number;
-                    break;
-                }
+    Scanner sc = InputScanner.getScanner();
 
-                case "VISITOR": {
-                    String prefix = "VT";
-                    number = checkNumber(prefix);
-                    code = prefix.toUpperCase().trim() + number;
-                    break;
-                }
+    while (true) {
+        System.out.print("Enter Person's code: ");
+        String code = sc.nextLine().trim();
 
-                case "CONTRACTOR": {
-                    String prefix = "CT";
-                    number = checkNumber(prefix);
-                    code = prefix.toUpperCase().trim() + number;
-                    break;
-                }
-
-                case "SAFETYOFFICER": {
-                    String prefix = "SO";
-                    number = checkNumber(prefix);
-                    code = prefix.toUpperCase().trim() + number;
-                    break;
-
-                }
-
-                case "SITEMANAGER": {
-                    String prefix = "SM";
-                    number = checkNumber(prefix);
-                    code = prefix.toUpperCase().trim() + number;
-                    break;
-
-                }
-
-                default: {
-                    System.out.println("[Error]: Invalid Code Prefix! Must be one of: WK, VS, CT, SO, SM. Try again.\n");
-                }
-            }
-
-            if (pm != null && pm.findPersonByCode(code) != null) { // Chua xac nhan co kiem tra duoc trung code hay khong
-                System.out.println("[Error]:  [" + code + "] already exists! Please try again.\n");
-                continue;
-            }
-            return code;
+        if (code.isEmpty()) {
+            System.out.println("Code cannot be empty!");
+            continue;
         }
+
+        Person existing = pm.findPersonByCode(code);
+
+        // Code đã thuộc về người khác thì yêu cầu nhập lại.
+        // Code đang được chính người này sử dụng thì chấp nhận.
+        if (existing != null
+                && !existing.getId().equalsIgnoreCase(currentPersonId)) {
+            System.out.println("Code already exists! Please enter another code.");
+            continue;
+        }
+
+        // Đặt kiểm tra định dạng code theo role ở đây nếu cần.
+        return code;
     }
+}
 
     public static String checkNumber(String prefix) {
         while (true) {

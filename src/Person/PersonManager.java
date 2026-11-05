@@ -1,5 +1,9 @@
 package Person;
 
+import Validatable.CheckCode;
+import Validatable.CheckId;
+import Validatable.CheckName;
+import Validatable.CheckPersonAttributes;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -70,27 +74,38 @@ public class PersonManager {
 }
 
 public void addPersonFromInput() {
-    try {
-        String role = chooseRole();
+        try {
+            String role = chooseRole();
 
-        if (role == null) {
-            return;
-        }
+            if (role == null) {
+                return;
+            }
+            String id;
+            while (true) {
+                id = readRequired("    ➔ Enter Person's ID     : ");
 
-        String id = readRequired("    ➔ Enter Person's ID     : ");
-        if (this.findPersonByID(id) != null) {
-            System.out.println(Draft.center(Draft.RED+"ID already exists!"+Draft.BAS));
-            return;
-        }
+                if (this.findPersonByID(id) == null) {
+                    break;
+                }
 
-        String name = readRequired("    ➔ Enter Person's name   : ");
-        String code = readRequired("    ➔ Enter Person's code   : ");
+                System.out.println(Draft.center(
+                        Draft.RED + "ID already exists! Please enter another ID." + Draft.BAS
+                ));
+            }
+            String name = readRequired("    ➔ Enter Person's name   : ");
 
-        if (this.findPersonByCode(code) != null) {
-            System.out.println(Draft.center(Draft.RED+"Code already exists!"+Draft.BAS));
-            return;
-        } 
+            String code;
 
+            while (true) {
+                code = readRequired("    ➔ Enter Person's code   : ");
+
+                if (this.findPersonByCode(code) == null) {
+                    break;
+                }
+                System.out.println(Draft.center(
+                        Draft.RED + "Code already exists! Please enter another code." + Draft.BAS
+                ));
+            }
         Person person;
         String status = "ACTIVE";
 
@@ -201,7 +216,67 @@ private String chooseRole() {
         }
         return null;
     }
+   
+    // ----------------------------------------------------------------
+    //method goi ham tim tu id va code
+    // ----------------------------------------------------------------
+      public Person findPersonFromInput() {
+    Scanner scanner = InputScanner.getScanner();
 
+    int method = InputScanner.readRange(
+        scanner,
+        "    Search by: 1. ID / 2. Code / 3. Cancel: ",
+        1, 3, // Phải là 3 vì có lựa chọn Cancel
+        Draft.center(Draft.RED + "Please enter 1, 2 or 3!" + Draft.BAS)
+    );
+
+    Draft.displayMenuLine();
+
+    if (method == 3) {
+        return null;
+    }
+
+    System.out.print(method == 1
+        ? "    ➔ Enter Person ID: "
+        : "    ➔ Enter Person code: ");
+
+    if (!scanner.hasNextLine()) {
+        return null;
+    }
+
+    String keyword = scanner.nextLine().trim();
+
+    if (keyword.isEmpty()) {
+        System.out.println("Search value cannot be empty!");
+        return null;
+    }
+
+    Person person = method == 1
+        ? findPersonByID(keyword)
+        : findPersonByCode(keyword);
+
+    if (person == null) {
+        System.out.println("Person not found!");
+    }
+
+    return person;
+}
+      
+      // de xuat mau ham print 
+      private void printPersonSummary(Person person) {
+    System.out.println("Name:   " + person.getFullName());
+    System.out.println("ID:     " + person.getId());
+    System.out.println("Code:   " + person.getCode());
+    System.out.println("Status: " + person.getStatus());
+}
+      public void searchPersonFromInput() {
+    Person person = findPersonFromInput();
+
+    if (person != null) {
+        printPersonSummary(person);
+    }
+}
+      
     // ----------------------------------------------------------------
     // Sắp xếp theo tên
     // ----------------------------------------------------------------
@@ -254,68 +329,92 @@ private String chooseRole() {
         System.out.println(Draft.center(Draft.GRN + "ID has removed" + Draft.BAS));
     }
     public void deletePersonFromInput() {
-         Scanner sc = InputScanner.getScanner();
-         Person p = findPersonFromInput();  
-          if (p == null) {
-            System.out.println(Draft.center(Draft.RED+"ID is not found!!!"+Draft.BAS));
+        Scanner sc = InputScanner.getScanner();
+        Person p = findPersonFromInput();
+
+        if (p == null) {
             return;
         }
-          
-         
-        while(true){
+
+        printPersonSummary(p); // Chỉ hiện tên, ID, code, status
+        while (true) {
             System.out.print("    Are you sure you want to delete this Person? [Y/N]: ");
-             if(!sc.hasNextLine()){
-           return;
-           }
-            String YN = sc.nextLine().trim();
-            switch(YN.toLowerCase()){       
-                case "n":   
-                    System.out.println(Draft.center("Cancel deleting mod!"));
+
+            if (!sc.hasNextLine()) {
+                return;
+            }
+
+            String yn = sc.nextLine().trim();
+
+            switch (yn.toLowerCase()) {
+                case "n":
+                    System.out.println(Draft.center("Cancel deleting."));
                     System.out.println(Draft.center("No one has been removed!"));
                     return;
+
                 case "y":
                     deleteByID(p.getId());
                     return;
+
                 default:
-                    System.out.println(Draft.center(Draft.RED+"Please enter a valid choice!"+Draft.BAS));
-                    break;
+                    System.out.println(
+                            Draft.center(Draft.RED + "Please enter Y or N!" + Draft.BAS)
+                    );
             }
         }
-     }
+    }
 
     //--------------------------
-        // Tìm theo ID
+        //Update Person
     //--------------------
-    
+    public void updatePersonById() {
+    String id = CheckId.checkPersonId();
+    Person person = findPersonByID(id);
+
+    if (person == null) {
+        System.out.println(Draft.center(
+            Draft.RED + "Person ID [" + id + "] not found!" + Draft.BAS
+        ));
+        return;
+    }
+
+        displayPersonInformation(person);
+
+    // Lấy và kiểm tra các giá trị mới trước khi sửa đối tượng
+      String newName = CheckName.checkName();
+        String newRole = CheckPersonAttributes.checkRole();
+        String newCode = CheckCode.checkCode(this, newRole, person.getId());
+        String newStatus = CheckPersonAttributes.checkStatus();
+    Person existingCodeOwner = findPersonByCode(newCode);
+    if (existingCodeOwner != null && existingCodeOwner != person) {
+        System.out.println(Draft.center(
+            Draft.RED + "This code already belongs to another person!" + Draft.BAS
+        ));
+        return;
+    }
+    try {
+        person.setFullName(newName);
+        person.setCode(newCode);
+        person.setStatus(newStatus);
+        person.setRole(newRole);
+        saveToFile();
+
+        System.out.println(Draft.center(
+            Draft.GRN + "Person [" + id + "] updated successfully!" + Draft.BAS
+        ));
+
+        // Gọi nếu muốn lưu ngay:
+        // saveToFile();
+
+    } catch (IllegalArgumentException e) {
+        System.out.println(Draft.center(
+            Draft.RED + "Update failed: " + e.getMessage() + Draft.BAS
+        ));
+    }
+}
         public void displayPersonFound(){
 
         }
-    
-        public Person findPersonFromInput() {
-        Scanner scanner = InputScanner.getScanner();
-        int method = InputScanner.readRange(scanner,"    Search by: 1. ID / 2. Code / 3. Cancel: ", 1, 2, Draft.center(Draft.RED+"Please enter 1 or 2!"+Draft.BAS));
-        Draft.displayMenuLine();
-        
-        if (method == 3) 
-            return null;
-        System.out.print(method == 1 ? "    ➔ Enter Person ID: " : "    ➔ Enter Person code: ");
-        if (!scanner.hasNextLine()) 
-            return null;
-        
-        String keyword = scanner.nextLine().trim();
-        if (keyword.isEmpty()) {
-            System.out.println(Draft.center(Draft.RED+"Search value cannot be empty!"+Draft.BAS));
-            return null;
-        }
-        // METHOD FROM TO AI
-        Person person = method == 1 ? findPersonByID(keyword) : findPersonByCode(keyword);
-        if (person == null){ System.out.println(Draft.center(Draft.RED+"Person not found!"+Draft.BAS));
-        return null;}
-        else System.out.println(person);
-        //AI lam giup
-        return person;
-    }
-        
     // ----------------------------------------------------------------
     // Hiển thị tất cả
     // ----------------------------------------------------------------
