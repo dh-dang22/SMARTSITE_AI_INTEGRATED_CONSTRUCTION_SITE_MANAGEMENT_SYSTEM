@@ -153,7 +153,7 @@ public class UserSafetyOfficerMenu extends MenuUserLv00{
 
     private void show(Incident incident) {
         System.out.println(incident.getIncidentId() + " | " + incident.getZone().getZoneId()
-            + " | Report: " + incident.getReportId() + " | Assignee: " + incident.getAssigneeId()
+            + " | Assignee: " + incident.getAssigneeId()
             + " | " + incident.getDescription() + " | " + incident.getIncidentStatus()
             + " | " + incident.getLocateDateTime());
     }

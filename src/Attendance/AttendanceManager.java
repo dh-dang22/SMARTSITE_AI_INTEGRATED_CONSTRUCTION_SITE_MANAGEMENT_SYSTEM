@@ -117,7 +117,7 @@ try {
             return;
         }
 
-        zm.displayList();
+        zm.displayAllZones();
 
         java.util.Scanner sc = Validatable.InputScanner.getScanner();
         System.out.print("Enter Zone ID: ");

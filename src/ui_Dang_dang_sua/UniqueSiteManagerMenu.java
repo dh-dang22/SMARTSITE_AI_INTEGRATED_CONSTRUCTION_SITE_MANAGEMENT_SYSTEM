@@ -1,4 +1,5 @@
-    package ui_Dang_dang_sua;
+package ui_Dang_dang_sua;
+
 import java.util.Scanner;
 
 import Attendance.AttendanceManager;
@@ -8,24 +9,27 @@ import Zone.Zone;
 import Zone.ZoneManager2;
 import java.io.IOException;
 
-
 //import Zone.ZoneManager2;
-    
 public class UniqueSiteManagerMenu {
-   private final Scanner sc2 = new Scanner(System.in);
-   // AddPerson và UniqueSiteManagerMenu: lấy cùng danh sách
+
+    private final Scanner sc2 = new Scanner(System.in);
+    // AddPerson và UniqueSiteManagerMenu: lấy cùng danh sách
     private final PersonManager pm;
     ZoneManager2 zm = ZoneManager2.getInstance();
     Zone activeZone = zm.getRandomActiveZone();
     AttendanceManager attendanceManager = AttendanceManager.getInstance();
-    
-    UniqueSiteManagerMenu() { this(PersonManager.getInstance()); }
 
-    UniqueSiteManagerMenu(PersonManager pm) { this.pm = pm; }
-    
-    public void displayHumanResourceManagementMenu(){
+    UniqueSiteManagerMenu() {
+        this(PersonManager.getInstance());
+    }
+
+    UniqueSiteManagerMenu(PersonManager pm) {
+        this.pm = pm;
+    }
+
+    public void displayHumanResourceManagementMenu() {
         boolean running = true;
-        while (running){
+        while (running) {
             Draft.displayMenuLine();
             Draft.displayMenuHeader();
             Draft.displayMenuLine();
@@ -48,27 +52,29 @@ public class UniqueSiteManagerMenu {
             System.out.println("");
             System.out.println("    [0]  Back to general menu");
             System.out.println("");
-            System.out.print(Draft.BLU+"    ➔ Please enter your action [0-7]: "+Draft.BAS);
+            System.out.print(Draft.BLU + "    ➔ Please enter your action [0-7]: " + Draft.BAS);
             int choice;
             try {
                 // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
-                if (!sc2.hasNextLine()) return;
+                if (!sc2.hasNextLine()) {
+                    return;
+                }
                 choice = Integer.parseInt(sc2.nextLine().trim());
             } catch (NumberFormatException e) {
-                System.out.println(Draft.center(Draft.RED+"[!] Invalid choice! Please enter a number!"+Draft.BAS));
+                System.out.println(Draft.center(Draft.RED + "[!] Invalid choice! Please enter a number!" + Draft.BAS));
                 Draft.pause();
                 continue;
             }
             Draft.displayMenuLine();
-            
+
             if (choice == 0) {                          // Thoát menu
                 PersonManager.getInstance().saveToFile();
                 running = false;
                 System.out.println("    ➔ The system is backing to general menu ...");
             } else {
-                switch(choice){
+                switch (choice) {
                     case (1): // thêm Person (đã chỉnh, chưa ổn) (quên chưa ổn chỗ nào cmnr)
-                        int n = InputScanner.readRange(sc2, Draft.BLU+"   ➔ Enter a number of Person(s) you want to add[1-100][-1 to cancel]: "+Draft.BAS, 1, 100, "Please enter a number between 1-100!");
+                        int n = InputScanner.readRange(sc2, Draft.BLU + "   ➔ Enter a number of Person(s) you want to add[1-100][-1 to cancel]: " + Draft.BAS, 1, 100, "Please enter a number between 1-100!");
                         System.out.println("");
                         if (n == -1) {
                             return;
@@ -104,32 +110,17 @@ public class UniqueSiteManagerMenu {
                         pm.sortFromInput();
                         Draft.pause();
                         Draft.clearConsoleIDE();
-                        break;    
+                        break;
                 }
             }
         } //while
     }//display
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    public void displayZoneManagementMenu(){
-        ZoneManager2 tempZone = new ZoneManager2();
+
+    public void displayZoneManagementMenu() {
+        ZoneManager2 tempZone = ZoneManager2.getInstance();
         Scanner tempSC = new Scanner(System.in);
         boolean running = true;
-        while (running){
+        while (running) {
             Draft.displayMenuLine();
             Draft.displayMenuHeader();
             Draft.displayMenuLine();
@@ -141,21 +132,19 @@ public class UniqueSiteManagerMenu {
             System.out.println("    [2] Find a Zone information");
             System.out.println("    [3] Update a Zone information");
             System.out.println("    [4] Delete a Zone");
-            System.out.println("    [5] Display all Zone information"); 
-            System.out.println("    [6] Display only Restricted Zone information"); 
-            System.out.println("    [7] Sort Zones By ID"); 
-            System.out.println("    [8] Save file"); 
-            System.out.println("    [9] Load file"); 
+            System.out.println("    [5] Display Zone information");
+            System.out.println("    [6] Sort Zones By ID");
+            System.out.println("    [7] Save file");
             System.out.println("");
             System.out.println("    [0] Back to general menu");
             System.out.println("");
-            System.out.print(Draft.BLU+"    ➔ Please enter your action [0-5]: "+Draft.BAS);
+            System.out.print(Draft.BLU + "    ➔ Please enter your action [0-5]: " + Draft.BAS);
             int choice;
             try {
                 // Đọc an toàn, tránh lỗi nuốt dòng và crash khi nhập chữ
                 choice = Integer.parseInt(sc2.nextLine().trim());
             } catch (NumberFormatException e) {
-                System.out.println(Draft.center(Draft.RED+"[!] Invalid choice! Please enter a number."+Draft.BAS));
+                System.out.println(Draft.center(Draft.RED + "[!] Invalid choice! Please enter a number." + Draft.BAS));
                 Draft.pause();
                 continue;
             }
@@ -172,15 +161,15 @@ public class UniqueSiteManagerMenu {
                     case "n":
                         continue;
                     default:
-                        System.out.println(Draft.RED+"Invalid choice!"+Draft.BAS);
+                        System.out.println(Draft.RED + "Invalid choice!" + Draft.BAS);
                 }
-                
+
             } else {
-                switch(choice){
+                switch (choice) {
                     case (1): // add (NOR and RES) check
-                        System.out.print("    ➔ Enter the type of Zone: " + Draft.GRN+ "[1] NOR" + Draft.RED + " / " + "[2] RED" + Draft.BAS + " : ");
+                        System.out.print("    ➔ Enter the type of Zone: " + Draft.GRN + "[1] NOR" + Draft.RED + " / " + "[2] RED" + Draft.BAS + " : ");
                         int choiceAdd = tempSC.nextInt();
-                        switch (choiceAdd){
+                        switch (choiceAdd) {
                             case (1):
                                 tempZone.addZone();
                                 break;
@@ -192,7 +181,12 @@ public class UniqueSiteManagerMenu {
                     case (2): // tìm kiếm khu vực (chưa chỉnh, chưa ổn) (viết lại, yêu cầu: viêt hàm tìm kiếm là void để ui chỉnh sửa đc, hàm giá trị Person chỉ dùng để gom giá trị tìm kiếm (trong Zalo có nói))
                         System.out.print("    ➔ Enter the Zone ID(e.g., ZN0001): ");
                         String tempID = tempSC.nextLine();
-                        System.out.println(tempZone.findZoneById(tempID));
+                        if (tempID != null) {
+                            System.out.println(tempZone.findZoneById(tempID));
+                        } else {
+                            System.out.println();
+                            System.out.println(Draft.center(Draft.RED + "[Error]: Zone ID [" + tempID + "] not found in system!" + Draft.BAS));
+                        }
                         break;
                     case (3): // cập nhật khu vực (đã chỉnh, chưa ổn) (yêu cầu bổ sung chỉnh sửa Type và PIN code, tạo một switch case cho người dùng chọn thông tin chỉnh sửa)
                         tempZone.updateZoneById();
@@ -200,43 +194,35 @@ public class UniqueSiteManagerMenu {
                     case (4): // xóa khu vực (đã chỉnh, ổn)
                         tempZone.deleteZoneById();
                         break;
-                   case (5): // hiển thị danh sách khu vực (đã chỉnh, đã ổn, nhưng cần bổ sung) (bổ sung: 1. hiển thị tất cá danh sách (như hiện tại), 2. hiển thị chỉ RES, 3. hiển thị chỉ NOR)
-                        tempZone.displayList();
+                    case (5): // hiển thị danh sách khu vực (đã chỉnh, đã ổn, nhưng cần bổ sung) (bổ sung: 1. hiển thị tất cá danh sách (như hiện tại), 2. hiển thị chỉ RES, 3. hiển thị chỉ NOR)
+                        tempZone.displayOption();
                         break;
-                   case (6): // thay đổi
-                        tempZone.displayRestrictedZonesOnly();
-                        break;
-                    case(7): // sắp xếp danh sách khu vực (đã chỉnh, chưa ổn) (yêu cầu: Sắp xếp theo ID nhưng k làm thay đổi thứ tự gốc trong file) 
+
+                    case (6): // sắp xếp danh sách khu vực (đã chỉnh, chưa ổn) (yêu cầu: Sắp xếp theo ID nhưng k làm thay đổi thứ tự gốc trong file) 
                         tempZone.sortZonesById();
-                    case (8): // lưu dữ liệu (chưa chỉnh, đã ổn)
+                    case (7): // lưu dữ liệu (chưa chỉnh, đã ổn)
                         tempZone.saveToFile();
                         break;
-                    case (9): // tải dữ liệu (chưa chỉnh, hok rõ)
-                        try {
-                            tempZone.loadFromFile("Zone.txt");
-                        } catch (IOException e) {
-                            System.out.println(Draft.center(Draft.RED+"[Error]: Failed to load file: " + e.getMessage()+Draft.GRN));
-                        }
-                        break;
+//                    case (9): // tải dữ liệu (chưa chỉnh, hok rõ)
+//                        try {
+//                            tempZone.loadFromFile("Zone.txt");
+//                        } catch (IOException e) {
+//                            System.out.println(Draft.center(Draft.RED+"[Error]: Failed to load file: " + e.getMessage()+Draft.GRN));
+//                        }
+//                        break;
                 }
             }
             Draft.pause();
             Draft.clearConsoleIDE();
         } //while
     }//display
-    
-    
 
-    
-    
-    public void displayAllAttendance(){
+    public void displayAllAttendance() {
         Draft.functionIsNotCompletedYet();
     }//display
-    
-    
-    
-    public void displayAllIncident(){
+
+    public void displayAllIncident() {
         Draft.functionIsNotCompletedYet();
     }//display
-    
+
 }//class
