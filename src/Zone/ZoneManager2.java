@@ -4,6 +4,7 @@ import Validatable.CheckId;
 import Validatable.CheckName;
 import Validatable.CheckDetails;
 import Validatable.CheckCode;
+import Validatable.CheckPinCode;
 import Validatable.InputScanner;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Random;
 import ui_Dang_dang_sua.Draft;
 
@@ -27,10 +29,7 @@ public class ZoneManager2 {
         try {
             int cnt = 1;
             this.loadFromFile("data/Zone.txt");
-            if (cnt == 1) {
-                System.out.println(Draft.center(Draft.GRN+"Load data successfully!"+Draft.BAS));
-                cnt -= 1;
-            }
+               
         } catch (IOException e) {
             System.out.println("[Notice]: No existing data file found or failed to load. Starting with an empty list.");
         }
@@ -231,16 +230,22 @@ public void updateZoneById() {
 
 
             // Tiến hành nhập thông tin mới
-             System.out.println("    ➔ Enter information you want to update:");
+            System.out.println("    ➔ Enter information you want to update:");
             System.out.println("[1] Name");
             System.out.println("[2] Description");
-            System.out.println("[3] All information");
-
-            int choice = InputScanner.readRange(InputScanner.getScanner(), "   Choose [1-3]: ", 1, 3, "   Invalid choice! Enter 1-3.");
+            System.out.println("[3] Type ");
+            System.out.println("[4] PIN Code");
+            System.out.println("[5] All information");
+            Scanner sc = Validatable.InputScanner.getScanner();
+            int choice = Integer.parseInt(sc.nextLine().trim());
 
             String newName = z.getZoneName();
             String newDetails = z.getZoneDetails();
-            
+            if ( z instanceof RestrictedZone){
+                RestrictedZone rz = (RestrictedZone) z;
+                String newPinCode = rz.getPinCode();
+                
+            }
 
             switch (choice) {
                 case 1:
@@ -255,7 +260,14 @@ public void updateZoneById() {
                     newName= CheckName.checkZoneName();
                     newDetails = CheckDetails.checkDetails();
                     break;
-
+                
+//                case 5 :
+//                    newPinCode = CheckCode.checkPinCode();
+//                    break;
+//                    
+//                case 4 :
+//                    
+//                    
                 default:
                     break;
             }
@@ -554,7 +566,61 @@ public void displayRestrictedZonesOnly() {
             System.out.println("[Warning]: Zone list is empty. Nothing to sort.");
             return;
         }
-        list.sort((z1, z2) -> z1.getZoneId().compareToIgnoreCase(z2.getZoneId()));
+        List<Zone> copy = new ArrayList<>(list); 
+        copy.sort((z1, z2) -> z1.getZoneId().compareToIgnoreCase(z2.getZoneId()));
+        
+         if (copy == null || copy.isEmpty()) {
+            System.out.println(Draft.center(Draft.RED + "The Zone list is empty!" + Draft.BAS));
+            return;
+        }
+
+        Draft.displayMenuLine();
+        System.out.println();
+        System.out.println(Draft.center("=== The list of Zone(s) in S-SMARTSITE ==="));
+        System.out.println();
+        System.out.println();
+
+        // In dòng tiêu đề bảng
+        System.out.printf("        %-6s | %-5s | %-20s | %-53s | %-8s%n",
+                "ID", "Type", "Zone Name", "Zone Details", "PIN Code");
+
+        // Chuỗi gạch ngang định hình phân cách bảng
+        System.out.println("      -------------------------------------------------------------------------------------------------------------");
+
+        // Duyệt qua danh sách và in từng dòng dữ liệu
+        for (Zone z : copy) {
+            if (z != null) {
+                String id = z.getZoneId();
+                String isRes = z.isRestricted() ? "RES" : "NOR";
+                String name = z.getZoneName();
+                String details = truncate(z.getZoneDetails(), 40);
+
+                // Xử lý riêng trường PIN Code nếu là RestrictedZone
+                String pinCode = "N/A";
+                if (z instanceof RestrictedZone) {
+                    RestrictedZone rz = (RestrictedZone) z;
+                    pinCode = rz.getPinCode();
+                }
+
+                // Cấu hình màu sắc theo isSaved:
+                // - isSaved = true (dữ liệu từ file): In màu xanh (Draft.GRN)
+                // - isSaved = false (dữ liệu mới thêm RAM): Mặc định (không màu)
+                String colorPrefix = "";
+                String colorReset = "";
+                if (z.isSaved()) {
+                    colorPrefix = Draft.BLU;
+                    colorReset = Draft.BAS;
+                }
+
+                System.out.printf("%s        %-6s | %-5s | %-20.20s | %-53.53s | %-8s%s%n",
+                        colorPrefix, id, isRes, name, details, pinCode, colorReset);
+            }
+        }
+
+        System.out.println("      -------------------------------------------------------------------------------------------------------------");
+        System.out.println();
+        System.out.println("    [!] Note: The blue data is saved in file, while the black isn't. Remember to press \"Save file\"(8) before leaving  ");
+        System.out.println("");
 
         System.out.println("-> Successfully sorted zone list by Zone ID!");
     }
@@ -612,7 +678,10 @@ public void displayRestrictedZonesOnly() {
 
         this.list.clear();
         this.list.addAll(loaded);
-        System.out.println(Draft.center(Draft.GRN+"Successfully loaded " + this.list.size() + " zone(s) from file [" + fileName + "]!"+Draft.BAS));
+        System.out.println(Draft.center(Draft.GRN+"Successfully loaded " + this.list.size() + " Zone(s) from file [" + fileName + "]!"+Draft.BAS));
+        System.out.println(Draft.center(Draft.GRN+"Load data successfully!"+Draft.BAS));
+
+        Draft.clearConsoleIDE();
     }
 
     public void saveToFile() {
