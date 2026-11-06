@@ -78,7 +78,7 @@ public class LoginMenu {
             }
             String password = sc.nextLine();
             if (!checker.check(code, password)) {
-                System.out.println(Draft.center(Draft.RED + "Login fail!" + Draft.BAS));
+                System.out.println(Draft.center(Draft.RED + "Login fail! " + Draft.BAS));
                 Draft.pause();
                 Draft.clearConsoleIDE();
                 continue;
@@ -86,17 +86,17 @@ public class LoginMenu {
             Person currentUser = pm.findPersonByCode(code);
 
             if (currentUser == null) {
-                System.out.println(Draft.center(Draft.RED + "Login fail!" + Draft.BAS));
+                System.out.println(Draft.center(Draft.RED + "Login fail! No accounts have been found! " + Draft.BAS));
                 Draft.pause();
                 Draft.clearConsoleIDE();
                 continue;
             }
-            
+            // kiem tra account vao duoc RES
             if (activeZone instanceof RestrictedZone) { 
                 String roleUpper = currentUser.getRole().trim().toUpperCase(); 
                 if (!roleUpper.equals("SITE_MANAGER") && !roleUpper.equals("SAFETY_OFFICER")) { 
                     System.out.println(Draft.center(Draft.RED + "[!] ACCESS DENIED: Restricted Zone only allows Site Manager & Safety Officer!" + Draft.BAS)); 
-                    System.out.println(Draft.center("Returning to Welcome Menu...")); 
+                    System.out.println(Draft.center(Draft.RED +"Returning to Welcome Menu..."+ Draft.BAS)); 
                     Draft.pause(); 
                     Draft.clearConsoleIDE(); 
                     return; // Thoát hàm displayLoginMenu để quay về Welcome Menu

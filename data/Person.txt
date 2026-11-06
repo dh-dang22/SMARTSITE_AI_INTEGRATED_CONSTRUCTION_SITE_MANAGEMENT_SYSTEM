@@ -1,5 +1,5 @@
 SITE_MANAGER|P005|Minh Khang|M001|ACTIVE|SmartSite Demo
-WORKER|PR0001|Bach Cong Tru Update|W0001|ACTIVE
+WORKER|PR0001|Bach Cong Tru Update|WK0001|ACTIVE
 VISITOR|PR0002|Dang Cong Tu|VS0002|ACTIVE|To observe the process|Tran Soai Ca
 SAFETY_OFFICER|PR0003|Dang Cai Mang|SO0001|ACTIVEMOS
 WORKER|PR0004|Dang So Sad|PR0005|ACTIVE
@@ -9,10 +9,12 @@ CONTRACTOR|PR0007|Alfred Marshall|PR0003|ACTIVE|Principles of Economics|null
 CONTRACTOR|PR0008|John Maynard Keynes|CT0003|ACTIVE|The General Theory of Employment, Interest, and Money|null
 WORKER|PR0009|Zydrunas Savickas|WK0009|ACTIVE
 WORKER|PR0010|Mariusz Pudzianowski|WK0010|ACTIVE
-WORKER|PR0011|Hafthor Bj�rnsson|WK0011|ACTIVE
+WORKER|PR0011|Hafthor Bj rnsson|WK0011|ACTIVE
 WORKER|PR0012|Brian Shaw|WK0012|ACTIVE
 WORKER|PR0013|Bill Kazmaier|WK0013|ACTIVE
 VISITOR|PR0031|MrBeast|VS0005|ACTIVE|Go for charity work|Khang lo
 VISITOR|PR0032|IShowSpeed|VS0006|ACTIVE|Promoting Ronaldo culture|Khang lo
 WORKER|PR0033|Kai Cenat|VS0007|ACTIVE
 VISITOR|PR0034|Rosie|VS0008|ACTIVE|Organize a cultural or artistic performance|Khang lo
+WORKER|PR0000|test|WK0000|ACTIVE
+WORKER|PR0069|Cham|WK9999|ACTIVE

@@ -10,3 +10,4 @@ ZN0023|NOR|HALL B FPTU|A hall for presentation
 ZN0004|NOR|Passio|Cafeteria
 ZN0005|RES|CEO Office|Receiving and recording and arranging disseminationg information|ABC123
 ZN0006|NOR|Warehouse|Contains equipments and tools
+ZN0069|RES|Liveshop69|Livestream|LIV696
