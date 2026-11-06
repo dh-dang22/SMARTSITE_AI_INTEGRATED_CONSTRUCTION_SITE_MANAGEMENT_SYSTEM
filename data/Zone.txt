@@ -1,12 +1,12 @@
 ZN0001|NOR|Worker Area|Area assigned to workers
 ZN0002|NOR|Safety Area|Area assigned to safety officers
 ZN0003|RES|Restricted Area|Restricted work|ABC123
+ZN0010|NOR|Amy House|Cafeteria
+ZN0011|NOR|Vivi Coffee|Cafeteria
+ZN0015|RES|Nuclear testing site|It is nuclear time|ABC000
+ZN0021|NOR|Circle K|Convenience store
+ZN0022|NOR|President suite|Where president takes a rest
+ZN0023|NOR|HALL B FPTU|A hall for presentation
 ZN0004|NOR|Passio|Cafeteria
 ZN0005|RES|CEO Office|Receiving and recording and arranging disseminationg information|ABC123
 ZN0006|NOR|Warehouse|Contains equipments and tools
-ZN0010|NOR|Amy House|Cafeteria
-ZN0011|NOR|Vivi Coffee|Cafeteria
-ZN0015|RES|Nuclear testing site|It is nucleat time|ABC000
-ZN0021|NOR|Circle K|Convenience store
-ZN0022|NOR|President suite|Where president takes a rest
-ZN0023|NOR|Hall A FPTU|A hall for presentation

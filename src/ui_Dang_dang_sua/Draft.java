@@ -1,6 +1,9 @@
 
 package ui_Dang_dang_sua;
 
+import Zone.RestrictedZone;
+import Zone.Zone;
+import Zone.ZoneManager2;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -174,6 +177,46 @@ public class Draft {
         System.out.printf("  │  💼  Role   : %-40s │%n" + Role);
         System.out.printf("  │  🟢  Status : %-33s │%n" + Status);
         System.out.println("  └────────────────────────────────────────────────────────┘");
+    }
+    
+    public static void bannerRES (Zone activeZone){
+            Scanner sc = Validatable.InputScanner.getScanner();
+            if (activeZone instanceof RestrictedZone) { 
+                RestrictedZone rz = (RestrictedZone) activeZone; 
+                Draft.displayMenuLine();
+                Draft.displayMenuHeader(); 
+                Draft.displayMenuLine(); 
+                System.out.println(Draft.center(Draft.RED + "[!] SECURITY CHECKPOINT: RESTRICTED ZONE DETECTED!" + Draft.BAS)); 
+                System.out.println(Draft.center("Location: " + rz.getZoneName() + " (" + rz.getZoneId() + ")"));
+                System.out.println(Draft.center("Enter PIN Code to proceed.")); 
+                Draft.displayMenuLine(); 
+                int countWrong = 0 ;
+
+                while (true) {
+                    System.out.print("   >>> Enter Restricted Zone PIN [ABCxxx] : ");
+                    String inputPin = sc.nextLine().trim();
+
+                    if (rz.getPinCode().equals(inputPin)) { 
+                        System.out.println(Draft.center(Draft.GRN + "[+] Access Granted to Welcome Menu!" + Draft.BAS)); 
+                        Draft.pause(); 
+                        Draft.clearConsoleIDE();
+                        break;
+                    } else {
+                        System.out.println("");
+                        System.out.println(Draft.center(Draft.RED + "[Error]: Incorrect PIN Code! Please try again." + Draft.BAS));
+                        countWrong++ ;
+                        System.out.println("");
+                        System.out.println(Draft.center(Draft.RED + "You have entered the wrong PIN "+ countWrong+" times." + Draft.BAS));
+                        System.out.println(Draft.center(Draft.RED + "When you entered wrong 3 times, the system will end ! \n" + Draft.BAS));
+                        if (countWrong >= 3){
+                            System.out.println("");
+                            System.out.println(Draft.center(Draft.RED + "[!] You have entered the wrong PIN 3 times. Access denied! Exiting system..." + Draft.BAS));
+                            Draft.pause();
+                            System.exit(0);
+                        }
+                    }
+                }
+            }    
     }
 }
 
