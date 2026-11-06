@@ -88,7 +88,7 @@ public class UniqueSiteManagerMenu {
                         Draft.clearConsoleIDE();
                         break;
                     case 2: // tìm kiếm Person (chưa chỉnh, chưa ổn) (hàm tìm kiếm trả giá trị Person, hok chỉnh layout đc, yêu cầu viết hàm trả giá trị void)
-                        pm.findPersonFromInput();
+                        pm.searchPersonFromInput();
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
