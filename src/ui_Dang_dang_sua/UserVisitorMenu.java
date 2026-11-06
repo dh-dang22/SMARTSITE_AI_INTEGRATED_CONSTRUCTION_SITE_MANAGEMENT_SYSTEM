@@ -24,7 +24,7 @@ public class UserVisitorMenu extends MenuUserLv00{
                 Draft.pause();
                 Draft.clearConsoleIDE();                break;
             case (2):
-                attendanceManager.checkInFromInput();
+                attendanceManager.checkInFromInput(activeZone);
                 Draft.displayMenuLine();
                 Draft.pause();
                 Draft.clearConsoleIDE();

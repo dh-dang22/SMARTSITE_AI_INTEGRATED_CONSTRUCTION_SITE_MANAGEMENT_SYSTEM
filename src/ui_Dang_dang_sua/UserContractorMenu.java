@@ -26,7 +26,7 @@ public class UserContractorMenu extends MenuUserLv00{
                 Draft.clearConsoleIDE();
                 break;
             case (2):
-                attendanceManager.checkInFromInput();
+                attendanceManager.checkInFromInput(activeZone);
                 Draft.displayMenuLine();
                 Draft.pause();
                 Draft.clearConsoleIDE();

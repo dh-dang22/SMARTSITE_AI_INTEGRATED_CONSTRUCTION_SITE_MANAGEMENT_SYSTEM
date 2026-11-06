@@ -19,6 +19,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import static java.time.temporal.TemporalQueries.zone;
 import java.util.Scanner;
 
 /**
@@ -100,7 +101,7 @@ try {
         return null;
     }
 
-    public void checkInFromInput(Person currentUser, ZoneManager2 zm) {
+    public void checkInFromInput(Person currentUser, Zone zm) {
         if (currentUser == null || zm == null
                 || currentUser.getId() == null
                 || currentUser.getId().trim().isEmpty()) {
@@ -117,30 +118,22 @@ try {
             System.out.println("Ban da check-in va chua check-out!");
             return;
         }
-
-        zm.displayAllZones();
-
         java.util.Scanner sc = Validatable.InputScanner.getScanner();
         System.out.print("Enter Zone ID: ");
         if (!sc.hasNextLine()) {
             return;
         }
-        Zone zone = zm.findZoneById(sc.nextLine().trim());
-        if (zone == null) {
-            System.out.println("Zone not found.");
-            return;
-        }
-        if (zone instanceof RestrictedZone) {
+        if (zm instanceof RestrictedZone) {
             System.out.print("Enter zone PIN: ");
             if (!sc.hasNextLine()) {
                 return;
             }
-            if (!((RestrictedZone) zone).getPinCode().equals(sc.nextLine().trim())) {
+            if (!((RestrictedZone) zm).getPinCode().equals(sc.nextLine().trim())) {
                 System.out.println("Incorrect PIN.");
                 return;
             }
         }
-        System.out.println(checkIn(currentUser, zone) ? "Check-in successful." : "Check-in failed.");
+        System.out.println(checkIn(currentUser, zm) ? "Check-in successful." : "Check-in failed.");
     }
 
     public void checkOutFromInput(Person currentUser) {
@@ -158,7 +151,7 @@ try {
         }
     }
 
-    public void checkInFromInput() {
+    public void checkInFromInput(Zone activeZone) {
         Person currentUser = ui_Dang_dang_sua.TempSession.getCurrentUser();
 
         if (currentUser == null) {
@@ -166,7 +159,7 @@ try {
             return;
         }
 
-        ZoneManager2 zoneManager = new ZoneManager2();
+        Zone zoneManager = activeZone;
        // public final ZoneManager2 zm ;
         
         checkInFromInput(currentUser, zoneManager);
