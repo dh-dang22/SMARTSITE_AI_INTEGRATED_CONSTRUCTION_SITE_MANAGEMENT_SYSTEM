@@ -10,8 +10,8 @@ package Person;
  */
 public class Worker extends Person {
 
-    private String companyName;
-    private String contractType;
+    protected String companyName;
+    protected String contractType;
 
     public Worker(String id, String fullName, String code, String role, String status,
             String companyName, String contractType) {
@@ -40,12 +40,6 @@ public class Worker extends Person {
     public void setContractType(String contractType) {
         this.contractType = contractType;
     }
-
-    @Override
-    public String getRoleDescription() {
-        return "Worker can check in, check out, and view own attendance history.";
-    }
-
     @Override
     public boolean isValid() {
         return super.isValid() && !isBlank(companyName) && !isBlank(contractType);
@@ -56,5 +50,10 @@ public class Worker extends Person {
         return super.toString() + " | " + companyName + " | " + contractType;
     }
     // 1. Nhập dữ liệu và trả về đối tượng Worker.
+    @Override
+        protected void printRoleDetails() {
+        System.out.println("Company: " + getCompanyName());
+        System.out.println("Contract-type: " + getContractType());
+    }
 }
 

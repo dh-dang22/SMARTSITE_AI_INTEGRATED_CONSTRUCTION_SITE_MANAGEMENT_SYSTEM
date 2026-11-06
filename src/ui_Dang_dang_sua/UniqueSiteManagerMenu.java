@@ -93,7 +93,9 @@ public class UniqueSiteManagerMenu {
                         Draft.clearConsoleIDE();
                         break;
                     case (3): // cập nhật Person (chưa chỉnh, chưa ổn) (chưa viết hàm chỉnh sửa)
-                        Draft.functionIsNotCompletedYet();
+                        pm.updatePersonById();
+                        Draft.pause();
+                        Draft.clearConsoleIDE();
                         break;
                     case 4: // xóa Person (chưa chỉnh, chưa ổn) (quên chưa ổn chỗ nào cmnr)
                         pm.deletePersonFromInput();

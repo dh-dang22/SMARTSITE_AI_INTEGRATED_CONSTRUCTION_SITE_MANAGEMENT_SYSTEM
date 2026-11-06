@@ -1,5 +1,5 @@
 SITE_MANAGER|P005|Minh Khang|M001|ACTIVE|SmartSite Demo
-VISITOR|PR0001|Bach Cong Tu|VS0001|ACTIVE|To observe the process|Tran Soai Ca
+WORKER|PR0001|Bach Cong Tru Update|W0001|ACTIVE|To observe the process|Tran Soai Ca
 VISITOR|PR0002|Dang Cong Tu|VS0002|ACTIVE|To observe the process|Tran Soai Ca
 SAFETY_OFFICER|PR0003|Dang Cai Mang|SO0001|ACTIVEMOS
 WORKER|PR0004|Dang So Sad|PR0005|ACTIVE

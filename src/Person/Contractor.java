@@ -40,11 +40,6 @@ public class Contractor extends Person {
     }
 
     @Override
-    public String getRoleDescription() {
-        return "Contractor performs contracted work at the site.";
-    }
-
-    @Override
     public String toFileLine() {
         return super.toFileLine()
             + "|" + contactPerson
@@ -56,5 +51,10 @@ public class Contractor extends Person {
         return super.toString()
             + " | Contact person: " + contactPerson
             + " | Contract status: " + contractStatus;
+    }
+
+    @Override
+    protected void printRoleDetails() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

@@ -47,8 +47,6 @@ public abstract class Person implements Validatable {
         return !isBlank(status);
     }
 
-    public abstract String getRoleDescription();
-
     public String getId() {
         return id;
     }
@@ -111,6 +109,16 @@ public abstract class Person implements Validatable {
     protected static boolean isBlank(String value) {
         return value == null || value.trim().isEmpty();
     }
+      // de xuat mau ham print 
+      // Dang chinh
+     public void printPersonSummary() {
+        System.out.println("Name:   " + getFullName());
+        System.out.println("ID:     " + getId());
+        System.out.println("Code:   " + getCode());
+        System.out.println("Status: " + getStatus());
 
-    
+        printRoleDetails();
+    }
+
+    protected abstract void printRoleDetails();
 }

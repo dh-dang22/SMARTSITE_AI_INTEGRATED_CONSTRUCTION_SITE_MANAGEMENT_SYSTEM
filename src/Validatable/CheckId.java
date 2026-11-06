@@ -14,7 +14,7 @@ public class CheckId {
                 System.out.println("[Error]: Person ID cannot be empty! Please try again.");
                 continue;
             }
-            if (!id.matches("^P\\d{4}$")) {
+            if (!id.matches("^PR\\d{4}$")) {
                 System.out.println("[Error]: Person ID must follow format [PRxxxx] (e.g., PR0001)! Please try again.");
                 continue;
             }

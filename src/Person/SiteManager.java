@@ -45,14 +45,7 @@ package Person;
 //            throw new IllegalArgumentException("Access level must be between 0 and 2!");
 //        }
 //        this.accessLevel = accessLevel;
-//    }
-
-
-    @Override
-    public String getRoleDescription() {
-        return "Site Manager oversees site operations, manages zone access, and approves safety logs." /*(Access Level: " + accessLevel + ")."*/;
-    }
-    
+//    }    
     @Override
     public String toFileLine() {
         return super.toFileLine() + "|" + department /*+ "|" + accessLevel*/;
@@ -61,6 +54,11 @@ package Person;
     @Override
     public String toString() {
         return super.toString() + " | Deparment: " + department /*+ " | Access Level: " + accessLevel*/;
+    }
+    @Override
+    protected void printRoleDetails() {
+        System.out.println("Department"+getDepartment());
+ 
     }
 }
 

@@ -50,13 +50,6 @@ public class Visitor extends Person {
         this.hostName = hostName;
     }
 
-  
-
-    @Override
-    public String getRoleDescription() {
-        return "Visitor can go to construction without permission to do anything."/* (Access Level: " + accessLevel + ")."*/;
-    }
-
     @Override
     public String toFileLine() {
         return super.toFileLine() + "|" + visitPurpose + "|" + hostName;
@@ -65,5 +58,11 @@ public class Visitor extends Person {
     @Override
     public String toString() {
         return super.toString() + " - Purpose: " + visitPurpose + " - Host: " + hostName;
+    }
+    
+    @Override
+        protected void printRoleDetails() {
+        System.out.println("Visit-Purpose " + getVisitPurpose());
+        System.out.println("hostName: " + getHostName());
     }
 }

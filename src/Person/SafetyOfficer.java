@@ -50,11 +50,7 @@ public class SafetyOfficer extends Person {
     }
 
 
-    @Override
-    public String getRoleDescription() {
-        return "Safety Officer is responsible for safety audits, inspection, and incident logging." /* (Access Level: " + accessLevel +")."*/ ;
-    }
-    
+
     @Override
     public String toFileLine() {
         return super.toFileLine() /*+ "|" + accessLevel + "|"*/ + inspectionLicense;
@@ -63,6 +59,10 @@ public class SafetyOfficer extends Person {
     @Override
     public String toString() {
         return super.toString() + /*" | Access Level: " + accessLevel +*/ " | License: " + inspectionLicense;
+    }
+    @Override
+        protected void printRoleDetails() {
+        System.out.println("InsectionLicense: " + getInspectionLicense());
     }
 }
     

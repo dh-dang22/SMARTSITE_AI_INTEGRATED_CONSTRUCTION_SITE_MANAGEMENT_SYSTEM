@@ -76,7 +76,6 @@ public class PersonManager {
 public void addPersonFromInput() {
         try {
             String role = chooseRole();
-
             if (role == null) {
                 return;
             }
@@ -108,7 +107,6 @@ public void addPersonFromInput() {
             }
         Person person;
         String status = "ACTIVE";
-
         switch (role) {
             case "WORKER":
                 String company = readRequired("    ➔ Enter Person's Company: ");
@@ -229,51 +227,34 @@ private String chooseRole() {
         1, 3, // Phải là 3 vì có lựa chọn Cancel
         Draft.center(Draft.RED + "Please enter 1, 2 or 3!" + Draft.BAS)
     );
-
     Draft.displayMenuLine();
-
     if (method == 3) {
         return null;
     }
-
     System.out.print(method == 1
         ? "    ➔ Enter Person ID: "
         : "    ➔ Enter Person code: ");
-
     if (!scanner.hasNextLine()) {
         return null;
     }
-
     String keyword = scanner.nextLine().trim();
-
     if (keyword.isEmpty()) {
         System.out.println("Search value cannot be empty!");
         return null;
     }
-
     Person person = method == 1
         ? findPersonByID(keyword)
         : findPersonByCode(keyword);
-
     if (person == null) {
         System.out.println("Person not found!");
     }
-
     return person;
-}
-      
-      // de xuat mau ham print 
-      private void printPersonSummary(Person person) {
-    System.out.println("Name:   " + person.getFullName());
-    System.out.println("ID:     " + person.getId());
-    System.out.println("Code:   " + person.getCode());
-    System.out.println("Status: " + person.getStatus());
 }
       public void searchPersonFromInput() {
     Person person = findPersonFromInput();
 
     if (person != null) {
-        printPersonSummary(person);
+        person.printPersonSummary();
     }
 }
       
@@ -336,7 +317,7 @@ private String chooseRole() {
             return;
         }
 
-        printPersonSummary(p); // Chỉ hiện tên, ID, code, status
+        p.printPersonSummary();
         while (true) {
             System.out.print("    Are you sure you want to delete this Person? [Y/N]: ");
 
@@ -370,7 +351,6 @@ private String chooseRole() {
     public void updatePersonById() {
     String id = CheckId.checkPersonId();
     Person person = findPersonByID(id);
-
     if (person == null) {
         System.out.println(Draft.center(
             Draft.RED + "Person ID [" + id + "] not found!" + Draft.BAS
@@ -381,7 +361,7 @@ private String chooseRole() {
         displayPersonInformation(person);
 
     // Lấy và kiểm tra các giá trị mới trước khi sửa đối tượng
-      String newName = CheckName.checkName();
+       String newName = CheckName.checkName();
         String newRole = CheckPersonAttributes.checkRole();
         String newCode = CheckCode.checkCode(this, newRole, person.getId());
         String newStatus = CheckPersonAttributes.checkStatus();
