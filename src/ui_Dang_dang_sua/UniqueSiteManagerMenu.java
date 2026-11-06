@@ -166,7 +166,7 @@ public class UniqueSiteManagerMenu {
 
             } else {
                 switch (choice) {
-                    case (1): // add (NOR and RES) check
+                    case (1): // thêm Zone (đã chỉnh, đã ổn) 
                         System.out.print("    ➔ Enter the type of Zone: " + Draft.GRN + "[1] NOR" + Draft.RED + " / " + "[2] RED" + Draft.BAS + " : ");
                         int choiceAdd = tempSC.nextInt();
                         switch (choiceAdd) {
@@ -191,10 +191,10 @@ public class UniqueSiteManagerMenu {
                     case (3): // cập nhật khu vực (đã chỉnh, chưa ổn) (yêu cầu bổ sung chỉnh sửa Type và PIN code, tạo một switch case cho người dùng chọn thông tin chỉnh sửa)
                         tempZone.updateZoneById();
                         break;
-                    case (4): // xóa khu vực (đã chỉnh, ổn)
+                    case (4): // xóa khu vực (đã chỉnh, đã ổn)
                         tempZone.deleteZoneById();
                         break;
-                    case (5): // hiển thị danh sách khu vực (đã chỉnh, đã ổn, nhưng cần bổ sung) (bổ sung: 1. hiển thị tất cá danh sách (như hiện tại), 2. hiển thị chỉ RES, 3. hiển thị chỉ NOR)
+                    case (5): // hiển thị danh sách khu vực (đã chỉnh, đã ổn)
                         tempZone.displayOption();
                         break;
 

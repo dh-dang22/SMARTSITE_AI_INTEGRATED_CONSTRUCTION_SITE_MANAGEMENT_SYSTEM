@@ -9,3 +9,4 @@ ZN0011|NOR|Vivi Coffee|Cafeteria
 ZN0015|RES|Nuclear testing site|It is nucleat time|ABC000
 ZN0021|NOR|Circle K|Convenience store
 ZN0022|NOR|President suite|Where president takes a rest
+ZN0023|NOR|Hall A FPTU|A hall for presentation
