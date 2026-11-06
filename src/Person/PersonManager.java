@@ -512,6 +512,7 @@ private void displayList(List<Person> list) {
                 }*/
             }
         }
+        Draft.clearConsoleIDE();
     }
     public void displayPersonInformation(Person person) {
     if (person == null) {

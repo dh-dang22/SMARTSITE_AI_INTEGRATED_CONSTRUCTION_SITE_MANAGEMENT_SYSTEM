@@ -1,5 +1,5 @@
 SITE_MANAGER|P005|Minh Khang|M001|ACTIVE|SmartSite Demo
-WORKER|PR0001|Bach Cong Tru Update|W0001|ACTIVE|To observe the process|Tran Soai Ca
+WORKER|PR0001|Bach Cong Tru Update|W0001|ACTIVE
 VISITOR|PR0002|Dang Cong Tu|VS0002|ACTIVE|To observe the process|Tran Soai Ca
 SAFETY_OFFICER|PR0003|Dang Cai Mang|SO0001|ACTIVEMOS
 WORKER|PR0004|Dang So Sad|PR0005|ACTIVE
@@ -15,3 +15,4 @@ WORKER|PR0013|Bill Kazmaier|WK0013|ACTIVE
 VISITOR|PR0031|MrBeast|VS0005|ACTIVE|Go for charity work|Khang lo
 VISITOR|PR0032|IShowSpeed|VS0006|ACTIVE|Promoting Ronaldo culture|Khang lo
 WORKER|PR0033|Kai Cenat|VS0007|ACTIVE
+VISITOR|PR0034|Rosie|VS0008|ACTIVE|Organize a cultural or artistic performance|Khang lo

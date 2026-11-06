@@ -202,6 +202,7 @@ public class UniqueSiteManagerMenu {
 
                     case (6): // sắp xếp danh sách khu vực (đã chỉnh, chưa ổn) (yêu cầu: Sắp xếp theo ID nhưng k làm thay đổi thứ tự gốc trong file) 
                         tempZone.sortZonesById();
+                        break;
                     case (7): // lưu dữ liệu (chưa chỉnh, đã ổn)
                         tempZone.saveToFile();
                         break;
