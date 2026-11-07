@@ -29,7 +29,7 @@ public class UserSiteManagerMenu extends MenuUserLv00{
                 Draft.clearConsoleIDE();
                 break;
             case (2): //check-in (chưa chỉnh, chưa ổn)
-                attendanceManager.checkInFromInput();
+                attendanceManager.checkInFromInput(activeZone);
                 Draft.displayMenuLine();
                 Draft.pause();
                 Draft.clearConsoleIDE();

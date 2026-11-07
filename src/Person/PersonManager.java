@@ -511,15 +511,15 @@ public class PersonManager {
                         break;
 
                     default:
-                        System.out.println("[!] Dòng " + lineNumber
-                                + " có role không xác định: " + role);
+                        System.out.println("[!] Rows " + lineNumber
+                                + " Role is not identity " + role);
                         continue;
                 }
 
-                if (!addPerson(person)) {
-                    System.out.println("[!] Không thêm được người ở dòng "
-                            + lineNumber + " (ID trùng?): " + id);
-                }
+                /*  if (!addPerson(person)) {
+                System.out.println("[!] Không thêm được người ở dòng "
+                + lineNumber + " (ID trùng?): " + id);
+                }*/
             }
         }
         Draft.clearConsoleIDE();
