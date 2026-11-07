@@ -27,7 +27,6 @@ public class ZoneManager2 {
     public ZoneManager2() {
         this.list = new ArrayList<>();
         try {
-            int cnt = 1;
             this.loadFromFile("data/Zone.txt");
                
         } catch (IOException e) {

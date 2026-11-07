@@ -96,38 +96,38 @@ public class UserSafetyOfficerMenu extends MenuUserLv00{
             if (choice <= 0) return;
             try {
                 switch (choice) {
-                    case 1:
-                        Draft.functionIsNotCompletedYet();
-                        break;
-                    case 2:
-                        Incident incident = manager.searchIncidentById(read("Incident ID: "));
-                        if (incident == null) System.out.println("Incident not found.");
-                        else show(incident);
-                        break;
-                    case 3:
-                        String id = read("Incident ID: ");
-                        String status = read("Status [OPEN/IN_PROGRESS/RESOLVED]: ").toUpperCase(java.util.Locale.ROOT);
-                        if (!status.matches("OPEN|IN_PROGRESS|RESOLVED")) {
-                            System.out.println("Invalid status.");
-                            break;
-                        }
-                        System.out.println(manager.updateIncidentStatus(id, status) ? "Updated." : "Update failed.");
-                        break;
-                    case 4:
-                        System.out.println(manager.deleteIncident(read("Incident ID: ")) ? "Deleted." : "Incident not found.");
-                        break;
-                    case 5: 
-                        manager.displayIncidents(); 
-                        break;
-                    case 6: 
-                        showAll(manager.searchIncidentByStatus(read("Status: "))); 
-                    break;
-                    case 7: 
-                        showAll(manager.getIncidentsByZoneId(read("Zone ID: "))); 
-                        break;
-                    case 8: 
-                        showAll(manager.getIncidentsInRestrictedZones()); 
-                        break;
+//                    case 1:
+//                        Draft.functionIsNotCompletedYet();
+//                        break;
+//                    case 2:
+//                        Incident incident = manager.searchIncidentById(read("Incident ID: "));
+//                        if (incident == null) System.out.println("Incident not found.");
+//                        else show(incident);
+//                        break;
+//                    case 3:
+//                        String id = read("Incident ID: ");
+//                        String status = read("Status [OPEN/IN_PROGRESS/RESOLVED]: ").toUpperCase(java.util.Locale.ROOT);
+//                        if (!status.matches("OPEN|IN_PROGRESS|RESOLVED")) {
+//                            System.out.println("Invalid status.");
+//                            break;
+//                        }
+//                        System.out.println(manager.updateIncidentStatus(id, status) ? "Updated." : "Update failed.");
+//                        break;
+//                    case 4:
+//                        System.out.println(manager.deleteIncident(read("Incident ID: ")) ? "Deleted." : "Incident not found.");
+//                        break;
+//                    case 5: 
+//                        manager.displayIncidents(); 
+//                        break;
+//                    case 6: 
+//                        showAll(manager.searchIncidentByStatus(read("Status: "))); 
+//                    break;
+//                    case 7: 
+//                        showAll(manager.getIncidentsByZoneId(read("Zone ID: "))); 
+//                        break;
+//                    case 8: 
+//                        showAll(manager.getIncidentsInRestrictedZones()); 
+//                        break;
                     default: 
                         break;
                 }
@@ -153,8 +153,8 @@ public class UserSafetyOfficerMenu extends MenuUserLv00{
 
     private void show(Incident incident) {
         System.out.println(incident.getIncidentId() + " | " + incident.getZone().getZoneId()
-            + " | Assignee: " + incident.getAssigneeId()
-            + " | " + incident.getDescription() + " | " + incident.getIncidentStatus()
+            + " | Assignee: " + incident.getPersonId()
+            + " | " + incident.getDescription() + " | " + incident.getStatus()
             + " | " + incident.getLocateDateTime());
     }
 }

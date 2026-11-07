@@ -27,15 +27,23 @@ public class PersonManager {
     private final List<Person> people = new ArrayList<>();
     private static PersonManager instance;
 
+   
+    
     public PersonManager() {
+        
     }
-
+    
     // ----------------------------------------------------------------
     // Singleton — lấy instance duy nhất của PersonManager
     // ----------------------------------------------------------------
     public static PersonManager getInstance() {
         if (instance == null) {
             instance = new PersonManager();
+            try {
+                instance.loadFromFile("data/Person.txt");
+            } catch (IOException e) {
+                System.out.println(Draft.center(Draft.RED + "[Notice]: Failed to load Person file: " + e.getMessage() + Draft.BAS));
+            }
         }
         return instance;
     }
@@ -54,7 +62,7 @@ public class PersonManager {
         return true;
 
     }
-
+    
     private String readRequired(String message) {
         while (true) {
             System.out.print(message);
