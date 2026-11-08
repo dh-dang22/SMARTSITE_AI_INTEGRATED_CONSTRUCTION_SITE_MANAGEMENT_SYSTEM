@@ -506,10 +506,10 @@ private void displayList(List<Person> list) {
                         continue;
                 }
 
-                /*  if (!addPerson(person)) {
+                  if (!addPerson(person)) {
                 System.out.println("[!] Không thêm được người ở dòng "
                 + lineNumber + " (ID trùng?): " + id);
-                }*/
+                }
             }
         }
         Draft.clearConsoleIDE();

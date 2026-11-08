@@ -119,10 +119,6 @@ try {
             return;
         }
         java.util.Scanner sc = Validatable.InputScanner.getScanner();
-        System.out.print("Enter Zone ID: ");
-        if (!sc.hasNextLine()) {
-            return;
-        }
         if (zm instanceof RestrictedZone) {
             System.out.print("Enter zone PIN: ");
             if (!sc.hasNextLine()) {

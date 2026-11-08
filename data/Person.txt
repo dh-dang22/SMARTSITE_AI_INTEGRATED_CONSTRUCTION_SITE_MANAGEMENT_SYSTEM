@@ -16,3 +16,4 @@ VISITOR|PR0031|MrBeast|VS0005|ACTIVE|Go for charity work|Khang lo
 VISITOR|PR0032|IShowSpeed|VS0006|ACTIVE|Promoting Ronaldo culture|Khang lo
 WORKER|PR0033|Kai Cenat|VS0007|ACTIVE
 VISITOR|PR0034|Rosie|VS0008|ACTIVE|Organize a cultural or artistic performance|Khang lo
+WORKER|P001|TranMinhKhang|W001|ACTIVE
