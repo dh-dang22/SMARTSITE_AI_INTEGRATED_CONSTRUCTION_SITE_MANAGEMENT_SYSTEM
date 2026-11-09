@@ -467,14 +467,14 @@ public class PersonManager {
         System.out.println();
         System.out.println(Draft.center("=== The list of Person(s) using S-SMARTSITE ==="));
         System.out.println();
-        System.out.printf("                           %-6s | %-28s | %-15s | %-10s%n",
-                "ID", "Full Name", "Role", "Status");
-        System.out.println(Draft.center("----------------------------------------------------------------------"));
+        System.out.printf("                   %-6s | %-8s | %-28s | %-15s | %-10s%n",
+                "ID", "CODE","Full Name", "Role", "Status");
+        System.out.println(Draft.center("----------------------------------------------------------------------------------"));
         for (Person p : list) {
-            System.out.printf("                           %-6s | %-28s | %-15s | %-10s%n",
-                    p.getId(), p.getFullName(), p.getRole(), p.getStatus());
+          System.out.printf("                   %-6s | %-8s | %-28s | %-15s | %-10s%n",
+                    p.getId(),p.getCode(), p.getFullName(), p.getRole(), p.getStatus());
         }
-        System.out.println(Draft.center("----------------------------------------------------------------------"));
+        System.out.println(Draft.center("----------------------------------------------------------------------------------"));
         System.out.println();
     }
 

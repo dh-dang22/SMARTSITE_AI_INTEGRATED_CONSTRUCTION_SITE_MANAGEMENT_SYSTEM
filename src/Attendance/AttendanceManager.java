@@ -21,6 +21,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import static java.time.temporal.TemporalQueries.zone;
 import java.util.Scanner;
+import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 import ui_Dang_dang_sua.Draft;
 
 /**
@@ -31,6 +33,7 @@ public class AttendanceManager {
 
     private static AttendanceManager instance;
     private final List<AttendanceRecord> records = new ArrayList<>();
+    private boolean loadedFromFile;
 
     // Khai báo instance giong nhu ben class person
     public static AttendanceManager getInstance() {
@@ -41,6 +44,10 @@ public class AttendanceManager {
     }
 
     public boolean checkIn(Person person, Zone zone) {
+
+        if (!ensureRecordsLoaded()) {
+            return false;
+        }
 
         if (person == null || zone == null
                 || person.getId() == null
@@ -70,6 +77,10 @@ try {
 }
 }
         public boolean checkOut(String personId) {
+    if (!ensureRecordsLoaded()) {
+        return false;
+    }
+
     AttendanceRecord rec = findOpenRecord(personId);
     if (rec == null) {
         return false;                       // chưa check-in hoặc đã check-out
@@ -209,6 +220,20 @@ try {
 
         records.clear();
         records.addAll(loaded);
+        loadedFromFile = true;
+    }
+
+    private boolean ensureRecordsLoaded() {
+        if (loadedFromFile) {
+            return true;
+        }
+        try {
+            loadFromFile();
+            return true;
+        } catch (IOException e) {
+            System.out.println("Không đọc được lịch sử Attendance: " + e.getMessage());
+            return false;
+        }
     }
 
     private void saveToFile() throws IOException {
