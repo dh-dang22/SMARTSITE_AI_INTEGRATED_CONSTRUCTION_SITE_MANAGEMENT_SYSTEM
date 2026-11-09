@@ -17,6 +17,7 @@ public class UserVisitorMenu extends MenuUserLv00{
     public void chooseOption(int choice){
         switch (choice){
             case (0):
+                Draft.clearConsoleIDE();
                 break;
             case (1):
                 new PersonManager().displayPersonInformation(currentUser);

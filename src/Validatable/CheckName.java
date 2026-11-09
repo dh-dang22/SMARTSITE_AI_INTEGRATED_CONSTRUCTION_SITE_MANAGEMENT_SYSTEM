@@ -2,15 +2,15 @@ package Validatable;
 
 import java.util.Scanner;
 import ui_Dang_dang_sua.Draft;
-// include : checkName, checkZoneName, checkHostName
+// include : checkPersonName, checkZoneName, checkHostName
 
 public class CheckName {
 
     private static final Scanner sc = new Scanner(System.in);
 
-    public static String checkName() {
+    public static String checkPersonName() {
         while (true) {
-            System.out.print("    ➔ Enter Full Name: ");
+            System.out.print("    ➔ Enter Person Name: ");
             String input = sc.nextLine();
             String cleanName = input.trim().replaceAll("\\s+", " ");
 
@@ -19,7 +19,7 @@ public class CheckName {
                 continue;
             }
             if (!cleanName.matches("^[a-zA-Z\\s]+")) {
-                System.out.println("[Error]: Full Name must contain letters and one number ! Please try again.");
+                System.out.println("[Error]: Full Name must contain letters ! Please try again.");
                 continue;
             }
             return cleanName;

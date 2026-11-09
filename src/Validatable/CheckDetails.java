@@ -5,6 +5,7 @@
 package Validatable;
 
 import java.util.Scanner;
+import ui_Dang_dang_sua.Draft;
 
 // include : checkDetails, checkIncidentStatus, checkZoneDetails
 
@@ -32,24 +33,23 @@ public class CheckDetails {
     }
     public static String checkIncidentStatus() {
         while (true) {
-            System.out.print("    ➔ Enter Incident Status: ");
-            String input = sc.nextLine();
+            System.out.print("    ➔ Enter Incident Status [OPEN / IN_PROGRESS / RESOLVED]: ");
+            String input = sc.nextLine().trim().toUpperCase();
 
-            String status = input.trim().replaceAll("\\s+", " ");
-
-            if (status.length() < 1 || status.length() > 100) {
-                System.out.println("[Error]: Incident Status length must be between 1 and 100 characters! Please try again.");
-                continue;
+            // Chuẩn hóa trường hợp người dùng nhập INPROGRESS thành IN_PROGRESS
+            if (input.equals("INPROGRESS")) {
+                input = "IN_PROGRESS";
             }
 
-            if (!status.matches("^[a-zA-Z0-9\\s_\\-]+$")) {
-                System.out.println("[Error]: Incident Status must not contain special characters! Please try again.");
-                continue;
+            // Kiểm tra chỉ chấp nhận 1 trong 3 trạng thái
+            if (input.equals("OPEN") || input.equals("IN_PROGRESS") || input.equals("RESOLVED")) {
+                return input;
             }
 
-            return status;
-        }
-    }
+            // Thông báo lỗi nếu nhập sai
+            System.out.println(Draft.center(Draft.RED + "[Error]: Status must be one of: OPEN, IN_PROGRESS, or RESOLVED! Please try again." + Draft.BAS));
+        }}
+    
      public static String checkZoneDetails() {
         while (true) {
             System.out.print("    ➔ Enter Zone Details: ");
