@@ -1,80 +1,65 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-
 package Incident;
+
 import Zone.Zone;
+import Person.Person;
 import Validatable.Validatable;
 
-/**
- *
- * @author Minh_Khang
- */
-public class Incident implements Validatable{
+public class Incident implements Validatable {
 
     private String incidentId;
     private Zone zone;
-    private String assigneeId;
+    private Person person;
     private String description;
-    private String incidentStatus;
+    private String status;
     private String locateDateTime;
+    private boolean isSaved;
 
     public Incident() {
+        this.isSaved = false;
     }
 
-    public Incident(String incidentId, Zone zone, String assigneeId, String description, String incidentStatus, String locateDateTime) {
+    public Incident(String incidentId, Zone zone, Person person, String description, String status, String locateDateTime, boolean isSaved) {
         this.setIncidentId(incidentId);
         this.setZone(zone);
-        this.setAssigneeId(assigneeId);
+        this.setPerson(person);
         this.setDescription(description);
-        this.setIncidentStatus(incidentStatus);
+        this.setStatus(status);
         this.setLocateDateTime(locateDateTime);
+        this.isSaved = isSaved;
+    }
+
+    public Incident(String incidentId, Zone zone, Person person, String description, String status, String locateDateTime) {
+        this(incidentId, zone, person, description, status, locateDateTime, false);
     }
 
     @Override
     public boolean isValid() {
-        if (isBlank(incidentId)) {
+        if (isBlank(incidentId) || !incidentId.trim().matches("^IN\\d{4}$")) {
             return false;
         }
         if (zone == null || isBlank(zone.getZoneId())) {
             return false;
         }
-       
-        if (isBlank(assigneeId)) {
+        if (person == null || isBlank(person.getId())) {
             return false;
         }
         if (isBlank(description)) {
             return false;
         }
-        return !isBlank(incidentStatus);
-    }
-
-    // Phương thức kiểm tra tiện ích tĩnh
-    public static boolean checkValidIncident(Incident inc) {
-        if (inc == null) {
-            System.out.println("Incident object is null!");
-            return false;
-        }
-        if (!inc.isValid()) {
-            System.out.println("Incident contains invalid or empty fields!");
-            return false;
-        }
-        return true;
+        return !isBlank(status);
     }
 
     private static boolean isBlank(String str) {
         return str == null || str.trim().isEmpty();
     }
-    
+
     public String getIncidentId() {
         return incidentId;
     }
 
     public final void setIncidentId(String incidentId) {
-        if (incidentId.isEmpty()) {
-            throw new IllegalArgumentException("Incident Id can not be empty");
+        if (isBlank(incidentId)) {
+            throw new IllegalArgumentException("Incident ID cannot be empty!");
         }
         this.incidentId = incidentId;
     }
@@ -84,26 +69,26 @@ public class Incident implements Validatable{
     }
 
     public final void setZone(Zone zone) {
-        if (zone == null) {
-            throw new IllegalArgumentException("Zone reference cannot be null!");
+        if (zone == null || isBlank(zone.getZoneId())) {
+            throw new IllegalArgumentException("Zone reference cannot be null or empty!");
         }
-
-        if (zone.getZoneId() == null || zone.getZoneId().trim().isEmpty()) {
-            throw new IllegalArgumentException("Zone must have a valid Zone ID!");
-        }
-        this.zone = zone ;
+        this.zone = zone;
     }
 
-
-    public String getAssigneeId() {
-        return assigneeId;
+    public Person getPerson() {
+        return person;
     }
 
-    public final void setAssigneeId(String assigneeId) {
-        if (assigneeId.isEmpty()) {
-            throw new IllegalArgumentException("Assignee Id can not be empty");
+    // Helper lấy trực tiếp Person ID ra cho hiển thị và lưu file
+    public String getPersonId() {
+        return (person != null) ? person.getId() : "N/A";
+    }
+
+    public final void setPerson(Person person) {
+        if (person == null || isBlank(person.getId())) {
+            throw new IllegalArgumentException("Person reference cannot be null or empty!");
         }
-        this.assigneeId = assigneeId;
+        this.person = person;
     }
 
     public String getDescription() {
@@ -111,21 +96,21 @@ public class Incident implements Validatable{
     }
 
     public final void setDescription(String description) {
-        if (description.isEmpty()) {
-            throw new IllegalArgumentException("Description can not be empty");
+        if (isBlank(description)) {
+            throw new IllegalArgumentException("Description cannot be empty!");
         }
         this.description = description;
     }
 
-    public String getIncidentStatus() {
-        return incidentStatus;
+    public String getStatus() {
+        return status;
     }
 
-    public final void setIncidentStatus(String incidentStatus) {
-           if (incidentStatus.isEmpty()) {
-            throw new IllegalArgumentException("Incident status can not be empty");
+    public final void setStatus(String status) {
+        if (isBlank(status)) {
+            throw new IllegalArgumentException("Status cannot be empty!");
         }
-        this.incidentStatus = incidentStatus;
+        this.status = status;
     }
 
     public String getLocateDateTime() {
@@ -136,4 +121,26 @@ public class Incident implements Validatable{
         this.locateDateTime = locateDateTime;
     }
 
+    public boolean isSaved() {
+        return isSaved;
+    }
+
+    public void setSaved(boolean isSaved) {
+        this.isSaved = isSaved;
+    }
+
+    @Override
+    public String toString() {
+        return "IncidentId: " + incidentId 
+                + " | ZoneId: " + (zone != null ? zone.getZoneId() : "N/A")
+                + " | PersonId: " + getPersonId() 
+                + " | Status: " + status 
+                + " | Time: " + locateDateTime;
+    }
+
+    public String toFileString() {
+        String zoneId = (zone != null) ? zone.getZoneId() : "";
+        String pId = getPersonId();
+        return incidentId + "|" + zoneId + "|" + pId + "|" + description + "|" + status + "|" + locateDateTime;
+    }
 }

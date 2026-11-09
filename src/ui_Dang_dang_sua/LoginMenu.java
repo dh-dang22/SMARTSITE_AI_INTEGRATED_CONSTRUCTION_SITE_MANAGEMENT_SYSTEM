@@ -85,6 +85,10 @@ public class LoginMenu {
             }
             Person currentUser = pm.findPersonByCode(code);
 
+            System.out.println("");
+            Draft.displayMenuLine();
+            System.out.println("");
+            
             if (currentUser == null) {
                 System.out.println(Draft.center(Draft.RED + "Login fail!" + Draft.BAS));
                 Draft.pause();

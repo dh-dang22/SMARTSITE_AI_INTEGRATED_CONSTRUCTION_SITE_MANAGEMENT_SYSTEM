@@ -42,6 +42,7 @@ public class UserWorkerMenu extends MenuUserLv00{
                 Draft.clearConsoleIDE();
                 break;
             case (0):
+                Draft.clearConsoleIDE();
                 break;
             default:
                 System.out.println(Draft.center(Draft.RED+"Invalid choice! Please select again"+Draft.BAS));

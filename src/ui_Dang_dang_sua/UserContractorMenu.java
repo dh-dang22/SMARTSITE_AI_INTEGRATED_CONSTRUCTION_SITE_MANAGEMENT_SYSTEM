@@ -18,7 +18,8 @@ public class UserContractorMenu extends MenuUserLv00{
 
         switch (choice){
             case (0):
-                    break;
+                Draft.clearConsoleIDE();
+                break;
             case (1):
                 new PersonManager().displayPersonInformation(currentUser);
                 Draft.displayMenuLine();

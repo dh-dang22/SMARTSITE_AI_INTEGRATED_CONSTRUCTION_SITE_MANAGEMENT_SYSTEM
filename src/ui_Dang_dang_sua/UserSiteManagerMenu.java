@@ -20,6 +20,7 @@ public class UserSiteManagerMenu extends MenuUserLv00{
     public void chooseOption(int choice){
         switch (choice){
             case (0):
+                Draft.clearConsoleIDE();
                 break;
             case (1): //hiển thị thông tin (đã chỉnh, ổn)
                 PersonManager ht1 = new PersonManager();

@@ -78,14 +78,14 @@ public class CheckPersonAttributes {
     }
      public static String checkRole() {
         while (true) {
-            System.out.print("    ➔ Enter Role (WORKER, VISITOR, SITEMANAGER, SAFETYOFFICER): ");
+            System.out.print("    ➔ Enter Role (WORKER, VISITOR, SITE_MANAGER, SAFETY_OFFICER): ");
             String role = sc.nextLine().trim().toUpperCase();
 
             if (role.equals("WORKER") || role.equals("VISITOR") 
-                    || role.equals("SITEMANAGER") || role.equals("SAFETYOFFICER")) {
+                    || role.equals("SITE_MANAGER") || role.equals("SAFETY_OFFICER")) {
                 return role;
             }
-            System.out.println("[Error]: Role must be one of: WORKER, VISITOR, SITEMANAGER, SAFETYOFFICER! Please try again.");
+            System.out.println("[Error]: Role must be one of: WORKER, VISITOR, SITE_MANAGER, SAFETY_OFFICER! Please try again.");
         }
     }
       public static String checkStatus() {

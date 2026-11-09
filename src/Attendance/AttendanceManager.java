@@ -21,6 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import static java.time.temporal.TemporalQueries.zone;
 import java.util.Scanner;
+import ui_Dang_dang_sua.Draft;
 
 /**
  *
@@ -105,45 +106,45 @@ try {
         if (currentUser == null || zm == null
                 || currentUser.getId() == null
                 || currentUser.getId().trim().isEmpty()) {
-            System.out.println("Khong co du lieu nguoi dung hoac khu vuc!");
+            System.out.println(Draft.center(Draft.RED+"User's data is not found!!!"+Draft.BAS));
             return;
         }
 
         if (!currentUser.isActive()) {
-            System.out.println("Tai khoan khong hoat dong!");
+            System.out.println(Draft.center(Draft.RED+"The user is unactived!!!"+Draft.BAS));
             return;
         }
 
         if (findOpenRecord(currentUser.getId()) != null) {
-            System.out.println("Ban da check-in va chua check-out!");
+            System.out.println(Draft.center(Draft.RED+"You have already checked-in but haven't checked-out"+Draft.BAS));
             return;
         }
         java.util.Scanner sc = Validatable.InputScanner.getScanner();
         if (zm instanceof RestrictedZone) {
-            System.out.print("Enter zone PIN: ");
+            System.out.print(Draft.BLU+"    ➔ Enter zone PIN: "+Draft.BAS);
             if (!sc.hasNextLine()) {
                 return;
             }
             if (!((RestrictedZone) zm).getPinCode().equals(sc.nextLine().trim())) {
-                System.out.println("Incorrect PIN.");
+                System.out.println(Draft.center(Draft.RED+"Incorrected PIN!!!"+Draft.BAS));
                 return;
             }
         }
-        System.out.println(checkIn(currentUser, zm) ? "Check-in successful." : "Check-in failed.");
+        System.out.println(checkIn(currentUser, zm) ? Draft.center(Draft.GRN+"Check-in successfully!"+Draft.BAS) : Draft.center(Draft.RED+"Check-in fail!"+Draft.BAS));
     }
 
     public void checkOutFromInput(Person currentUser) {
         if (currentUser == null
                 || currentUser.getId() == null
                 || currentUser.getId().trim().isEmpty()) {
-            System.out.println("Khong xac dinh duoc nguoi dung!");
+            System.out.println(Draft.center(Draft.RED+"The user is unidentified!!!"+Draft.BAS));
             return;
         }
 
         if (checkOut(currentUser.getId())) {
-            System.out.println("Check-out thanh cong!");
+            System.out.println(Draft.center(Draft.GRN+"Check-out successfully!"+Draft.BAS));
         } else {
-            System.out.println("Ban chua check-in hoac da check-out!");
+            System.out.println(Draft.center(Draft.RED+"You haven't check-in or check-out!!!"+Draft.BAS));
         }
     }
 
@@ -151,7 +152,7 @@ try {
         Person currentUser = ui_Dang_dang_sua.TempSession.getCurrentUser();
 
         if (currentUser == null) {
-            System.out.println("Không tìm thấy người dùng đang đăng nhập.");
+            System.out.println(Draft.center(Draft.RED+"User's data is not found!!!"+Draft.BAS));
             return;
         }
 
@@ -165,7 +166,7 @@ try {
         Person currentUser = ui_Dang_dang_sua.TempSession.getCurrentUser();
 
         if (currentUser == null) {
-            System.out.println("Không tìm thấy người dùng đang đăng nhập.");
+            System.out.println(Draft.center(Draft.RED+"User's data is not found!!!"+Draft.BAS));
             return;
         }
 
@@ -199,7 +200,7 @@ try {
                     loaded.add(AttendanceRecord.fromFileLine(line));
                 } catch (RuntimeException e) {
                     System.out.println(
-                            "Bỏ qua dòng Attendance lỗi " + lineNumber
+                            "Skipped the fail Attendance line " + lineNumber
                             + ": " + e.getMessage()
                     );
                 }
@@ -225,12 +226,13 @@ try {
 
     public void History(String personId) {
         if (personId == null || personId.trim().isEmpty()) {
-            System.out.println("Person ID khong hop le!");
+            System.out.println(Draft.center(Draft.RED+"The Person ID is invalid!!!"+Draft.BAS));
             return;
         }
 
         boolean found = false;
-        System.out.println("\n--- LICH SU DIEM DANH: " + personId + " ---");
+        System.out.println(Draft.center("-------------------------------------"));
+        System.out.println(Draft.center("--- History Attendance " + personId + " ---"));
 
         for (AttendanceRecord record : records) {
             if (record.getPersonId().equalsIgnoreCase(personId.trim())) {
@@ -240,15 +242,17 @@ try {
         }
 
         if (!found) {
-            System.out.println("Chua co lich su diem danh!");
+            System.out.println(Draft.center(Draft.RED+"No History Attendance yet!!!"+Draft.BAS));
         }
     }
 
     public void displayAll() {
-        System.out.println("\n--- TAT CA LICH SU DIEM DANH ---");
+        System.out.println("");
+        System.out.println(Draft.center("-------------------------------------"));
+        System.out.println(Draft.center("--- All History Attendance ---"));
 
         if (records.isEmpty()) {
-            System.out.println("Danh sach diem danh rong!");
+            System.out.println(Draft.center(Draft.RED+"The History Attendance List is empty!!!"+Draft.BAS));
             return;
         }
 
@@ -258,22 +262,23 @@ try {
     }
 
     private void displayRecord(AttendanceRecord record) {
-        System.out.println("----------------------------------------");
-        System.out.println("Record ID : " + record.getRecordId());
-        System.out.println("Person ID : " + record.getPersonId());
-        System.out.println("Zone ID   : " + record.getZoneId());
-        System.out.println("Check-in  : " + record.getCheckInTime());
-        System.out.println("Check-out : " + (record.isOpen()
-                ? "Chua check-out"
+        System.out.println(Draft.center("-------------------------------------"));
+        System.out.println("");
+        System.out.println("    Record ID   : " + record.getRecordId());
+        System.out.println("    Person ID   : " + record.getPersonId());
+        System.out.println("    Zone ID     : " + record.getZoneId());
+        System.out.println("    Check-in    : " + record.getCheckInTime());
+        System.out.println("    Check-out   : " + (record.isOpen()
+                ? "You haven't checked-out!"
                 : record.getCheckOutTime().toString()));
-        System.out.println("So phut   : " + record.calculateDurationMinutes());
+        System.out.println("    Time entered: " + record.calculateDurationMinutes());
     }
 // Dùng khi gọi từ menu chính
 public void displayAttendanceManagementMenu() {
     Person currentUser =
             ui_Dang_dang_sua.TempSession.getCurrentUser();
     if (currentUser == null) {
-        System.out.println("Không tìm thấy người dùng đang đăng nhập.");
+        System.out.println(Draft.center(Draft.RED+"Can not find the user logged in!!!"+Draft.BAS));
         return;
     }
     ZoneManager2 zoneManager = new ZoneManager2();
@@ -285,7 +290,7 @@ public void displayAttendanceManagementMenu(
         Person currentUser,
         ZoneManager2 zoneManager) {
     if (currentUser == null || zoneManager == null) {
-        System.out.println("Không có dữ liệu người dùng hoặc khu vực.");
+        System.out.println(Draft.center(Draft.RED+"No Person or Zone data!!!"+Draft.BAS));
         return;
     }
 }
