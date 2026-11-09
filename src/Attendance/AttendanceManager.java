@@ -21,8 +21,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import static java.time.temporal.TemporalQueries.zone;
 import java.util.Scanner;
-import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
 import ui_Dang_dang_sua.Draft;
 
 /**
@@ -99,6 +97,10 @@ try {
     }
 }
         public AttendanceRecord findOpenRecord(String personId) {
+    if (!ensureRecordsLoaded()) {
+        return null;
+    }
+
     if (personId == null || personId.trim().isEmpty()) {
         return null;
     }
@@ -231,7 +233,7 @@ try {
             loadFromFile();
             return true;
         } catch (IOException e) {
-            System.out.println("Không đọc được lịch sử Attendance: " + e.getMessage());
+            System.out.println("Don't read history Attendance " + e.getMessage());
             return false;
         }
     }

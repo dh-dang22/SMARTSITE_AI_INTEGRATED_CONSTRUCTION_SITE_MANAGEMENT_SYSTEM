@@ -47,7 +47,8 @@ public class LoginMenu {
 
         Scanner sc = InputScanner.getScanner();
         boolean running = true;
-        while (running) {
+       int failedAttempts = 0;
+        while (running && failedAttempts < 3) {
             displayMenuLine();//in gạch
             displayMenuHeader();//in banner
             displayMenuLine();//in gạch
@@ -77,24 +78,26 @@ public class LoginMenu {
                 return;
             }
             String password = sc.nextLine();
-            if (!checker.check(code, password)) {
-                System.out.println(Draft.center(Draft.RED + "Login fail!" + Draft.BAS));
+            Person currentUser = checker.check(code, password)
+                    ? pm.findPersonByCode(code)
+                    : null;
+
+            if (currentUser == null) {
+                failedAttempts++;
+                System.out.println(Draft.center(Draft.RED + "Login fail! Attempts remaining: "
+                        + (3 - failedAttempts) + Draft.BAS));
+                if (failedAttempts >= 3) {
+                    System.out.println(Draft.center(Draft.RED
+                            + "Maximum login attempts reached. Returning to Welcome Menu." + Draft.BAS));
+                    return;
+                }
                 Draft.pause();
                 Draft.clearConsoleIDE();
                 continue;
             }
-            Person currentUser = pm.findPersonByCode(code);
-
             System.out.println("");
             Draft.displayMenuLine();
             System.out.println("");
-            
-            if (currentUser == null) {
-                System.out.println(Draft.center(Draft.RED + "Login fail!" + Draft.BAS));
-                Draft.pause();
-                Draft.clearConsoleIDE();
-                continue;
-            }
             
             if (activeZone instanceof RestrictedZone) { 
                 String roleUpper = currentUser.getRole().trim().toUpperCase(); 
