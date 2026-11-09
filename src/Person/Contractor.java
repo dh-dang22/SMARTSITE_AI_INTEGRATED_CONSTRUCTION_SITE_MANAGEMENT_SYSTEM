@@ -55,6 +55,7 @@ public class Contractor extends Person {
 
     @Override
     protected void printRoleDetails() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("Contact Person: " + contactPerson);
+        System.out.println("Contract Status: " + contractStatus);
     }
 }
