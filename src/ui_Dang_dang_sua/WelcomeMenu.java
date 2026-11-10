@@ -1,5 +1,6 @@
 package ui_Dang_dang_sua;
 
+import Incident.IncidentManager;
 import Zone.RestrictedZone;
 import Zone.Zone;
 import java.util.Scanner;
@@ -12,15 +13,16 @@ public class WelcomeMenu {
         ZoneManager2 zm = ZoneManager2.getInstance();
         Zone activeZone = zm.getRandomActiveZone();
         boolean running = true;
-
-
+        //banner cảnh báo khu vực RES
         
-        while (running) {
-            
-            //banner cảnh báo khu vực RES
-            
-            Draft.bannerRES(activeZone);
-            
+        Draft.displayIncidentInProgress(activeZone);
+        Draft.bannerRES(activeZone);
+
+        boolean isFirstRun = true ; 
+        while (true) {
+            if (!isFirstRun ){
+               Draft.displayIncidentInProgress(activeZone);
+            }
             Draft.displayMenuLine();//in gạch
             Draft.displayMenuHeader();//in banner
             Draft.displayMenuLine();//in gạch
@@ -34,7 +36,7 @@ public class WelcomeMenu {
                 System.out.println(Draft.center("CURRENT LOCATION: No active zone assigned"));
             }
             System.out.println("");
-            
+
             Draft.displayWelcomeMenuOption();//in option lựa chọn
             System.out.println("");
             Draft.displayMenuLine();//in gạch
@@ -67,14 +69,13 @@ public class WelcomeMenu {
                     System.out.println(Draft.center("CURRENT LOCATION INFORMATION"));
                     System.out.println("");
                     System.out.println("");
-                    
 
                     Zone current = zm.getActiveZone();
 
                     if (current != null) {
                         System.out.println(Draft.center("Zone ID: " + current.getZoneId()));
                         System.out.println(Draft.center("Zone Name : " + current.getZoneName()));
-                        System.out.println(Draft.center("Type : " + (current.isRestricted() ? Draft.RED+"Restricted Zone"+Draft.BAS : Draft.GRN+"Normal Zone"+Draft.BAS)));
+                        System.out.println(Draft.center("Type : " + (current.isRestricted() ? Draft.RED + "Restricted Zone" + Draft.BAS : Draft.GRN + "Normal Zone" + Draft.BAS)));
 
                         // Nếu là RestrictedZone thì in thêm Mã PIN bảo mật
 //                        if (current instanceof RestrictedZone) {
@@ -95,6 +96,7 @@ public class WelcomeMenu {
                     System.out.println(Draft.center("See you later!"));
                     running = false;
                     Draft.pause();
+                    System.exit(0);
                     break;
                 default:
                     System.out.println(Draft.center(Draft.RED + "Invalid choice!!!" + Draft.BAS));
@@ -102,7 +104,7 @@ public class WelcomeMenu {
                     Draft.clearConsoleIDE();
                     break;
             }//switch-case choice
-
+            isFirstRun = false;
         } //while (running)
 
     } //displayWelcomeMenu()

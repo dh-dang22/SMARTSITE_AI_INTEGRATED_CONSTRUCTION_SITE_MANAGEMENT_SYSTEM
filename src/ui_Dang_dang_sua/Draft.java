@@ -1,34 +1,34 @@
-
 package ui_Dang_dang_sua;
 
+import Incident.IncidentManager;
 import Zone.RestrictedZone;
 import Zone.Zone;
 import Zone.ZoneManager2;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
 public class Draft {
-    
+
     public static final String RED = "\u001B[31m";
     public static final String GRN = "\u001B[32m";
     public static final String BLU = "\u001B[34m";
     public static final String BAS = "\u001B[0m";
     public static final int CONSOLE_WIDTH = 120;
-    
-    
+
     //làm mới trang bằng cách in dòng mới
     public static void clearConsoleIDE() { //in dòng trống để làm mới menu (lụm trên Gemini)
         for (int i = 0; i < 50; i++) {
             System.out.println();
         }
     }
-    
+
     //làm mới màn hình (Gehihi gợi ý)
-    public static void clearScreen(){
+    public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
-    
+
     //ngưng màn hình đến khi ấn Enter
 //    public static void pause() {
 //        System.out.println("                                                                                        \nPress [ENTER] to continue...");
@@ -38,7 +38,6 @@ public class Draft {
 //            scanner.nextLine();
 //        }
 //    }
-    
     public static void pause() {
         Scanner scanner = new Scanner(System.in);
         Draft.displayMenuLine();
@@ -46,33 +45,35 @@ public class Draft {
         Draft.displayMenuLine();
         scanner.nextLine();
     }
-    
-    public static void functionIsNotCompletedYet(){
+
+    public static void functionIsNotCompletedYet() {
         System.out.println(Draft.center(Draft.RED + "Function is not completed yet!" + Draft.BAS));
         Draft.pause();
         Draft.clearConsoleIDE();
-    };
+    }
+
+    ;
     
     
     
     //in đường kẻ ngang
-    public static void displayMenuLine(){
+    public static void displayMenuLine() {
         System.out.println("========================================================================================================================");
     }
-    
-    //hiển thị banner (có màu)
-    public static void displayMenuHeader(){
 
-        String header = 
-            RED+ "_  __                                       "+BAS+""+BLU+"  ____                                  "+BAS+""+GRN+" _   _             \n" +
-            GRN+"  | |/ /  _ __     __ _   _ __     __ _         "+BAS+""+RED+"|  _ \\    __ _   _ __     __ _         "+BAS+""+BLU+"| | | |  _   _  __  __\n" +
-            BLU+"  | ' /  | '_ \\   / _` | | '_ \\   / _` |        "+BAS+""+GRN+"| | | |  / _` | | '_ \\   / _` |        "+BAS+""+RED+"| |_| | | | | | \\ \\/ /\n" +
-            RED+"  | . \\  | | | | | (_| | | | | | | (_| |        "+BAS+""+BLU+"| |_| | | (_| | | | | | | (_| |        "+BAS+""+GRN+"|  _  | | |_| |   / / \n" +
-            GRN+"|_|\\_\\ |_| |_|  \\__,_| |_| |_|  \\__, |        "+BAS+""+RED+"|____/   \\__,_| |_| |_|  \\__, |        "+BAS+""+BLU+"|_| |_|  \\__,_|  /_/\n" +
-            BLU+"                                  |___/              "+BAS+""+GRN+"                    |___/                "+BAS+""+RED+"              \n"+BAS;
+    //hiển thị banner (có màu)
+    public static void displayMenuHeader() {
+
+        String header
+                = RED + "_  __                                       " + BAS + "" + BLU + "  ____                                  " + BAS + "" + GRN + " _   _             \n"
+                + GRN + "  | |/ /  _ __     __ _   _ __     __ _         " + BAS + "" + RED + "|  _ \\    __ _   _ __     __ _         " + BAS + "" + BLU + "| | | |  _   _  __  __\n"
+                + BLU + "  | ' /  | '_ \\   / _` | | '_ \\   / _` |        " + BAS + "" + GRN + "| | | |  / _` | | '_ \\   / _` |        " + BAS + "" + RED + "| |_| | | | | | \\ \\/ /\n"
+                + RED + "  | . \\  | | | | | (_| | | | | | | (_| |        " + BAS + "" + BLU + "| |_| | | (_| | | | | | | (_| |        " + BAS + "" + GRN + "|  _  | | |_| |   / / \n"
+                + GRN + "|_|\\_\\ |_| |_|  \\__,_| |_| |_|  \\__, |        " + BAS + "" + RED + "|____/   \\__,_| |_| |_|  \\__, |        " + BAS + "" + BLU + "|_| |_|  \\__,_|  /_/\n"
+                + BLU + "                                  |___/              " + BAS + "" + GRN + "                    |___/                " + BAS + "" + RED + "              \n" + BAS;
         printCenteredBlock(header);
     }
-    
+
 //    public static void displayMenuHeaderOld(){
 //        final String RED = "\u001B[31m";
 //        final String GRN = "\u001B[32m";
@@ -87,8 +88,7 @@ public class Draft {
 //            BLU+"                                    |___/                "+GRN+"                    |___/                   "+RED+"              \n";
 //        System.out.println(header);
 //    }
-    
-   //hiển thị banner (k màu)
+    //hiển thị banner (k màu)
 //    public static void displayMenuHeaderTemp(){
 //        String header = 
 //            "     _  __                                           ____                                      _   _             \n" +
@@ -99,58 +99,56 @@ public class Draft {
 //            "                                    |___/                                    |___/                                 \n";
 //        System.out.println(header);
 //    }
-    
     //hiển thị lời chào
-    public static void displayMenuGreeting(){
-            System.out.println(Draft.center("WELCOME TO THE S-SMARTSITE"));
-            System.out.println(Draft.center("Version 2.4.7 | Terminal Edition")); //Version Semester.Lab.TimeConfig
-            // Forrmateed HH/MM/SS: Giờ:Phút:Giây
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+    public static void displayMenuGreeting() {
+        System.out.println(Draft.center("WELCOME TO THE S-SMARTSITE"));
+        System.out.println(Draft.center("Version 2.4.7 | Terminal Edition")); //Version Semester.Lab.TimeConfig
+        // Forrmateed HH/MM/SS: Giờ:Phút:Giây
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-                LocalTime now = LocalTime.now();
-                // In ghi đè lên dòng cũ bằng '\r' trên Console/Terminal
-            System.out.println(Draft.center("Time: " + now.format(formatter)));  
+        LocalTime now = LocalTime.now();
+        // In ghi đè lên dòng cũ bằng '\r' trên Console/Terminal
+        System.out.println(Draft.center("Time: " + now.format(formatter)));
     }
-    
-    
-    public static void displayWelcomeMenuOption(){
-        String option = 
-            "[!] NOTICE: The system is ready to work. Please choose one of the option below\n" +
-                "\n" +
-                "\n" +
-            "+-------------------------------------------------+\n" +
-            "| 1. Sign in                                      |\n" +
-            "| 2. View area information                        |\n" +
-            "| 3. Exit                                         |\n" +
-            "+-------------------------------------------------+\n";
+
+    public static void displayWelcomeMenuOption() {
+        String option
+                = "[!] NOTICE: The system is ready to work. Please choose one of the option below\n"
+                + "\n"
+                + "\n"
+                + "+-------------------------------------------------+\n"
+                + "| 1. Sign in                                      |\n"
+                + "| 2. View area information                        |\n"
+                + "| 3. Exit                                         |\n"
+                + "+-------------------------------------------------+\n";
         printCenteredBlock(option);
     }
-    
-    
-    
-    
+
     //displayWelcomeMenu(); hiển thị Welcome Menu
-    
     //displayLoginMenu; hiển thị Login Menu
-    
     //displayMenuLv(): hiển thị Menu chung chứa các chức năng
     //displayHeader(); hiển thị Header của Menu
     //displayOption(); hiển thị các lựa chọn tùy thuộc vào role
     //displayLogOut(); hiển thị chức năng Logout
     //chooseOption(); xử lý lựa chọn chức năng
-
     //loại bỏ bảng màu ANSI để tính độ dài thực tế
     private static int getVisibleLength(String text) {
-        if (text == null) return 0;
+        if (text == null) {
+            return 0;
+        }
         String plainText = text.replaceAll("\\u001B\\[[;\\d]*m", "");
         return plainText.length();
     }
-    
+
     //lấy giữa 1 dòng
     public static String center(String text) {
-        if (text == null) return "";
+        if (text == null) {
+            return "";
+        }
         int visibleLen = getVisibleLength(text);
-        if (visibleLen >= CONSOLE_WIDTH) return text;
+        if (visibleLen >= CONSOLE_WIDTH) {
+            return text;
+        }
 
         int padding = (CONSOLE_WIDTH - visibleLen) / 2;
         StringBuilder sb = new StringBuilder();
@@ -160,16 +158,18 @@ public class Draft {
         sb.append(text);
         return sb.toString();
     }
-    
+
     //lấy giữa n dòng
     public static void printCenteredBlock(String block) {
-        if (block == null) return;
+        if (block == null) {
+            return;
+        }
         String[] lines = block.split("\n");
         for (String line : lines) {
             System.out.println(center(line));
         }
     }
-    
+
     public static void displayProfile(String ID, String Name, String Role, String Status) {
         System.out.println("  ┌────────────────────────────────────────────────────────┐");
         System.out.printf("  │  🆔  ID     : %-40s │%n" + ID);
@@ -178,45 +178,55 @@ public class Draft {
         System.out.printf("  │  🟢  Status : %-33s │%n" + Status);
         System.out.println("  └────────────────────────────────────────────────────────┘");
     }
-    
-    public static void bannerRES (Zone activeZone){
-            Scanner sc = Validatable.InputScanner.getScanner();
-            if (activeZone instanceof RestrictedZone) { 
-                RestrictedZone rz = (RestrictedZone) activeZone; 
-                Draft.displayMenuLine();
-                Draft.displayMenuHeader(); 
-                Draft.displayMenuLine(); 
-                System.out.println(Draft.center(Draft.RED + "[!] SECURITY CHECKPOINT: RESTRICTED ZONE DETECTED!" + Draft.BAS)); 
-                System.out.println(Draft.center("Location: " + rz.getZoneName() + " (" + rz.getZoneId() + ")"));
-                System.out.println(Draft.center("Enter PIN Code to proceed.")); 
-                Draft.displayMenuLine(); 
-                int countWrong = 0 ;
 
-                while (true) {
-                    System.out.print("   >>> Enter Restricted Zone PIN [ABCxxx] : ");
-                    String inputPin = sc.nextLine().trim();
+    public static void bannerRES(Zone activeZone) {
+        Scanner sc = Validatable.InputScanner.getScanner();
+        if (activeZone instanceof RestrictedZone) {
+            RestrictedZone rz = (RestrictedZone) activeZone;
+            Draft.displayMenuLine();
+            System.out.println(Draft.center(Draft.RED + "[!] SECURITY CHECKPOINT: RESTRICTED ZONE DETECTED!" + Draft.BAS));
+            System.out.println(Draft.center("Location: " + rz.getZoneName() + " (" + rz.getZoneId() + ")"));
+            System.out.println(Draft.center("Enter PIN Code to proceed."));
+            Draft.displayMenuLine();
+            int countWrong = 0;
 
-                    if (rz.getPinCode().equals(inputPin)) { 
-                        System.out.println(Draft.center(Draft.GRN + "[+] Access Granted to Welcome Menu!" + Draft.BAS)); 
-                        Draft.pause(); 
-                        Draft.clearConsoleIDE();
-                        break;
-                    } else {
+            while (true) {
+                System.out.print("   >>> Enter Restricted Zone PIN [ABCxxx] : ");
+                String inputPin = sc.nextLine().trim();
+
+                if (rz.getPinCode().equals(inputPin)) {
+                    System.out.println(Draft.center(Draft.GRN + "[+] Access Granted to Welcome Menu!" + Draft.BAS));
+                    Draft.pause();
+                    Draft.clearConsoleIDE();
+                    break;
+                } else {
+                    System.out.println("");
+                    System.out.println(Draft.center(Draft.RED + "[Error]: Incorrect PIN Code! Please try again." + Draft.BAS));
+                    countWrong++;
+                    System.out.println("");
+                    System.out.println(Draft.center(Draft.RED + "You have entered the wrong PIN " + countWrong + " times." + Draft.BAS));
+                    System.out.println(Draft.center(Draft.RED + "When you entered wrong 3 times, the system will end ! \n" + Draft.BAS));
+                    if (countWrong >= 3) {
                         System.out.println("");
-                        System.out.println(Draft.center(Draft.RED + "[Error]: Incorrect PIN Code! Please try again." + Draft.BAS));
-                        countWrong++ ;
-                        System.out.println("");
-                        System.out.println(Draft.center(Draft.RED + "You have entered the wrong PIN "+ countWrong+" times." + Draft.BAS));
-                        System.out.println(Draft.center(Draft.RED + "When you entered wrong 3 times, the system will end ! \n" + Draft.BAS));
-                        if (countWrong >= 3){
-                            System.out.println("");
-                            System.out.println(Draft.center(Draft.RED + "[!] You have entered the wrong PIN 3 times. Access denied! Exiting system..." + Draft.BAS));
-                            Draft.pause();
-                            System.exit(0);
-                        }
+                        System.out.println(Draft.center(Draft.RED + "[!] You have entered the wrong PIN 3 times. Access denied! Exiting system..." + Draft.BAS));
+                        Draft.pause();
+                        System.exit(0);
                     }
                 }
-            }    
+            }
+        }
+    }
+
+    public static void displayIncidentInProgress(Zone activeZone) {
+        if (activeZone == null) {
+            return;
+        }
+        IncidentManager im = IncidentManager.getInstance();
+
+        if (im.hasInProgressIncident(activeZone.getZoneId())) {
+            Draft.displayMenuLine();
+            System.out.println(Draft.center(Draft.RED + "[!] SECURITY CHECKPOINT: Zone [" + activeZone.getZoneId() + "] currently has an IN_PROGRESS incident!" + Draft.BAS));
+            Draft.displayMenuLine();
+        }
     }
 }
-

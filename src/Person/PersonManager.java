@@ -26,24 +26,17 @@ public class PersonManager {
     private int size;*/
     private final List<Person> people = new ArrayList<>();
     private static PersonManager instance;
+    
 
-   
-    
     public PersonManager() {
-        
     }
-    
+
     // ----------------------------------------------------------------
     // Singleton — lấy instance duy nhất của PersonManager
     // ----------------------------------------------------------------
     public static PersonManager getInstance() {
         if (instance == null) {
             instance = new PersonManager();
-            try {
-                instance.loadFromFile("data/Person.txt");
-            } catch (IOException e) {
-                System.out.println(Draft.center(Draft.RED + "[Notice]: Failed to load Person file: " + e.getMessage() + Draft.BAS));
-            }
         }
         return instance;
     }
@@ -62,7 +55,7 @@ public class PersonManager {
         return true;
 
     }
-    
+
     private String readRequired(String message) {
         while (true) {
             System.out.print(message);
@@ -84,18 +77,19 @@ public class PersonManager {
     }
 
     public void addPersonFromInput() {
+
+        String id;
+        while (true) {
+            id = CheckId.checkPersonId();
+            if (this.findPersonByID(id) == null) {
+                break;
+            }
+            System.out.println(Draft.center(Draft.RED + "ID already exists! Please enter another ID." + Draft.BAS));
+        }
         try {
-            String role = chooseRole();
+            String role = CheckPersonAttributes.checkRole();
             if (role == null) {
                 return;
-            }
-            String id;
-            while (true) {
-                id = CheckId.checkPersonId();
-                if (this.findPersonByID(id) == null) {
-                    break;
-                }
-                System.out.println(Draft.center(Draft.RED + "ID already exists! Please enter another ID." + Draft.BAS));
             }
             String name = CheckName.checkPersonName();
 
@@ -122,7 +116,7 @@ public class PersonManager {
                     );
                     break;
                 case "CONTRACTOR":
-                    String contractPerson = readRequired("    ➔ Enter Person's Company: ");
+                    String contractPerson = CheckPersonAttributes.checkCompanyName();
 
                     person = new Contractor(
                             id, name, code, status, contractPerson);
@@ -175,10 +169,11 @@ public class PersonManager {
             System.out.println("    [2]  Contractor");
             System.out.println("    [3]  Visitor");
             System.out.println("    [4]  Safety Officer");
+            System.out.println("    [5]  Site Manager");
             System.out.println("    [0]  Cancel");
             System.out.println("");
 
-            String choice = readRequired( "    ➔ Enter Person Role: " );
+            String choice = readRequired(Draft.BLU + "    ➔ Enter Person's role   : " + Draft.BAS);
 
             switch (choice) {
                 case "1":
@@ -189,6 +184,8 @@ public class PersonManager {
                     return "VISITOR";
                 case "4":
                     return "SAFETY_OFFICER";
+                case "5":
+                    return "SITE_MANAGER";
                 case "0":
                     return null;
                 default:
@@ -323,7 +320,7 @@ public class PersonManager {
             return;
         }
         people.remove(p);              // bỏ vòng dời phần tử
-        System.out.println(Draft.center(Draft.GRN + "ID has removed" + Draft.BAS));
+        System.out.println(Draft.center(Draft.GRN + "This person was removed! " + Draft.BAS));
     }
 
     public void deletePersonFromInput() {
@@ -368,6 +365,7 @@ public class PersonManager {
     public void updatePersonById() {
         String id = CheckId.checkPersonId();
         Person person = findPersonByID(id);
+        Scanner sc = Validatable.InputScanner.getScanner();
         if (person == null) {
             System.out.println(Draft.center(
                     Draft.RED + "Person ID [" + id + "] not found!" + Draft.BAS
@@ -377,11 +375,39 @@ public class PersonManager {
 
         displayPersonInformation(person);
 
-        // Lấy và kiểm tra các giá trị mới trước khi sửa đối tượng
         String newName = CheckName.checkPersonName();
+
         String newRole = CheckPersonAttributes.checkRole();
-        String newCode = CheckCode.checkCode(this, newRole);
+
+        String newCode;
+        String oldRole = person.getRole();
+
+        if (newRole.equalsIgnoreCase(oldRole)) {
+            while (true) {
+                System.out.print("    ➔ Enter Code (Press [ENTER] to keep current code [" + person.getCode() + "]): ");
+                String inputCode = sc.nextLine().trim();
+
+                if (inputCode.isEmpty()) {
+                    newCode = person.getCode();
+                    break;
+                }
+
+                Person existingCodeOwner = findPersonByCode(inputCode);
+                if (existingCodeOwner != null && !existingCodeOwner.getId().equalsIgnoreCase(person.getId())) {
+                    System.out.println(Draft.center(
+                            Draft.RED + "[Error]: Code [" + inputCode + "] already belongs to another person! Try again." + Draft.BAS));
+                    continue;
+                }
+
+                newCode = inputCode;
+                break;
+            }
+        } else {
+            newCode = CheckCode.checkCode(this, newRole);
+        }
+
         String newStatus = CheckPersonAttributes.checkStatus();
+        
         Person existingCodeOwner = findPersonByCode(newCode);
         if (existingCodeOwner != null && existingCodeOwner != person) {
             System.out.println(Draft.center(
@@ -524,10 +550,10 @@ public class PersonManager {
                         continue;
                 }
 
-                /*  if (!addPerson(person)) {
-                System.out.println("[!] Không thêm được người ở dòng "
-                + lineNumber + " (ID trùng?): " + id);
-                }*/
+                if (!addPerson(person)) {
+                    System.out.println("[!] Không thêm được người ở dòng "
+                            + lineNumber + " (ID trùng?): " + id);
+                }
             }
         }
         Draft.clearConsoleIDE();

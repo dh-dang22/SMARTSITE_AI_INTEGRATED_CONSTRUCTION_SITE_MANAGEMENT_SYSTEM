@@ -8,7 +8,8 @@ import Validatable.InputScanner;
 import Zone.Zone;
 import Zone.ZoneManager2;
 import java.io.IOException;
-
+import Attendance.AttendanceManager;
+import Incident.IncidentManager;
 //import Zone.ZoneManager2;
 public class UniqueSiteManagerMenu {
 
@@ -49,6 +50,7 @@ public class UniqueSiteManagerMenu {
             System.out.println("    [4]  Delete a Person");
             System.out.println("    [5]  Display all people information"); //
             System.out.println("    [6]  Sort people by name");
+            System.out.println("    [7]  Save to file");
             System.out.println("");
             System.out.println("    [0]  Back to general menu");
             System.out.println("");
@@ -74,7 +76,7 @@ public class UniqueSiteManagerMenu {
             } else {
                 switch (choice) {
                     case (1): // thêm Person (đã chỉnh, chưa ổn) (quên chưa ổn chỗ nào cmnr)
-                        int n = InputScanner.readRange(sc2, Draft.BLU + "   ➔ Enter a number of Person(s) you want to add[1-100][-1 to cancel]: " + Draft.BAS, 1, 100, "Please enter a number between 1-100!");
+                        int n = InputScanner.readRange(sc2, Draft.BLU + "   ➔ Enter a number of Person(s) you want to add[1-10][-1 to cancel]: " + Draft.BAS, 1, 10, "Please enter a number between 1-10!");
                         System.out.println("");
                         if (n == -1) {
                             return;
@@ -113,6 +115,10 @@ public class UniqueSiteManagerMenu {
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
+                    case 7 :
+                        pm.saveToFile();
+                        Draft.pause();
+                        Draft.clearConsoleIDE();
                 }
             }
         } //while
@@ -184,7 +190,7 @@ public class UniqueSiteManagerMenu {
                         System.out.print("    ➔ Enter the Zone ID(e.g., ZN0001): ");
                         String tempID = tempSC.nextLine();
                         if (tempID != null) {
-                            System.out.println(tempZone.findZoneById(tempID));
+                            zm.displayFlex(tempID);
                         } else {
                             System.out.println();
                             System.out.println(Draft.center(Draft.RED + "[Error]: Zone ID [" + tempID + "] not found in system!" + Draft.BAS));
@@ -221,11 +227,15 @@ public class UniqueSiteManagerMenu {
     }//display
 
     public void displayAllAttendance() {
-        Draft.functionIsNotCompletedYet();
+        AttendanceManager am = AttendanceManager.getInstance();
+        am.displayAll();
     }//display
 
     public void displayAllIncident() {
-        Draft.functionIsNotCompletedYet();
+        IncidentManager im = IncidentManager.getInstance();
+        
+        im.displayIncidents();
+        
     }//display
-
+   
 }//class

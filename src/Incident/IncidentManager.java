@@ -54,7 +54,9 @@ public class IncidentManager {
 
         System.out.print("    ➔ Input number of incidents to add (1-5): ");
         int n = InputScanner.readRange(sc, "", 1, 5, Draft.center(Draft.RED + "[Error]: Please enter a number between 1 and 5!" + Draft.BAS));
-        if (n == -1) return;
+        if (n == -1) {
+            return;
+        }
 
         for (int i = 1; i <= n; i++) {
             System.out.println(Draft.center("--- Incident [" + i + "] ---"));
@@ -136,7 +138,9 @@ public class IncidentManager {
     }
 
     public Incident findIncidentByIdLogic(String incidentId) {
-        if (incidentId == null) return null;
+        if (incidentId == null) {
+            return null;
+        }
         for (Incident inc : incidents) {
             if (inc.getIncidentId().equalsIgnoreCase(incidentId.trim())) {
                 return inc;
@@ -160,6 +164,12 @@ public class IncidentManager {
         Incident inc = findIncidentByIdLogic(incidentId);
 
         if (inc != null) {
+            // Hiển thị thông tin Incident hiện tại dạng BẢNG trước khi hỏi update
+            System.out.println("\n                               Current Incident Information");
+            printTableHeader();
+            printIncidentRow(inc);
+            printTableFooter();
+
             System.out.println("\n   ➔ Enter information you want to update:");
             System.out.println("   [1] Description");
             System.out.println("   [2] Status");
@@ -204,19 +214,20 @@ public class IncidentManager {
     // 4. Xóa Incident (Hỏi Y/N)
     // ----------------------------------------------------------------
     public void deleteIncidentById() {
-        Scanner sc = InputScanner.getScanner();
+        displayIncidents();
         String incidentId = CheckId.checkIncidentId();
         Incident inc = findIncidentByIdLogic(incidentId);
 
-        if (inc == null) {
+        if (inc != null) {
+            System.out.println("\n                               Current Incident Information");
+            printTableHeader();
+            printIncidentRow(inc);
+            printTableFooter();
+        } else {
             System.out.println(Draft.center(Draft.RED + "[Error]: Incident ID [" + incidentId + "] not found!" + Draft.BAS));
             return;
         }
-
-        System.out.println();
-        printTableHeader();
-        printIncidentRow(inc);
-        printTableFooter();
+        Scanner sc = InputScanner.getScanner();
 
         System.out.print("    ➔ Are you sure you want to delete this Incident? [Y/N]: ");
         String choice = sc.nextLine().trim();
@@ -290,13 +301,15 @@ public class IncidentManager {
         ZoneManager2 zm = ZoneManager2.getInstance();
         PersonManager pm = PersonManager.getInstance();
 
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(fileName), StandardCharsets.UTF_8)) {
+        try ( BufferedReader reader = Files.newBufferedReader(Paths.get(fileName), StandardCharsets.UTF_8)) {
             String line;
             int lineNumber = 0;
 
             while ((line = reader.readLine()) != null) {
                 lineNumber++;
-                if (line.trim().isEmpty()) continue;
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
 
                 String[] parts = line.split("\\s*\\|\\s*", -1);
                 if (parts.length == 6) {
@@ -332,6 +345,7 @@ public class IncidentManager {
         this.incidents.clear();
         this.incidents.addAll(loaded);
         System.out.println(Draft.center(Draft.GRN + "Successfully loaded " + this.incidents.size() + " incident(s) from file [" + fileName + "]!" + Draft.BAS));
+        Draft.clearConsoleIDE();
     }
 
     public void saveToFile() {
@@ -340,7 +354,7 @@ public class IncidentManager {
             return;
         }
 
-        try (PrintWriter pw = new PrintWriter(Files.newBufferedWriter(Paths.get(FILE_PATH), StandardCharsets.UTF_8))) {
+        try ( PrintWriter pw = new PrintWriter(Files.newBufferedWriter(Paths.get(FILE_PATH), StandardCharsets.UTF_8))) {
             for (Incident inc : incidents) {
                 pw.println(inc.toFileString());
             }
@@ -385,8 +399,26 @@ public class IncidentManager {
     }
 
     private String truncate(String text, int maxLength) {
-        if (text == null) return "";
-        if (text.length() <= maxLength) return text;
+        if (text == null) {
+            return "";
+        }
+        if (text.length() <= maxLength) {
+            return text;
+        }
         return text.substring(0, maxLength - 3) + "...";
+    }
+
+    public boolean hasInProgressIncident(String zoneId) {
+        if (zoneId == null || zoneId.trim().isEmpty()) {
+            return false;
+        }
+        for (Incident inc : incidents) {
+            if (inc != null && inc.getZone() != null
+                    && inc.getZone().getZoneId().equalsIgnoreCase(zoneId.trim())
+                    && "IN_PROGRESS".equalsIgnoreCase(inc.getStatus())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
