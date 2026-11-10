@@ -83,10 +83,17 @@ public class LoginMenu {
                 return;
             }
             String password = sc.nextLine();
-            Person currentUser = checker.check(code, password)
-                    ? pm.findPersonByCode(code)
-                    : null;
-
+            Person matchedPerson = pm.findPersonByCode(code);
+            boolean isAdmin = matchedPerson != null
+                    && "ADMIN".equalsIgnoreCase(matchedPerson.getRole());
+            boolean validCredential = isAdmin
+                    ? adminChecker.check(code, password)
+                    : checker.check(code, password);
+            Person currentUser = validCredential ? matchedPerson : null;
+            if (currentUser != null && !currentUser.isActive()) {
+                currentUser = null;
+            }
+                    
             if (currentUser == null) {
                 failedAttempts++;
                 System.out.println(Draft.center(Draft.RED + "Login fail! Attempts remaining: "
@@ -133,7 +140,7 @@ public class LoginMenu {
                 case "ADMIN":
                     clearConsoleIDE();
                     TempSession.setCurrentUser(currentUser);
-                    new UserAdminMenu().displayMenuLv(currentUser); // tao menu admin gup em
+                    new MenuAdminKhangSua().displayMenuLv(currentUser); // tao menu admin gup em
                     TempSession.clear();
                     running = false;
                     break;

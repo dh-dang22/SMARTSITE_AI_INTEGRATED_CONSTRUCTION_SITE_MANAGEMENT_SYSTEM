@@ -13,25 +13,30 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/** Manages code/password pairs stored in data/accounts.txt. */
+/** Manages code/password pairs stored in an account text file. */
 public class AccountManager {
 
-    private static final Path FILE = Paths.get("data/accounts.txt");
+    private final Path file;
     private final Map<String, String> accounts = new LinkedHashMap<>();
 
     public AccountManager() throws IOException {
+        this("data/accounts.txt");
+    }
+
+    public AccountManager(String fileName) throws IOException {
+        this.file = Paths.get(fileName);
         loadFromFile();
     }
 
     private void loadFromFile() throws IOException {
         accounts.clear();
-        if (!Files.exists(FILE)) {
-            Files.createDirectories(FILE.getParent());
-            Files.createFile(FILE);
+        if (!Files.exists(file)) {
+            Files.createDirectories(file.getParent());
+            Files.createFile(file);
             return;
         }
 
-        for (String line : Files.readAllLines(FILE, StandardCharsets.UTF_8)) {
+        for (String line : Files.readAllLines(file, StandardCharsets.UTF_8)) {
             String[] fields = line.split("\\|", 2);
             if (fields.length == 2 && !fields[0].trim().isEmpty()
                     && !fields[1].isEmpty()) {
@@ -89,13 +94,15 @@ public class AccountManager {
     }
 
     private void saveToFile() throws IOException {
-        Files.createDirectories(FILE.getParent());
+        Files.createDirectories(file.getParent());
         List<String> lines = new ArrayList<>();
         for (Map.Entry<String, String> entry : accounts.entrySet()) {
             lines.add(entry.getKey() + "|" + entry.getValue());
         }
-        Files.write(FILE, lines, StandardCharsets.UTF_8,
+        Files.write(file, lines, StandardCharsets.UTF_8,
                 StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING,
                 StandardOpenOption.WRITE);
     }
+    
 }
+

@@ -1,5 +1,6 @@
 package ui_Dang_dang_sua;
 
+import Account.AccountManager;
 import java.util.Scanner;
 
 import Attendance.AttendanceManager;
@@ -240,7 +241,7 @@ public class UniqueSiteManagerMenu {
     
     
     /// Hàm qu?n lý tài kho?n c?a admin
-     private void manageAccounts() {
+     public void manageAccounts() {
         try {
             System.out.println("[1] Manage standard account (accounts.txt)");
             System.out.println("[2] Manage Admin account (admin_accounts.txt)");
