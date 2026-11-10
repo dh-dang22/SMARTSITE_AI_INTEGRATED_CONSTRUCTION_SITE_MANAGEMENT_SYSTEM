@@ -237,5 +237,78 @@ public class UniqueSiteManagerMenu {
         im.displayIncidents();
         
     }//display
+    
+    
+    /// Hàm qu?n lý tài kho?n c?a admin
+     private void manageAccounts() {
+        try {
+            System.out.println("[1] Manage standard account (accounts.txt)");
+            System.out.println("[2] Manage Admin account (admin_accounts.txt)");
+            System.out.print("Choose account type: ");
+            if (!sc2.hasNextLine()) {
+                return;
+            }
+            String accountType = sc2.nextLine().trim();
+            if (!"1".equals(accountType) && !"2".equals(accountType)) {
+                System.out.println("Invalid account type.");
+                return;
+            }
+            String accountFile = "2".equals(accountType)
+                    ? "data/admin_accounts.txt" : "data/accounts.txt";
+            AccountManager accounts = new AccountManager(accountFile);
+
+            System.out.print("Enter person code: ");
+            if (!sc2.hasNextLine()) {
+                return;
+            }
+            String code = sc2.nextLine().trim();
+            if (code.isEmpty()) {
+                System.out.println("Person code cannot be empty.");
+                return;
+            }
+
+            System.out.println("[1] Add/reset password");
+            System.out.println("[2] Delete account");
+            System.out.print("Choose: ");
+            if (!sc2.hasNextLine()) {
+                return;
+            }
+            String choice = sc2.nextLine().trim();
+
+            if ("1".equals(choice)) {
+                Person.Person person = pm.findPersonByCode(code);
+                boolean correctRole = person != null
+                        && ("2".equals(accountType)
+                        ? "ADMIN".equalsIgnoreCase(person.getRole())
+                        : !"ADMIN".equalsIgnoreCase(person.getRole()));
+                if (!correctRole) {
+                    System.out.println("Person code not found or does not match the selected account type.");
+                    return;
+                }
+
+                System.out.print("Enter new password: ");
+                if (!sc2.hasNextLine()) {
+                    return;
+                }
+                String password = sc2.nextLine();
+
+                if (accounts.savePassword(code, password, pm)) {
+                    System.out.println("Account saved.");
+                } else {        
+                    System.out.println("Invalid person code or password.");
+                }
+            } else if ("2".equals(choice)) {
+                if (accounts.deleteAccount(code)) {
+                    System.out.println("Account deleted.");
+                } else {
+                    System.out.println("Account not found.");
+                }
+            } else {
+                System.out.println("Invalid choice.");
+            }
+        } catch (java.io.IOException e) {
+            System.out.println("Cannot update accounts.txt: " + e.getMessage());
+        }
+    }
    
-}//class
+}//class    

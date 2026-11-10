@@ -375,66 +375,117 @@ public class PersonManager {
 
         displayPersonInformation(person);
 
-        String newName = CheckName.checkPersonName();
-
-        String newRole = CheckPersonAttributes.checkRole();
-
-        String newCode;
-        String oldRole = person.getRole();
-
-        if (newRole.equalsIgnoreCase(oldRole)) {
-            while (true) {
-                System.out.print("    ➔ Enter Code (Press [ENTER] to keep current code [" + person.getCode() + "]): ");
-                String inputCode = sc.nextLine().trim();
-
-                if (inputCode.isEmpty()) {
-                    newCode = person.getCode();
-                    break;
-                }
-
-                Person existingCodeOwner = findPersonByCode(inputCode);
-                if (existingCodeOwner != null && !existingCodeOwner.getId().equalsIgnoreCase(person.getId())) {
-                    System.out.println(Draft.center(
-                            Draft.RED + "[Error]: Code [" + inputCode + "] already belongs to another person! Try again." + Draft.BAS));
-                    continue;
-                }
-
-                newCode = inputCode;
-                break;
-            }
-        } else {
-            newCode = CheckCode.checkCode(this, newRole);
-        }
-
-        String newStatus = CheckPersonAttributes.checkStatus();
-        
-        Person existingCodeOwner = findPersonByCode(newCode);
-        if (existingCodeOwner != null && existingCodeOwner != person) {
-            System.out.println(Draft.center(
-                    Draft.RED + "This code already belongs to another person!" + Draft.BAS
-            ));
+        System.out.println("    [1] Update full name");
+        System.out.println("    [2] Update code");
+        System.out.println("    [3] Update status");
+        System.out.println("    [4] Update all listed information");
+        System.out.println("    [0] Cancel");
+        int choice = InputScanner.readRange(sc,
+                "    Choose information to update [0-4]: ", 0, 4,
+                Draft.center(Draft.RED + "Please enter a number from 0 to 4." + Draft.BAS));
+        if (choice == 0 || choice == -1) {
+            System.out.println("Update cancelled.");
             return;
         }
+
+        String newName = person.getFullName();
+        String newCode = person.getCode();
+        String newStatus = person.getStatus();
+
+        switch (choice) {
+            case 1:
+                newName = CheckName.checkPersonName();
+                break;
+            case 2:
+                newCode = readUpdatedCode(person, sc);
+                break;
+            case 3:
+                newStatus = CheckPersonAttributes.checkStatus();
+                break;
+            case 4:
+                newName = CheckName.checkPersonName();
+                newCode = readUpdatedCode(person, sc);
+                newStatus = CheckPersonAttributes.checkStatus();
+                break;
+            default:
+                return;
+        }
+
+        String oldName = person.getFullName();
+        String oldCode = person.getCode();
+        String oldStatus = person.getStatus();
         try {
             person.setFullName(newName);
             person.setCode(newCode);
             person.setStatus(newStatus);
-            person.setRole(newRole);
-            saveToFile();
+
+            if (!saveToFile()) {
+                person.setFullName(oldName);
+                person.setCode(oldCode);
+                person.setStatus(oldStatus);
+                System.out.println(Draft.center(
+                        Draft.RED + "Update failed because Person.txt could not be saved." + Draft.BAS));
+                return;
+            }
 
             System.out.println(Draft.center(
                     Draft.GRN + "Person [" + id + "] updated successfully!" + Draft.BAS
             ));
-
-            // Gọi nếu muốn lưu ngay:
-            // saveToFile();
         } catch (IllegalArgumentException e) {
             System.out.println(Draft.center(
                     Draft.RED + "Update failed: " + e.getMessage() + Draft.BAS
             ));
         }
     }
+    private String readUpdatedCode(Person person, Scanner scanner) {
+        String prefix;
+        switch (person.getRole().trim().toUpperCase()) {
+            case "WORKER":
+                prefix = "WK";
+                break;
+            case "VISITOR":
+                prefix = "VS";
+                break;
+            case "CONTRACTOR":
+                prefix = "CT";
+                break;
+            case "SAFETY_OFFICER":
+                prefix = "SO";
+                break;
+            case "SITE_MANAGER":
+                prefix = "SM";
+                break;
+            default:
+                System.out.println("Cannot determine the code prefix for this role.");
+                return person.getCode();
+        }
 
+        while (true) {
+            System.out.print("    ➔ Enter Code [" + prefix + "xxxx] (ENTER keeps current ["
+                    + person.getCode() + "]): ");
+            if (!scanner.hasNextLine()) {
+                return person.getCode();
+            }
+            String inputCode = scanner.nextLine().trim().toUpperCase();
+            if (inputCode.isEmpty()) {
+                return person.getCode();
+            }
+            if (!inputCode.matches("^" + prefix + "\\d{4}$")) {
+                System.out.println(Draft.center(Draft.RED
+                        + "Code must use the " + prefix + " prefix and four digits." + Draft.BAS));
+                continue;
+            }
+
+            Person existingCodeOwner = findPersonByCode(inputCode);
+            if (existingCodeOwner != null
+                    && !existingCodeOwner.getId().equalsIgnoreCase(person.getId())) {
+                System.out.println(Draft.center(Draft.RED
+                        + "Code [" + inputCode + "] already belongs to another person." + Draft.BAS));
+                continue;
+            }
+            return inputCode;
+        }
+    }
     public void displayPersonFound() {
 
     }
@@ -542,6 +593,10 @@ public class PersonManager {
                         String department = data.length > 5 ? data[5].trim() : "";
                         person = new SiteManager(id, fullName, code, role, status,
                                 department);
+                        break;
+
+                    case "ADMIN":
+                        person = new Admin(id, fullName, code, status);
                         break;
 
                     default:

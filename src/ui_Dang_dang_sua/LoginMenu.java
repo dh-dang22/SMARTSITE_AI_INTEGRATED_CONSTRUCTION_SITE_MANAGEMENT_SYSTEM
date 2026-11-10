@@ -24,6 +24,7 @@ public class LoginMenu {
     private static boolean peopleLoaded;
     ZoneManager2 zm = ZoneManager2.getInstance();
     Zone activeZone = zm.getRandomActiveZone();
+    private final CheckPassword adminChecker = new CheckPassword();
 
     // Constructor mặc định tự khởi tạo Manager nếu chưa có
     public LoginMenu() {
@@ -42,6 +43,8 @@ public class LoginMenu {
                 pm.loadFromFile("data/Person.txt");
             }
             checker.loadFromFile("data/accounts.txt");
+            adminChecker.loadFromFile("data/admin_accounts.txt");
+            
         } catch (IOException e) {
             System.out.println(Draft.center("[!] Cannot load login data: " + e.getMessage()));
             return;
@@ -127,6 +130,13 @@ public class LoginMenu {
             }
             // Điều hướng Menu theo Role
             switch (role.trim().toUpperCase()) {
+                case "ADMIN":
+                    clearConsoleIDE();
+                    TempSession.setCurrentUser(currentUser);
+                    new UserAdminMenu().displayMenuLv(currentUser); // tao menu admin gup em
+                    TempSession.clear();
+                    running = false;
+                    break;
                 case "SITE_MANAGER":
                     clearConsoleIDE();
                     TempSession.setCurrentUser(currentUser); // Luu gia tri nguoi dung vao de sai cho viec checkin
