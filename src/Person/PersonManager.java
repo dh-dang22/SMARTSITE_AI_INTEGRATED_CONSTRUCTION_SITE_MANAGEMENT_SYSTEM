@@ -374,7 +374,8 @@ public class PersonManager {
         }
 
         displayPersonInformation(person);
-
+        Draft.displayMenuLine();
+        System.out.println("");
         System.out.println("    [1] Update full name");
         System.out.println("    [2] Update code");
         System.out.println("    [3] Update status");
@@ -384,7 +385,7 @@ public class PersonManager {
                 "    Choose information to update [0-4]: ", 0, 4,
                 Draft.center(Draft.RED + "Please enter a number from 0 to 4." + Draft.BAS));
         if (choice == 0 || choice == -1) {
-            System.out.println("Update cancelled.");
+            System.out.println(Draft.center("Update cancelled."));
             return;
         }
 
@@ -639,6 +640,10 @@ public class PersonManager {
     }
     private static final String DATA_FILE = "data/Person.txt";   // dùng chung cho load và save
 
+    public List<Person> getAllPeople() {
+            return new ArrayList<>(people);
+        }
+    
     public boolean saveToFile() {
         Path target = Paths.get(DATA_FILE);
         Path temp = Paths.get(DATA_FILE + ".tmp");

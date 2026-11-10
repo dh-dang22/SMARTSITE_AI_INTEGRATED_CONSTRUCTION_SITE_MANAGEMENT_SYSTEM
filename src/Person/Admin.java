@@ -8,6 +8,6 @@ public class Admin extends Person {
 
     @Override
     protected void printRoleDetails() {
-        System.out.println("Role details: System Administrator");
+        System.out.println("    Role details: System Administrator");
     }
 }

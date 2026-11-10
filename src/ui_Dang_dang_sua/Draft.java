@@ -226,8 +226,8 @@ public class Draft {
         switch (choice) {
             case (1):
                 Draft.clearConsoleIDE();
-                LoginMenu menu = new LoginMenu();
-                menu.displayLoginMenu();
+                LoginMenu menuLogin = new LoginMenu();
+                menuLogin.displayLoginMenu();
                 break;
             case (2):
                 System.out.println("");

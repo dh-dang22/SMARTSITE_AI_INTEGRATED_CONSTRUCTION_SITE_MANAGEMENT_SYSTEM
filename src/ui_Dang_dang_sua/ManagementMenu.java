@@ -8,9 +8,11 @@ import Person.PersonManager;
 import Validatable.InputScanner;
 import Zone.Zone;
 import Zone.ZoneManager2;
+import Validatable.CheckId;
 import Incident.IncidentManager;
 //import Zone.ZoneManager2;
-public class UniqueSiteManagerMenu {
+
+public class ManagementMenu {
 
     private final Scanner sc2 = new Scanner(System.in);
     // AddPerson và UniqueSiteManagerMenu: lấy cùng danh sách
@@ -18,12 +20,12 @@ public class UniqueSiteManagerMenu {
     ZoneManager2 zm = ZoneManager2.getInstance();
     Zone activeZone = zm.getRandomActiveZone();
     AttendanceManager attendanceManager = AttendanceManager.getInstance();
-
-    UniqueSiteManagerMenu() {
+    
+    ManagementMenu() {
         this(PersonManager.getInstance());
     }
 
-    UniqueSiteManagerMenu(PersonManager pm) {
+    ManagementMenu(PersonManager pm) {
         this.pm = pm;
     }
 
@@ -114,7 +116,7 @@ public class UniqueSiteManagerMenu {
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
-                    case 7 :
+                    case 7:
                         pm.saveToFile();
                         Draft.pause();
                         Draft.clearConsoleIDE();
@@ -123,6 +125,9 @@ public class UniqueSiteManagerMenu {
         } //while
     }//display
 
+    
+    
+    
     public void displayZoneManagementMenu() {
         ZoneManager2 tempZone = ZoneManager2.getInstance();
         Scanner tempSC = new Scanner(System.in);
@@ -225,21 +230,98 @@ public class UniqueSiteManagerMenu {
         } //while
     }//display
 
-    public void displayAllAttendance() {
-        AttendanceManager am = AttendanceManager.getInstance();
-        am.displayAll();
-    }//display
+    
+    
+    
+    
 
+
+    
+    
+    public static void displayIncidentManagementMenu() {
+        IncidentManager tempInci = new IncidentManager();
+        Scanner tempSC = new Scanner(System.in);
+
+        while (true) {
+            Draft.displayMenuLine();
+            Draft.displayMenuHeader();
+            Draft.displayMenuLine();
+            Draft.displayMenuGreeting();
+            Draft.displayMenuLine();
+            System.out.println("");
+            System.out.println(Draft.center("=== INCIDENT MANAGEMENT ==="));
+            System.out.println("");
+            System.out.println("    [1] Add Incident(s)");
+            System.out.println("    [2] Find Incident by ID");
+            System.out.println("    [3] Update Incident");
+            System.out.println("    [4] Delete Incident");
+            System.out.println("    [5] Display all Incidents");
+            System.out.println("    [6] Display Incidents Sorted by ID");
+            System.out.println("    [7] Save Incidents to File");
+            System.out.println("");
+            System.out.println("    [0] Back to general menu");
+            System.out.println("");
+
+            int choice = InputScanner.readRange(tempSC, "Choose [0-7]: ", 0, 7, Draft.BLU + "    ➔ Please enter your action [0-7]: " + Draft.BAS);
+            if (choice <= 0) return;
+
+            try {
+                switch (choice) {
+                    case 1:
+                        tempInci.addIncident();
+                        break;
+                    case 2:
+                        String searchId = CheckId.checkIncidentId();
+                        tempInci.findIncidentById(searchId);
+                        break;
+                    case 3:
+                        tempInci.updateIncidentById();
+                        break;
+                    case 4:
+                        tempInci.deleteIncidentById();
+                        break;
+                    case 5:
+                        tempInci.displayIncidents();
+                        break;
+                    case 6:
+                        tempInci.sortIncidentById();
+                        break;
+                    case 7:
+                        tempInci.saveToFile();
+                        break;
+                    default:
+                        break;
+                }
+            } catch (java.util.NoSuchElementException e) {
+                return;
+            }
+
+            Draft.displayMenuLine();
+            Draft.pause();
+            Draft.clearConsoleIDE();
+        }
+    }    
     public void displayAllIncident() {
         IncidentManager im = IncidentManager.getInstance();
-        
+
         im.displayIncidents();
-        
+
     }//display
-    
+
+    public void displayAllAttendance() {
+        AttendanceManager am = AttendanceManager.getInstance();
+        am.displayAllAttendanceReport();
+    }//display
+
+
+
+
+
+
+
     
     /// Hàm qu?n lý tài kho?n c?a admin
-       public void manageAccounts() {
+    public void manageAccounts() {
         try {
             while (true) {
                 AccountManager standardAccounts = new AccountManager("data/accounts.txt");
@@ -338,8 +420,7 @@ public class UniqueSiteManagerMenu {
         }
     }
 
-    private void displayAccountTable(String title, boolean adminTable,
-            AccountManager accounts) {
+    private void displayAccountTable(String title, boolean adminTable, AccountManager accounts) {
         System.out.println();
         System.out.println("==================== " + title + " ====================");
         System.out.printf("%-8s | %-18s | %-15s | %-15s%n",
@@ -365,5 +446,5 @@ public class UniqueSiteManagerMenu {
         }
         System.out.println("---------------------------------------------------------------");
     }
-   
+
 }//class    

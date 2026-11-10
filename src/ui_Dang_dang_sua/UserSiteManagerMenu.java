@@ -48,26 +48,26 @@ public class UserSiteManagerMenu extends MenuUserLv00{
                 break;
             case (5): //hiển thị menu Person Management (chưa chỉnh hết, chưa ổn)
                 Draft.clearConsoleIDE();
-                UniqueSiteManagerMenu ht5 = new UniqueSiteManagerMenu();
+                ManagementMenu ht5 = new ManagementMenu();
                 ht5.displayHumanResourceManagementMenu();
                 Draft.pause();
                 Draft.clearConsoleIDE();
                 break;
             case (6): //hiển thị menu Zone  Management (chưa chỉnh hết, chưa ổn)
                 Draft.clearConsoleIDE();
-                UniqueSiteManagerMenu ht6 = new UniqueSiteManagerMenu();
+                ManagementMenu ht6 = new ManagementMenu();
                 ht6.displayZoneManagementMenu();
                 Draft.pause();
                 Draft.clearConsoleIDE();                
                 break;
             case (7):
-                UniqueSiteManagerMenu ht7 = new UniqueSiteManagerMenu();
+                ManagementMenu ht7 = new ManagementMenu();
                 ht7.displayAllAttendance();
                 Draft.pause();
                 Draft.clearConsoleIDE();                
                 break;
             case (8):
-                UniqueSiteManagerMenu ht8 = new UniqueSiteManagerMenu();
+                ManagementMenu ht8 = new ManagementMenu();
                 ht8.displayAllIncident();
                 Draft.pause();
                 Draft.clearConsoleIDE();                

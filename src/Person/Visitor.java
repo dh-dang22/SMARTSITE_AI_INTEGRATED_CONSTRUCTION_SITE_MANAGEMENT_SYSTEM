@@ -62,7 +62,7 @@ public class Visitor extends Person {
     
     @Override
         protected void printRoleDetails() {
-        System.out.println("Visit-Purpose " + getVisitPurpose());
-        System.out.println("hostName: " + getHostName());
+        System.out.println("    Visit-Purpose: " + getVisitPurpose());
+        System.out.println("    HostName: " + getHostName());
     }
 }
