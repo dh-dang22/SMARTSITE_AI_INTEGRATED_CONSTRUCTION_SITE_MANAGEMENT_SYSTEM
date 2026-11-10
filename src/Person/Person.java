@@ -112,10 +112,10 @@ public abstract class Person implements Validatable {
       // de xuat mau ham print 
       // Dang chinh
      public void printPersonSummary() {
-        System.out.println("Name:   " + getFullName());
-        System.out.println("ID:     " + getId());
-        System.out.println("Code:   " + getCode());
-        System.out.println("Status: " + getStatus());
+        System.out.println("    Name:   " + getFullName());
+        System.out.println("    ID:     " + getId());
+        System.out.println("    Code:   " + getCode());
+        System.out.println("    Status: " + getStatus());
 
         printRoleDetails();
     }

@@ -374,9 +374,9 @@ public class IncidentManager {
     // Các hàm trợ giúp kẻ BẢNG
     // ----------------------------------------------------------------
     private void printTableHeader() {
-        System.out.printf("        %-8s | %-8s | %-10s | %-40s | %-12s | %-19s%n",
+        System.out.printf("    %-8s | %-8s | %-10s | %-40s | %-12s | %-19s%n",
                 "Inc ID", "Zone ID", "Person ID", "Description", "Status", "Time");
-        System.out.println("      ---------------------------------------------------------------------------------------------------------------");
+        System.out.println("  --------------------------------------------------------------------------------------------------------------------");
     }
 
     private void printIncidentRow(Incident inc) {
@@ -390,12 +390,12 @@ public class IncidentManager {
         String colorPrefix = inc.isSaved() ? Draft.BLU : "";
         String colorReset = inc.isSaved() ? Draft.BAS : "";
 
-        System.out.printf("%s        %-8s | %-8s | %-10s | %-40.40s | %-12s | %-19s%s%n",
+        System.out.printf("%s    %-8s | %-8s | %-10s | %-40.40s | %-12s | %-19s%s%n",
                 colorPrefix, id, zId, pId, desc, status, time, colorReset);
     }
 
     private void printTableFooter() {
-        System.out.println("      ---------------------------------------------------------------------------------------------------------------");
+        System.out.println("  --------------------------------------------------------------------------------------------------------------------");
     }
 
     private String truncate(String text, int maxLength) {

@@ -13,20 +13,17 @@ public class MenuAdminKhangSua extends MenuUserLv00 {
         System.out.println("    [2] Check-in");
         System.out.println("    [3] Check-out");
         System.out.println("    [4] Display your attendance history");
-        System.out.println("    [5] Human resources and account management");
-        System.out.println("    [6] Zone management");
-        System.out.println("    [7] Incident management");
-        System.out.println("    [8] Display all attendance records");
-        System.out.println("    [9] Display all incident reports");
+        System.out.println("    [5] Display Account management");
+
     }
 
     @Override
     public void chooseOption(int choice) {
-        UniqueSiteManagerMenu management = new UniqueSiteManagerMenu();
+        ManagementMenu management = new ManagementMenu();
 
         switch (choice) {
             case 1:
-                UniqueSiteManagerMenu admin = new UniqueSiteManagerMenu();
+                ManagementMenu admin = new ManagementMenu();
                 admin.manageAccounts();
                 Draft.pause();
                 Draft.clearConsoleIDE();
@@ -38,22 +35,10 @@ public class MenuAdminKhangSua extends MenuUserLv00 {
                 attendanceManager.checkOutFromInput();
                 break;
             case 4:
-                attendanceManager.displayAll();
+                attendanceManager.displayAllAttendanceReport();
                 break;
             case 5:
                 management.displayHumanResourceManagementMenu();
-                break;
-            case 6:
-                management.displayZoneManagementMenu();
-                break;
-            case 7:
-                IncidentMenu.getInstance().display();
-                break;
-            case 8:
-                management.displayAllAttendance();
-                break;
-            case 9:
-                management.displayAllIncident();
                 break;
             default:
                 System.out.println("Invalid choice. Please select again.");
@@ -61,7 +46,6 @@ public class MenuAdminKhangSua extends MenuUserLv00 {
 
         Draft.displayMenuLine();
         Draft.pause();
-        Draft.clearConsoleIDE();
         
     }
 }

@@ -62,7 +62,7 @@ public class SafetyOfficer extends Person {
     }
     @Override
         protected void printRoleDetails() {
-        System.out.println("InsectionLicense: " + getInspectionLicense());
+        System.out.println("    Insection License: " + getInspectionLicense());
     }
 }
     

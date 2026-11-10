@@ -11,6 +11,7 @@ import java.util.List;
 import Zone.Zone;
 import Zone.RestrictedZone;
 import Zone.ZoneManager2;
+import com.sun.org.apache.xerces.internal.util.DraconianErrorHandler;
 //import cho phan doc file va check file attendance record
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -21,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import static java.time.temporal.TemporalQueries.zone;
 import java.util.Scanner;
+import ui_Dang_dang_sua.Draft;
 
 /**
  *
@@ -230,7 +232,8 @@ try {
         }
 
         boolean found = false;
-        System.out.println("\n--- Attendance History : " + personId + " ---");
+        System.out.println("");
+        System.out.println(Draft.center("--- Attendance History : " + personId + " ---"));
 
         for (AttendanceRecord record : records) {
             if (record.getPersonId().equalsIgnoreCase(personId.trim())) {
@@ -240,15 +243,17 @@ try {
         }
 
         if (!found) {
-            System.out.println("You don't have any attendance histories now!");
+            System.out.println(Draft.center(Draft.RED+"You haven't had any attendance yet!"+Draft.BAS));
         }
     }
 
-    public void displayAll() {
-        System.out.println("\n--- Attendance History ---");
-
+    public void displayAllAttendanceReport() {
+        System.out.println("");
+        System.out.println(Draft.center("----------------------------"));
+        System.out.println(Draft.center("|--- Attendance History ---|"));
+        System.out.println(Draft.center("----------------------------"));
         if (records.isEmpty()) {
-            System.out.println("Attendance History is empty!");
+            System.out.println(Draft.center(Draft.RED+"Attendance History is empty!"+Draft.BAS));
             return;
         }
 
@@ -258,22 +263,25 @@ try {
     }
 
     private void displayRecord(AttendanceRecord record) {
-        System.out.println("----------------------------------------");
-        System.out.println("Record ID : " + record.getRecordId());
-        System.out.println("Person ID : " + record.getPersonId());
-        System.out.println("Zone ID   : " + record.getZoneId());
-        System.out.println("Check-in  : " + record.getCheckInTime());
-        System.out.println("Check-out : " + (record.isOpen()
-                ? "Not check-out yet"
+        System.out.println("");
+        System.out.println("    --------------------------------------------------");
+        System.out.println("    |Record ID : " + record.getRecordId());
+        System.out.println("    |Person ID : " + record.getPersonId());
+        System.out.println("    |Zone ID   : " + record.getZoneId());
+        System.out.println("    |Check-in  : " + record.getCheckInTime());
+        System.out.println("    |Check-out : " + (record.isOpen()
+                ? Draft.RED+"You haven't check-out yet"+Draft.BAS
                 : record.getCheckOutTime().toString()));
-        System.out.println("Time      : " + record.calculateDurationMinutes());
+        System.out.println("    |Time      : " + record.calculateDurationMinutes());
+        System.out.println("    --------------------------------------------------");
+        System.out.println("");
     }
 // Dùng khi gọi từ menu chính
 public void displayAttendanceManagementMenu() {
     Person currentUser =
             ui_Dang_dang_sua.TempSession.getCurrentUser();
     if (currentUser == null) {
-        System.out.println("No user has been found.");
+        System.out.println(Draft.center(Draft.RED+"No user has been found."+Draft.BAS));
         return;
     }
     ZoneManager2 zoneManager = new ZoneManager2();
@@ -285,7 +293,7 @@ public void displayAttendanceManagementMenu(
         Person currentUser,
         ZoneManager2 zoneManager) {
     if (currentUser == null || zoneManager == null) {
-        System.out.println("No data about person or zone.");
+        System.out.println(Draft.center(Draft.RED+"No data about person or zone."+Draft.BAS));
         return;
     }
 }
