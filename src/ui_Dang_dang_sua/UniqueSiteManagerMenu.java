@@ -1,6 +1,6 @@
 package ui_Dang_dang_sua;
 
-import Account.AccountManager;
+import account.AccountManager;
 import java.util.Scanner;
 
 import Attendance.AttendanceManager;
@@ -8,8 +8,6 @@ import Person.PersonManager;
 import Validatable.InputScanner;
 import Zone.Zone;
 import Zone.ZoneManager2;
-import java.io.IOException;
-import Attendance.AttendanceManager;
 import Incident.IncidentManager;
 //import Zone.ZoneManager2;
 public class UniqueSiteManagerMenu {
@@ -241,75 +239,131 @@ public class UniqueSiteManagerMenu {
     
     
     /// Hàm qu?n lý tài kho?n c?a admin
-     public void manageAccounts() {
+       public void manageAccounts() {
         try {
-            System.out.println("[1] Manage standard account (accounts.txt)");
-            System.out.println("[2] Manage Admin account (admin_accounts.txt)");
-            System.out.print("Choose account type: ");
-            if (!sc2.hasNextLine()) {
-                return;
-            }
-            String accountType = sc2.nextLine().trim();
-            if (!"1".equals(accountType) && !"2".equals(accountType)) {
-                System.out.println("Invalid account type.");
-                return;
-            }
-            String accountFile = "2".equals(accountType)
-                    ? "data/admin_accounts.txt" : "data/accounts.txt";
-            AccountManager accounts = new AccountManager(accountFile);
+            while (true) {
+                AccountManager standardAccounts = new AccountManager("data/accounts.txt");
+                AccountManager adminAccounts = new AccountManager("data/admin_accounts.txt");
 
-            System.out.print("Enter person code: ");
-            if (!sc2.hasNextLine()) {
-                return;
-            }
-            String code = sc2.nextLine().trim();
-            if (code.isEmpty()) {
-                System.out.println("Person code cannot be empty.");
-                return;
-            }
+                displayAccountTable("STANDARD ACCOUNTS", false, standardAccounts);
+                displayAccountTable("ADMIN ACCOUNTS", true, adminAccounts);
 
-            System.out.println("[1] Add/reset password");
-            System.out.println("[2] Delete account");
-            System.out.print("Choose: ");
-            if (!sc2.hasNextLine()) {
-                return;
-            }
-            String choice = sc2.nextLine().trim();
-
-            if ("1".equals(choice)) {
-                Person.Person person = pm.findPersonByCode(code);
-                boolean correctRole = person != null
-                        && ("2".equals(accountType)
-                        ? "ADMIN".equalsIgnoreCase(person.getRole())
-                        : !"ADMIN".equalsIgnoreCase(person.getRole()));
-                if (!correctRole) {
-                    System.out.println("Person code not found or does not match the selected account type.");
-                    return;
-                }
-
-                System.out.print("Enter new password: ");
+                System.out.println("[1] Add/reset account");
+                System.out.println("[2] Delete account");
+                System.out.println("[3] Check/refresh account status");
+                System.out.println("[0] Back");
+                System.out.print("Choose: ");
                 if (!sc2.hasNextLine()) {
                     return;
                 }
-                String password = sc2.nextLine();
-
-                if (accounts.savePassword(code, password, pm)) {
-                    System.out.println("Account saved.");
-                } else {        
-                    System.out.println("Invalid person code or password.");
+                String action = sc2.nextLine().trim();
+                if ("0".equals(action)) {
+                    return;
                 }
-            } else if ("2".equals(choice)) {
-                if (accounts.deleteAccount(code)) {
+                if ("3".equals(action)) {
+                    continue;
+                }
+                if (!"1".equals(action) && !"2".equals(action)) {
+                    System.out.println("Invalid choice.");
+                    continue;
+                }
+
+                System.out.println("[1] Standard account (accounts.txt)");
+                System.out.println("[2] Admin account (admin_accounts.txt)");
+                System.out.print("Choose account type: ");
+                if (!sc2.hasNextLine()) {
+                    return;
+                }
+                String accountType = sc2.nextLine().trim();
+                if (!"1".equals(accountType) && !"2".equals(accountType)) {
+                    System.out.println("Invalid account type.");
+                    continue;
+                }
+
+                AccountManager accounts = "2".equals(accountType)
+                        ? adminAccounts : standardAccounts;
+                String accountFile = "2".equals(accountType)
+                        ? "data/admin_accounts.txt" : "data/accounts.txt";
+
+                String code;
+                while (true) {
+                    System.out.print("Enter person code: ");
+                    if (!sc2.hasNextLine()) {
+                        return;
+                    }
+                    code = sc2.nextLine().trim();
+                    if (!code.isEmpty()) {
+                        break;
+                    }
+                    System.out.println("Person code cannot be empty. Please try again.");
+                }
+
+                if ("1".equals(action)) {
+                    Person.Person person = pm.findPersonByCode(code);
+                    boolean correctRole = person != null
+                            && ("2".equals(accountType)
+                            ? "ADMIN".equalsIgnoreCase(person.getRole())
+                            : !"ADMIN".equalsIgnoreCase(person.getRole()));
+                    if (!correctRole) {
+                        System.out.println("Person code not found or does not match the selected account type.");
+                        continue;
+                    }
+
+                    String password;
+                    while (true) {
+                        System.out.print("Enter new password: ");
+                        if (!sc2.hasNextLine()) {
+                            return;
+                        }
+                        password = sc2.nextLine();
+                        if (!password.trim().isEmpty()) {
+                            break;
+                        }
+                        System.out.println("Password cannot be empty. Please try again.");
+                    }
+
+                    if (accounts.savePassword(code, password, pm)) {
+                        System.out.println("Account saved.");
+                    } else {
+                        System.out.println("Could not save account.");
+                    }
+                } else if (accounts.deleteAccount(code)) {
                     System.out.println("Account deleted.");
                 } else {
-                    System.out.println("Account not found.");
+                    System.out.println("Account not found in " + accountFile + ".");
                 }
-            } else {
-                System.out.println("Invalid choice.");
             }
         } catch (java.io.IOException e) {
             System.out.println("Cannot update accounts.txt: " + e.getMessage());
         }
+    }
+
+    private void displayAccountTable(String title, boolean adminTable,
+            AccountManager accounts) {
+        System.out.println();
+        System.out.println("==================== " + title + " ====================");
+        System.out.printf("%-8s | %-18s | %-15s | %-15s%n",
+                "ID", "Name", "Code", "Account status");
+        System.out.println("---------------------------------------------------------------");
+
+        boolean foundPerson = false;
+        for (Person.Person person : pm.getAllPeople()) {
+            boolean isAdmin = "ADMIN".equalsIgnoreCase(person.getRole());
+            if (isAdmin != adminTable) {
+                continue;
+            }
+            foundPerson = true;
+            boolean hasAccount = accounts.hasAccount(person.getCode());
+            String status = hasAccount
+                    ? Draft.GRN + "HAS ACCOUNT" + Draft.BAS
+                    : Draft.RED + "NO ACCOUNT" + Draft.BAS;
+            System.out.printf("%-8s | %-18s | %-15s | %s%n",
+                    person.getId(), person.getFullName(), person.getCode(), status);
+        }
+        if (!foundPerson) {
+            System.out.println("No people in this account category.");
+        }
+        System.out.println("---------------------------------------------------------------");
     }
    
 }//class    

@@ -1,4 +1,4 @@
-package Account;
+package  account;
 
 import Person.Person;
 import Person.PersonManager;
@@ -103,6 +103,17 @@ public class AccountManager {
                 StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING,
                 StandardOpenOption.WRITE);
     }
+    public boolean hasAccount(String code) {
+    if (code == null || code.trim().isEmpty()) {
+        return false;
+    }
+    for (String existingCode : accounts.keySet()) {
+        if (existingCode.equalsIgnoreCase(code.trim())) {
+            return true;
+        }
+    }
+    return false;
+}
     
 }
 

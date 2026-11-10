@@ -1,6 +1,4 @@
 package ui_Dang_dang_sua;
-
-import Incident.IncidentManager;
 import Zone.RestrictedZone;
 import Zone.Zone;
 import Zone.ZoneManager2;
