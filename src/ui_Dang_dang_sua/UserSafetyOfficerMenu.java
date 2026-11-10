@@ -15,7 +15,7 @@ public class UserSafetyOfficerMenu extends MenuUserLv00 {
     @Override
     public void displayOption() {
         System.out.println("    [1] Display your information");
-        System.out.println("    [2] Check-in");
+        System.out.println("    [2] Check-in (you have akready checked-in when you logged in!)");
         System.out.println("    [3] Check-out");
         System.out.println("    [4] Display History Attendance");
         System.out.println("    [5] Display Incident Management functions");
@@ -25,6 +25,7 @@ public class UserSafetyOfficerMenu extends MenuUserLv00 {
     public void chooseOption(int choice) {
         switch (choice) {
             case (0):
+                Draft.clearConsoleIDE();
                 break;
             case (1):
                 new PersonManager().displayPersonInformation(currentUser);

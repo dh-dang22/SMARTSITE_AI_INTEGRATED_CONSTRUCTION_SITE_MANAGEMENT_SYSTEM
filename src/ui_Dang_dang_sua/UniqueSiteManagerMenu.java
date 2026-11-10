@@ -1,8 +1,11 @@
 package ui_Dang_dang_sua;
 
+import Account.AccountManager;
 import java.util.Scanner;
 
 import Attendance.AttendanceManager;
+import Incident.IncidentManager;
+import Person.Person;
 import Person.PersonManager;
 import Validatable.InputScanner;
 import Zone.Zone;
@@ -49,6 +52,7 @@ public class UniqueSiteManagerMenu {
             System.out.println("    [4]  Delete a Person");
             System.out.println("    [5]  Display all people information"); //
             System.out.println("    [6]  Sort people by name");
+            System.out.println("    [7] Manage accounts");
             System.out.println("");
             System.out.println("    [0]  Back to general menu");
             System.out.println("");
@@ -113,6 +117,11 @@ public class UniqueSiteManagerMenu {
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
+                    case 7:
+                        manageAccounts();
+                        Draft.pause();
+                        Draft.clearConsoleIDE();
+                        break;       
                 }
             }
         } //while
@@ -206,6 +215,7 @@ public class UniqueSiteManagerMenu {
                     case (7): // lưu dữ liệu (chưa chỉnh, đã ổn)
                         tempZone.saveToFile();
                         break;
+                     
 //                    case (9): // tải dữ liệu (chưa chỉnh, hok rõ)
 //                        try {
 //                            tempZone.loadFromFile("Zone.txt");
@@ -221,11 +231,66 @@ public class UniqueSiteManagerMenu {
     }//display
 
     public void displayAllAttendance() {
-        Draft.functionIsNotCompletedYet();
+        AttendanceManager am = AttendanceManager.getInstance();
+        am.displayAll();
     }//display
 
     public void displayAllIncident() {
-        Draft.functionIsNotCompletedYet();
+        IncidentManager im = IncidentManager.getInstance();
+        
+        im.displayIncidents();
+        
     }//display
+      private void manageAccounts() {
+        try {
+            AccountManager accounts = new AccountManager();
 
+            System.out.print("Enter person code: ");
+            if (!sc2.hasNextLine()) {
+                return;
+            }
+            String code = sc2.nextLine().trim();
+            if (code.isEmpty()) {
+                System.out.println("Person code cannot be empty.");
+                return;
+            }
+
+            System.out.println("[1] Add/reset password");
+            System.out.println("[2] Delete account");
+            System.out.print("Choose: ");
+            if (!sc2.hasNextLine()) {
+                return;
+            }
+            String choice = sc2.nextLine().trim();
+
+            if ("1".equals(choice)) {
+                if (pm.findPersonByCode(code) == null) {
+                    System.out.println("Person code not found in Person.txt.");
+                    return;
+                }
+
+                System.out.print("Enter new password: ");
+                if (!sc2.hasNextLine()) {
+                    return;
+                }
+                String password = sc2.nextLine();
+
+                if (accounts.savePassword(code, password, pm)) {
+                    System.out.println("Account saved.");
+                } else {
+                    System.out.println("Invalid person code or password.");
+                }
+            } else if ("2".equals(choice)) {
+                if (accounts.deleteAccount(code)) {
+                    System.out.println("Account deleted.");
+                } else {
+                    System.out.println("Account not found.");
+                }
+            } else {
+                System.out.println("Invalid choice.");
+            }
+        } catch (java.io.IOException e) {
+            System.out.println("Cannot update accounts.txt: " + e.getMessage());
+        }
+    }
 }//class
