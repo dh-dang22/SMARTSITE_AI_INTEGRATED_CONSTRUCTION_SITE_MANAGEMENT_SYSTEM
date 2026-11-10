@@ -42,9 +42,8 @@ public class IncidentMenu {
             System.out.println("    [0] Back");
             System.out.println("");
 
-            int choice = InputScanner.readRange(sc, "    Choose [0-7]: ", 0, 7, Draft.BLU + "    ➔ Please enter your action [0-7]: " + Draft.BAS);
+            int choice = InputScanner.readRange(sc, "Choose [0-7]: ", 0, 7, Draft.BLU + "    ➔ Please enter your action [0-7]: " + Draft.BAS);
             if (choice == 0) {
-                Draft.clearConsoleIDE();
                 return;
             }
 

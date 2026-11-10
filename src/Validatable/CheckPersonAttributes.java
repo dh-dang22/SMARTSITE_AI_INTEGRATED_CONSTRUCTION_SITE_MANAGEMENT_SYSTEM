@@ -9,7 +9,6 @@ import ui_Dang_dang_sua.Draft;
 
 // include : checkCompanyName, checkContractType, checkDepartment, checkLicense, checkRole, checkStatus, checkVisitPurpose
 public class CheckPersonAttributes {
-
     private static final Scanner sc = new Scanner(System.in);
 
     public static String checkCompanyName() {
@@ -29,30 +28,29 @@ public class CheckPersonAttributes {
             return companyName;
         }
     }
-
+    
     public static String checkContractType() {
-        while (true) {
-          
-            System.out.println("       [1] FULLTIME");
-            System.out.println("       [2] PARTTIME");
-            System.out.println("       [3] SEASONAL");
-            System.out.println("    ➔ Select Contract Type: ");
+    while (true) {
+        System.out.println("    ➔ Select Contract Type:");
+        System.out.println("       [1] FULLTIME");
+        System.out.println("       [2] PARTTIME");
+        System.out.println("       [3] SEASONAL");
+        System.out.print("    Choose [1-3]: ");
 
-            String choice = sc.nextLine().trim();
-            switch (choice) {
-                case "1":
-                    return "FULLTIME";
-                case "2":
-                    return "PARTTIME";
-                case "3":
-                    return "SEASONAL";
-                default:
-                    System.out.println(Draft.center(Draft.RED + "[Error]: Invalid choice! Please select between 1 and 3." + Draft.BAS));
-                    break;
-            }
+        String choice = sc.nextLine().trim();
+        switch (choice) {
+            case "1":
+                return "FULLTIME";
+            case "2":
+                return "PARTTIME";
+            case "3":
+                return "SEASONAL";
+            default:
+                System.out.println(Draft.center(Draft.RED + "[Error]: Invalid choice! Please select between 1 and 3." + Draft.BAS));
+                break;
         }
     }
-
+}
     public static String checkDepartment() {
         while (true) {
             System.out.print("    ➔ Enter Department: ");
@@ -70,12 +68,11 @@ public class CheckPersonAttributes {
             return dept;
         }
     }
-
-    public static String checkLicense() {
+     public static String checkLicense() {
         while (true) {
             System.out.print("    ➔ Enter Inspection License: ");
             String input = sc.nextLine();
-
+            
             String inspectionLicense = input.trim().replaceAll("\\s+", " ");
 
             if (inspectionLicense.length() < 1 || inspectionLicense.length() > 100) {
@@ -91,37 +88,38 @@ public class CheckPersonAttributes {
             return inspectionLicense;
         }
     }
+     public static String checkRole() {
+    while (true) {
+        System.out.println("    ➔ Select Role:");
+        System.out.println("       [1] WORKER");
+        System.out.println("       [2] VISITOR");
+        System.out.println("       [3] SITE_MANAGER");
+        System.out.println("       [4] SAFETY_OFFICER");
+        System.out.print("    Choose [1-4]: ");
 
-    public static String checkRole() {
-        while (true) {
-            System.out.println("       [1] WORKER");
-            System.out.println("       [2] VISITOR");
-            System.out.println("       [3] SITE_MANAGER");
-            System.out.println("       [4] SAFETY_OFFICER");
-            System.out.println("    ➔ Select Role: ");
-
-            String choice = sc.nextLine().trim();
-            switch (choice) {
-                case "1":
-                    return "WORKER";
-                case "2":
-                    return "VISITOR";
-                case "3":
-                    return "SITE_MANAGER";
-                case "4":
-                    return "SAFETY_OFFICER";
-                default:
-                    System.out.println(Draft.center(Draft.RED + "[Error]: Invalid choice! Please select between 1 and 4." + Draft.BAS));
-                    break;
-            }
+        String choice = sc.nextLine().trim();
+        switch (choice) {
+            case "1":
+                return "WORKER";
+            case "2":
+                return "VISITOR";
+            case "3":
+                return "SITE_MANAGER";
+            case "4":
+                return "SAFETY_OFFICER";
+            default:
+                System.out.println(Draft.center(Draft.RED + "[Error]: Invalid choice! Please select between 1 and 4." + Draft.BAS));
+                break;
         }
     }
+}
 
-   public static String checkStatus() {
+      public static String checkStatus() {
     while (true) {
+        System.out.println("    ➔ Select Status:");
         System.out.println("       [1] ACTIVE");
         System.out.println("       [2] INACTIVE");
-        System.out.println("    ➔ Select Status: ");
+        System.out.print("    Choose [1-2]: ");
 
         String choice = sc.nextLine().trim();
         switch (choice) {
@@ -135,8 +133,7 @@ public class CheckPersonAttributes {
         }
     }
 }
-
-    public static String checkVisitPurpose() {
+      public static String checkVisitPurpose() {
         while (true) {
             System.out.print("    ➔ Enter Visit Purpose: ");
             String input = sc.nextLine();

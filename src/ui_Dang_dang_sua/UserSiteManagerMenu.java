@@ -7,10 +7,10 @@ public class UserSiteManagerMenu extends MenuUserLv00{
     @Override
     public void displayOption(){
         System.out.println("    [1] Display your information");
-        System.out.println("    [2] Check-in (you have akready checked-in when you logged in!)");
+        System.out.println("    [2] Check-in");
         System.out.println("    [3] Check-out");
         System.out.println("    [4] Display History Attendance");
-        System.out.println("    [5] Display human resources management functions");
+        System.out.println("    [5] Display Human Resources management functions");
         System.out.println("    [6] Display Zone management functions");
         System.out.println("    [7] Display all History Attendance Report");
         System.out.println("    [8] Display all Incident Reports");
@@ -20,7 +20,6 @@ public class UserSiteManagerMenu extends MenuUserLv00{
     public void chooseOption(int choice){
         switch (choice){
             case (0):
-                Draft.clearConsoleIDE();
                 break;
             case (1): //hiển thị thông tin (đã chỉnh, ổn)
                 PersonManager ht1 = new PersonManager();

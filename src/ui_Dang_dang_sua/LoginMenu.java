@@ -1,5 +1,6 @@
 package ui_Dang_dang_sua;
 
+import Incident.IncidentManager;
 import java.util.Scanner;
 import Person.Person;
 import Person.PersonManager;
@@ -17,6 +18,7 @@ import static ui_Dang_dang_sua.Draft.displayMenuLine;
 public class LoginMenu {
 
     private PersonManager pm = PersonManager.getInstance(); // Khai bao them doi tuong pm moi
+    IncidentManager im = IncidentManager.getInstance();
     private final CheckPassword checker = new CheckPassword();
     private boolean loadPeople;
     private static boolean peopleLoaded;
@@ -47,8 +49,7 @@ public class LoginMenu {
 
         Scanner sc = InputScanner.getScanner();
         boolean running = true;
-       int failedAttempts = 0;
-        while (running && failedAttempts < 3) {
+        while (running) {
             displayMenuLine();//in gạch
             displayMenuHeader();//in banner
             displayMenuLine();//in gạch
@@ -78,34 +79,43 @@ public class LoginMenu {
                 return;
             }
             String password = sc.nextLine();
-            Person currentUser = checker.check(code, password)
-                    ? pm.findPersonByCode(code)
-                    : null;
-
-            if (currentUser == null) {
-                failedAttempts++;
-                System.out.println(Draft.center(Draft.RED + "Login fail! Attempts remaining: "
-                        + (3 - failedAttempts) + Draft.BAS));
-                if (failedAttempts >= 3) {
-                    System.out.println(Draft.center(Draft.RED
-                            + "Maximum login attempts reached. Returning to Welcome Menu." + Draft.BAS));
-                    return;
-                }
+            if (!checker.check(code, password)) {
+                System.out.println(Draft.center(Draft.RED + "Login fail!" + Draft.BAS));
                 Draft.pause();
                 Draft.clearConsoleIDE();
                 continue;
             }
-            System.out.println("");
-            Draft.displayMenuLine();
-            System.out.println("");
-            
-            if (activeZone instanceof RestrictedZone) { 
-                String roleUpper = currentUser.getRole().trim().toUpperCase(); 
-                if (!roleUpper.equals("SITE_MANAGER") && !roleUpper.equals("SAFETY_OFFICER")) { 
-                    System.out.println(Draft.center(Draft.RED + "[!] ACCESS DENIED: Restricted Zone only allows Site Manager & Safety Officer!" + Draft.BAS)); 
-                    System.out.println(Draft.center("Returning to Welcome Menu...")); 
-                    Draft.pause(); 
-                    Draft.clearConsoleIDE(); 
+            Person currentUser = pm.findPersonByCode(code);
+
+            if (currentUser == null) {
+                System.out.println(Draft.center(Draft.RED + "Login fail!" + Draft.BAS));
+                Draft.pause();
+                Draft.clearConsoleIDE();
+                continue;
+            }
+
+            String userRole = currentUser.getRole(); // Lấy role của người dùng đang đăng nhập
+            String targetZoneId = activeZone.getZoneId();
+
+            // Kiểm tra phong tỏa Zone
+            if (im.hasInProgressIncident(targetZoneId)) {
+                if (!"SAFETY_OFFICER".equalsIgnoreCase(userRole)) {
+                    System.out.println("");
+                    System.out.println(Draft.center(Draft.RED + "[Access Denied]: Zone [" + targetZoneId + "] currently has an IN_PROGRESS incident! Only Safety Officers are allowed." + Draft.BAS));
+                    System.out.println(Draft.center("Returning to Welcome Menu..."));
+                    Draft.pause();
+                    Draft.clearConsoleIDE();
+                    return; // Thoát hàm displayLoginMenu để quay về Welcome Menu
+                }
+            }
+
+            if (activeZone instanceof RestrictedZone) {
+                String roleUpper = currentUser.getRole().trim().toUpperCase();
+                if (!roleUpper.equals("SITE_MANAGER") && !roleUpper.equals("SAFETY_OFFICER")) {
+                    System.out.println(Draft.center(Draft.RED + "[!] ACCESS DENIED: Restricted Zone only allows Site Manager & Safety Officer!" + Draft.BAS));
+                    System.out.println(Draft.center("Returning to Welcome Menu..."));
+                    Draft.pause();
+                    Draft.clearConsoleIDE();
                     return; // Thoát hàm displayLoginMenu để quay về Welcome Menu
                 }
             }

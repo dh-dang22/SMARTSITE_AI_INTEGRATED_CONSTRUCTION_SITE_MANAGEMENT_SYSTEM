@@ -15,7 +15,7 @@ public class UserSafetyOfficerMenu extends MenuUserLv00 {
     @Override
     public void displayOption() {
         System.out.println("    [1] Display your information");
-        System.out.println("    [2] Check-in (you have akready checked-in when you logged in!)");
+        System.out.println("    [2] Check-in");
         System.out.println("    [3] Check-out");
         System.out.println("    [4] Display History Attendance");
         System.out.println("    [5] Display Incident Management functions");
@@ -88,11 +88,7 @@ public class UserSafetyOfficerMenu extends MenuUserLv00 {
             System.out.println("");
 
             int choice = InputScanner.readRange(sc, "Choose [0-7]: ", 0, 7, Draft.BLU + "    ➔ Please enter your action [0-7]: " + Draft.BAS);
-            if (choice <= 0) {
-                Draft.clearConsoleIDE();
-                return;
-            }
-
+            if (choice <= 0) return;
 
             try {
                 switch (choice) {

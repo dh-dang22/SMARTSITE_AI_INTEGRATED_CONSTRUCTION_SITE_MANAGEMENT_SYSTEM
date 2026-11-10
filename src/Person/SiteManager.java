@@ -57,7 +57,7 @@ package Person;
     }
     @Override
     protected void printRoleDetails() {
-        System.out.println("    Department: "+getDepartment());
+        System.out.println("Department"+getDepartment());
  
     }
 }

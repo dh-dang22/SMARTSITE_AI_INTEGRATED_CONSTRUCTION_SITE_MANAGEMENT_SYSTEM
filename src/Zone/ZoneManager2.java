@@ -606,10 +606,10 @@ public class ZoneManager2 {
     }
 
     public void displayOption() {
-        System.out.println("    [1]  Display All Zone");
-        System.out.println("    [2]  Display Normal Zone Only");
-        System.out.println("    [3]  Display Restricted Zone Only");
-        System.out.print("    Enter your choice: ");
+        System.out.println("    1.Display All Zone");
+        System.out.println("    2.Display Normal Zone Only");
+        System.out.println("    3.Display Restricted Zone Only");
+        System.out.print("  Enter your choice: ");
         Scanner sc = Validatable.InputScanner.getScanner();
         int choice = Integer.parseInt(sc.nextLine().trim());
         switch (choice) {

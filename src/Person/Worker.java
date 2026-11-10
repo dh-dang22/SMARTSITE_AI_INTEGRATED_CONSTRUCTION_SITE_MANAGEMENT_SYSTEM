@@ -52,8 +52,8 @@ public class Worker extends Person {
     // 1. Nhập dữ liệu và trả về đối tượng Worker.
     @Override
         protected void printRoleDetails() {
-        System.out.println("    Company: " + getCompanyName());
-        System.out.println("    Contract-type: " + getContractType());
+        System.out.println("Company: " + getCompanyName());
+        System.out.println("Contract-type: " + getContractType());
     }
 }
 

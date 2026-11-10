@@ -1,6 +1,5 @@
 package ui_Dang_dang_sua;
 
-import Attendance.AttendanceManager;
 import java.util.Scanner;
 import Person.Person;
 import Zone.Zone;
@@ -42,15 +41,11 @@ public abstract class MenuUserLv00 {
             Draft.displayMenuLine();
 
             if (choice == 0) {                          // Thoát menu
-                if (AttendanceManager.getInstance().findOpenRecord(currentUser.getId()) != null) {
-                    System.out.println(Draft.center(Draft.RED
-                            + "Warning: You are still checked in. Please check out before leaving." + Draft.BAS));
-                }
                 running = false;
                 System.out.println("    ➔ The system is logging out...");
                 Draft.pause();
             } else {
-                chooseOption(choice);                      // Xử lý chức năng đã chọn
+                chooseOption(choice);                   // Xử lý chức năng đã chọn
             }
         } // while
     } // displayMenuLv
