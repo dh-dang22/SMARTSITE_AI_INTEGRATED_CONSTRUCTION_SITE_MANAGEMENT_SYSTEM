@@ -26,7 +26,6 @@ public class PersonManager {
     private int size;*/
     private final List<Person> people = new ArrayList<>();
     private static PersonManager instance;
-    
 
     public PersonManager() {
     }
@@ -139,14 +138,6 @@ public class PersonManager {
                     );
                     break;
 
-                case "SITE_MANAGER":
-                    String department = CheckPersonAttributes.checkDepartment();
-
-                    person = new SiteManager(
-                            id, name, code, role, status, department
-                    );
-                    break;
-
                 default:
                     return;
             }
@@ -159,38 +150,6 @@ public class PersonManager {
             }
         } catch (NoSuchElementException e) {
             System.out.println(Draft.center("Cancel the adding process!"));
-        }
-    }
-
-    private String chooseRole() {
-        while (true) {
-            System.out.println(Draft.center("--- Enter the ROLE ---"));
-            System.out.println("    [1]  Worker");
-            System.out.println("    [2]  Contractor");
-            System.out.println("    [3]  Visitor");
-            System.out.println("    [4]  Safety Officer");
-            System.out.println("    [5]  Site Manager");
-            System.out.println("    [0]  Cancel");
-            System.out.println("");
-
-            String choice = readRequired(Draft.BLU + "    ➔ Enter Person's role   : " + Draft.BAS);
-
-            switch (choice) {
-                case "1":
-                    return "WORKER";
-                case "2":
-                    return "CONTRACTOR";
-                case "3":
-                    return "VISITOR";
-                case "4":
-                    return "SAFETY_OFFICER";
-                case "5":
-                    return "SITE_MANAGER";
-                case "0":
-                    return null;
-                default:
-                    System.out.println(Draft.center(Draft.RED + "Please enter the number between 0-4!" + Draft.BAS));
-            }
         }
     }
 
@@ -438,6 +397,7 @@ public class PersonManager {
             ));
         }
     }
+
     private String readUpdatedCode(Person person, Scanner scanner) {
         String prefix;
         switch (person.getRole().trim().toUpperCase()) {
@@ -487,6 +447,7 @@ public class PersonManager {
             return inputCode;
         }
     }
+
     public void displayPersonFound() {
 
     }
@@ -547,7 +508,7 @@ public class PersonManager {
                 }
 
                 String[] data = line.split("\\|", -1);
-                if (data.length < 5) {
+                if (data.length < 6) {
                     System.out.println("[!] Dòng " + lineNumber + " thiếu dữ liệu: " + line);
                     continue;
                 }
@@ -585,8 +546,7 @@ public class PersonManager {
                     case "SAFETY_OFFICER":
                         // parts[5]=inspectionLicense
                         String license = data.length > 5 ? data[5].trim() : "";
-                        person = new SafetyOfficer(id, fullName, code, role, status,
-                                0, license);
+                        person = new SafetyOfficer(id, fullName, code, role, status, 0, license);
                         break;
 
                     case "SITE_MANAGER":
@@ -597,7 +557,8 @@ public class PersonManager {
                         break;
 
                     case "ADMIN":
-                        person = new Admin(id, fullName, code, status);
+                        String adminDetail = data.length > 5 ? data[5].trim() : "";
+                        person = new Admin(id, fullName, code, status, adminDetail);
                         break;
 
                     default:
@@ -607,8 +568,8 @@ public class PersonManager {
                 }
 
                 if (!addPerson(person)) {
-                    System.out.println("[!] Không thêm được người ở dòng "
-                            + lineNumber + " (ID trùng?): " + id);
+                    System.out.println("[!] Can't add peron at rows: "
+                            + lineNumber + " (Id): " + id);
                 }
             }
         }
@@ -624,26 +585,64 @@ public class PersonManager {
         System.out.println("");
         System.out.println(Draft.center("=== ACCOUNT INFORMATION ==="));
         System.out.println("");
-        System.out.println("    🆔  ID    : " + person.getId());
-        System.out.println("    👤  Name  : " + person.getFullName());
-        System.out.println("    💼  Role  : " + person.getRole());
-        System.out.println("    🟢  Status: " + Draft.GRN + person.getStatus() + Draft.BAS);
+        System.out.println("    🆔  ID     : " + person.getId());
+        System.out.println("    👤  Name   : " + person.getFullName());
+        System.out.println("    💼  Role   : " + person.getRole());
+        System.out.println("    🟢  Status : " + Draft.GRN + person.getStatus() + Draft.BAS);
         System.out.println("");
         //person.getId(), person.getFullName(), person.getRole(), person.getStatus()
         if (person instanceof Worker) {
             Worker worker = (Worker) person;
 
             // Thay bằng đúng getter có trong Worker.java
-            System.out.println("    Company       : " + worker.getCompanyName());
-            System.out.println("    Contract type : " + worker.getContractType());
+            System.out.println("    🏢  Company: " + worker.getCompanyName());
+            System.out.println("    📋  C.type : " + worker.getContractType());
+            System.out.println("");
+        }
+        if (person instanceof Contractor) {
+            Contractor contractor = (Contractor) person;
+
+            // Thay bằng đúng getter có trong Worker.java
+            System.out.println("    🏢  Company: " + contractor.getContactPerson());
+            System.out.println("");
+        }
+        if (person instanceof Visitor) {
+            Visitor visitor = (Visitor) person;
+
+            // Thay bằng đúng getter có trong Worker.java
+            System.out.println("    👥  Greeter: " + visitor.getHostName());
+            System.out.println("    👁  Purpose: " + visitor.getVisitPurpose());
+            System.out.println("");
+        }
+        if (person instanceof SafetyOfficer) {
+            SafetyOfficer safety = (SafetyOfficer) person;
+
+            // Thay bằng đúng getter có trong Worker.java
+            System.out.println("    📄  Lincense: " + safety.getInspectionLicense());
+            System.out.println("");
+        }
+        if (person instanceof SiteManager) {
+            SiteManager site = (SiteManager) person;
+
+            // Thay bằng đúng getter có trong Worker.java
+            System.out.println("    🏗️  M.Site  : " + site.getDepartment());
+            System.out.println("");
+        }
+        if (person instanceof Admin) {
+            Admin admin = (Admin) person;
+
+            // Thay bằng đúng getter có trong Worker.java
+            System.out.println("    🕵  Details: " + admin.getAdminDetail());
+            System.out.println("");
         }
     }
+
     private static final String DATA_FILE = "data/Person.txt";   // dùng chung cho load và save
 
     public List<Person> getAllPeople() {
-            return new ArrayList<>(people);
-        }
-    
+        return new ArrayList<>(people);
+    }
+
     public boolean saveToFile() {
         Path target = Paths.get(DATA_FILE);
         Path temp = Paths.get(DATA_FILE + ".tmp");

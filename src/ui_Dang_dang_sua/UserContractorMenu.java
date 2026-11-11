@@ -23,31 +23,26 @@ public class UserContractorMenu extends MenuUserLv00{
                 new PersonManager().displayPersonInformation(currentUser);
                 Draft.displayMenuLine();
                 Draft.pause();
-                Draft.clearConsoleIDE();
                 break;
             case (2):
                 attendanceManager.checkInFromInput(activeZone);
                 Draft.displayMenuLine();
                 Draft.pause();
-                Draft.clearConsoleIDE();
                 break;
             case (3):
                 attendanceManager.checkOutFromInput();
                 Draft.displayMenuLine();
                 Draft.pause();
-                Draft.clearConsoleIDE();
                 break;
             case (4):
                 attendanceManager.History(currentUser.getId());
                 Draft.displayMenuLine();
                 Draft.pause();
-                Draft.clearConsoleIDE();
                 break;
             default:
                 System.out.println(Draft.center(Draft.RED+"Invalid choice! Please select again"+Draft.BAS));
                 Draft.displayMenuLine();
                 Draft.pause();
-                Draft.clearConsoleIDE();
         }
     }
 }

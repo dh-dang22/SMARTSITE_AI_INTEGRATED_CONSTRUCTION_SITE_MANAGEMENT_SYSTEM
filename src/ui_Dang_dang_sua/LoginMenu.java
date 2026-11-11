@@ -140,7 +140,7 @@ public class LoginMenu {
                 case "ADMIN":
                     clearConsoleIDE();
                     TempSession.setCurrentUser(currentUser);
-                    new MenuAdminKhangSua().displayMenuLv(currentUser); // tao menu admin gup em
+                    new UserAdminMenu().displayMenuLv(currentUser); // tao menu admin gup em
                     TempSession.clear();
                     running = false;
                     break;

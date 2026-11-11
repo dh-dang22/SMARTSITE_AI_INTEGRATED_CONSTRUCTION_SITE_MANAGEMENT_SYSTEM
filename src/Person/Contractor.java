@@ -2,7 +2,7 @@ package Person;
 
 public class Contractor extends Person {
 
-    private String contactPerson;
+    private String company;
     private String contractStatus;
 
     public Contractor() {
@@ -12,15 +12,15 @@ public class Contractor extends Person {
     public Contractor(String id, String fullName, String code, String status, String contactPerson){
 
         super(id, fullName, code, "CONTRACTOR", status);
-        this.contactPerson = contactPerson;
+        this.company = contactPerson;
     }
 
     public String getContactPerson() {
-        return contactPerson;
+        return company;
     }
 
     public void setContactPerson(String contactPerson) {
-        this.contactPerson = contactPerson;
+        this.company = contactPerson;
     }
 
     public String getContractStatus() {
@@ -34,7 +34,7 @@ public class Contractor extends Person {
     @Override
     public boolean isValid() {
         return super.isValid()
-            && !isBlank(contactPerson)
+            && !isBlank(company)
             && !isBlank(contractStatus)
             && "CONTRACTOR".equals(getRole());
     }
@@ -42,14 +42,14 @@ public class Contractor extends Person {
     @Override
     public String toFileLine() {
         return super.toFileLine()
-            + "|" + contactPerson
+            + "|" + company
             + "|" + contractStatus;
     }
 
     @Override
     public String toString() {
         return super.toString()
-            + " | Contact person: " + contactPerson
+            + " | Contact person: " + company
             + " | Contract status: " + contractStatus;
     }
 

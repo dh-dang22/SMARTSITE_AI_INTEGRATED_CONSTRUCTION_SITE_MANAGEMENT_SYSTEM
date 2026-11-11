@@ -1,6 +1,6 @@
 package ui_Dang_dang_sua;
 
-import account.AccountManager;
+import Account.AccountManager;
 import java.util.Scanner;
 
 import Attendance.AttendanceManager;
@@ -310,7 +310,7 @@ public class ManagementMenu {
 
     public void displayAllAttendance() {
         AttendanceManager am = AttendanceManager.getInstance();
-        am.displayAllAttendanceReport();
+        am.displayAllAttendanceList();
     }//display
 
 
@@ -321,7 +321,7 @@ public class ManagementMenu {
 
     
     /// Hàm qu?n lý tài kho?n c?a admin
-    public void manageAccounts() {
+    public void displayAccountManagementMenu() {
         try {
             while (true) {
                 AccountManager standardAccounts = new AccountManager("data/accounts.txt");
@@ -329,15 +329,19 @@ public class ManagementMenu {
 
                 displayAccountTable("STANDARD ACCOUNTS", false, standardAccounts);
                 displayAccountTable("ADMIN ACCOUNTS", true, adminAccounts);
-
-                System.out.println("[1] Add/reset account");
-                System.out.println("[2] Delete account");
-                System.out.println("[3] Check/refresh account status");
-                System.out.println("[0] Back");
-                System.out.print("Choose: ");
+                System.out.println("");
+                System.out.println("");
+                System.out.println("    [1] Add/reset account");
+                System.out.println("    [2] Delete account");
+                System.out.println("    [3] Find/refresh account status");
+                System.out.println("");
+                System.out.println("    [0] Back");
+                System.out.print("    Enter your choice: ");
                 if (!sc2.hasNextLine()) {
                     return;
                 }
+                
+                
                 String action = sc2.nextLine().trim();
                 if ("0".equals(action)) {
                     return;
@@ -422,10 +426,11 @@ public class ManagementMenu {
 
     private void displayAccountTable(String title, boolean adminTable, AccountManager accounts) {
         System.out.println();
-        System.out.println("==================== " + title + " ====================");
-        System.out.printf("%-8s | %-18s | %-15s | %-15s%n",
+        System.out.println(Draft.center("--- " + title + " ---"));
+        System.out.println("");
+        System.out.printf("                           %-7s | %-28s | %-7s | %-16s%n",
                 "ID", "Name", "Code", "Account status");
-        System.out.println("---------------------------------------------------------------");
+        System.out.println(Draft.center("---------------------------------------------------------------------"));
 
         boolean foundPerson = false;
         for (Person.Person person : pm.getAllPeople()) {
@@ -438,13 +443,13 @@ public class ManagementMenu {
             String status = hasAccount
                     ? Draft.GRN + "HAS ACCOUNT" + Draft.BAS
                     : Draft.RED + "NO ACCOUNT" + Draft.BAS;
-            System.out.printf("%-8s | %-18s | %-15s | %s%n",
+            System.out.printf("                           %-7s | %-28s | %-7s | %-16s%n",
                     person.getId(), person.getFullName(), person.getCode(), status);
         }
         if (!foundPerson) {
-            System.out.println("No people in this account category.");
+            System.out.println(Draft.center(Draft.RED+"No people in this account category."+Draft.BAS));
         }
-        System.out.println("---------------------------------------------------------------");
+        System.out.println(Draft.center("---------------------------------------------------------------------"));
     }
 
 }//class    
