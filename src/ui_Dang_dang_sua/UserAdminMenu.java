@@ -1,15 +1,16 @@
 package ui_Dang_dang_sua;
 
 import Attendance.AttendanceManager;
+import Person.PersonManager;
 
-public class MenuAdminKhangSua extends MenuUserLv00 {
+public class UserAdminMenu extends MenuUserLv00 {
 
     private final AttendanceManager attendanceManager =
             AttendanceManager.getInstance();
 
     @Override
     public void displayOption() {
-        System.out.println("    [1] ManageAccount");
+        System.out.println("    [1] Display your information");
         System.out.println("    [2] Check-in");
         System.out.println("    [3] Check-out");
         System.out.println("    [4] Display your attendance history");
@@ -23,10 +24,9 @@ public class MenuAdminKhangSua extends MenuUserLv00 {
 
         switch (choice) {
             case 1:
-                ManagementMenu admin = new ManagementMenu();
-                admin.manageAccounts();
+                new PersonManager().displayPersonInformation(currentUser);
+                Draft.displayMenuLine();
                 Draft.pause();
-                Draft.clearConsoleIDE();
                 break;
             case 2:
                 attendanceManager.checkInFromInput(activeZone);
@@ -35,17 +35,15 @@ public class MenuAdminKhangSua extends MenuUserLv00 {
                 attendanceManager.checkOutFromInput();
                 break;
             case 4:
-                attendanceManager.displayAllAttendanceReport();
+                attendanceManager.History(currentUser.getId());
                 break;
             case 5:
-                management.displayHumanResourceManagementMenu();
+                management.displayAccountManagementMenu();
                 break;
             default:
                 System.out.println("Invalid choice. Please select again.");
         }
 
-        Draft.displayMenuLine();
-        Draft.pause();
         
     }
 }

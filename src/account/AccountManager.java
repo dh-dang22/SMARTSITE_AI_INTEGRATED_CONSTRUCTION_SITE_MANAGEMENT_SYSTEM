@@ -1,4 +1,4 @@
-package  account;
+package Account;
 
 import Person.Person;
 import Person.PersonManager;
@@ -13,11 +13,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/** Manages code/password pairs stored in an account text file. */
+/**
+ * Manages code/password pairs stored in an account text file.
+ */
 public class AccountManager {
 
     private final Path file;
-    private final Map<String, String> accounts = new LinkedHashMap<>();
+    private final Map<String, Account> accounts = new LinkedHashMap<>();
 
     public AccountManager() throws IOException {
         this("data/accounts.txt");
@@ -35,12 +37,15 @@ public class AccountManager {
             Files.createFile(file);
             return;
         }
-
         for (String line : Files.readAllLines(file, StandardCharsets.UTF_8)) {
-            String[] fields = line.split("\\|", 2);
-            if (fields.length == 2 && !fields[0].trim().isEmpty()
-                    && !fields[1].isEmpty()) {
-                accounts.put(fields[0].trim(), fields[1]);
+            try {
+                Account account = Account.fromFileLine(line);
+
+                if (account.isValid()) {
+                    accounts.put(account.getCode(), account);
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Bỏ qua dòng account không hợp lệ: " + line);
             }
         }
     }
@@ -60,8 +65,13 @@ public class AccountManager {
         }
 
         String storedCode = person.getCode().trim();
+        Account account = new Account(storedCode, password);
+        if (!account.isValid()) {
+            return false;
+        }
+
         removeCodeIgnoreCase(storedCode);
-        accounts.put(storedCode, password);
+        accounts.put(storedCode, account);
         saveToFile();
         return true;
     }
@@ -95,25 +105,27 @@ public class AccountManager {
 
     private void saveToFile() throws IOException {
         Files.createDirectories(file.getParent());
+
         List<String> lines = new ArrayList<>();
-        for (Map.Entry<String, String> entry : accounts.entrySet()) {
-            lines.add(entry.getKey() + "|" + entry.getValue());
+        for (Account account : accounts.values()) {
+            lines.add(account.toFileLine());
         }
+
         Files.write(file, lines, StandardCharsets.UTF_8,
-                StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.TRUNCATE_EXISTING,
                 StandardOpenOption.WRITE);
     }
+
     public boolean hasAccount(String code) {
-    if (code == null || code.trim().isEmpty()) {
+        if (code == null || code.trim().isEmpty()) {
+            return false;
+        }
+        for (String existingCode : accounts.keySet()) {
+            if (existingCode.equalsIgnoreCase(code.trim())) {
+                return true;
+            }
+        }
         return false;
     }
-    for (String existingCode : accounts.keySet()) {
-        if (existingCode.equalsIgnoreCase(code.trim())) {
-            return true;
-        }
-    }
-    return false;
 }
-    
-}
-

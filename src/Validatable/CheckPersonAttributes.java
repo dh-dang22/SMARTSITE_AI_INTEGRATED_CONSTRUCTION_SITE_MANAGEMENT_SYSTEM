@@ -92,8 +92,8 @@ public class CheckPersonAttributes {
     while (true) {
         System.out.println("    ➔ Select Role:");
         System.out.println("       [1] WORKER");
-        System.out.println("       [2] VISITOR");
-        System.out.println("       [3] SITE_MANAGER");
+        System.out.println("       [2] CONTRACTOR");
+        System.out.println("       [3] VISITORR");
         System.out.println("       [4] SAFETY_OFFICER");
         System.out.print("    Choose [1-4]: ");
 
@@ -102,9 +102,9 @@ public class CheckPersonAttributes {
             case "1":
                 return "WORKER";
             case "2":
-                return "VISITOR";
+                return "CONTRACTOR";
             case "3":
-                return "SITE_MANAGER";
+                return "VISITORR";
             case "4":
                 return "SAFETY_OFFICER";
             default:
