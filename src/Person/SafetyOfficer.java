@@ -51,9 +51,9 @@ public class SafetyOfficer extends Person {
 
 
 
-    @Override
+@Override
     public String toFileLine() {
-        return super.toFileLine() /*+ "|" + accessLevel + "|"*/ + inspectionLicense;
+        return super.toFileLine() /*+ "|" + accessLevel + "|"*/ +"|"+ inspectionLicense;
     }
 
     @Override

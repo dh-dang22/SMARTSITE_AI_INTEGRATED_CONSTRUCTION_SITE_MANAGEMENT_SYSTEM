@@ -46,7 +46,7 @@ package Person;
 //        }
 //        this.accessLevel = accessLevel;
 //    }    
-    @Override
+@Override
     public String toFileLine() {
         return super.toFileLine() + "|" + department /*+ "|" + accessLevel*/;
     }
