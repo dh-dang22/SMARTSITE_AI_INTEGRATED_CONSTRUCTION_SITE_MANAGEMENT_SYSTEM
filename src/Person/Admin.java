@@ -3,12 +3,11 @@ package Person;
 public class Admin extends Person {
 
     private String adminDetail;
-
+    
     public Admin(String id, String fullName, String code, String status, String adminDetail) {
         super(id, fullName, code, "ADMIN", status);
         this.adminDetail = adminDetail;
     }
-
     public String getAdminDetail() {
         return adminDetail;
     }
@@ -22,6 +21,7 @@ public class Admin extends Person {
         return super.toFileLine() + "|" + adminDetail;
     }
 
+   
     @Override
     protected void printRoleDetails() {
         System.out.println("Role details: System Administrator");

@@ -50,7 +50,7 @@ public class Visitor extends Person {
         this.hostName = hostName;
     }
 
-@Override
+    @Override
     public String toFileLine() {
         return super.toFileLine() + "|" + visitPurpose + "|" + hostName;
     }

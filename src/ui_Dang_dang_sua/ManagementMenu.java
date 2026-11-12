@@ -1,5 +1,6 @@
 package ui_Dang_dang_sua;
 
+import Account.Account;
 import Account.AccountManager;
 import java.util.Scanner;
 
@@ -10,6 +11,7 @@ import Zone.Zone;
 import Zone.ZoneManager2;
 import Validatable.CheckId;
 import Incident.IncidentManager;
+
 //import Zone.ZoneManager2;
 
 public class ManagementMenu {
@@ -51,7 +53,6 @@ public class ManagementMenu {
             System.out.println("    [4]  Delete a Person");
             System.out.println("    [5]  Display all people information"); //
             System.out.println("    [6]  Sort people by name");
-            System.out.println("    [7]  Save to file");
             System.out.println("");
             System.out.println("    [0]  Back to general menu");
             System.out.println("");
@@ -116,10 +117,6 @@ public class ManagementMenu {
                         Draft.pause();
                         Draft.clearConsoleIDE();
                         break;
-                    case 7:
-                        pm.saveToFile();
-                        Draft.pause();
-                        Draft.clearConsoleIDE();
                 }
             }
         } //while
@@ -321,12 +318,12 @@ public class ManagementMenu {
 
     
     /// Hàm qu?n lý tài kho?n c?a admin
-    public void displayAccountManagementMenu() {
+        public void displayAccountManagementMenu() {
         try {
             while (true) {
                 AccountManager standardAccounts = new AccountManager("data/accounts.txt");
                 AccountManager adminAccounts = new AccountManager("data/admin_accounts.txt");
-
+ 
                 displayAccountTable("STANDARD ACCOUNTS", false, standardAccounts);
                 displayAccountTable("ADMIN ACCOUNTS", true, adminAccounts);
                 System.out.println("");
@@ -336,12 +333,12 @@ public class ManagementMenu {
                 System.out.println("    [3] Find/refresh account status");
                 System.out.println("");
                 System.out.println("    [0] Back");
-                System.out.print("    Enter your choice: ");
+                System.out.print(Draft.BLU+"    ➔ Enter your choice: "+Draft.BAS);
                 if (!sc2.hasNextLine()) {
                     return;
                 }
-                
-                
+ 
+ 
                 String action = sc2.nextLine().trim();
                 if ("0".equals(action)) {
                     return;
@@ -353,27 +350,27 @@ public class ManagementMenu {
                     System.out.println("Invalid choice.");
                     continue;
                 }
-
-                System.out.println("[1] Standard account (accounts.txt)");
-                System.out.println("[2] Admin account (admin_accounts.txt)");
-                System.out.print("Choose account type: ");
+ 
+                System.out.println("    [1] Standard account (accounts.txt)");
+                System.out.println("    [2] Admin account (admin_accounts.txt)");
+                System.out.print(Draft.BLU+"    ➔ Choose account type: "+Draft.BAS);
                 if (!sc2.hasNextLine()) {
                     return;
                 }
                 String accountType = sc2.nextLine().trim();
                 if (!"1".equals(accountType) && !"2".equals(accountType)) {
-                    System.out.println("Invalid account type.");
+                    System.out.println(Draft.center(Draft.RED+"Invalid account type."+Draft.RED));
                     continue;
                 }
-
+ 
                 AccountManager accounts = "2".equals(accountType)
                         ? adminAccounts : standardAccounts;
                 String accountFile = "2".equals(accountType)
                         ? "data/admin_accounts.txt" : "data/accounts.txt";
-
+ 
                 String code;
                 while (true) {
-                    System.out.print("Enter person code: ");
+                    System.out.print(Draft.BLU+"    ➔ Enter person code: "+Draft.BAS);
                     if (!sc2.hasNextLine()) {
                         return;
                     }
@@ -381,9 +378,9 @@ public class ManagementMenu {
                     if (!code.isEmpty()) {
                         break;
                     }
-                    System.out.println("Person code cannot be empty. Please try again.");
+                    System.out.println(Draft.center(Draft.RED+"Person code cannot be empty. Please try again."+Draft.RED));
                 }
-
+ 
                 if ("1".equals(action)) {
                     Person.Person person = pm.findPersonByCode(code);
                     boolean correctRole = person != null
@@ -391,13 +388,13 @@ public class ManagementMenu {
                             ? "ADMIN".equalsIgnoreCase(person.getRole())
                             : !"ADMIN".equalsIgnoreCase(person.getRole()));
                     if (!correctRole) {
-                        System.out.println("Person code not found or does not match the selected account type.");
+                        System.out.println(Draft.center(Draft.RED+"Person code not found or does not match the selected account type."+Draft.RED));
                         continue;
                     }
-
+ 
                     String password;
                     while (true) {
-                        System.out.print("Enter new password: ");
+                        System.out.print(Draft.BLU+"    ➔ Enter new password: "+Draft.BAS);
                         if (!sc2.hasNextLine()) {
                             return;
                         }
@@ -405,22 +402,22 @@ public class ManagementMenu {
                         if (!password.trim().isEmpty()) {
                             break;
                         }
-                        System.out.println("Password cannot be empty. Please try again.");
+                        System.out.println(Draft.center(Draft.RED+"Password cannot be empty. Please try again."+Draft.RED));
                     }
-
+ 
                     if (accounts.savePassword(code, password, pm)) {
-                        System.out.println("Account saved.");
+                        System.out.println(Draft.center(Draft.GRN+"Account saved."+Draft.RED));
                     } else {
-                        System.out.println("Could not save account.");
+                        System.out.println(Draft.center(Draft.RED+"Could not save account."+Draft.BAS));
                     }
                 } else if (accounts.deleteAccount(code)) {
-                    System.out.println("Account deleted.");
+                    System.out.println(Draft.center("Account deleted."));
                 } else {
-                    System.out.println("Account not found in " + accountFile + ".");
+                    System.out.println(Draft.center(Draft.RED+"Account not found in " + accountFile + "."+Draft.BAS));
                 }
             }
         } catch (java.io.IOException e) {
-            System.out.println("Cannot update accounts.txt: " + e.getMessage());
+            System.out.println(Draft.center(Draft.RED+"Cannot update accounts.txt: " + e.getMessage()+Draft.BAS));
         }
     }
 
@@ -428,9 +425,9 @@ public class ManagementMenu {
         System.out.println();
         System.out.println(Draft.center("--- " + title + " ---"));
         System.out.println("");
-        System.out.printf("                           %-7s | %-28s | %-7s | %-16s%n",
-                "ID", "Name", "Code", "Account status");
-        System.out.println(Draft.center("---------------------------------------------------------------------"));
+        System.out.printf("              %-7s | %-10s | %-20s | %-28s | %-16s%n",
+                "ID", "Code", "Name", "Password", "Account status");
+        System.out.println(Draft.center("-----------------------------------------------------------------------------------------------"));
 
         boolean foundPerson = false;
         for (Person.Person person : pm.getAllPeople()) {
@@ -439,17 +436,27 @@ public class ManagementMenu {
                 continue;
             }
             foundPerson = true;
-            boolean hasAccount = accounts.hasAccount(person.getCode());
+            Account account = accounts.getPassword(person.getCode());
+            boolean hasAccount = account != null;
+
+            String password = hasAccount
+                    ? account.getPassword()
+                    : "-";
+
             String status = hasAccount
                     ? Draft.GRN + "HAS ACCOUNT" + Draft.BAS
                     : Draft.RED + "NO ACCOUNT" + Draft.BAS;
-            System.out.printf("                           %-7s | %-28s | %-7s | %-16s%n",
-                    person.getId(), person.getFullName(), person.getCode(), status);
+
+            System.out.printf("              %-7s | %-10s | %-20s | %-28s | %-16s%n",
+                    person.getId(),
+                    person.getCode(),
+                    person.getFullName(),
+                    password,
+                    status);
         }
         if (!foundPerson) {
-            System.out.println(Draft.center(Draft.RED+"No people in this account category."+Draft.BAS));
+            System.out.println(Draft.center(Draft.RED + "No people in this account category." + Draft.BAS));
         }
-        System.out.println(Draft.center("---------------------------------------------------------------------"));
+        System.out.println(Draft.center("-----------------------------------------------------------------------------------------------"));
     }
-
 }//class    

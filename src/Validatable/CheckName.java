@@ -18,12 +18,44 @@ public class CheckName {
                 System.out.println("[Error]: Full Name length must be between 2 and 50 characters! Please try again.");
                 continue;
             }
-            if (!cleanName.matches("^[a-zA-Z\\s]+")) {
-                System.out.println("[Error]: Full Name must contain letters ! Please try again.");
+            if (!cleanName.matches("(?U)^\\p{L}+(?:[ '\u2019-]\\p{L}+)*$")) {
+                System.out.println("[Error]: Name may contain letters, spaces, apostrophes, or hyphens only.");
                 continue;
             }
-            return cleanName;
+
+            boolean hasOverlongPart = false;
+            for (String part : cleanName.split("[ '\u2019-]+")) {
+                if (part.length() > 20) {
+                    hasOverlongPart = true;
+                    break;
+                }
+            }
+            if (hasOverlongPart) {
+                System.out.println("[Error]: Each part of the name must be 20 characters or fewer.");
+                continue;
+            }
+
+            return toTitleCaseName(cleanName);
         }
+    }
+    private static String toTitleCaseName(String name) {
+        StringBuilder result = new StringBuilder(name.length());
+        boolean capitalizeNext = true;
+
+        for (int i = 0; i < name.length(); i++) {
+            char character = name.charAt(i);
+            if (Character.isLetter(character)) {
+                result.append(capitalizeNext
+                        ? Character.toUpperCase(character)
+                        : Character.toLowerCase(character));
+                capitalizeNext = false;
+            } else {
+                result.append(character);
+                capitalizeNext = character == ' ' || character == '-'
+                        || character == '\'' || character == '\u2019';
+            }
+        }
+        return result.toString();
     }
 
     public static String checkZoneName() {

@@ -1,3 +1,9 @@
 SITE_MANAGER|PR0005|Minh Khang|SM0001|ACTIVE|SmartSite Demo
-ADMIN|PR111|TranMinhKhang|AD1111|ACTIVE|Hola Marid
-SAFETY_OFFICER|PR0001|Dang dep zai|SO0001|ACTIVE|IELTS
+VISITOR|PR0002|Dang Cong Tu|VS0002|INACTIVE|To observe the process|Tran Soai Ca
+CONTRACTOR|PR0007|Alfred Marshall|PR0003|ACTIVE|Principles of Economics|null
+CONTRACTOR|PR0008|John Maynard Keynes|CT0003|ACTIVE|The General Theory of Employment, Interest, and Money|null
+VISITOR|PR0031|MrBeast|VS0005|ACTIVE|Go for charity work|Khang lo
+VISITOR|PR0034|Rosie|VS0008|ACTIVE|Organize a cultural or artistic performance|Khang lo
+ADMIN|PR111|TranMinhKhang|AD1111|ACTIVE|Admid of the SmartSite System
+WORKER|PR0036|Minh Khang|WK0036|ACTIVE
+VISITOR|PR0037|Khach Hangtiemnang|VS9999|ACTIVE|Tham quan dau tu|Khang

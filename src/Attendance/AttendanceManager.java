@@ -22,7 +22,6 @@ import java.nio.file.Paths;
 import static java.time.temporal.TemporalQueries.zone;
 import java.util.Scanner;
 import ui_Dang_dang_sua.Draft;
-
 /**
  *
  * @author Minh_Khang

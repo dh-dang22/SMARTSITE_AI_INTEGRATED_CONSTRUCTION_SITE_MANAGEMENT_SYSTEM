@@ -128,4 +128,17 @@ public class AccountManager {
         }
         return false;
     }
+    public Account getPassword(String code) {
+    if (code == null || code.trim().isEmpty()) {
+        return null;
+    }
+
+    for (Map.Entry<String, Account> entry : accounts.entrySet()) {
+        if (entry.getKey().equalsIgnoreCase(code.trim())) {
+            return entry.getValue();
+        }
+    }
+
+    return null;
+ }
 }

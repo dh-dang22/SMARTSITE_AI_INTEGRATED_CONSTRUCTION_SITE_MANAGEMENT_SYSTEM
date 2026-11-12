@@ -30,19 +30,15 @@ public class UserAdminMenu extends MenuUserLv00 {
                 break;
             case 2:
                 attendanceManager.checkInFromInput(activeZone);
-                Draft.pause();
                 break;
             case 3:
                 attendanceManager.checkOutFromInput();
-                Draft.pause();
                 break;
             case 4:
                 attendanceManager.History(currentUser.getId());
-                Draft.pause();
                 break;
             case 5:
                 management.displayAccountManagementMenu();
-                Draft.pause();
                 break;
             default:
                 System.out.println("Invalid choice. Please select again.");

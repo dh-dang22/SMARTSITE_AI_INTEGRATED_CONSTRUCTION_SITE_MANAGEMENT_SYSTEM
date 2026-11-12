@@ -272,14 +272,27 @@ public class PersonManager {
     // ----------------------------------------------------------------
     // Xóa theo ID
     // ----------------------------------------------------------------
-    public void deleteByID(String id) {
-        Person p = findPersonByID(id);
-        if (p == null) {
-            System.out.println(Draft.center(Draft.RED + "ID is not found!!!" + Draft.BAS));
-            return;
+    public boolean deleteByID(String id) {
+        Person person = findPersonByID(id);
+
+        if (person == null) {
+            System.out.println(Draft.center(
+                    Draft.RED + "ID is not found!!!" + Draft.BAS));
+            return false;
         }
-        people.remove(p);              // bỏ vòng dời phần tử
-        System.out.println(Draft.center(Draft.GRN + "This person was removed! " + Draft.BAS));
+        int originalIndex = people.indexOf(person);
+        people.remove(person);
+
+        if (saveToFile()) {
+            System.out.println(Draft.center(
+                    Draft.GRN + "Person was deleted and saved." + Draft.BAS));
+            return true;
+        }
+        // Nếu không lưu được, đưa người đó trở lại danh sách
+        people.add(originalIndex, person);
+        System.out.println(Draft.center(
+                Draft.RED + "Could not save Person.txt. Person was restored." + Draft.BAS));
+        return false;
     }
 
     public void deletePersonFromInput() {
@@ -308,6 +321,7 @@ public class PersonManager {
 
                 case "y":
                     deleteByID(p.getId());
+                    saveToFile();
                     return;
 
                 default:
@@ -317,11 +331,10 @@ public class PersonManager {
             }
         }
     }
-
     //--------------------------
     //Update Person
     //--------------------
-    public void updatePersonById() {
+     public void updatePersonById() {
         String id = CheckId.checkPersonId();
         Person person = findPersonByID(id);
         Scanner sc = Validatable.InputScanner.getScanner();
@@ -333,68 +346,195 @@ public class PersonManager {
         }
 
         displayPersonInformation(person);
-        Draft.displayMenuLine();
-        System.out.println("");
+
         System.out.println("    [1] Update full name");
-        System.out.println("    [2] Update code");
-        System.out.println("    [3] Update status");
-        System.out.println("    [4] Update all listed information");
+        System.out.println("    [2] Update status");
+        displayRoleSpecificUpdateOptions(person);
+        System.out.println("    [9] Update all listed information");
         System.out.println("    [0] Cancel");
         int choice = InputScanner.readRange(sc,
-                "    Choose information to update [0-4]: ", 0, 4,
-                Draft.center(Draft.RED + "Please enter a number from 0 to 4." + Draft.BAS));
+                "    Choose information to update [0-9]: ", 0, 9,
+                Draft.center(Draft.RED + "Please enter a number from 0 to 9." + Draft.BAS));
         if (choice == 0 || choice == -1) {
-            System.out.println(Draft.center("Update cancelled."));
+            System.out.println("Update cancelled.");
             return;
         }
 
-        String newName = person.getFullName();
-        String newCode = person.getCode();
-        String newStatus = person.getStatus();
-
-        switch (choice) {
-            case 1:
-                newName = CheckName.checkPersonName();
-                break;
-            case 2:
-                newCode = readUpdatedCode(person, sc);
-                break;
-            case 3:
-                newStatus = CheckPersonAttributes.checkStatus();
-                break;
-            case 4:
-                newName = CheckName.checkPersonName();
-                newCode = readUpdatedCode(person, sc);
-                newStatus = CheckPersonAttributes.checkStatus();
-                break;
-            default:
-                return;
-        }
-
-        String oldName = person.getFullName();
-        String oldCode = person.getCode();
-        String oldStatus = person.getStatus();
+        String originalLine = person.toFileLine();
         try {
-            person.setFullName(newName);
-            person.setCode(newCode);
-            person.setStatus(newStatus);
+            switch (choice) {
+                case 1:
+                    person.setFullName(CheckName.checkPersonName());
+                    break;
+                case 2:
+                    person.setStatus(CheckPersonAttributes.checkStatus());
+                    break;
+                case 3:
+                case 4:
+                    if (!updateRoleSpecificField(person, choice)) {
+                        System.out.println("This field is not available for role " + person.getRole() + ".");
+                        return;
+                    }
+                    break;
+                case 9:
+                    person.setFullName(CheckName.checkPersonName());
+                    person.setCode(readUpdatedCode(person, sc));
+                    person.setStatus(CheckPersonAttributes.checkStatus());
+                    updateAllRoleSpecificFields(person);
+                    break;
+                default:
+                    System.out.println("This update option is not available for this role.");
+                    return;
+            }
 
             if (!saveToFile()) {
-                person.setFullName(oldName);
-                person.setCode(oldCode);
-                person.setStatus(oldStatus);
+                restorePersonFromFileLine(person, originalLine);
                 System.out.println(Draft.center(
                         Draft.RED + "Update failed because Person.txt could not be saved." + Draft.BAS));
                 return;
             }
-
+            saveToFile();
             System.out.println(Draft.center(
                     Draft.GRN + "Person [" + id + "] updated successfully!" + Draft.BAS
             ));
         } catch (IllegalArgumentException e) {
+            restorePersonFromFileLine(person, originalLine);
             System.out.println(Draft.center(
                     Draft.RED + "Update failed: " + e.getMessage() + Draft.BAS
             ));
+        }
+    }
+
+    private void displayRoleSpecificUpdateOptions(Person person) {
+        switch (person.getRole().trim().toUpperCase()) {
+            case "WORKER":
+                System.out.println("    [3] Update company name");
+                System.out.println("    [4] Update contract type");
+                break;
+            case "CONTRACTOR":
+                System.out.println("    [3] Update contact person");
+                System.out.println("    [4] Update contract status");
+                break;
+            case "VISITOR":
+                System.out.println("    [3] Update visit purpose");
+                System.out.println("    [4] Update host name");
+                break;
+            case "SAFETY_OFFICER":
+                System.out.println("    [3] Update inspection license");
+                break;
+            case "SITE_MANAGER":
+                System.out.println("    [3] Update department");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private boolean updateRoleSpecificField(Person person, int fieldChoice) {
+        switch (person.getRole().trim().toUpperCase()) {
+            case "WORKER": {
+                Worker worker = (Worker) person;
+                if (fieldChoice == 3) {
+                    worker.setCompanyName(CheckPersonAttributes.checkCompanyName());
+                } else if (fieldChoice == 4) {
+                    worker.setContractType(CheckPersonAttributes.checkContractType());
+                } else {
+                    return false;
+                }
+                return true;
+            }
+            case "CONTRACTOR": {
+                Contractor contractor = (Contractor) person;
+                if (fieldChoice == 3) {
+                    contractor.setContactPerson(readRequiredPersonAttribute("Contact Person"));
+                } else if (fieldChoice == 4) {
+                    contractor.setContractStatus(readRequiredPersonAttribute("Contract Status"));
+                } else {
+                    return false;
+                }
+                return true;
+            }
+            case "VISITOR": {
+                Visitor visitor = (Visitor) person;
+                if (fieldChoice == 3) {
+                    visitor.setVisitPurpose(CheckPersonAttributes.checkVisitPurpose());
+                } else if (fieldChoice == 4) {
+                    visitor.setHostName(CheckName.checkHostName());
+                } else {
+                    return false;
+                }
+                return true;
+            }
+            case "SAFETY_OFFICER":
+                if (fieldChoice != 3) {
+                    return false;
+                }
+                ((SafetyOfficer) person).setInspectionLicense(CheckPersonAttributes.checkLicense());
+                return true;
+            case "SITE_MANAGER":
+                if (fieldChoice != 3) {
+                    return false;
+                }
+                ((SiteManager) person).setDepartment(CheckPersonAttributes.checkDepartment());
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private void updateAllRoleSpecificFields(Person person) {
+        switch (person.getRole().trim().toUpperCase()) {
+            case "WORKER":
+            case "CONTRACTOR":
+            case "VISITOR":
+                updateRoleSpecificField(person, 3);
+                updateRoleSpecificField(person, 4);
+                break;
+            case "SAFETY_OFFICER":
+            case "SITE_MANAGER":
+                updateRoleSpecificField(person, 3);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private String readRequiredPersonAttribute(String label) {
+        while (true) {
+            System.out.print("    ➔ Enter " + label + ": ");
+            if (!InputScanner.getScanner().hasNextLine()) {
+                throw new IllegalArgumentException("No input was provided for " + label + ".");
+            }
+            String value = InputScanner.getScanner().nextLine().trim().replaceAll("\\s+", " ");
+            if (!value.isEmpty() && !value.contains("|")) {
+                return value;
+            }
+            System.out.println("[Error]: " + label + " cannot be empty or contain '|'.");
+        }
+    }
+
+    private void restorePersonFromFileLine(Person person, String line) {
+        String[] fields = line.split("\\|", -1);
+        if (fields.length < 5) {
+            return;
+        }
+        person.setFullName(fields[2]);
+        person.setCode(fields[3]);
+        person.setStatus(fields[4]);
+
+        if (person instanceof Worker && fields.length > 6) {
+            ((Worker) person).setCompanyName(fields[5]);
+            ((Worker) person).setContractType(fields[6]);
+        } else if (person instanceof Contractor && fields.length > 6) {
+            ((Contractor) person).setContactPerson(fields[5]);
+            ((Contractor) person).setContractStatus(fields[6]);
+        } else if (person instanceof Visitor && fields.length > 6) {
+            ((Visitor) person).setVisitPurpose(fields[5]);
+            ((Visitor) person).setHostName(fields[6]);
+        } else if (person instanceof SafetyOfficer && fields.length > 5) {
+            ((SafetyOfficer) person).setInspectionLicense(fields[5]);
+        } else if (person instanceof SiteManager && fields.length > 5) {
+            ((SiteManager) person).setDepartment(fields[5]);
         }
     }
 
@@ -480,14 +620,14 @@ public class PersonManager {
         System.out.println();
         System.out.println(Draft.center("=== The list of Person(s) using S-SMARTSITE ==="));
         System.out.println();
-        System.out.printf("                           %-6s | %-28s | %-15s | %-10s%n",
-                "ID", "Full Name", "Role", "Status");
-        System.out.println(Draft.center("----------------------------------------------------------------------"));
+        System.out.printf("                      %-6s | %-7s | %-28s | %-15s | %-10s%n",
+                "ID","Code", "Full Name", "Role", "Status");
+        System.out.println(Draft.center("--------------------------------------------------------------------------------"));
         for (Person p : list) {
-            System.out.printf("                           %-6s | %-28s | %-15s | %-10s%n",
-                    p.getId(), p.getFullName(), p.getRole(), p.getStatus());
+            System.out.printf("                      %-6s | %-7s | %-28s | %-15s | %-10s%n",
+                    p.getId(),p.getCode(), p.getFullName(), p.getRole(), p.getStatus());
         }
-        System.out.println(Draft.center("----------------------------------------------------------------------"));
+        System.out.println(Draft.center("--------------------------------------------------------------------------------"));
         System.out.println();
     }
 
@@ -508,8 +648,8 @@ public class PersonManager {
                 }
 
                 String[] data = line.split("\\|", -1);
-                if (data.length < 6) {
-                    System.out.println("[!] Dòng " + lineNumber + " thiếu dữ liệu: " + line);
+                if (data.length < 3) {
+                    System.out.println("[!] Rows " + lineNumber + " lack of information " + line);
                     continue;
                 }
 
@@ -588,8 +728,8 @@ public class PersonManager {
         System.out.println("    🆔  ID     : " + person.getId());
         System.out.println("    👤  Name   : " + person.getFullName());
         System.out.println("    💼  Role   : " + person.getRole());
+        System.out.println("    💼  Code   : " + person.getCode());
         System.out.println("    🟢  Status : " + Draft.GRN + person.getStatus() + Draft.BAS);
-        System.out.println("");
         //person.getId(), person.getFullName(), person.getRole(), person.getStatus()
         if (person instanceof Worker) {
             Worker worker = (Worker) person;

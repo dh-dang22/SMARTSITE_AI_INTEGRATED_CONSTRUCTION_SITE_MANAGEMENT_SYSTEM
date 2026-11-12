@@ -46,14 +46,9 @@ package Person;
 //        }
 //        this.accessLevel = accessLevel;
 //    }    
-@Override
+    @Override
     public String toFileLine() {
         return super.toFileLine() + "|" + department /*+ "|" + accessLevel*/;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() + " | Deparment: " + department /*+ " | Access Level: " + accessLevel*/;
     }
     @Override
     protected void printRoleDetails() {
